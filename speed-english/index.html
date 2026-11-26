@@ -2258,7 +2258,8 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 
 /* 미션 3 — 문장 카드 + 쌓인 3지선다 덱 */
 .v9wrap--m3{gap:12px; max-width:480px; justify-content:center}
-.v9sheet--m3{min-height:clamp(280px, 38vh, 340px); flex:0 0 auto; padding:24px 18px 22px}
+.v9sheet--m3{min-height:clamp(280px, 38vh, 340px); flex:0 0 auto; padding:24px 18px 22px; justify-content:space-between}
+.v9m3q{display:flex; flex-direction:column; justify-content:center}
 .v9sheet--m3 .v7en{font-size:22px; line-height:1.75; margin-top:14px}
 .v9sheet--m3 .v7pillword{padding:2px 9px; border-radius:9px}
 .v9sheet--m3 .v7ko{margin-top:12px; font-size:12.5px; padding:10px 12px}
@@ -9365,9 +9366,11 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       '<div class="v9wrap v9wrap--m3">' +
         '<div class="v9sheet v9sheet--m3">' +
           '<p class="v7ask">' + PICO('puzzle') + '<span>단어를 골라 문장을 완성해요</span></p>' +
-          '<p class="v7en">' + sent + '</p>' +
-          '<p class="v7ko">' + ko + '</p>' +
-          (st.wrong ? '<div class="v7fb warn"><span class="t">💡 왜 아닐까요?</span>' + st.wrong + '</div>' : '') +
+          '<div class="v9m3q">' +
+            '<p class="v7en">' + sent + '</p>' +
+            '<p class="v7ko">' + ko + '</p>' +
+            (st.wrong ? '<div class="v7fb warn"><span class="t">💡 왜 아닐까요?</span>' + st.wrong + '</div>' : '') +
+          '</div>' +
           v9Dots(words, st.filled.length) +
         '</div>' +
         choices +
