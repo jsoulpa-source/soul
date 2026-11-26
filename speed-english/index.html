@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v8-2026-11-27-bluemarble">
+<meta name="app-build" content="lightup-english-v8-2026-11-27-m5hint">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1758,6 +1758,59 @@ body.is-mission .v7nav{display:none !important}
 .v7mic.is-live{animation:v7pulse 1.25s ease-in-out infinite; background:linear-gradient(160deg,#FF8FB6,#E8558E)}
 @keyframes v7pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,85,142,.42)}50%{box-shadow:0 0 0 16px rgba(232,85,142,0)}}
 .v7mic.is-off{opacity:.55}
+
+/* 말로 답하기 — 듣는 중(🎙️) 표시: 파도 + 코랄·보라 링 + 안내 문구 */
+.v7ch.is-live{
+  background:linear-gradient(152deg,#FF8FB6,#E8558E) !important; border-color:transparent !important; color:#fff !important;
+  box-shadow:0 0 0 3px rgba(232,85,142,.16), 0 10px 24px rgba(232,85,142,.34);
+  animation:v7pulse 1.25s ease-in-out infinite;
+}
+.v7listen{
+  display:flex; align-items:center; justify-content:center; gap:9px; margin-top:10px; padding:9px 12px;
+  border-radius:16px; border:1px solid #FADBE8; background:linear-gradient(135deg,#FFF1F7,#F6F1FF);
+  box-shadow:0 10px 24px rgba(124,92,230,.12); animation:v7hin .18s ease both;
+}
+.v7listen__dot{
+  width:13px; height:13px; flex:none; border-radius:50%;
+  background:linear-gradient(160deg,#FF8FB6,#E8558E);
+  animation:v7ring 1.45s ease-out infinite;
+}
+.v7wave{display:flex; align-items:center; gap:2.5px; height:18px; flex:none}
+.v7wave i{display:block; width:3.5px; height:7px; border-radius:99px; background:linear-gradient(180deg,#FF8FB6,#7C5CE6); animation:v7wave .92s ease-in-out infinite}
+.v7wave i:nth-child(2){animation-delay:.11s}
+.v7wave i:nth-child(3){animation-delay:.22s}
+.v7wave i:nth-child(4){animation-delay:.33s}
+.v7wave i:nth-child(5){animation-delay:.44s}
+.v7listen__t{font-size:11px; font-weight:900; color:#B23B6C; letter-spacing:-.02em; line-height:1.35}
+.v7listen__t b{color:#6A48D6}
+@keyframes v7ring{
+  0%{box-shadow:0 0 0 0 rgba(232,85,142,.55), 0 0 0 0 rgba(124,92,230,.32)}
+  60%{box-shadow:0 0 0 7px rgba(232,85,142,0), 0 0 0 13px rgba(124,92,230,0)}
+  100%{box-shadow:0 0 0 0 rgba(232,85,142,0), 0 0 0 0 rgba(124,92,230,0)}
+}
+@keyframes v7wave{0%,100%{height:7px; opacity:.6}50%{height:17px; opacity:1}}
+@keyframes v7hin{from{opacity:0; transform:translateY(-3px)}to{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .v7ch.is-live,.v7listen,.v7listen__dot,.v7wave i{animation:none}
+  .v7wave i{height:12px}
+  .v7listen__dot{box-shadow:0 0 0 4px rgba(232,85,142,.16)}
+}
+
+/* 힌트 상자 (미션 4·5) — 한 단계씩: 첫 글자 → 두 글자 → 정답 전체 */
+.v7hint{margin-top:10px; border:1px dashed #CDBEF6; border-radius:16px; background:linear-gradient(180deg,#F7F3FF,#FBF8FF); padding:11px 13px; animation:v7hin .18s ease both}
+.v7hint__k{display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:10px; font-weight:900; color:#7C5CE6; letter-spacing:.01em}
+.v7hint__k span:last-child{color:#8C86A2}
+.v7hint__w{margin-top:7px; font-size:15.5px; font-weight:900; line-height:1.95; letter-spacing:.03em; word-break:break-word; color:#5B5470}
+.v7hint__w b{letter-spacing:.06em}
+.v7hint__full{margin-top:7px; font-size:15.5px; font-weight:900; color:#2A2342; line-height:1.6; word-break:keep-all}
+.v7hint__tip{margin-top:7px; font-size:10.5px; font-weight:800; color:#847DA0; line-height:1.55}
+.v7hint__more{display:flex; gap:6px; margin-top:8px}
+.v7hint__more button{height:36px; padding:0 12px; border-radius:11px; background:#fff; border:1.5px solid #E1D8F8; font-size:11px; font-weight:900; color:#5B3DBE}
+.v7reveal{
+  display:block; width:100%; height:40px; margin-top:8px; border-radius:13px;
+  background:#fff; border:1.5px dashed #DCD3F3; font-size:12px; font-weight:900; color:#7C6BA8; letter-spacing:-.02em;
+}
+.v7reveal:active{background:#F7F4FE; transform:scale(.99)}
 
 .v7card{background:#fff; border:1px solid #ECE8F7; border-radius:24px; padding:22px 18px; box-shadow:0 12px 30px rgba(38,28,80,.07); display:flex; flex-direction:column; justify-content:center}
 .v7foot{margin-top:auto; padding:12px 0 2px; text-align:center; font-size:10px; font-weight:800; color:#B3ADC2; line-height:1.5}
@@ -8627,6 +8680,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   }
   function v7MissionOpen(n) {
     n = Math.min(5, Math.max(1, Number(n) || 1));
+    v7AsrTok++; try { csStopRec(); } catch (e) {}
     v7ms = {
       n: n, items: v7ItemsFor(n), i: 0, solved: 0, hint: 0, mode: 'mic', listening: false,
       ok: false, wrong: '', left: 3, matched: [], revealed: false, pos: 0, filled: [],
@@ -8695,12 +8749,55 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 
   /* ---------- 공통 조각 ---------- */
   function v7InputRow(placeholder, withHint) {
+    var st = v7ms || {};
+    var live = !!st.listening;
+    var hn = withHint ? Math.min(3, Math.max(0, Number(st.hint) || 0)) : 0;
+    var hintLbl = hn ? ('힌트 ' + hn + '/3') : '힌트';
     return '<input class="v7in" id="v7in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="' + placeholder + '">' +
       '<div class="v7row" style="margin-top:8px;grid-template-columns:' + (withHint ? '1fr 1fr 1fr' : '1fr 1fr') + '">' +
-        (withHint ? '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="hint">❓ 힌트</button>' : '') +
-        '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="mic">🎙️ 말로</button>' +
+        (withHint ? '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="hint">💡 ' + hintLbl + '</button>' : '') +
+        '<button type="button" class="v7ch' + (live ? ' is-live' : '') + '" style="height:44px;font-size:12px" data-mact="mic">' + (live ? '⏹️ 정지' : '🎙️ 말로') + '</button>' +
         '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="submit">정답 확인</button>' +
-      '</div>';
+      '</div>' +
+      (live ? v7ListenBar() : '') +
+      (withHint ? '<button type="button" class="v7reveal" data-mact="reveal">👀 모르겠어요 · 정답 보기</button>' : '');
+  }
+  /* 듣는 중 표시 — 꿈틀꿈틀 파도 + 코랄·보라 링 (#7036) */
+  function v7ListenBar() {
+    return '<div class="v7listen" id="v7listenV7" role="status" aria-live="polite">' +
+      '<span class="v7listen__dot" aria-hidden="true"></span>' +
+      '<span class="v7wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' +
+      '<span class="v7listen__t">지금 듣고 있어요… <b>(누르면 ⏹️ 정지)</b></span>' +
+    '</div>';
+  }
+  /* 힌트 글자 보기 — n=1 첫 글자, n=2 두 글자, 나머지는 ···로 가림 */
+  function v7HintMask(text, n) {
+    return String(text || '').split(' ').map(function (w) {
+      if (!w) return '';
+      var head = '', rest = '';
+      for (var i = 0; i < w.length; i++) {
+        var c = w.charAt(i);
+        if (i < n) head += esc(c);
+        else rest += /[A-Za-z0-9']/.test(c) ? '·' : esc(c);
+      }
+      return (head ? '<b style="color:#5B3DBE">' + head + '</b>' : '') +
+        (rest ? '<span style="color:#BDB6CF;letter-spacing:.06em">' + rest + '</span>' : '');
+    }).join(' ');
+  }
+  function v7HintBox(text, tip, level, sayIt) {
+    var lv = Math.min(3, Math.max(1, Number(level) || 1));
+    var words = String(text || '').split(' ');
+    var inner;
+    if (lv >= 3) {
+      inner = '<div class="v7hint__full">' + esc(text) + '</div>' +
+        (tip ? '<div class="v7hint__tip">⚠️ ' + tip + '</div>' : '') +
+        (sayIt ? '<div class="v7hint__more"><button type="button" data-mact="say">🔊 듣기</button></div>' : '');
+    } else {
+      inner = '<div class="v7hint__w">' + v7HintMask(text, lv) + '</div>';
+    }
+    return '<div class="v7hint">' +
+      '<div class="v7hint__k"><span>💡 힌트 ' + lv + '/3</span><span>' + words.length + '단어</span></div>' +
+      inner + '</div>';
   }
   function v7HintLetters(ans, n) {
     var out = '', k = 0;
@@ -8714,8 +8811,9 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   }
   function v7Dock12() {
     var st = v7ms;
-    return '<button class="v7dock__b" type="button" data-mact="hint"><em>❓</em>힌트 보기</button>' +
-      '<button class="v7mic' + (st.listening ? ' is-live' : '') + (st.ok ? ' is-off' : '') + '" type="button" data-mact="mic"><em>🎙️</em>' + (st.listening ? '듣는 중' : '마이크') + '</button>' +
+    var hn = (st.n === 1 && !st.ok) ? Math.min(3, Math.max(0, Number(st.hint) || 0)) : 0;
+    return '<button class="v7dock__b" type="button" data-mact="hint"><em>❓</em>힌트' + (hn ? ' ' + hn + '/3' : ' 보기') + '</button>' +
+      '<button class="v7mic' + (st.listening ? ' is-live' : '') + (st.ok ? ' is-off' : '') + '" type="button" data-mact="mic"><em>' + (st.listening ? '⏹️' : '🎙️') + '</em>' + (st.listening ? '정지' : '마이크') + '</button>' +
       '<button class="v7dock__b' + (st.mode === 'type' ? ' is-on' : '') + '" type="button" data-mact="keyboard"><em>⌨️</em>키보드 모드</button>';
   }
   function v7CountPaint() {
@@ -8741,12 +8839,12 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         '<p class="v7ask">빈칸에 들어갈 말을 영어로 말해 보세요</p>' +
         '<div class="v7ko">' + it.ko + '</div>' +
         '<p class="v7en">' + enHtml + '</p>' +
-        '<p class="v7hintline">' + (st.hint ? ('💡 ' + v7HintLetters(it.ans, st.hint)) : '') + '</p>' +
+        (st.hint && !st.ok ? v7HintBox(it.ans, '', st.hint, true) : '<p class="v7hintline"></p>') +
         '<div class="v7mini"><button type="button" data-mact="listen">🔊 문장 듣기</button></div>' +
       '</div></div>' +
       (st.mode === 'type'
         ? '<div style="margin-top:10px">' + v7InputRow('영어로 입력') + '</div>'
-        : '<p class="v7heard" style="text-align:center;margin:10px 0 0">' + (st.ok ? '' : '🎙️ 마이크를 누르고 말해 보세요') + '</p>') +
+        : (st.listening ? v7ListenBar() : '<p class="v7heard" style="text-align:center;margin:10px 0 0">' + (st.ok ? '' : '🎙️ 마이크를 누르고 말해 보세요') + '</p>')) +
       (st.wrong && !st.ok ? '<div class="v7fb no">' + st.wrong + '</div>' : '') +
       (st.ok ? '<div class="v7fb ok"><span class="t">정답이에요</span><b>' + esc(v7FillEn(it)) + '</b><div class="v7mini"><button type="button" data-mact="listen">🔊 다시 듣기</button><button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button></div></div>' : '') +
       '<p class="v7foot">🎙️가 안 되면 ⌨️ 키보드 모드로 답해도 똑같아요</p>';
@@ -8777,7 +8875,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         '<p class="v7en" style="font-size:18px;line-height:2.1;letter-spacing:.02em;margin-top:12px">' + masked + '</p>' +
       '</div></div>' +
       (st.mode === 'type' ? '<div style="margin-top:10px">' + v7InputRow('들은 문장을 영어로') + '</div>'
-        : '<p class="v7heard" style="text-align:center;margin:10px 0 0">' + (st.ok ? '' : '🎙️ 마이크를 누르고 따라 말해 보세요') + '</p>') +
+        : (st.listening ? v7ListenBar() : '<p class="v7heard" style="text-align:center;margin:10px 0 0">' + (st.ok ? '' : '🎙️ 마이크를 누르고 따라 말해 보세요') + '</p>')) +
       (st.wrong && !st.ok ? '<div class="v7fb no">' + st.wrong + '</div>' : '') +
       (st.ok ? '<div class="v7fb ok"><span class="t">잘 들었어요</span><b>' + esc(it.en) + '</b><div class="v7mini"><button type="button" data-mact="listen">🔊 다시 듣기</button><button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button></div></div>' : '') +
       '<p class="v7foot">3번 다 들으면 문장이 다 보여요 — 그때까지 들은 단어는 초록으로 남아요</p>';
@@ -8834,7 +8932,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   function v7P4() {
     var st = v7ms, it = st.items[st.i];
     var hint = '';
-    if (st.hint && !st.answered) hint = '<div class="v7tip">💡 첫 글자: <b>' + esc(String(it.right).split(' ').map(function (w) { return w.charAt(0) + '…'; }).join(' ')) + '</b></div>';
+    if (st.hint && !st.answered) hint = v7HintBox(it.right, '', st.hint, true);
     var body = document.getElementById('v7msBody'), dock = document.getElementById('v7msDock');
     body.innerHTML =
       '<div class="v7qzone" style="justify-content:' + (st.answered ? 'flex-start' : 'center') + '">' +
@@ -8854,7 +8952,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
           '<button type="button" data-mact="say">🔊 예문 듣기</button>' +
           '<button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button>' +
         '</div>'
-      ) : '<p class="v7foot">몰라도 괜찮아요 — 확인하면 원어민 표현과 팁을 알려 줘요</p>');
+      ) : '<p class="v7foot">몰라도 괜찮아요 — 💡 힌트로 한 단계씩, 👀 정답 보기로 답을 볼 수 있어요</p>');
     dock.innerHTML = '';
     v7CountPaint();
     var inp = document.getElementById('v7in');
@@ -8871,8 +8969,9 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       '<div class="v7ko" style="background:#FDF2F7"><small>한국어 뉘앙스</small>' + esc(it.ko) + '</div>' +
       '<p class="v7en" style="font-size:15px;font-weight:800;color:#5B5470;margin-top:14px">이 장면의 영어를 그대로 말해 볼까요?</p>' +
       (st.answered ? '' : '<div style="margin-top:12px">' + v7InputRow('기억나는 영어로', true) + '</div>') +
+      (st.answered || !st.hint ? '' : v7HintBox(it.en, it.tip, st.hint, true)) +
       '</div>' +
-      (st.answered ? '' : '<p class="v7foot">말하고 나서 실제 가사·대사와 나란히 비교해요</p>') +
+      (st.answered ? '' : '<p class="v7foot">몰라도 괜찮아요 — 💡 힌트나 👀 정답 보기로 먼저 볼 수 있어요</p>') +
       (st.answered ?
         '<div class="v7cmp">' +
           '<div class="mine"><span class="k">내 답</span>' + esc(st.guess || '(못 적었어요)') + '</div>' +
@@ -8920,24 +9019,34 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     if (st.n === 5) { speak(it.en, 0.92); return; }
     speak(v7FullSay(it), 0.95);
   }
+  var v7AsrTok = 0;
   function v7MsMic() {
     var st = v7ms; if (!st || st.ok) return;
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) { csNoMic(null, 'v7in'); if (st.mode !== 'type') { st.mode = 'type'; v7MsPaint(); } return; }
-    if (st.listening) { try { csStopRec(); } catch (e) {} st.listening = false; v7MsPaint(); return; }
+    if (st.listening) {
+      v7AsrTok++;                       /* 이전 인식기의 늦은 onend가 새 듣기를 끄지 못하게 */
+      try { csStopRec(); } catch (e) {}
+      st.listening = false; v7MsPaint(); return;
+    }
+    var tok = ++v7AsrTok;
+    var alive = function () { return v7ms === st && tok === v7AsrTok; };
     st.listening = true; v7MsPaint();
     csAsr(function (txt, fin) {
-      if (!v7ms) return;
-      var h = document.getElementById('v7heardV7');
+      if (!alive()) return;
       v7ms.draft = txt;
       var inp = document.getElementById('v7in');
       if (inp) inp.value = txt;
-      if (fin && txt) { v7ms.listening = false; v7MsSubmit(txt); }
+      if (fin && txt) {
+        v7ms.listening = false;
+        if (v7ms.n === 4 || v7ms.n === 5) { v7MsPaint(); toast('잘 들었어요 — 맞으면 [정답 확인]을 눌러 주세요'); }
+        else v7MsSubmit(txt);
+      }
     }, function () {
-      if (!v7ms) return;
+      if (!alive()) return;
       v7ms.listening = false; v7MsPaint();
     }, function (err) {
-      if (!v7ms) return;
+      if (!alive()) return;
       v7ms.listening = false; v7MsPaint();
       if (err === 'not-allowed' || err === 'service-not-allowed') toast('마이크 권한을 허락해 주세요 — ⌨️로도 답할 수 있어요', true);
       else if (err !== 'no-speech' && err !== 'aborted') toast('잘 안 들렸어요 — 한 번 더 말하거나 ⌨️로 답해 주세요', true);
@@ -8996,14 +9105,14 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     toast('단어를 눌러 문장을 골라 보세요');
   }
   function v7MsCheck45() {
-    var st = v7ms; if (!st) return;
+    var st = v7ms; if (!st || st.answered) return;
     var it = st.items[st.i];
     var val = ((document.getElementById('v7in') || {}).value || '').trim();
+    var blind = !val;
     st.draft = val;
-    if (!val) { toast('먼저 답을 말하거나 적어 보세요'); return; }
-    st.guess = val;
+    st.guess = blind ? '(모르겠어요)' : val;
     st.answered = true;
-    st.correct = st.n === 4 ? v7Match(val, it.right) : v7Match(val, it.en);
+    st.correct = blind ? false : (st.n === 4 ? v7Match(val, it.right) : v7Match(val, it.en));
     st.solved++;
     v7Solved(st.n, it.id || it.en);
     v7SetProg(st.n, st.solved);
@@ -9037,6 +9146,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       if (act === 'listen') { Snd.tap(); v7MsListen(); return; }
       if (act === 'mic' || (act === 'submit' && st.n === 1 && st.mode !== 'type')) { Snd.tap(); v7MsMic(); return; }
       if (act === 'submit') { Snd.tap(); if (st.n === 4 || st.n === 5) v7MsCheck45(); else v7MsSubmit(); return; }
+      if (act === 'reveal') { Snd.tap(); if (st.n === 4 || st.n === 5) v7MsCheck45(''); return; }
       if (act === 'keyboard') {
         Snd.tap();
         st.mode = st.mode === 'type' ? 'mic' : 'type';
@@ -9047,9 +9157,12 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       }
       if (act === 'hint') {
         Snd.tap();
-        if (st.n === 1) { if (!st.ok && st.hint < 9) st.hint++; v7MsPaint(); }
+        if (st.n === 1) { if (!st.ok && (st.hint || 0) < 3) st.hint = (st.hint || 0) + 1; v7MsPaint(); }
         else if (st.n === 2) { v7MsListen(); }
-        else if (st.n === 4) { st.hint = 1; v7MsPaint(); }
+        else if (st.n === 4 || st.n === 5) {
+          if (!st.answered && (st.hint || 0) < 3) st.hint = (st.hint || 0) + 1;
+          v7MsPaint();
+        }
         return;
       }
       if (act === 'say') { Snd.tap(); v7MsListen(); return; }
