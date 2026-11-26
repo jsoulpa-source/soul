@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v7-2026-11-27-malhaeboca">
+<meta name="app-build" content="lightup-english-v8-2026-11-27-bluemarble">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1889,6 +1889,185 @@ body.is-mission .v7nav{display:none !important}
 .v7splash__b:active{transform:scale(.98)}
 .v7splash__f{font-size:9.5px; font-weight:800; color:#B0AAC1; margin-top:10px}
 </style>
+<style id="v8css">
+/* ================= v8 · 🎲 블루마블 건물 · 🏡 내 집 · 🗺️ 전면 지도 ================= */
+/* 지도 위 건물·집 (홈 미니맵 · 50주 지도 · 전면 지도 공용) */
+.v8pinlayer{pointer-events:none}
+.v8b{text-anchor:middle; dominant-baseline:central; user-select:none}
+.v8b3{filter:drop-shadow(0 0 .8px rgba(255,228,160,.95))}
+.v8dot{stroke:rgba(255,255,255,.92); stroke-width:.5}
+.v8dot1{fill:#8E74F0}
+.v8dot2{fill:#F2A93E}
+.v8dot3{fill:#F2639C}
+.v8home__halo{fill:rgba(255,206,110,.32); stroke:#FFC85C; stroke-width:.55; animation:v8halo 2.1s ease-in-out infinite}
+@keyframes v8halo{0%,100%{opacity:.45}50%{opacity:1}}
+.v8bhome{filter:drop-shadow(0 0 1.6px rgba(255,208,110,.95))}
+
+/* 홈 카드 지도 위 건축 XP 줄 + 크게 보기 */
+.v7map__bxp{display:flex; align-items:center; justify-content:space-between; gap:6px; margin-top:4px; font-size:9px; font-weight:800; color:#8E82B8; position:relative; z-index:1}
+.v7map__bxp b{color:#F3D08A}
+.v7map__zoom{
+  position:absolute; right:10px; bottom:44px; z-index:3; display:flex; align-items:center; gap:3px;
+  padding:4px 8px; border-radius:999px; font-size:9px; font-weight:900; color:#FFE7B4;
+  background:rgba(20,14,38,.5); border:1px solid rgba(255,214,130,.4);
+}
+.v7map__zoom:active{transform:scale(.95)}
+.v7map svg{cursor:pointer}
+
+/* 전면 지도 */
+.v8fs{
+  position:fixed; inset:0; z-index:110; display:none; flex-direction:column; color:#fff;
+  background:radial-gradient(115% 78% at 50% -8%, #2F2756 0%, #1B1730 52%, #110E20 100%);
+  height:100dvh; height:100vh; overscroll-behavior:contain; touch-action:none;
+}
+@supports (height:100dvh){ .v8fs{height:100dvh} }
+.v8fs.on{display:flex; animation:pageIn .22s ease both}
+.v8fs__top{flex:none; display:flex; align-items:center; gap:9px; padding:calc(10px + env(safe-area-inset-top)) 14px 5px; position:relative; z-index:3}
+.v8fs__x{
+  flex:none; width:34px; height:34px; border-radius:12px; display:grid; place-items:center;
+  font-size:15px; font-weight:900; color:#fff; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16);
+}
+.v8fs__x:active{transform:scale(.95)}
+.v8fs__tt{flex:1; min-width:0}
+.v8fs__tt b{display:block; font-size:13.5px; font-weight:900; letter-spacing:-.03em}
+.v8fs__tt span{display:block; font-size:9.5px; font-weight:800; color:#B2A6DB; margin-top:1px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.v8fs__sky{flex:none; padding:4px 14px 7px; position:relative; z-index:4; display:flex; flex-direction:column; gap:5px}
+.v8fs__chips{display:flex; gap:6px}
+.v8fs__chip{
+  flex:1; min-width:0; display:flex; align-items:center; justify-content:center; gap:5px; padding:7px 6px; border-radius:13px;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); font-size:9.5px; font-weight:800; color:#CFC6EC; overflow:hidden;
+}
+.v8fs__chip i{font-style:normal; font-size:13px; line-height:1; flex:none}
+.v8fs__chip b{font-size:12px; font-weight:900; color:#fff; letter-spacing:-.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.v8fs__chip em{font-style:normal; font-size:8.5px; color:#9E92C8; white-space:nowrap; flex:none}
+.v8fs__next{font-size:9.5px; font-weight:800; color:#B9AEE0; text-align:center}
+.v8fs__next b{color:#F3D08A}
+.v8fs__stage{flex:1; min-height:0; position:relative; overflow:hidden; touch-action:none; cursor:grab; display:flex; flex-direction:column}
+.v8fs__stage.is-drag{cursor:grabbing}
+.v8fs__stage svg{position:relative; flex:1; min-height:0; width:100%; display:block}
+.v8fs .ushp{fill:#241E3E; stroke:#3C3362; stroke-width:.4; transition:fill .35s, stroke .25s}
+.v8fs .ushp.on{fill:url(#v8Lit); stroke:#FFE3A6; stroke-width:.8; filter:drop-shadow(0 0 3px rgba(255,190,80,.7))}
+.v8fs .ushp.nx{stroke:#F6C25C; stroke-width:.72; stroke-dasharray:2.2 1.5; animation:wmPulse 1.9s ease-in-out infinite}
+.v8fs .ushp.sel{stroke:#FFFFFF; stroke-width:1.2}
+.v8fs__zoom{position:absolute; right:12px; bottom:14px; display:flex; flex-direction:column; gap:6px; z-index:4}
+.v8fs__zoom button{
+  width:38px; height:38px; border-radius:13px; display:grid; place-items:center; font-size:17px; font-weight:900; color:#fff;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); backdrop-filter:blur(6px);
+}
+.v8fs__zoom button:active{transform:scale(.93)}
+.v8fs__hint{flex:none; text-align:center; font-size:9.5px; font-weight:800; color:#9A8FC4; padding:2px 14px 4px; position:relative; z-index:3}
+.v8fs__foot{flex:none; padding:2px 14px calc(9px + env(safe-area-inset-bottom)); position:relative; z-index:3}
+.v8fs__hc{
+  width:100%; display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:16px; text-align:left;
+  background:linear-gradient(150deg, rgba(255,214,130,.2), rgba(255,255,255,.06));
+  border:1px solid rgba(255,214,130,.38);
+}
+.v8fs__hc:active{transform:scale(.99)}
+.v8fs__hci{font-size:21px; line-height:1; flex:none; filter:drop-shadow(0 0 6px rgba(255,205,100,.85))}
+.v8fs__hct{flex:1; min-width:0; display:flex; flex-direction:column; gap:1px}
+.v8fs__hct b{font-size:12.5px; font-weight:900; color:#FFE9BE; letter-spacing:-.02em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.v8fs__hct i{font-size:9.5px; font-weight:800; font-style:normal; color:#C0B4E6}
+.v8fs__hcg{flex:none; font-size:15px; font-weight:900; color:#FFE0A6}
+.v8fs__guide{margin-top:8px; padding:9px 11px; border-radius:15px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.09)}
+.v8fs__gk{font-size:10px; font-weight:900; color:#E4D9FF; letter-spacing:-.02em}
+.v8fs__grow{display:flex; align-items:center; justify-content:space-between; gap:6px; margin-top:6px; font-size:9.5px; font-weight:800; color:#C3B8E8}
+.v8fs__grow span{display:inline-flex; align-items:center; gap:3px; flex:1; justify-content:center; padding:4px 2px; border-radius:9px; background:rgba(255,255,255,.06)}
+.v8fs__grow i{font-style:normal; font-size:12px}
+.v8fs__grow b{color:#F3D08A; font-weight:900}
+.v8fs__grow em{font-style:normal; color:#7E739F; font-size:9px; flex:none}
+.v8fs__gn{margin-top:6px; font-size:9px; font-weight:800; color:#9A8FC4; line-height:1.5}
+.v8fs__gn b{color:#F3D08A}
+.v8fs__list{
+  width:100%; margin-top:7px; min-height:34px; border-radius:11px; font-size:10px; font-weight:900; color:#CFC3F2;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+}
+.v8fs__list:active{transform:scale(.99)}
+
+/* 주 상세 시트 */
+.v8sheet{position:fixed; inset:0; z-index:114; display:none; align-items:flex-end; justify-content:center; pointer-events:none}
+.v8sheet.on{display:flex}
+.v8sh__bg{display:none}
+.v8sh{
+  pointer-events:auto; position:relative; width:100%; max-width:440px; max-height:90dvh; overflow-y:auto; overscroll-behavior:contain;
+  background:#fff; color:var(--ink); border-radius:26px 26px 0 0;
+  padding:8px 16px calc(16px + env(safe-area-inset-bottom));
+  box-shadow:0 -18px 44px rgba(24,16,52,.32); animation:v8up .26s cubic-bezier(.2,.85,.25,1) both;
+}
+@keyframes v8up{from{transform:translateY(100%)}to{transform:none}}
+.v8sh__grab{width:40px; height:4px; border-radius:999px; background:#E6E1F4; margin:2px auto 10px}
+.v8sh__hd{display:flex; align-items:center; gap:10px}
+.v8sh__ico{
+  flex:none; width:42px; height:42px; border-radius:14px; display:grid; place-items:center; font-size:22px;
+  background:linear-gradient(160deg,#FFF4DC,#FFE7B8); border:1px solid #F5DFAE;
+}
+.v8sh__tt{flex:1; min-width:0; display:flex; flex-direction:column; gap:1px}
+.v8sh__tt b{font-size:15px; font-weight:900; letter-spacing:-.03em}
+.v8sh__tt span{font-size:10px; font-weight:800; color:var(--muted)}
+.v8sh__st{flex:none; font-size:9.5px; font-weight:900; padding:4px 8px; border-radius:999px; background:#F1EDFB; color:#8C82A8}
+.v8sh__st.is-on{background:#FFF1D6; color:#A9761A}
+.v8sh__x{flex:none; width:28px; height:28px; border-radius:10px; display:grid; place-items:center; font-size:12px; font-weight:900; color:#8C82A8; background:#F4F1FB}
+.v8sh__fact{margin-top:9px; font-size:10.5px; font-weight:700; color:var(--ink2); line-height:1.6; word-break:keep-all}
+.v8sh__fact b{color:#7C5CE6}
+.v8sh__bal{
+  display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-top:11px; padding:9px 11px; border-radius:14px;
+  background:linear-gradient(150deg,#F7F2FF,#FDF6EA); border:1px solid #EDE4FA;
+}
+.v8sh__bal span{font-size:10px; font-weight:900; color:#7A6E9E}
+.v8sh__bal b{font-size:16px; font-weight:900; color:#6A48D6; letter-spacing:-.03em}
+.v8sh__bal i{font-size:9px; font-weight:800; font-style:normal; color:#9C92B8; margin-left:auto; text-align:right}
+.v8sh__bld, .v8sh__home{margin-top:11px; padding:11px; border-radius:18px; background:#FBFAFF; border:1px solid #EEE8FB}
+.v8sh__home{background:linear-gradient(150deg,#FFF9EC,#FBFAFF); border-color:#F6E7C8}
+.v8sh__row{display:flex; align-items:center; gap:9px}
+.v8sh__bi{
+  flex:none; width:38px; height:38px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  font-size:19px; line-height:1; overflow:hidden;
+  background:#F2ECFF; border:1px solid #E7DEFB;
+}
+.v8sh__bi.lv0{background:#F4F2F8; border-color:#EAE6F2; font-size:16px}
+.v8sh__bi.lv2{background:#FFF1DF; border-color:#F7E2C2}
+.v8sh__bi.lv3{background:#FFE9F1; border-color:#F8D3E1}
+.v8sh__bi.home{background:#FFF6E2; border-color:#F6E4BE}
+.v8sh__bt{flex:1; min-width:0; display:flex; flex-direction:column; gap:1px}
+.v8sh__bt b{font-size:12.5px; font-weight:900; letter-spacing:-.02em}
+.v8sh__bt i{font-size:9.5px; font-weight:800; font-style:normal; color:var(--muted)}
+.v8sh__steps{display:flex; align-items:center; gap:5px; margin-top:10px}
+.v8sh__steps i{
+  flex:1; height:26px; border-radius:9px; display:grid; place-items:center; font-size:12px; font-style:normal;
+  background:#F0ECF9; border:1px dashed #DED5F2; opacity:.55;
+}
+.v8sh__steps i.on{background:linear-gradient(160deg,#FFF1D2,#FFE0A8); border:1px solid #F3D69B; opacity:1}
+.v8sh__steps em{font-style:normal; font-size:13px; line-height:1}
+.v8sh__nx{margin-top:9px; font-size:10px; font-weight:800; color:var(--ink2)}
+.v8sh__nx b{color:#6A48D6}
+.v8sh__nx.is-max{color:#B07B18; text-align:center}
+.v8sh__b{
+  width:100%; min-height:46px; margin-top:9px; border-radius:14px; font-size:12.5px; font-weight:900; color:#fff;
+  background:linear-gradient(160deg,#9B7CF6,#6A48D6); box-shadow:0 10px 22px rgba(106,72,214,.26);
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.v8sh__b:active{transform:scale(.985)}
+.v8sh__b em{font-style:normal; font-size:10px; font-weight:800; color:#F0E7FF; opacity:.9}
+.v8sh__b[disabled]{background:#EFECF7; color:#A79FBE; box-shadow:none}
+.v8sh__b[disabled] em{color:#B39BC9}
+.v8sh__b2{
+  width:100%; min-height:44px; margin-top:8px; border-radius:14px; font-size:12px; font-weight:900;
+  color:#8A5A0E; background:linear-gradient(160deg,#FFE7B4,#F8C258); box-shadow:0 8px 18px rgba(240,180,60,.24);
+}
+.v8sh__b2:active{transform:scale(.985)}
+.v8sh__b2.ghost{color:#6B5A9E; background:#F4F0FF; border:1px solid #E3D9FB; box-shadow:none}
+.v8sh__b2[disabled]{color:#A79FBE; background:#F4F2F8; border:1px solid #E9E4F3; box-shadow:none}
+.v8sh__lock{margin-top:11px; padding:11px; border-radius:16px; background:#F7F6FB; border:1px solid #ECE7F6; display:flex; flex-direction:column; gap:4px}
+.v8sh__lock b{font-size:11.5px; font-weight:900; color:#6E6488}
+.v8sh__lock span{font-size:10px; font-weight:700; color:#8F87A6; line-height:1.6; word-break:keep-all}
+body.v8fs-on{overflow:hidden}
+body.v8fs-on .toast{z-index:150}
+body.v8sh-on .toast{
+  bottom:auto; top:calc(16px + env(safe-area-inset-top)); transform:translate(-50%,-12px);
+  left:50%; max-width:88vw;
+}
+body.v8sh-on .toast.show{transform:translate(-50%,0)}
+
+</style>
 </head>
 <body>
 <!-- ================= 스플래시 (첫 진입) ================= -->
@@ -1939,8 +2118,10 @@ body.is-mission .v7nav{display:none !important}
             <span class="v7map__n"><b id="v7UsLit">1</b> / 50</span>
           </div>
           <div class="v7map__bar"><i id="v7UsBar"></i></div>
+          <button class="v7map__zoom" id="v7MapZoom" type="button" aria-label="50주 지도 크게 보기">🔍 크게 보기</button>
           <svg id="v7UsMini" viewBox="0 0 340 208" role="img" aria-label="미국 50개 주 불 밝히기 지도"></svg>
           <div class="v7map__nx" id="v7MapNext"></div>
+          <div class="v7map__bxp" id="v7Bxp"></div>
         </div>
 
         <div class="v7mis" id="v7Mis" data-m="1">
@@ -2271,6 +2452,57 @@ body.is-mission .v7nav{display:none !important}
 </nav>
 
 <div class="toast" id="toast"></div>
+<!-- ================= v8 · 전면 인터랙티브 50주 지도 ================= -->
+<div class="v8fs" id="v8fs" role="dialog" aria-modal="true" aria-label="미국 50주 지도 · 건물 짓기">
+  <div class="v8fs__top">
+    <button class="v8fs__x" type="button" data-v8fsclose="1" aria-label="지도 닫기">✕</button>
+    <div class="v8fs__tt">
+      <b>🗺️ 미국 50주 지도</b>
+      <span id="v8fsSub">불 켜짐 1/50 · 🏗️ 건축 XP 0</span>
+    </div>
+  </div>
+  <div class="v8fs__sky">
+    <div class="v8fs__chips">
+      <span class="v8fs__chip"><i>🏡</i><b id="v8fsHomeChip">캘리포니아</b></span>
+      <span class="v8fs__chip"><i>🧱</i><b id="v8fsBalChip">0</b><em>건축 XP</em></span>
+      <span class="v8fs__chip"><i>🏘️</i><b id="v8fsBuiltChip">0</b><em>채 지음</em></span>
+    </div>
+    <p class="v8fs__next" id="v8fsNext"></p>
+  </div>
+  <div class="v8fs__stage" id="v8fsStage">
+    <svg id="v8fsSvg" viewBox="0 0 340 208" preserveAspectRatio="xMidYMid meet" role="group" aria-label="미국 50개 주 지도 · 두 손가락으로 확대하고 주를 눌러 건물을 지어요"></svg>
+    <div class="v8fs__zoom">
+      <button type="button" data-v8zoom="in" aria-label="확대">+</button>
+      <button type="button" data-v8zoom="out" aria-label="축소">−</button>
+      <button type="button" data-v8zoom="reset" aria-label="처음 크기로">↺</button>
+      <button type="button" data-v8zoom="home" aria-label="내 집으로 이동">🏡</button>
+    </div>
+  </div>
+  <p class="v8fs__hint">두 손가락으로 확대 · 끌어서 이동 · 주를 누르면 건물을 지어요</p>
+  <div class="v8fs__foot">
+    <button class="v8fs__hc" type="button" data-v8homecard="1">
+      <span class="v8fs__hci" id="v8fsHomeIco">🏡</span>
+      <span class="v8fs__hct"><b id="v8fsHomeName">캘리포니아 · LA</b><i id="v8fsHomeDesc">내 집 · 아늑한 텐트</i></span>
+      <span class="v8fs__hcg">›</span>
+    </button>
+    <div class="v8fs__guide">
+      <p class="v8fs__gk">🎲 블루마블 건물 짓기</p>
+      <p class="v8fs__grow">
+        <span><i>🏠</i>별장 <b>30</b></span><em>›</em>
+        <span><i>🏢</i>빌딩 <b>60</b></span><em>›</em>
+        <span><i>🌉</i>랜드마크 <b>100</b></span>
+      </p>
+      <p class="v8fs__gn">주를 누르면 건물을 짓고 <b>🏡 내 집</b>을 옮길 수 있어요 · 건축 XP <b id="v8fsBalLeg">0</b></p>
+      <button class="v8fs__list" type="button" data-v8list="1">📋 50주 목록 · 세계 지도 보기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= v8 · 주 상세 시트 (건물 · 내 집) ================= -->
+<div class="v8sheet" id="v8sheet" role="dialog" aria-label="주 건물 짓기">
+  <div class="v8sh" id="v8shCard"></div>
+</div>
+
 
 <!-- ================= 🎯 1분 레벨 테스트 ================= -->
 <div class="lvmodal hide" id="levelTestModal" role="dialog" aria-modal="true" aria-labelledby="lvTitle">
@@ -5911,6 +6143,7 @@ body.is-mission .v7nav{display:none !important}
       }
     });
     box.innerHTML = rings + labels;
+    try { v8PaintPins(svg, 1, false); } catch (e) {}
   }
 
   /* ---------- 50개 주 수집판 (지역 필터 + 카드) ---------- */
@@ -8101,6 +8334,7 @@ body.is-mission .v7nav{display:none !important}
     e = document.getElementById('v7UsBar'); if (e) e.style.width = Math.max(2, Math.round(n / MAP_US_TOTAL * 100)) + '%';
     var mb = document.getElementById('v7UsMini');
     v7BuildMap(mb, 'v7usLit'); v7PaintMap(mb);
+    try { v8PaintMini(); } catch (e) {}
     var ne = document.getElementById('v7MapNext');
     if (ne) ne.innerHTML = nx
       ? ('<span>다음 불빛 <b>[' + esc(nx.name) + ']</b>까지 ' + fmt(Math.max(0, nx.xp - xpTotal())) + ' XP</span><span>' + todayXp() + '/' + DAILY_CAP + ' XP</span>')
@@ -8180,6 +8414,7 @@ body.is-mission .v7nav{display:none !important}
   var v7Cur = 'home';
   function v7Go(name) {
     if (!V7_PAGES[name]) name = 'home';
+    var v8prev = v7Cur;
     if (name !== 'course') { try { crsStopAll(); } catch (e) {} }
     stopCd();
     try { if (synth) synth.cancel(); } catch (e) {}
@@ -8192,7 +8427,7 @@ body.is-mission .v7nav{display:none !important}
     mapOpen = (name === 'map');
     if (name === 'home') v7HomePaint();
     else if (name === 'stats') v7StatsPaint();
-    else if (name === 'map') renderMap();
+    else if (name === 'map') { renderMap(); try { if (!v8SkipFsOnce) v8OpenFS('tab'); v8SkipFsOnce = false; } catch (e) {} }
     else if (name === 'reflex') { buildQueue(); renderReflex(); }
     else if (name === 'accent') renderAccents();
     else if (name === 'slang') renderSlang();
@@ -8851,6 +9086,640 @@ body.is-mission .v7nav{display:none !important}
       }
     });
   })();
+
+
+  /* ============================================================
+     v8 · 🎲 블루마블 건물 짓기 · 🏡 내 집 · 🗺️ 전면 인터랙티브 지도
+     - 불 켜짐 기준 XP(xpTotal)는 절대 줄이지 않는다.
+       건축 XP = 모은 영어 XP - 쓴 건축 XP(store.spentBuildXP)
+     ============================================================ */
+  var V8_B = [
+    { lv: 1, icon: '🏠', name: '아늑한 별장', cost: 30,  desc: '나무 울타리 · 작은 마당' },
+    { lv: 2, icon: '🏢', name: '시티 빌딩',  cost: 60,  desc: '유리창 반짝 · 옥상 정원' },
+    { lv: 3, icon: '🌉', name: '대표 랜드마크', cost: 100, desc: '이 주의 얼굴' }
+  ];
+  /* 주마다 다른 Lv.3 랜드마크 — [이모지, 이름] */
+  var V8_LM = {
+    cal: ['🌉', '골든게이트 브리지'], nev: ['🎡', '라스베이거스 스트립'], ari: ['🏜️', '그랜드캐니언'],
+    utah: ['⛷️', '파크시티 슬로프'], colo: ['🏔️', '로키산맥'], nmex: ['🏺', '산타페 어도비'],
+    tex: ['🤠', '알라모 요새'], okla: ['🌪️', '토네이도 앨리'], arka: ['💎', '크리스털 다이아'],
+    lous: ['🎺', '프렌치쿼터 재즈'], miss: ['🎷', '델타 블루스'], bama: ['🚀', '허드슨알파 로켓'],
+    tenn: ['🎸', '그랜드 올 오프리'], kent: ['🐎', '처칠다운스'], geor: ['🍑', '피치 농장'],
+    flor: ['🏝️', '마이애미 비치'], scar: ['🌴', '팔메토 해변'], ncar: ['🏎️', '샬럿 스피드웨이'],
+    virg: ['🏛️', '몬티첼로'], wvir: ['⛰️', '앱팔라치안'], mary: ['🦀', '크랩 케이크 가게'],
+    dela: ['🏛️', '퍼스트 스테이트'], penn: ['🔔', '리버티 벨'], njersey: ['🍅', '가든 스테이트 농장'],
+    newyork: ['🗽', '자유의 여신상'], conn: ['🌳', '하트퍼드 그린'], rho: ['⚓', '뉴포트 항구'],
+    mass: ['🎓', '하버드 캠퍼스'], verm: ['🍁', '메이플 농장'], nhamp: ['🏔️', '화이트마운틴'],
+    maine: ['🦞', '랍스터 부두'], ohio: ['🎸', '록앤롤 명예의 전당'], mich: ['🚗', '모터시티 공장'],
+    indi: ['🏁', '인디 500 서킷'], illin: ['🏙️', '윌리스 타워'], wisc: ['🧀', '치즈 농장'],
+    minn: ['🎣', '만 개의 호수'], iowa: ['🌽', '옥수수밭'], missouri: ['🏛️', '게이트웨이 아치'],
+    kans: ['🌻', '해바라기밭'], nebr: ['🌾', '오마하 농장'], sodak: ['🗿', '러시모어산'],
+    nodak: ['🌾', '대평원 농장'], mont: ['🏔️', '빙하국립공원'], wyo: ['🦬', '옐로스톤'],
+    idah: ['🥔', '감자 농장'], wash: ['🗼', '스페이스 니들'], oreg: ['🌲', '크래터호수'],
+    alas: ['🐻', '덴알리'], hawa: ['🌺', '와이키키 비치']
+  };
+  var V8_HOME = [
+    { lv: 1, icon: '🏡', name: '내 집 · 아늑한 텐트', cost: 0 },
+    { lv: 2, icon: '🏘️', name: '예쁜 2층 집', cost: 50 },
+    { lv: 3, icon: '🏰', name: '드림 하우스', cost: 120 }
+  ];
+
+  if (!store.builds || typeof store.builds !== 'object') store.builds = {};
+  if (!(Number(store.spentBuildXP) >= 0)) store.spentBuildXP = 0;
+  if (!store.homeState || !regionById(store.homeState)) store.homeState = 'cal';
+  if (!(Number(store.homeLv) >= 1 && Number(store.homeLv) <= 3)) store.homeLv = 1;
+
+  function v8Bal() {
+    return Math.max(0, xpTotal() - (Number(store.spentBuildXP) || 0));
+  }
+  function v8Used() { return Number(store.spentBuildXP) || 0; }
+  function v8LvOf(id) { var l = Number((store.builds || {})[id]); return (l >= 1 && l <= 3) ? l : 0; }
+  function v8HomeLv() { var l = Number(store.homeLv); return (l >= 1 && l <= 3) ? l : 1; }
+  function v8HomeName() { var r = regionById(store.homeState); return r ? r.full : '캘리포니아 · LA'; }
+  function v8HomeIcon() { return V8_HOME[v8HomeLv() - 1].icon; }
+  function v8BldInfo(id) {
+    var lv = v8LvOf(id), lm = V8_LM[id] || ['🏛️', '주 대표 랜드마크'];
+    if (!lv) return { lv: 0, icon: '🌱', name: '빈 땅', desc: '아직 건물이 없어요' };
+    if (lv === 3) return { lv: 3, icon: lm[0], name: lm[1], desc: '이 주의 대표 랜드마크' };
+    return V8_B[lv - 1];
+  }
+  function v8Next(id) { var lv = v8LvOf(id); return lv >= 3 ? null : V8_B[lv]; }
+  function v8BuiltCount() {
+    return Object.keys(store.builds || {}).filter(function (k) { return v8LvOf(k) > 0; }).length;
+  }
+  function v8BySt(st) {
+    for (var i = 0; i < REGIONS.length; i++) { var r = REGIONS[i]; if (r.kind === 'us' && r.st === st) return r; }
+    return null;
+  }
+
+  /* ---------- 짓기 / 이사 / 집 업그레이드 ---------- */
+  function v8DoBuild(id) {
+    var r = regionById(id);
+    if (!r || r.kind !== 'us') return { ok: false, why: 'none' };
+    if (!isUnlocked(r)) return { ok: false, why: 'locked' };
+    var lv = v8LvOf(id);
+    if (lv >= 3) return { ok: false, why: 'max' };
+    var nx = V8_B[lv], bal = v8Bal();
+    if (bal < nx.cost) return { ok: false, why: 'xp', need: nx.cost - bal };
+    store.builds[id] = lv + 1;
+    store.spentBuildXP = v8Used() + nx.cost;
+    save();
+    return { ok: true, lv: lv + 1, cost: nx.cost, info: v8BldInfo(id), bal: v8Bal() };
+  }
+  function v8DoMove(id) {
+    var r = regionById(id);
+    if (!r || r.kind !== 'us' || !isUnlocked(r)) return { ok: false, why: 'locked' };
+    if (store.homeState === id) return { ok: false, why: 'here' };
+    var from = v8HomeName();
+    store.homeState = id;
+    save();
+    return { ok: true, name: r.name, from: from, lv: v8HomeLv() };
+  }
+  function v8DoHomeUp() {
+    var lv = v8HomeLv();
+    if (lv >= 3) return { ok: false, why: 'max' };
+    var nx = V8_HOME[lv], bal = v8Bal();
+    if (bal < nx.cost) return { ok: false, why: 'xp', need: nx.cost - bal };
+    store.homeLv = lv + 1;
+    store.spentBuildXP = v8Used() + nx.cost;
+    save();
+    return { ok: true, lv: lv + 1, cost: nx.cost, name: V8_HOME[lv].name, icon: V8_HOME[lv].icon, bal: v8Bal() };
+  }
+
+  /* ---------- 지도 위 건물 좌표 (모든 지도가 같은 viewBox 340×208) ---------- */
+  var v8box = null;
+  function v8PickSvg() {
+    var ids = ['v7UsMini', 'wmUsSvg', 'v8fsSvg'];
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (!el || !el.querySelectorAll) continue;
+      if (!el.querySelectorAll('path[data-st]').length) continue;
+      var rc = el.getBoundingClientRect();
+      if (rc.width > 2 && rc.height > 2) return el;
+    }
+    return null;
+  }
+  function v8Measure() {
+    if (v8box) return v8box;
+    var svg = v8PickSvg();
+    if (!svg) return null;
+    var ps = svg.querySelectorAll('path[data-st]'), box = {}, n = 0;
+    for (var i = 0; i < ps.length; i++) {
+      var st = ps[i].getAttribute('data-st'), b = null;
+      try { b = ps[i].getBBox(); } catch (e) { b = null; }
+      if (!b || !b.width || !b.height) continue;
+      var c = box[st];
+      if (!c) {
+        box[st] = { bx: b.x, by: b.y, bw: b.width, bh: b.height, ba: b.width * b.height };
+        n++;
+      } else if (b.width * b.height > c.ba) {
+        c.bx = b.x; c.by = b.y; c.bw = b.width; c.bh = b.height; c.ba = b.width * b.height;
+      }
+    }
+    if (n < 40) return null;          /* 아직 지도가 그려지지 않았다 — 다음 기회에 */
+    v8box = box;
+    return box;
+  }
+  function v8PinsFor(scale, mini) {
+    var b = v8box || v8Measure();
+    if (!b) return '';
+    var s = scale || 1;
+    var zk = s > 1 ? Math.pow(1 / s, 0.45) : 1;   /* 확대해도 표시가 화면을 덮지 않게 */
+    var out = '';
+    REGIONS.forEach(function (r) {
+      if (r.kind !== 'us' || !r.st) return;
+      var lv = v8LvOf(r.id);
+      if (!lv) return;
+      var c = b[r.st];
+      if (!c) return;
+      var x = c.bx + c.bw / 2, y = c.by + c.bh / 2;
+      var isHome = (r.id === store.homeState);
+      var info = v8BldInfo(r.id);
+      var big = !mini && (c.bw * s) >= 10.5 && (c.bh * s) >= 8;
+      var fs = 8.6 * zk * (lv >= 3 ? 1.16 : 1);
+      var bx = x, by = y;
+      if (isHome) { bx = x + c.bw * 0.26; by = y + c.bh * 0.3; fs *= 0.74; }
+      if (big) {
+        out += '<text class="v8b v8b' + lv + '" x="' + bx.toFixed(2) + '" y="' + by.toFixed(2) +
+               '" font-size="' + fs.toFixed(2) + '">' + info.icon + '</text>';
+      } else {
+        out += '<circle class="v8dot v8dot' + lv + '" cx="' + bx.toFixed(2) + '" cy="' + by.toFixed(2) +
+               '" r="' + ((mini ? 1.5 : 2) * zk).toFixed(2) + '"/>';
+      }
+    });
+    /* 내 집 배지는 맨 위에 — 노란 빛으로 은은하게 */
+    var hr = regionById(store.homeState);
+    var hc = hr && hr.st ? b[hr.st] : null;
+    if (hc) {
+      var hx = hc.bx + hc.bw / 2, hy = hc.by + hc.bh / 2;
+      var hfs = (mini ? 8.4 : 9.6) * zk;
+      var hrad = (mini ? 4.4 : 5) * zk;
+      out += '<g class="v8homeg">' +
+        '<circle class="v8home__halo" cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="' + hrad.toFixed(2) + '"/>' +
+        '<text class="v8b v8bhome" x="' + hx.toFixed(2) + '" y="' + hy.toFixed(2) + '" font-size="' + hfs.toFixed(2) + '">' + v8HomeIcon() + '</text>' +
+      '</g>';
+    }
+    return out;
+  }
+  function v8PaintPins(host, scale, mini) {
+    if (!host) return;
+    var g = (host.classList && host.classList.contains('v8pinlayer')) ? host : host.querySelector('.v8pinlayer');
+    if (!g) {
+      g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'v8pinlayer');
+      host.appendChild(g);
+    }
+    g.innerHTML = v8PinsFor(scale, mini);
+  }
+  function v8PaintMini() {
+    var svg = document.getElementById('v7UsMini');
+    if (svg) v8PaintPins(svg, 1, true);
+    var e = document.getElementById('v7Bxp');
+    if (e) {
+      e.innerHTML = '<span>🧱 건축 XP <b>' + fmt(v8Bal()) + '</b></span>' +
+        '<span>🏡 ' + esc(String(v8HomeName()).split(' · ')[0]) + ' · 건물 <b>' + v8BuiltCount() + '</b>채</span>';
+    }
+  }
+
+  /* ---------- 전면 지도 · 핀치 줌 & 팬 ---------- */
+  var v8z = { s: 1, tx: 0, ty: 0 };
+  var v8fsOpen = false, v8sel = null, v8SkipFsOnce = false;
+  var v8pts = {}, v8gest = null, v8moved = 0;
+
+  function v8Apply() {
+    var g = document.getElementById('v8fsZoom');
+    if (g) g.setAttribute('transform', 'translate(' + v8z.tx.toFixed(3) + ',' + v8z.ty.toFixed(3) + ') scale(' + v8z.s.toFixed(4) + ')');
+  }
+  function v8Clamp() {
+    var W = 340, H = 208, mnx = W - W * v8z.s, mny = H - H * v8z.s;
+    if (v8z.tx > 0) v8z.tx = 0; else if (v8z.tx < mnx) v8z.tx = mnx;
+    if (v8z.ty > 0) v8z.ty = 0; else if (v8z.ty < mny) v8z.ty = mny;
+    if (v8z.s < 1) v8z.s = 1;
+    if (v8z.s > 4.5) v8z.s = 4.5;
+  }
+  function v8ToSvg(cx, cy) {
+    var svg = document.getElementById('v8fsSvg');
+    try {
+      if (svg) {
+        var m = svg.getScreenCTM();
+        if (m) {
+          var p = svg.createSVGPoint();
+          p.x = cx; p.y = cy;
+          var q = p.matrixTransform(m.inverse());
+          return { x: q.x, y: q.y };
+        }
+      }
+    } catch (e) {}
+    return { x: 170, y: 104 };
+  }
+  function v8UnitsPerPx() {
+    var a = v8ToSvg(0, 0), b = v8ToSvg(100, 0);
+    var u = Math.abs(b.x - a.x) / 100;
+    return u > 0 ? u : 1;
+  }
+  function v8SetZoom(ns, fx, fy) {
+    ns = Math.max(1, Math.min(4.5, ns));
+    var s = v8z.s;
+    if (typeof fx !== 'number') { fx = 170; fy = 104; }
+    v8z.tx = fx - (fx - v8z.tx) * (ns / s);
+    v8z.ty = fy - (fy - v8z.ty) * (ns / s);
+    v8z.s = ns;
+    v8Clamp();
+    v8Apply();
+  }
+  function v8CenterSvg() {
+    var st = document.getElementById('v8fsStage');
+    if (!st) return { x: 170, y: 104 };
+    var r = st.getBoundingClientRect();
+    return v8ToSvg(r.left + r.width / 2, r.top + r.height / 2);
+  }
+  function v8FocusHome() {
+    var b = v8box || v8Measure(), hr = regionById(store.homeState);
+    var c = b && hr ? b[hr.st] : null;
+    if (!c) return;
+    var cx = c.bx + c.bw / 2, cy = c.by + c.bh / 2;
+    v8z.s = 3.2;
+    v8z.tx = 170 - cx * v8z.s;
+    v8z.ty = 104 - cy * v8z.s;
+    v8Clamp();
+    v8Apply();
+    v8RerenderPins();
+  }
+  function v8ZoomBy(f) {
+    var c = v8CenterSvg();
+    v8SetZoom(v8z.s * f, c.x, c.y);
+    v8RerenderPins();
+  }
+  function v8ResetZoom() {
+    v8z.s = 1; v8z.tx = 0; v8z.ty = 0;
+    v8Clamp();
+    v8Apply();
+    v8RerenderPins();
+  }
+  function v8RerenderPins() {
+    var g = document.getElementById('v8fsPins');
+    if (g) g.innerHTML = v8PinsFor(v8z.s, false);
+  }
+
+  function v8BuildFs() {
+    var svg = document.getElementById('v8fsSvg');
+    if (!svg || svg.getAttribute('data-built')) return;
+    svg.innerHTML =
+      '<defs><linearGradient id="v8Lit" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".5" stop-color="#F8C258"/><stop offset="1" stop-color="#EFA23F"/>' +
+      '</linearGradient></defs>' +
+      '<g id="v8fsZoom">' +
+        '<g class="usmap" id="v8fsShapes">' + US_SHAPES.replace(/<path data-st=/g, '<path class="ushp" data-st=') + '</g>' +
+        '<g class="v8pinlayer" id="v8fsPins"></g>' +
+      '</g>';
+    svg.setAttribute('data-built', '1');
+  }
+  function v8PaintFs() {
+    var svg = document.getElementById('v8fsSvg');
+    if (svg) {
+      var nx = nextRegion();
+      REGIONS.forEach(function (r) {
+        if (r.kind !== 'us' || !r.st) return;
+        var ps = svg.querySelectorAll('#v8fsShapes path[data-st="' + r.st + '"]');
+        var on = isUnlocked(r);
+        for (var i = 0; i < ps.length; i++) {
+          ps[i].classList.toggle('on', on);
+          ps[i].classList.toggle('nx', !on && !!nx && nx.id === r.id);
+          ps[i].classList.toggle('sel', v8sel === r.id);
+        }
+      });
+      v8RerenderPins();
+    }
+    var sub = document.getElementById('v8fsSub');
+    if (sub) sub.textContent = '불 켜짐 ' + regionCount('us') + '/' + MAP_US_TOTAL + ' · 🏗️ 건축 XP ' + fmt(v8Bal());
+    var hn = document.getElementById('v8fsHomeName');
+    if (hn) hn.textContent = v8HomeName();
+    var hd = document.getElementById('v8fsHomeDesc');
+    if (hd) hd.textContent = V8_HOME[v8HomeLv() - 1].name + ' · 건축 XP ' + fmt(v8Bal()) + ' 쓸 수 있어요';
+    var hi = document.getElementById('v8fsHomeIco');
+    if (hi) hi.textContent = v8HomeIcon();
+    var bl = document.getElementById('v8fsBalLeg');
+    if (bl) bl.textContent = fmt(v8Bal());
+    var bc = document.getElementById('v8fsBalChip');
+    if (bc) bc.textContent = fmt(v8Bal());
+    var hch = document.getElementById('v8fsHomeChip');
+    if (hch) hch.textContent = String(v8HomeName()).split(' · ')[0];
+    var bch = document.getElementById('v8fsBuiltChip');
+    if (bch) bch.textContent = v8BuiltCount();
+    var nx2 = document.getElementById('v8fsNext');
+    if (nx2) {
+      var nn = nextRegion();
+      nx2.innerHTML = (nn && nn.kind === 'us')
+        ? ('다음 불빛 <b>[' + esc(nn.name) + ']</b>까지 ' + fmt(Math.max(0, nn.xp - xpTotal())) + ' XP')
+        : '미국 50개 주를 다 밝혔어요! 이제 세계로 🌍';
+    }
+  }
+  function v8OpenFS(from) {
+    var el = document.getElementById('v8fs');
+    if (!el || v8fsOpen) return;
+    v8BuildFs();
+    v8fsOpen = true;
+    el.classList.add('on');
+    document.body.classList.add('v8fs-on');
+    v8z.s = 1; v8z.tx = 0; v8z.ty = 0;
+    v8Clamp();
+    v8Apply();
+    v8Measure();
+    v8PaintFs();
+    v8BindGestures();
+  }
+  function v8CloseFS(where) {
+    var el = document.getElementById('v8fs');
+    v8fsOpen = false;
+    if (el) el.classList.remove('on');
+    document.body.classList.remove('v8fs-on');
+    v8CloseSheet();
+    try {
+      if (where === 'list') { v8SkipFsOnce = true; v7Go('map'); }
+      else v7Go('home');
+    } catch (e) {}
+  }
+
+  /* 포인터 제스처 — 두 손가락 핀치 / 한 손가락 팬 / 휠 */
+  function v8PtList() { return Object.keys(v8pts).map(function (k) { return v8pts[k]; }); }
+  function v8Dist(a, c) { var dx = a.x - c.x, dy = a.y - c.y; return Math.sqrt(dx * dx + dy * dy); }
+  function v8Mid(a, c) { return { x: (a.x + c.x) / 2, y: (a.y + c.y) / 2 }; }
+
+  function v8Down(ev) {
+    if (!v8fsOpen) return;
+    v8pts[ev.pointerId] = { x: ev.clientX, y: ev.clientY, sx: ev.clientX, sy: ev.clientY };
+    v8moved = 0;
+    var ps = v8PtList();
+    if (ps.length === 1) {
+      v8gest = { mode: 'pan', sx: ps[0].x, sy: ps[0].y, tx0: v8z.tx, ty0: v8z.ty };
+    } else if (ps.length === 2) {
+      var m = v8Mid(ps[0], ps[1]), mu = v8ToSvg(m.x, m.y);
+      v8gest = { mode: 'pinch', d0: Math.max(1, v8Dist(ps[0], ps[1])), s0: v8z.s, m0: mu, tx0: v8z.tx, ty0: v8z.ty };
+    }
+    var st = document.getElementById('v8fsStage');
+    if (st) st.classList.add('is-drag');
+  }
+  function v8Move(ev) {
+    if (!v8fsOpen) return;
+    var p = v8pts[ev.pointerId];
+    if (!p) return;
+    var dxs = ev.clientX - p.x, dys = ev.clientY - p.y;
+    p.x = ev.clientX; p.y = ev.clientY;
+    var mv = Math.abs(ev.clientX - p.sx) + Math.abs(ev.clientY - p.sy);
+    if (mv > v8moved) v8moved = mv;
+    var ps = v8PtList();
+    if (!v8gest) return;
+    if (ps.length >= 2 && v8gest.mode === 'pinch') {
+      var m = v8Mid(ps[0], ps[1]), mu = v8ToSvg(m.x, m.y);
+      var ratio = v8Dist(ps[0], ps[1]) / v8gest.d0;
+      var ns = Math.max(1, Math.min(4.5, v8gest.s0 * ratio));
+      var ax = (v8gest.m0.x - v8gest.tx0) / v8gest.s0;
+      var ay = (v8gest.m0.y - v8gest.ty0) / v8gest.s0;
+      v8z.s = ns;
+      v8z.tx = mu.x - ax * ns;
+      v8z.ty = mu.y - ay * ns;
+      v8Clamp();
+      v8Apply();
+    } else if (ps.length === 1 && v8gest.mode === 'pan') {
+      var u = v8UnitsPerPx();
+      v8z.tx = v8gest.tx0 + (ev.clientX - v8gest.sx) * u;
+      v8z.ty = v8gest.ty0 + (ev.clientY - v8gest.sy) * u;
+      v8Clamp();
+      v8Apply();
+    } else if (ps.length === 1 && v8gest.mode === 'pinch') {
+      /* 핀치 중 한 손가락이 떨어졌다 — 남은 손가락으로 팬 이어가기 */
+      v8gest = { mode: 'pan', sx: ps[0].x, sy: ps[0].y, tx0: v8z.tx, ty0: v8z.ty };
+    }
+  }
+  function v8Up(ev) {
+    if (!v8fsOpen) return;
+    var had = !!v8pts[ev.pointerId];
+    delete v8pts[ev.pointerId];
+    var ps = v8PtList();
+    if (!ps.length) {
+      v8gest = null;
+      var st = document.getElementById('v8fsStage');
+      if (st) st.classList.remove('is-drag');
+      if (had) v8RerenderPins();
+    } else if (ps.length === 1) {
+      v8gest = { mode: 'pan', sx: ps[0].x, sy: ps[0].y, tx0: v8z.tx, ty0: v8z.ty };
+    }
+  }
+  function v8Wheel(ev) {
+    if (!v8fsOpen) return;
+    ev.preventDefault();
+    var p = v8ToSvg(ev.clientX, ev.clientY);
+    v8SetZoom(v8z.s * (ev.deltaY < 0 ? 1.16 : 1 / 1.16), p.x, p.y);
+    v8RerenderPins();
+  }
+  function v8TapState(ev) {
+    if (v8moved > 8) { v8moved = 0; return; }
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    var p = t.closest('path[data-st]');
+    if (!p) return;
+    var r = v8BySt(p.getAttribute('data-st'));
+    if (r) v8OpenSheet(r.id);
+  }
+  var v8Bound = false;
+  function v8BindGestures() {
+    if (v8Bound) return;
+    var st = document.getElementById('v8fsStage');
+    if (!st) return;
+    v8Bound = true;
+    st.addEventListener('pointerdown', v8Down);
+    window.addEventListener('pointermove', v8Move);
+    window.addEventListener('pointerup', v8Up);
+    window.addEventListener('pointercancel', v8Up);
+    st.addEventListener('wheel', v8Wheel, { passive: false });
+    st.addEventListener('click', v8TapState);
+  }
+
+  /* ---------- 주 상세 시트 (건물 · 내 집) ---------- */
+  function v8OpenSheet(id) {
+    var r = regionById(id);
+    if (!r || r.kind !== 'us') return;
+    v8sel = id;
+    v8RenderSheet();
+    var el = document.getElementById('v8sheet');
+    if (el) el.classList.add('on');
+    document.body.classList.add('v8sh-on');
+    v8PaintFs();
+    try { Snd.tap(); } catch (e) {}
+  }
+  function v8CloseSheet() {
+    var el = document.getElementById('v8sheet');
+    if (el) el.classList.remove('on');
+    document.body.classList.remove('v8sh-on');
+  }
+  function v8RenderSheet() {
+    var box = document.getElementById('v8shCard');
+    if (!box) return;
+    var r = regionById(v8sel);
+    if (!r) { box.innerHTML = ''; return; }
+    var on = isUnlocked(r), lv = v8LvOf(r.id), nx = v8Next(r.id), bal = v8Bal();
+    var info = v8BldInfo(r.id), isHome = (store.homeState === r.id), hl = v8HomeLv();
+    var lm = V8_LM[r.id] || ['🏛️', '주 대표 랜드마크'];
+    var h = '';
+    h += '<div class="v8sh__grab"></div>';
+    h += '<div class="v8sh__hd">' +
+        '<span class="v8sh__ico">' + (r.icon || '•') + '</span>' +
+        '<span class="v8sh__tt"><b>' + esc(r.full) + '</b><span>' + esc(r.sub) + ' · 건물 Lv.' + lv + '</span></span>' +
+        '<span class="v8sh__st' + (on ? ' is-on' : '') + '">' + (on ? '불 밝힘' : '아직 꺼짐') + '</span>' +
+        '<button class="v8sh__x" type="button" data-v8shclose="1" aria-label="닫기">✕</button>' +
+      '</div>';
+    h += '<p class="v8sh__fact"><b>💡 ' + esc(r.name) + '</b> · ' + esc(r.fact) + '</p>';
+
+    if (!on) {
+      h += '<div class="v8sh__lock"><b>🔑 아직 불이 꺼진 주예요</b>' +
+        '<span>' + esc(r.cond) + ' — ' + fmt(Math.max(0, r.xp - xpTotal())) + ' XP 더 모으면 불이 켜지고, 그때 건물을 지을 수 있어요.</span></div>';
+    } else {
+      h += '<div class="v8sh__bal"><span>🏗️ 건축 XP</span><b>' + fmt(bal) + '</b>' +
+        '<i>모은 영어 XP ' + fmt(xpTotal()) + ' 중 ' + fmt(v8Used()) + ' XP 사용 · 불 켜짐 기준은 그대로예요</i></div>';
+
+      h += '<div class="v8sh__bld">' +
+        '<div class="v8sh__row"><span class="v8sh__bi lv' + lv + '">' + info.icon + '</span>' +
+          '<span class="v8sh__bt"><b>' + (lv ? ('Lv.' + lv + ' ' + esc(info.name)) : 'Lv.0 빈 땅') + '</b>' +
+          '<i>' + esc(lv === 3 ? '이 주의 대표 랜드마크 · 최고 단계 🏆' : (lv ? info.desc : '아직 건물이 없어요 — 첫 삽을 떠 볼까요?')) + '</i></span></div>' +
+        '<div class="v8sh__steps">' + [1, 2, 3].map(function (n) {
+          return '<i class="' + (lv >= n ? 'on' : '') + '"><em>' + (n === 3 ? lm[0] : V8_B[n - 1].icon) + '</em></i>';
+        }).join('') + '</div>' +
+        (nx
+          ? '<p class="v8sh__nx">다음 · <b>Lv.' + nx.lv + ' ' + esc(nx.lv === 3 ? lm[1] : nx.name) + '</b> · ' + nx.cost + ' XP</p>' +
+            '<button class="v8sh__b" type="button" data-v8build="' + r.id + '"' + (bal < nx.cost ? ' disabled' : '') + '>' +
+              (lv ? '⬆️ ' : '🏗️ ') + esc(nx.lv === 3 ? lm[1] : nx.name) + ' 짓기 · ' + nx.cost + ' XP' +
+              (bal < nx.cost ? '<em>' + (nx.cost - bal) + ' XP 부족</em>' : '') +
+            '</button>'
+          : '<p class="v8sh__nx is-max">🏆 이 주의 랜드마크까지 다 지었어요!</p>') +
+      '</div>';
+
+      h += '<div class="v8sh__home">' +
+        '<div class="v8sh__row"><span class="v8sh__bi home">' + V8_HOME[hl - 1].icon + '</span>' +
+          '<span class="v8sh__bt"><b>' + esc(V8_HOME[hl - 1].name) + '</b>' +
+          '<i>' + (isHome ? '지금 여기가 내 집이에요 🎉' : '지금 내 집은 ' + esc(v8HomeName()) + '에 있어요') + '</i></span></div>' +
+        (isHome ? '' : '<button class="v8sh__b2" type="button" data-v8move="' + r.id + '">🏡 여기로 이사하기</button>') +
+        (hl < 3
+          ? '<button class="v8sh__b2 ghost" type="button" data-v8hup="1"' + (bal < V8_HOME[hl].cost ? ' disabled' : '') + '>' +
+              '🏡 내 집 업그레이드 → ' + V8_HOME[hl].icon + ' ' + esc(V8_HOME[hl].name) + ' · ' + V8_HOME[hl].cost + ' XP</button>'
+          : '') +
+      '</div>';
+    }
+    box.innerHTML = h;
+  }
+  function v8After() {
+    v8RenderSheet();
+    if (v8fsOpen) v8PaintFs();
+    try { renderMapPill(); } catch (e) {}
+    try { if (mapOpen) renderMap(); } catch (e) {}
+  }
+
+  (function wireV8() {
+    var fs = document.getElementById('v8fs');
+    if (fs) fs.addEventListener('click', function (ev) {
+      var t = ev.target;
+      if (!t || !t.closest) return;
+      if (t.closest('[data-v8fsclose]')) { try { Snd.tap(); } catch (e) {} v8CloseFS(); return; }
+      if (t.closest('[data-v8list]')) { try { Snd.tap(); } catch (e) {} v8CloseFS('list'); return; }
+      var z = t.closest('[data-v8zoom]');
+      if (z) {
+        var k = z.getAttribute('data-v8zoom');
+        try { Snd.tap(); } catch (e) {}
+        if (k === 'reset') v8ResetZoom();
+        else if (k === 'home') v8FocusHome();
+        else v8ZoomBy(k === 'in' ? 1.45 : 1 / 1.45);
+        return;
+      }
+      var hc = t.closest('[data-v8homecard]');
+      if (hc) { v8FocusHome(); v8OpenSheet(store.homeState); return; }
+    });
+
+    var sh = document.getElementById('v8sheet');
+    if (sh) sh.addEventListener('click', function (ev) {
+      var t = ev.target;
+      if (!t || !t.closest) return;
+      if (t.closest('[data-v8shclose]')) { v8CloseSheet(); return; }
+
+      var b = t.closest('[data-v8build]');
+      if (b) {
+        var res = v8DoBuild(b.getAttribute('data-v8build'));
+        if (res.ok) {
+          toast('🏗️ ' + res.info.name + ' 완성! ' + res.cost + ' XP 사용 · 남은 건축 XP ' + fmt(res.bal), true);
+          try { Snd.success(); } catch (e) {}
+          try { if (res.lv >= 3) V7V.play('alldone'); else V7V.play('goodjob'); } catch (e) {}
+          try { if (navigator.vibrate) navigator.vibrate(16); } catch (e) {}
+          v8After();
+        } else if (res.why === 'xp') {
+          toast('건축 XP가 ' + res.need + ' XP 부족해요 — 연습해서 더 모아 볼까요? 💪', true);
+          try { Snd.fail(); } catch (e) {}
+        } else if (res.why === 'max') toast('이미 랜드마크까지 다 지었어요 🏆');
+        else if (res.why === 'locked') toast('아직 불이 꺼진 주예요 🔑');
+        return;
+      }
+      b = t.closest('[data-v8move]');
+      if (b) {
+        var mv = v8DoMove(b.getAttribute('data-v8move'));
+        if (mv.ok) {
+          toast('🏡 내 집을 ' + mv.name + '(으)로 옮겼어요! 이제 여기서 살아요 ✨', true);
+          try { Snd.success(); } catch (e) {}
+          try { V7V.play('nice'); } catch (e) {}
+          try { if (navigator.vibrate) navigator.vibrate(20); } catch (e) {}
+          v8After();
+        } else if (mv.why === 'here') toast('지금 여기가 내 집이에요 🏡');
+        else toast('불이 켜진 주로만 이사할 수 있어요');
+        return;
+      }
+      b = t.closest('[data-v8hup]');
+      if (b) {
+        var hu = v8DoHomeUp();
+        if (hu.ok) {
+          toast('🏡 내 집이 ' + hu.icon + ' ' + hu.name + '(으)로 커졌어요! ' + hu.cost + ' XP 사용', true);
+          try { Snd.success(); } catch (e) {}
+          try { V7V.play('nice'); } catch (e) {}
+          try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {}
+          v8After();
+        } else if (hu.why === 'xp') {
+          toast('건축 XP가 ' + hu.need + ' XP 부족해요', true);
+          try { Snd.fail(); } catch (e) {}
+        } else toast('내 집은 이미 드림 하우스예요 🏰');
+        return;
+      }
+    });
+
+    /* 홈 카드 지도 · 헤더 알약 → 전면 지도 */
+    var mini = document.getElementById('v7UsMini');
+    if (mini) {
+      mini.setAttribute('role', 'button');
+      mini.setAttribute('aria-label', '미국 50개 주 지도 크게 보기');
+      mini.addEventListener('click', function () { if (v7Cur === 'home') v7Go('map'); });
+    }
+    var zp = document.getElementById('v7MapZoom');
+    if (zp) zp.addEventListener('click', function (e) { e.stopPropagation(); if (v7Cur === 'home') v7Go('map'); });
+    var pill = document.getElementById('v7MapPill');
+    if (pill) pill.addEventListener('click', function (e) { e.stopPropagation(); v7Go('map'); });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (v8sel) { v8CloseSheet(); return; }
+      if (v8fsOpen) v8CloseFS();
+    });
+  })();
+
+  window.__v8 = {
+    open: v8OpenFS, close: v8CloseFS, isOpen: function () { return v8fsOpen; },
+    sheet: v8OpenSheet, closeSheet: v8CloseSheet, sel: function () { return v8sel; },
+    build: function (id) { var r = v8DoBuild(id); v8After(); return r; },
+    move: function (id) { var r = v8DoMove(id); v8After(); return r; },
+    homeUp: function () { var r = v8DoHomeUp(); v8After(); return r; },
+    bal: v8Bal, used: v8Used, lv: v8LvOf,
+    home: function () { return { id: store.homeState, lv: v8HomeLv() }; },
+    zoom: function () { return { s: v8z.s, tx: v8z.tx, ty: v8z.ty }; },
+    setZoom: function (s, x, y) { v8SetZoom(s, x, y); v8RerenderPins(); return { s: v8z.s, tx: v8z.tx, ty: v8z.ty }; },
+    pins: function () { return document.querySelectorAll('#v8fsPins .v8b, #v8fsPins .v8dot').length; },
+    miniPins: function () { return document.querySelectorAll('#v7UsMini .v8pinlayer *').length; },
+    homePin: function () { return !!document.querySelector('#v8fsPins .v8homeg'); },
+    sheetText: function () { var e = document.getElementById('v8shCard'); return e ? e.innerText : ''; },
+    lms: V8_LM
+  };
 
   window.__v7 = {
     goto: v7Go,
