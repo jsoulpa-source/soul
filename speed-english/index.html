@@ -1705,6 +1705,7 @@ body{background:var(--v7bg)}
 .v7nv.on{color:var(--v7v)}
 .v7nv.on em{filter:none; opacity:1; transform:translateY(-1px)}
 .tabbar{display:none !important}
+.cjpills{display:none !important}
 body.is-mission .v7nav{display:none !important}
 
 /* 지도 페이지(모달 → 페이지) */
@@ -1808,6 +1809,10 @@ body.is-mission .v7nav{display:none !important}
 .v7cmp .mine{background:#F5F3FB; color:#5B5470}
 .v7cmp .real{background:#E9FAF2; color:#127F60}
 .v7cmp .real b{font-weight:900}
+.v7wprog{display:flex; align-items:center; justify-content:center; gap:7px; margin-top:8vh}
+.v7wprog i{width:8px; height:8px; border-radius:50%; background:#E3DDF2}
+.v7wprog i.on{background:#22AE87; box-shadow:0 0 0 3px rgba(34,174,135,.14)}
+.v7wprog span{font-size:10px; font-weight:900; color:#A8A2B6; margin-left:4px}
 .v7stack{position:relative; margin-top:10px; padding-top:16px}
 .v7stack::before{
   content:""; position:absolute; left:9px; right:9px; top:0; height:48px; border-radius:15px;
@@ -8054,6 +8059,18 @@ body.is-mission .v7nav{display:none !important}
     var max = 0, total = 0;
     data.forEach(function (s) { var t = s[0] + s[1] + s[2] + s[3] + s[4]; total += t; if (t > max) max = t; });
     var H = 88;
+    if (!total) {
+      bars.style.height = 'auto';
+      bars.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-size:10.5px;font-weight:800;color:#A8A2B6;padding:24px 0;line-height:1.6">아직 이번 주 기록이 없어요<br>미션을 하나 하면 여기에 색으로 쌓여요</p>';
+      var dl0 = document.getElementById('v7DayLbl');
+      if (dl0) dl0.innerHTML = days.map(function (d, i) {
+        return '<span class="' + (dkey(d) === today ? 'today' : '') + '">' + ['월', '화', '수', '목', '금', '토', '일'][i] + '</span>';
+      }).join('');
+      var wt0 = document.getElementById('v7WeekTotal');
+      if (wt0) wt0.textContent = 0;
+      return;
+    }
+    bars.style.height = '104px';
     bars.innerHTML = days.map(function (d, i) {
       var s = data[i], tot = s[0] + s[1] + s[2] + s[3] + s[4];
       var h = max ? Math.max(tot ? 7 : 0, Math.round(tot / max * H)) : 0;
@@ -8561,14 +8578,16 @@ body.is-mission .v7nav{display:none !important}
       }).join('') + '</div></div>';
     }
     body.innerHTML =
-      '<div class="v7qzone" style="justify-content:flex-start;padding-top:1vh">' +
-      '<div style="background:#fff;border:1px solid #EDE9F7;border-radius:20px;padding:18px 15px;box-shadow:0 10px 26px rgba(38,28,80,.07);min-height:34vh;display:flex;flex-direction:column;justify-content:center">' +
+      '<div class="v7qzone" style="justify-content:flex-start;padding-top:1vh;flex:0 0 auto">' +
+      '<div style="background:#fff;border:1px solid #EDE9F7;border-radius:20px;padding:18px 15px;box-shadow:0 10px 26px rgba(38,28,80,.07);min-height:30vh;display:flex;flex-direction:column;justify-content:center">' +
         '<p class="v7ask">' + m.ico + ' 단어를 골라 문장을 완성해요</p>' +
         '<p class="v7en" style="font-size:19px;margin-top:10px">' + sent + '</p>' +
         '<p class="v7ko" style="background:#F7F5FC;margin-top:12px;font-size:13px">' + ko + '</p>' +
         (st.wrong ? '<div class="v7fb warn"><span class="t">💡 왜 아닐까요?</span>' + st.wrong + '</div>' : '') +
         (done ? '<div class="v7done"><button type="button" data-mact="listen">🔊 다시 듣기</button><button type="button" class="pri" data-mact="next">▶ ' + (st.i === st.items.length - 1 ? '미션 마치기' : '다음 문제') + '</button></div>' : '') +
       '</div></div>' +
+      '<div class="v7wprog" style="flex:1; margin-top:0">' + words.map(function (w, i) { return '<i class="' + (i < st.filled.length ? 'on' : '') + '"></i>'; }).join('') +
+        '<span>' + st.filled.length + ' / ' + words.length + ' 단어</span></div>' +
       choices +
       '<p class="v7foot">틀린 단어는 왜 아닌지 알려 줘요 · 다시 고르면 돼요</p>';
     dock.innerHTML = '';
@@ -8584,7 +8603,8 @@ body.is-mission .v7nav{display:none !important}
     body.innerHTML =
       '<div class="v7qzone" style="justify-content:' + (st.answered ? 'flex-start' : 'center') + '">' +
       '<p class="v7ask">🥤 콩글리시 → 진짜 영어</p>' +
-      '<div class="v7ko" style="background:#EAF5FD">한국에선 \'<b style="background:#D8EEFB;color:#166A96">' + esc(it.kong) + '</b>\'' + v7Josa(it.kong, '라고', '이라고') + ' 하는데…<br>원어민은 영어로 뭐라고 할까? 🤔' +
+      '<div class="v7ko" style="background:#EAF5FD">한국에선 \'<b style="background:#D8EEFB;color:#166A96">' + esc(it.kong) + '</b>' +
+        (String(it.wrong).indexOf(' ') < 0 || String(it.wrong).split(' ').length <= 2 ? '(' + esc(it.wrong) + ')' : '') + '\'' + v7Josa(it.kong, '라고', '이라고') + ' 하는데…<br>원어민은 영어로 뭐라고 할까? 🤔' +
         '<small>뜻: ' + esc(it.ko) + ' · 한국식: ' + esc(it.wrong) + '</small></div>' +
       (st.answered ? '' : '<div style="margin-top:12px">' + v7InputRow('영어로 답해 보세요', true) + '</div>') +
       hint + '</div>' +
