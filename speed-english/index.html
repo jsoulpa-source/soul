@@ -4652,15 +4652,15 @@ body.is-mapopen{overflow:hidden}
 
   /* 불빛 알림은 겹치지 않게 한 줄씩 차례로 띄운다 */
   var ltList = [], ltOn = false;
-  function lightToast(msg) {
-    ltList.push(msg);
+  function lightToast(msg, long) {
+    ltList.push({ m: msg, long: !!long });
     if (!ltOn) { ltOn = true; setTimeout(ltNext, 460); }
   }
   function ltNext() {
-    var m = ltList.shift();
-    if (!m) { ltOn = false; return; }
-    toast(m);
-    setTimeout(ltNext, 1780);
+    var it = ltList.shift();
+    if (!it) { ltOn = false; return; }
+    toast(it.m, it.long);
+    setTimeout(ltNext, it.long ? 3000 : 1780);
   }
 
   function unlockRegion(r) {
@@ -4704,7 +4704,8 @@ body.is-mapopen{overflow:hidden}
     if (r.capNote) { renderCapNote(); return; }
     r.capNote = 1;
     save();
-    toast('오늘의 탐험 에너지 ' + DAILY_CAP + ' XP를 다 모았어요! 내일 이어서 다음 도시에 불을 켜 봐요 ✨', true);
+    /* 불이 켜졌다는 알림 뒤에 이어서 — 겹쳐서 묻히지 않게 같은 줄에 세운다 */
+    lightToast('오늘의 탐험 에너지 ' + DAILY_CAP + ' XP를 다 모았어요! 내일 이어서 다음 도시에 불을 켜 봐요 ✨', true);
     renderCapNote();
     renderMapPill();
   }
