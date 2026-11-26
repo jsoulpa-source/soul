@@ -1,0 +1,17 @@
+{
+  "name": "스피드 영어",
+  "short_name": "스피드 영어",
+  "description": "한국어를 읽고 5초 안에 영어로 — 번역하지 말고 덩어리로 바로 말하는 회화 연습",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#7c3aed",
+  "background_color": "#f5f3ff",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
