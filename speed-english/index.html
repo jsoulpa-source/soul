@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v10-2026-11-27-7missions">
+<meta name="app-build" content="lightup-english-v11-2026-11-27-landmarks">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1635,13 +1635,150 @@ body{background:var(--v7bg)}
 .v7chart__t{font-size:12.5px; font-weight:900; color:var(--v7ink); letter-spacing:-.02em}
 .v7chart__s{font-size:10px; font-weight:800; color:var(--v7mute)}
 .v7chart__s b{color:var(--v7v); font-weight:900; font-size:11.5px}
-.v7bars{display:grid; grid-template-columns:repeat(7,1fr); gap:7px; align-items:end; height:104px; margin-top:11px}
-.v7bar{
-  height:100%; display:flex; flex-direction:column; justify-content:flex-end; gap:1px;
-  background:#F7F5FC; border-radius:7px; overflow:hidden; padding:0;
+.v7bars{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; align-items:end; margin-top:9px}
+/* v11 — 요일마다 미국 상징물 실루엣, 미션 색으로 아래에서 위로 차오른다 */
+.lm{
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:3px; width:100%;
+  perspective:320px;
+  padding:0; margin:0; background:none; border:0; font:inherit; text-align:center; cursor:pointer;
+  -webkit-appearance:none; appearance:none; -webkit-tap-highlight-color:transparent;
 }
-.v7bar i{display:block; width:100%; border-radius:2px; min-height:0; transition:height .4s}
-.v7bar.today{background:#F0EBFF; box-shadow:inset 0 0 0 1.5px #DED2FF}
+.lm__box{
+  position:relative; display:block; width:100%; box-sizing:border-box; border-radius:11px;
+  border:1px solid #EFECF8; background:linear-gradient(180deg,#FCFBFE 0%,#F6F3FC 100%);
+  padding:3px 1px 1px; transition:border-color .35s, box-shadow .35s, background .35s;
+}
+.lm__svg{display:block; width:100%; height:auto; overflow:visible}
+.lm.today .lm__box{border-color:#DFD3FF; background:linear-gradient(180deg,#FBF9FF 0%,#F2ECFF 100%); box-shadow:inset 0 0 0 1.5px #E9DFFF}
+.lm.is-done .lm__box{border-color:var(--a); background:linear-gradient(180deg,#FFFFFF 0%,#FBF7FF 100%); box-shadow:0 3px 9px -3px var(--ag)}
+.lm__lb{display:block; font-size:9.5px; font-weight:900; color:#B0AAC1; letter-spacing:-.01em; line-height:1.15}
+.lm.today .lm__lb{color:var(--v7v)}
+.lm.is-done .lm__lb{color:var(--a)}
+.lm__ck{
+  position:absolute; top:-4px; right:-4px; width:13px; height:13px; border-radius:50%;
+  background:var(--a); color:#fff; font-size:8px; font-weight:900; line-height:1; font-style:normal;
+  display:none; place-items:center; box-shadow:0 2px 5px var(--ag); pointer-events:none;
+}
+.lm.is-done .lm__ck{display:grid}
+.v11-ghost{fill:#EDE8F7; stroke:#DCD4EF; stroke-width:.7; stroke-linejoin:round; stroke-linecap:round}
+.v11-liq{transition:transform .62s cubic-bezier(.32,.9,.36,1)}
+.v11-fx{opacity:0}
+.v11-fx circle{transform-box:fill-box; transform-origin:center}
+.v11hint{display:none; margin-top:7px; text-align:center; font-size:9px; font-weight:800; color:#A8A2B6; letter-spacing:-.01em}
+.v11hint.on{display:block}
+/* 완성 — 앞으로 툭 튀어나오는 공통 팝 */
+.lm.is-pop{z-index:6}
+.lm.is-pop .lm__box{animation:lmPop 1.5s cubic-bezier(.24,1.16,.34,1) both; box-shadow:0 14px 24px -8px var(--ag), 0 0 0 1.5px var(--a)}
+@keyframes lmPop{
+  0%{transform:translateY(0) scale(1)}
+  13%{transform:translateY(-6px) scale(1.22)}
+  27%{transform:translateY(-3px) scale(1.12)}
+  74%{transform:translateY(-3px) scale(1.13)}
+  100%{transform:translateY(0) scale(1)}
+}
+/* 월 · 자유의 여신상 — 김연아처럼 빙그르르 + 횃불 반짝 */
+.lm[data-d="0"].is-pop .lm__box{animation:lmTwirl 1.6s cubic-bezier(.3,1.08,.36,1) both}
+@keyframes lmTwirl{
+  0%{transform:translateY(0) scale(1) rotateY(0)}
+  14%{transform:translateY(-6px) scale(1.21) rotateY(0)}
+  50%{transform:translateY(-3px) scale(1.13) rotateY(200deg)}
+  82%{transform:translateY(-3px) scale(1.13) rotateY(360deg)}
+  100%{transform:translateY(0) scale(1) rotateY(360deg)}
+}
+.lm[data-d="0"].is-pop .v11-fx{animation:lmFxFade 1.5s ease-out both}
+.lm[data-d="0"].is-pop .fx-spark{animation:lmTwinkle 1.1s .25s ease-in-out 2 both; transform-box:fill-box; transform-origin:center}
+.lm[data-d="0"].is-pop .fx-spark2{animation:lmTwinkle .9s .5s ease-in-out 2 both}
+.lm[data-d="0"].is-pop .fx-spark3{animation:lmTwinkle .9s .7s ease-in-out 2 both}
+/* 화 · 스페이스 니들 — 전망대 네온 불빛 */
+.lm[data-d="1"].is-pop .v11-fx{animation:lmFxFade 1.6s ease-out both}
+.lm[data-d="1"].is-pop .fx-neon circle{animation:lmNeon .9s ease-in-out 2 both}
+.lm[data-d="1"].is-pop .fx-neon circle:nth-child(2){animation-delay:.07s}
+.lm[data-d="1"].is-pop .fx-neon circle:nth-child(3){animation-delay:.14s}
+.lm[data-d="1"].is-pop .fx-neon circle:nth-child(4){animation-delay:.21s}
+.lm[data-d="1"].is-pop .fx-neon circle:nth-child(5){animation-delay:.28s}
+.lm[data-d="1"].is-pop .fx-neon circle:nth-child(6){animation-delay:.35s}
+.lm[data-d="1"].is-pop .fx-neon circle:nth-child(7){animation-delay:.42s}
+.lm[data-d="1"].is-pop .fx-deck{animation:lmDeckGlow 1.4s ease-out both}
+/* 수 · NASA 로켓 — 한 바퀴 돌고 슝! */
+.lm[data-d="2"].is-pop .lm__box{animation:lmLaunchCard 1.7s cubic-bezier(.32,.9,.3,1) both}
+@keyframes lmLaunchCard{
+  0%{transform:translateY(0) scale(1) rotateY(0)}
+  12%{transform:translateY(-6px) scale(1.21) rotateY(0)}
+  26%{transform:translateY(-6px) scale(1.12) rotateY(0)}
+  52%{transform:translateY(-25px) scale(1.12) rotateY(360deg)}
+  70%{transform:translateY(-25px) scale(1.12) rotateY(360deg)}
+  84%{transform:translateY(-7px) scale(1.07) rotateY(360deg)}
+  100%{transform:translateY(0) scale(1) rotateY(360deg)}
+}
+.lm[data-d="2"].is-pop .v11-fx{animation:lmFxFade 1.6s ease-out both}
+.lm[data-d="2"].is-pop .fx-flame{animation:lmFlame .42s .3s ease-out 3 both; transform-box:fill-box; transform-origin:50% 0}
+.lm[data-d="2"].is-pop .fx-flame2{animation:lmFlame .3s .36s ease-out 4 both; transform-box:fill-box; transform-origin:50% 0}
+.lm[data-d="2"].is-pop .fx-smoke{animation:lmSmoke .7s .22s ease-out both}
+.lm[data-d="2"].is-pop .fx-smoke2{animation:lmSmoke .7s .34s ease-out both}
+/* 목 · 국회의사당 — 두둥! 빰빰! 두 번 통통 */
+.lm[data-d="3"].is-pop .lm__box{animation:lmDung 1.55s cubic-bezier(.3,1.5,.4,1) both}
+@keyframes lmDung{
+  0%{transform:scale(1)}
+  12%{transform:translateY(-6px) scale(1.22)}
+  26%{transform:scale(1.03)}
+  42%{transform:translateY(-5px) scale(1.19)}
+  58%{transform:scale(1.02)}
+  100%{transform:scale(1)}
+}
+.lm[data-d="3"].is-pop .v11-fx{animation:lmFxFade 1.55s ease-out both}
+.lm[data-d="3"].is-pop .fx-glow{animation:lmGlow 1.55s ease-out both}
+.lm[data-d="3"].is-pop .fx-burst path{animation:lmBurst 1.2s .06s ease-out 2 both; transform-box:fill-box; transform-origin:center}
+/* 금 · 사와로 선인장 — 양팔 흔들흔들 */
+.lm[data-d="4"].is-pop .lm-arm-l{animation:lmWaveL 1.45s ease-in-out both; transform-origin:16px 34px}
+.lm[data-d="4"].is-pop .lm-arm-r{animation:lmWaveR 1.45s ease-in-out both; transform-origin:24px 27px}
+@keyframes lmWaveL{0%{transform:rotate(0)}18%{transform:rotate(-13deg)}38%{transform:rotate(9deg)}58%{transform:rotate(-9deg)}78%{transform:rotate(7deg)}100%{transform:rotate(0)}}
+@keyframes lmWaveR{0%{transform:rotate(0)}18%{transform:rotate(13deg)}38%{transform:rotate(-9deg)}58%{transform:rotate(9deg)}78%{transform:rotate(-7deg)}100%{transform:rotate(0)}}
+.lm[data-d="4"].is-pop .v11-fx{animation:lmFxFade 1.45s ease-out both}
+.lm[data-d="4"].is-pop .fx-cspark{animation:lmTwinkle 1s .3s ease-in-out 2 both}
+.lm[data-d="4"].is-pop .fx-cspark2{animation:lmTwinkle 1s .45s ease-in-out 2 both}
+.lm[data-d="4"].is-pop .fx-cspark3{animation:lmTwinkle 1s .6s ease-in-out 2 both}
+/* 토 · 금문교 — 주탑·케이블 조명 번쩍번쩍 */
+.lm[data-d="5"].is-pop .v11-fx{animation:lmFxFade 1.6s ease-out both}
+.lm[data-d="5"].is-pop .fx-light circle{animation:lmBlink .72s ease-in-out 2 both}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(2){animation-delay:.06s}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(3){animation-delay:.12s}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(4){animation-delay:.18s}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(5){animation-delay:.06s}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(6){animation-delay:.12s}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(7){animation-delay:.18s}
+.lm[data-d="5"].is-pop .fx-light circle:nth-child(8){animation-delay:.24s}
+.lm[data-d="5"].is-pop .fx-decklite{animation:lmDeckLite 1.1s .12s ease-out both}
+/* 일 · 하와이 야자수 — 코코넛 통통! */
+.lm[data-d="6"].is-pop .v11-fx{animation:lmFxFade 1.7s ease-out both}
+.lm[data-d="6"].is-pop .fx-coco circle{animation:lmDrop 1.25s .12s cubic-bezier(.4,.05,.6,1) both}
+.lm[data-d="6"].is-pop .fx-coco circle:nth-child(2){animation-delay:.26s}
+.lm[data-d="6"].is-pop .fx-coco circle:nth-child(3){animation-delay:.38s}
+.lm[data-d="6"].is-pop .fx-sun{animation:lmSun 1.5s ease-out both}
+@keyframes lmFxFade{0%{opacity:0}14%{opacity:1}80%{opacity:1}100%{opacity:0}}
+@keyframes lmTwinkle{0%{opacity:0;transform:scale(.4)}40%{opacity:1;transform:scale(1.35)}100%{opacity:0;transform:scale(.7)}}
+@keyframes lmNeon{0%{opacity:0;transform:scale(.3)}35%{opacity:1;transform:scale(1.4)}100%{opacity:0;transform:scale(.9)}}
+@keyframes lmDeckGlow{0%{opacity:0;stroke-width:1}25%{opacity:1;stroke-width:2.2}100%{opacity:0;stroke-width:1.4}}
+@keyframes lmFlame{0%{opacity:0;transform:scaleY(.3)}30%{opacity:1;transform:scaleY(1.1)}100%{opacity:0;transform:scaleY(.5)}}
+@keyframes lmSmoke{0%{opacity:0;transform:translate(0,0) scale(.4)}30%{opacity:.9}100%{opacity:0;transform:translate(0,6px) scale(1.5)}}
+@keyframes lmGlow{0%{opacity:0;transform:scale(.5)}20%{opacity:.9;transform:scale(1)}55%{opacity:.55;transform:scale(1.05)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes lmBurst{0%{opacity:0;transform:scale(.3)}35%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(.6)}}
+@keyframes lmBlink{0%{opacity:0;transform:scale(.5)}40%{opacity:1;transform:scale(1.45)}100%{opacity:0;transform:scale(.8)}}
+@keyframes lmDeckLite{0%{opacity:0}20%{opacity:1}60%{opacity:.35}80%{opacity:1}100%{opacity:0}}
+@keyframes lmDrop{
+  0%{opacity:0;transform:translateY(-3px)}
+  18%{opacity:1;transform:translateY(0)}
+  55%{opacity:1;transform:translateY(23px)}
+  70%{opacity:1;transform:translateY(13px)}
+  84%{opacity:1;transform:translateY(23px)}
+  100%{opacity:0;transform:translateY(26px)}
+}
+@keyframes lmSun{0%{opacity:0;transform:scale(.6)}30%{opacity:1;transform:scale(1.1)}100%{opacity:.85;transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){
+  .lm.is-pop .lm-art{animation:none !important}
+  .lm.is-pop .lm__box{animation:lmPopSoft .45s ease both !important}
+  .lm.is-pop .v11-fx{animation:none !important; opacity:0 !important}
+  @keyframes lmPopSoft{0%{transform:scale(1)}45%{transform:scale(1.08)}100%{transform:scale(1)}}
+}
 .v7days{display:grid; grid-template-columns:repeat(7,1fr); gap:7px; margin-top:6px; text-align:center; font-size:9.5px; font-weight:900; color:#B0AAC1}
 .v7days span.today{color:var(--v7v)}
 .v7legend{display:flex; gap:8px; flex-wrap:wrap; margin-top:9px; font-size:9px; font-weight:800; color:#8C86A2}
@@ -2592,8 +2729,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         <span class="v7chart__t">이번 주 학습 정보</span>
         <span class="v7chart__s">이번 주 <b id="v7WeekTotal">0</b>문제</span>
       </div>
-      <div class="v7bars" id="v7Bars"></div>
-      <div class="v7days" id="v7DayLbl"></div>
+      <div class="v7bars" id="v7Bars" role="group" aria-label="요일별 미국 상징물 완성도"></div>
       <div class="v7legend">
         <span><i style="background:#7C5CE6"></i>빈칸</span>
         <span><i style="background:#FF9B4A"></i>리스닝</span>
@@ -2603,6 +2739,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         <span><i style="background:#EDB544"></i>5초말하기</span>
         <span><i style="background:#EC7A63"></i>슬랭</span>
       </div>
+      <div class="v11hint" id="v11Hint">완성한 날을 누르면 축하 액션이 다시 나와요 ✨</div>
     </div>
   </section>
 
@@ -8742,43 +8879,252 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         (isT ? '<span><i>' + PICO('star') + '</i></span>' : '<i>' + PICO('star') + '</i>') + '</div>';
     }).join('');
   }
-  function v7PaintChart() {
-    var bars = document.getElementById('v7Bars');
-    if (!bars) return;
-    var days = v7WeekDays(), today = dkey(new Date()), data = days.map(function (d) { return v7DaySegs(store.dates[dkey(d)]); });
-    var max = 0, total = 0;
-    data.forEach(function (s) { var t = s[0] + s[1] + s[2] + s[3] + s[4] + s[5] + s[6]; total += t; if (t > max) max = t; });
-    var H = 88;
-    if (!total) {
-      bars.style.height = 'auto';
-      bars.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-size:10.5px;font-weight:800;color:#A8A2B6;padding:24px 0;line-height:1.6">아직 이번 주 기록이 없어요<br>미션을 하나 하면 여기에 색으로 쌓여요</p>';
-      var dl0 = document.getElementById('v7DayLbl');
-      if (dl0) dl0.innerHTML = days.map(function (d, i) {
-        return '<span class="' + (dkey(d) === today ? 'today' : '') + '">' + ['월', '화', '수', '목', '금', '토', '일'][i] + '</span>';
-      }).join('');
-      var wt0 = document.getElementById('v7WeekTotal');
-      if (wt0) wt0.textContent = 0;
-      return;
+  var V11_LM = [
+    { day:'월', name:'자유의 여신상', tag:'뉴욕', a:'#2FB295', ag:'rgba(47,178,149,.34)',
+      parts: '<rect x="9.4" y="53.6" width="21.2" height="10.4" rx="1.3"/>' +
+        '<path d="M15.9,26.4 L24.1,26.4 C25.4,35 26.2,44 28.6,53.6 L11.4,53.6 C13.8,44 14.6,35 15.9,26.4 Z"/>' +
+        '<rect x="16.2" y="21.8" width="7.6" height="5.2" rx="1.4"/>' +
+        '<circle cx="20" cy="17.8" r="3.7"/>' +
+        '<path d="M16.4,16.2 L14.2,11 L17.9,14.4 L18.5,8.8 L20.1,13.8 L22.2,9 L22.9,14.6 L25.8,11.6 L24.3,17.4 Z"/>' +
+        '<path d="M22.9,26.8 L25.9,26 L31.4,7.4 L28.4,6.6 Z"/>' +
+        '<rect x="28" y="4.4" width="3.4" height="3.6" rx=".8"/>' +
+        '<path d="M29.7,0.2 C32.4,2.6 32.6,4.8 29.7,7.2 C26.8,4.8 27,2.6 29.7,0.2 Z"/>' +
+        '<path d="M16,26.6 C14.2,30.4 12.8,34.4 12.2,38.2 L14.2,38.6 C15,34.6 16.2,30.8 17.8,27.2 Z"/>' +
+        '<rect x="10.2" y="25.8" width="4.2" height="8.6" rx="1" transform="rotate(-7 12.3 30.1)"/>',
+      fx: '<path class="fx-spark" d="M29.7,-2.8 L30.8,0.9 L34.5,2 L30.8,3.1 L29.7,6.8 L28.6,3.1 L24.9,2 L28.6,0.9 Z" fill="#FFD57A"/>' +
+        '<circle class="fx-spark2" cx="35" cy="6" r="1.05" fill="#FFE6A6"/>' +
+        '<circle class="fx-spark3" cx="24.4" cy="-0.6" r=".85" fill="#FFE6A6"/>' },
+    { day:'화', name:'스페이스 니들', tag:'시애틀', a:'#E0A32B', ag:'rgba(224,163,43,.34)',
+      parts: '<path d="M7.6,64 L17.6,38.6 L20,38.6 L11.4,64 Z"/>' +
+        '<path d="M32.4,64 L22.4,38.6 L20,38.6 L28.6,64 Z"/>' +
+        '<rect x="18.1" y="13.6" width="3.8" height="26"/>' +
+        '<path d="M11.2,14.2 L28.8,14.2 L23.2,21.4 L16.8,21.4 Z"/>' +
+        '<ellipse cx="20" cy="13.8" rx="12.6" ry="4.2"/>' +
+        '<rect x="19.1" y="4.2" width="1.8" height="7.8"/>' +
+        '<rect x="19.6" y="0.6" width=".9" height="4"/>',
+      fx: '<g class="fx-neon" fill="#FFD75E">' +
+        '<circle cx="20" cy="9.6" r="1.1"/><circle cx="26.6" cy="11" r="1.1"/><circle cx="29.9" cy="13.8" r="1.1"/>' +
+        '<circle cx="26.6" cy="16.6" r="1.1"/><circle cx="13.4" cy="16.6" r="1.1"/><circle cx="10.1" cy="13.8" r="1.1"/>' +
+        '<circle cx="13.4" cy="11" r="1.1"/>' +
+        '</g>' +
+        '<ellipse class="fx-deck" cx="20" cy="13.8" rx="12.6" ry="4.2" fill="none" stroke="#FFE79B" stroke-width="1.4"/>' },
+    { day:'수', name:'NASA 로켓', tag:'플로리다', a:'#E2664F', ag:'rgba(226,102,79,.34)',
+      parts: '<path d="M20,1.6 C23.2,7.2 24.4,11.8 24.5,16.2 L15.5,16.2 C15.6,11.8 16.8,7.2 20,1.6 Z"/>' +
+        '<rect x="15.5" y="15.8" width="9" height="34.4" rx=".6"/>' +
+        '<path d="M15.5,37.4 L8,57.4 L15.5,57.4 Z"/>' +
+        '<path d="M24.5,37.4 L32,57.4 L24.5,57.4 Z"/>' +
+        '<path d="M16.6,49.4 L23.4,49.4 L24.8,57.4 L15.2,57.4 Z"/>' +
+        '<path d="M15.2,57.4 L24.8,57.4 L25.8,64 L14.2,64 Z"/>',
+      fx: '<path class="fx-flame" d="M20,53 C24.6,57.4 24.2,61 20,65.6 C15.8,61 15.4,57.4 20,53 Z" fill="#FF9A3D"/>' +
+        '<path class="fx-flame2" d="M20,56.4 C22.4,58.8 22.2,61 20,63.4 C17.8,61 17.6,58.8 20,56.4 Z" fill="#FFE083"/>' +
+        '<circle class="fx-smoke" cx="14.2" cy="62" r="1.7" fill="#D9D3EA"/>' +
+        '<circle class="fx-smoke2" cx="25.8" cy="62" r="1.7" fill="#D9D3EA"/>' },
+    { day:'목', name:'국회의사당 돔', tag:'워싱턴 D.C.', a:'#C9A227', ag:'rgba(201,162,39,.34)',
+      parts: '<circle cx="20" cy="2.6" r="1.3"/>' +
+        '<rect x="19.3" y="3.4" width="1.4" height="4.6"/>' +
+        '<rect x="17.1" y="7.6" width="5.8" height="3.8" rx=".6"/>' +
+        '<path d="M11.3,20 A8.7,8.7 0 0 1 28.7,20 Z"/>' +
+        '<rect x="12.8" y="19.8" width="14.4" height="6.2"/>' +
+        '<rect x="5.4" y="25.6" width="29.2" height="10.4"/>' +
+        '<rect x="2.2" y="35.4" width="35.6" height="8.6"/>' +
+        '<rect x="0" y="43.4" width="40" height="20.6"/>',
+      fx: '<ellipse class="fx-glow" cx="20" cy="15" rx="12.5" ry="7.5" fill="#FFDE83"/>' +
+        '<g class="fx-burst" fill="#FFC94D">' +
+        '<path d="M3.6,6.4 L4.8,9.8 L8.2,11 L4.8,12.2 L3.6,15.6 L2.4,12.2 L-1,11 L2.4,9.8 Z"/>' +
+        '<path d="M36.4,6.4 L37.6,9.8 L41,11 L37.6,12.2 L36.4,15.6 L35.2,12.2 L31.8,11 L35.2,9.8 Z"/>' +
+        '</g>' },
+    { day:'금', name:'사와로 선인장', tag:'애리조나', a:'#3E9E63', ag:'rgba(62,158,99,.34)',
+      parts: '<rect x="16.4" y="9.6" width="7.2" height="54.4" rx="3.6"/>' +
+        '<g class="lm-arm lm-arm-l">' +
+        '<path d="M17.6,38.6 L9.4,38.6 A3.6,3.6 0 0 1 5.8,35 L5.8,22.6 A3.4,3.4 0 0 1 12.6,22.6 L12.6,31.6 L17.6,31.6 Z"/>' +
+        '</g>' +
+        '<g class="lm-arm lm-arm-r">' +
+        '<path d="M22.4,30.6 L30.8,30.6 A3.6,3.6 0 0 0 34.4,27 L34.4,15.8 A3.4,3.4 0 0 0 27.6,15.8 L27.6,23.6 L22.4,23.6 Z"/>' +
+        '</g>',
+      fx: '<circle class="fx-cspark" cx="20" cy="6.4" r="1.2" fill="#FFE08A"/>' +
+        '<circle class="fx-cspark2" cx="8.6" cy="18" r="1" fill="#FFE08A"/>' +
+        '<circle class="fx-cspark3" cx="31.6" cy="11.4" r="1" fill="#FFE08A"/>' },
+    { day:'토', name:'금문교 주탑', tag:'샌프란시스코', a:'#D2603C', ag:'rgba(210,96,60,.34)',
+      parts: '<path d="M0,26.4 C8.2,14.2 13.8,10.4 17,9.2 L17,12.6 C14.2,13.6 9.2,17.2 2.6,28.4 Z"/>' +
+        '<path d="M40,26.4 C31.8,14.2 26.2,10.4 23,9.2 L23,12.6 C25.8,13.6 30.8,17.2 37.4,28.4 Z"/>' +
+        '<rect x="11.8" y="1.8" width="7.2" height="3.6" rx=".8"/>' +
+        '<rect x="21" y="1.8" width="7.2" height="3.6" rx=".8"/>' +
+        '<rect x="12.6" y="3" width="14.8" height="2.6"/>' +
+        '<path d="M12.8,5.4 L17.2,5.4 L17.2,64 L12.8,64 Z"/>' +
+        '<path d="M22.8,5.4 L27.2,5.4 L27.2,64 L22.8,64 Z"/>' +
+        '<rect x="12.8" y="21" width="14.4" height="3.4"/>' +
+        '<rect x="12.8" y="38.6" width="14.4" height="3.4"/>' +
+        '<rect x="0" y="29.4" width="40" height="2.4"/>',
+      fx: '<g class="fx-light" fill="#FFE9A8">' +
+        '<circle cx="2.4" cy="26.6" r="1.15"/><circle cx="6.6" cy="21" r="1.15"/><circle cx="10.8" cy="16.2" r="1.15"/>' +
+        '<circle cx="14.6" cy="12.4" r="1.15"/><circle cx="25.4" cy="12.4" r="1.15"/><circle cx="29.2" cy="16.2" r="1.15"/>' +
+        '<circle cx="33.4" cy="21" r="1.15"/><circle cx="37.6" cy="26.6" r="1.15"/>' +
+        '</g>' +
+        '<rect class="fx-decklite" x="0" y="29.4" width="40" height="2.4" fill="#FFD9A0"/>' },
+    { day:'일', name:'하와이 야자수', tag:'하와이', a:'#2FA6A0', ag:'rgba(47,166,160,.34)',
+      parts: '<path d="M23.2,64 C22.2,50 21.4,40.6 19.8,30.6 L16.6,31.4 C18.2,41 19,50.4 19.6,64 Z"/>' +
+        '<path d="M18.2,31.4 C12.4,29 6,30.2 0.6,34.6 C6.2,33 12,32.2 17.8,32.6 Z"/>' +
+        '<path d="M17.8,30.2 C12,24.6 6,21 0.4,20.4 C5.4,24 11.4,27.6 17,31.2 Z"/>' +
+        '<path d="M18.6,30 C17.4,23.2 17.9,15.8 20,8.8 C20.3,16 20.3,23.2 20,30.6 Z"/>' +
+        '<path d="M19.8,30.4 C25.4,26.4 31.4,23.6 36.6,24.2 C31.4,26.6 25.8,28.8 20.4,31.6 Z"/>' +
+        '<path d="M20,31.4 C25.8,31.4 31.8,33.8 36.6,38.6 C31,36.4 25.4,34 20,32.6 Z"/>' +
+        '<circle cx="16.6" cy="32.6" r="1.5"/>' +
+        '<circle cx="19.6" cy="34.2" r="1.5"/>' +
+        '<circle cx="21" cy="31.6" r="1.3"/>',
+      fx: '<g class="fx-coco" fill="#8C5A32">' +
+        '<circle cx="17.2" cy="33.4" r="2"/><circle cx="20.4" cy="34.4" r="2"/><circle cx="22.4" cy="32.2" r="1.8"/>' +
+        '</g>' +
+        '<circle class="fx-sun" cx="33.6" cy="8" r="3.8" fill="#FFD97A"/>' }
+  ];
+
+  /* 요일별 미션 진행도 (미션1~7, 0~1) — 그날 기록이 없으면 전부 0 */
+  function v11DayProg(rec) {
+    var out = [0, 0, 0, 0, 0, 0, 0], any = false;
+    if (!rec) return out;
+    if (rec.ms && typeof rec.ms === 'object') {
+      Object.keys(rec.ms).forEach(function (k) {
+        var n = Number(k);
+        if (!(n >= 1 && n <= 7)) return;
+        var r = rec.ms[k] || {}, tot = V7_M[n - 1].total || 1;
+        var v = r.done ? 1 : Math.max(0, Math.min(1, (Number(r.solved) || 0) / tot));
+        out[n - 1] = v;
+        if (v > 0) any = true;
+      });
     }
-    bars.style.height = '104px';
-    bars.innerHTML = days.map(function (d, i) {
-      var s = data[i], tot = s[0] + s[1] + s[2] + s[3] + s[4] + s[5] + s[6];
-      var h = max ? Math.max(tot ? 7 : 0, Math.round(tot / max * H)) : 0;
-      var inner = '';
-      for (var k = 0; k < V7_M.length; k++) {
-        if (!s[k]) continue;
-        var sh = tot ? Math.max(2, Math.round(s[k] / tot * h)) : 0;
-        inner += '<i style="height:' + sh + 'px;background:' + V7_M[k].c + '"></i>';
+    if (!any) {
+      var seg = v7DaySegs(rec);
+      for (var i = 0; i < 7; i++) {
+        if (seg[i]) { out[i] = Math.max(0, Math.min(1, seg[i] / (V7_M[i].total || 1))); any = true; }
       }
-      return '<div class="v7bar' + (dkey(d) === today ? ' today' : '') + '">' + inner + '</div>';
-    }).join('');
-    var dl = document.getElementById('v7DayLbl');
-    if (dl) dl.innerHTML = days.map(function (d, i) {
-      return '<span class="' + (dkey(d) === today ? 'today' : '') + '">' + ['월', '화', '수', '목', '금', '토', '일'][i] + '</span>';
-    }).join('');
+    }
+    return out;
+  }
+  /* 미션 색을 아래(1번)에서 위(7번)로 차곡차곡 쌓은 세로 그라디언트 */
+  function v11Stops(prog) {
+    var out = '', acc = 0, k, band;
+    for (k = 0; k < 7; k++) {
+      band = prog[k] / 7 * 100;
+      if (band <= 0.01) continue;
+      out += '<stop offset="' + acc.toFixed(2) + '%" stop-color="' + V7_M[k].c + '"/>' +
+             '<stop offset="' + (acc + band).toFixed(2) + '%" stop-color="' + V7_M[k].c + '"/>';
+      acc += band;
+    }
+    return out;
+  }
+  function v11CardHtml(i, lm) {
+    var uid = 'v11c' + i;
+    return '<button class="lm" type="button" data-d="' + i + '" style="--a:' + lm.a + ';--ag:' + lm.ag + '">' +
+      '<span class="lm__box"><svg class="lm__svg" viewBox="0 0 40 64" aria-hidden="true" focusable="false">' +
+        '<defs>' +
+          '<linearGradient id="' + uid + 'g" gradientUnits="userSpaceOnUse" x1="0" y1="64" x2="0" y2="0">' +
+            '<stop offset="0" stop-color="' + lm.a + '"/></linearGradient>' +
+          '<mask id="' + uid + 'm" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="64">' +
+            '<rect class="v11-liq" x="0" y="0" width="40" height="64" fill="#fff" style="transform:translateY(64px)"/>' +
+          '</mask>' +
+        '</defs>' +
+        '<g class="lm-art">' +
+          '<g class="v11-ghost">' + lm.parts + '</g>' +
+          '<g class="v11-fill" mask="url(#' + uid + 'm)" fill="url(#' + uid + 'g)">' + lm.parts + '</g>' +
+          '<g class="v11-fx">' + lm.fx + '</g>' +
+        '</g>' +
+      '</svg><i class="lm__ck">✓</i></span>' +
+      '<span class="lm__lb">' + lm.day + '</span></button>';
+  }
+  var V11_SEEN = null, V11_TIMER = {};
+  function v11Build() {
+    var box = document.getElementById('v7Bars');
+    if (!box) return null;
+    if (box.getAttribute('data-v11')) return box;
+    box.innerHTML = V11_LM.map(function (lm, i) { return v11CardHtml(i, lm); }).join('');
+    box.setAttribute('data-v11', '1');
+    box.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('.lm') : null;
+      if (!el || !box.contains(el)) return;
+      var i = Number(el.getAttribute('data-d')), lm = V11_LM[i];
+      if (el.classList.contains('is-done')) {
+        v11Celebrate(i, true);
+      } else {
+        var got = 0, prog = v11DayProg(store.dates[dkey(v7WeekDays()[i])]);
+        for (var k = 0; k < 7; k++) if (prog[k] >= 0.999) got++;
+        toast(lm.day + '요일 미션 ' + got + '/7 — 7개를 다 채우면 ' + lm.name + '이 완성돼요!', true);
+      }
+    });
+    return box;
+  }
+  function v11Celebrate(i, manual) {
+    var box = document.getElementById('v7Bars');
+    if (!box || !box.children[i]) return;
+    var card = box.children[i];
+    if (!card.classList.contains('is-done')) return;
+    card.classList.remove('is-pop');
+    void card.offsetWidth;
+    card.classList.add('is-pop');
+    clearTimeout(V11_TIMER[i]);
+    V11_TIMER[i] = setTimeout(function () { card.classList.remove('is-pop'); }, 1750);
+    try { manual ? Snd.pop() : Snd.success(); } catch (e) {}
+    try { if (!manual && navigator.vibrate) navigator.vibrate([14, 46, 20]); } catch (e) {}
+  }
+  function v11Paint() {
+    var box = v11Build();
+    if (!box) return;
+    var days = v7WeekDays(), today = dkey(new Date()), total = 0, nowDone = [];
+    days.forEach(function (d, i) {
+      var rec = store.dates[dkey(d)], prog = v11DayProg(rec), sum = 0, k;
+      for (k = 0; k < 7; k++) sum += prog[k];
+      var frac = sum / 7, done = frac >= 0.999, card = box.children[i];
+      total += v7SegTotal(rec);
+      nowDone.push(done);
+      if (!card) return;
+      var grad = document.getElementById('v11c' + i + 'g');
+      if (grad) grad.innerHTML = v11Stops(prog);
+      var liq = document.querySelector('#v11c' + i + 'm .v11-liq');
+      if (liq) liq.style.transform = 'translateY(' + (64 * (1 - frac)).toFixed(2) + 'px)';
+      card.classList.toggle('is-done', done);
+      card.classList.toggle('today', dkey(d) === today);
+      card.setAttribute('aria-label', V11_LM[i].day + '요일 ' + V11_LM[i].name + ' ' +
+        (done ? '완성! 눌러서 축하 액션 다시 보기' : Math.round(frac * 7) + '/7 진행'));
+    });
+    var hint = document.getElementById('v11Hint');
+    if (hint) hint.classList.toggle('on', nowDone.indexOf(true) >= 0);
+    if (V11_SEEN) {
+      nowDone.forEach(function (on, i) {
+        if (on && !V11_SEEN[i]) setTimeout(function () { v11Celebrate(i, false); }, 220);
+      });
+    }
+    V11_SEEN = nowDone;
     var wt = document.getElementById('v7WeekTotal');
     if (wt) wt.textContent = total;
   }
+  window.__v11 = {
+    paint: v11Paint,
+    play: function (i) { v11Celebrate(Number(i) || 0, true); },
+    done: function () {
+      var out = [];
+      v7WeekDays().forEach(function (d) {
+        var p = v11DayProg(store.dates[dkey(d)]), s = 0;
+        for (var k = 0; k < 7; k++) s += p[k];
+        out.push(+(s / 7).toFixed(3));
+      });
+      return out;
+    },
+    /* 테스트/미리보기: {요일index: 미션수} 또는 {요일index: [미션별 진행도]} */
+    seed: function (spec, opts) {
+      var days = v7WeekDays();
+      Object.keys(spec || {}).forEach(function (k) {
+        var i = Number(k), d = days[i], v = spec[k], rec = store.dates[dkey(d)] || (store.dates[dkey(d)] = {});
+        rec.ms = {};
+        for (var n = 1; n <= 7; n++) {
+          var val = Array.isArray(v) ? (v[n - 1] || 0) : (n <= Number(v) ? 1 : 0);
+          if (!val) continue;
+          rec.ms[n] = { solved: Math.round(V7_M[n - 1].total * val), done: val >= 0.999 ? 1 : 0 };
+        }
+      });
+      save();
+      if (!(opts && opts.keepSeen)) V11_SEEN = null;
+      v11Paint();
+    }
+  };
+  function v7PaintChart() { v11Paint(); }
   function v7HomePaint() {
     if (!V7_M || !document.getElementById('tab-home')) return;
     var e = document.getElementById('v7StreakN');
