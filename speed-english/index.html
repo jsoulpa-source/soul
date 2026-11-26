@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v4-2026-11-26">
+<meta name="app-build" content="lightup-english-v5-2026-11-26-rhythm15">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1060,6 +1060,223 @@ body.is-mapopen{overflow:hidden}
 }
 .toast.show{opacity:1; transform:translate(-50%,0)}
 .toast.long{white-space:normal; text-align:center; line-height:1.55; border-radius:16px; padding:11px 15px; max-width:90vw}
+/* ============ ⚡ 오늘의 15분 데일리 코스 (홈 카드) ============ */
+.dcard{
+  width:100%; margin-top:13px; padding:14px 14px 12px; border-radius:22px; text-align:left;
+  background:linear-gradient(152deg,#FFFFFF 0%,#FBF6FF 58%,#FFF2F8 100%);
+  border:1px solid #EFE4FB; box-shadow:0 12px 28px rgba(74,52,140,.09);
+  position:relative; overflow:hidden; transition:transform .12s, box-shadow .2s;
+}
+.dcard:active{transform:scale(.985); box-shadow:0 6px 16px rgba(74,52,140,.1)}
+.dcard::after{
+  content:""; position:absolute; width:132px; height:132px; right:-46px; top:-58px; border-radius:50%;
+  background:radial-gradient(circle,#FFDFEE 0%,rgba(255,223,238,0) 70%); pointer-events:none;
+}
+.dcard__top{display:flex; align-items:center; justify-content:space-between; gap:8px; position:relative; z-index:1}
+.dcard__k{font-size:12.5px; font-weight:900; color:var(--ink); letter-spacing:-.035em}
+.dcard__t{flex:none; font-size:9px; font-weight:900; color:#8A63E8; background:var(--soft); padding:3px 8px; border-radius:999px; white-space:nowrap}
+.dcard__sub{font-size:9.5px; font-weight:700; color:var(--ink2); margin-top:3px; position:relative; z-index:1}
+.dcard__bar{position:relative; z-index:1; height:7px; border-radius:999px; background:#F0E9FB; overflow:hidden; margin-top:9px}
+.dcard__bar i{display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,#C9A6FF,#8B6CF0 58%,#FF7A9C); transition:width .45s}
+.dcard__meta{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:6px; position:relative; z-index:1}
+.dcard__prog{font-size:9.5px; font-weight:900; color:var(--violet-d)}
+.dcard__go{flex:none; font-size:9.5px; font-weight:900; color:#fff; background:linear-gradient(152deg,#A183F7,#7A57DD); padding:5px 11px; border-radius:999px; box-shadow:0 6px 14px rgba(122,87,221,.26)}
+.dcard__steps{display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-top:9px; position:relative; z-index:1}
+.dcs{
+  padding:6px 3px 5px; border-radius:12px; background:#fff; border:1px solid var(--line);
+  text-align:center; transition:background .16s, border-color .16s, transform .12s; font:inherit;
+}
+.dcs em{display:block; font-style:normal; font-size:14px; line-height:1.15}
+.dcs b{display:block; font-size:8px; font-weight:900; color:var(--ink2); margin-top:2px; letter-spacing:-.04em}
+.dcs.is-done{background:linear-gradient(152deg,#E9FBF4,#DCF6ED); border-color:#BFEEDD}
+.dcs.is-done b{color:#1B8068}
+.dcs.is-now{background:linear-gradient(152deg,#F6EFFF,#FFF0F7); border-color:#E3D2FB; box-shadow:0 5px 12px rgba(122,87,221,.13)}
+.dcs.is-now b{color:var(--violet-d)}
+.dcs:active{transform:scale(.94)}
+
+/* ============ 코스 러너 ============ */
+.crs{padding:14px 2px 4px}
+.crs__top{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.crs__back{font-size:11px; font-weight:900; color:var(--ink2); background:#fff; border:1px solid var(--line); padding:7px 12px; border-radius:999px}
+.crs__back:active{transform:scale(.95)}
+.crs__ttl{font-size:11.5px; font-weight:900; color:var(--ink); letter-spacing:-.03em}
+.crs__prog{flex:none; font-size:10px; font-weight:900; color:var(--violet-d); background:var(--soft); padding:5px 10px; border-radius:999px}
+.crs__steps{display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-top:10px}
+.crs__body{margin-top:12px}
+.cshead{display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin:2px 2px 7px}
+.cshead h2{font-size:14px; font-weight:900; letter-spacing:-.035em}
+.cshead span{flex:none; font-size:10px; font-weight:900; color:var(--muted); white-space:nowrap}
+.csbar{height:6px; border-radius:999px; background:#F0E9FB; overflow:hidden; margin:0 2px 11px}
+.csbar i{display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,#C9A6FF,#8B6CF0); transition:width .3s}
+.card2{background:#fff; border-radius:22px; padding:15px; border:1px solid #F1ECFB; box-shadow:0 14px 32px rgba(74,52,140,.09)}
+.csrow{display:flex; align-items:center; gap:6px; flex-wrap:wrap}
+.csrow__s{font-size:9.5px; font-weight:800; color:var(--muted)}
+
+/* ---- 1단계 빈칸 말하기 ---- */
+.c1sent{font-size:19px; font-weight:900; line-height:1.62; letter-spacing:-.025em; word-break:keep-all; margin-top:10px}
+.c1blank{
+  display:inline-block; min-width:70px; text-align:center; color:var(--violet-d);
+  background:var(--soft); border-bottom:2px solid #C9B3F5; border-radius:7px; padding:0 6px;
+  transition:background .2s, color .2s;
+}
+.c1blank.is-full{background:#E9FBF4; border-bottom-color:#7BE0C8; color:#1B8068}
+.c1ko{font-size:12px; font-weight:800; color:var(--ink2); margin-top:8px; line-height:1.6; word-break:keep-all}
+.c1ko b{color:#C93A6D; font-weight:900; background:#FFF0F5; padding:0 3px; border-radius:5px}
+.c1row{display:flex; gap:7px; margin-top:13px}
+.c1btn{
+  flex:1; padding:10px 6px; border-radius:13px; background:#fff; border:1.5px solid #E8DFF9;
+  font-size:11.5px; font-weight:900; color:var(--violet-d); transition:transform .12s, background .15s;
+}
+.c1btn:active{transform:scale(.97)}
+.c1btn:disabled{opacity:.45}
+.c1btn.is-max{border-color:#C9B3F5; background:#F7F1FF}
+.c1hint{margin-top:9px; font-size:15px; font-weight:900; color:var(--violet-d); line-height:1.5; min-height:0}
+.c1hint b{display:inline-block; min-width:15px; text-align:center; font-weight:900; color:var(--violet-d); margin-right:3px}
+.c1hint i{display:inline-block; min-width:15px; text-align:center; font-style:normal; color:#CFC1E7; margin-right:3px}
+.c1hint .sp{display:inline-block; width:7px}
+.c1mic{
+  width:100%; margin-top:11px; padding:12px; border-radius:15px; color:#fff; font-size:12.5px; font-weight:900;
+  background:linear-gradient(152deg,#8B6CF0,#6B4BD6); box-shadow:0 8px 20px rgba(107,75,214,.26);
+  transition:transform .12s, box-shadow .2s;
+}
+.c1mic:active{transform:scale(.98)}
+.c1mic.is-live{background:linear-gradient(152deg,#FF6E9C,#D93A72); animation:micPulse 1.15s ease-in-out infinite}
+@keyframes micPulse{50%{box-shadow:0 0 0 9px rgba(224,69,123,.13)}}
+.c1heard{font-size:11px; font-weight:800; color:#B0568A; margin-top:7px; line-height:1.5; min-height:0}
+.c1type{display:flex; gap:7px; margin-top:9px}
+.c1type input{
+  flex:1; min-width:0; padding:11px 12px; border-radius:14px; border:1.5px solid #E8DFF9; background:#FBFAFF;
+  font-size:13px; font-weight:800; font-family:inherit; color:var(--ink); outline:none;
+  -webkit-appearance:none; appearance:none;
+}
+.c1type input::placeholder{font-weight:800; color:#AEA2C8}
+.c1type input:focus{border-color:#B79CF5; background:#fff}
+.c1type button{flex:none; padding:0 15px; border-radius:14px; background:#F2ECFF; color:var(--violet-d); font-size:12px; font-weight:900}
+.c1type button:active{transform:scale(.96)}
+.c1fb{margin-top:11px; font-size:11.5px; font-weight:800; line-height:1.62; border-radius:14px; padding:10px 12px; word-break:keep-all}
+.c1fb.ok{background:#E9FBF4; color:#166F59}
+.c1fb.no{background:#FFF1F5; color:#B93A66}
+.c1fb b{font-weight:900}
+.c1fb .c2mini{display:block; margin-top:4px; font-size:10px; font-weight:800; color:#5E4F86; opacity:.9}
+
+/* ---- 2단계 3회 리스닝 ---- */
+.c2play{
+  width:100%; margin-top:11px; padding:16px; border-radius:18px; color:#fff; font-size:14px; font-weight:900;
+  background:linear-gradient(152deg,#7BC7F0,#4B7BE0 60%,#3F5FD0); box-shadow:0 10px 24px rgba(63,95,208,.28);
+  transition:transform .12s;
+}
+.c2play:active{transform:scale(.98)}
+.c2play:disabled{opacity:.5; box-shadow:none}
+.c2row{display:flex; align-items:center; gap:7px; margin-top:10px; flex-wrap:wrap}
+.c2life{font-size:10.5px; font-weight:900; color:#B93A66; background:#FFF0F4; padding:5px 10px; border-radius:999px}
+.c2life.is-out{color:#8A7FA6; background:#F3F0F9}
+.c2sent{font-size:17.5px; font-weight:900; line-height:1.85; letter-spacing:-.02em; word-break:keep-all; margin-top:8px; min-height:34px}
+.c2w{display:inline-block; padding:1px 4px; margin-right:2px; border-radius:6px; transition:all .2s}
+.c2w.on{background:#E9FBF4; color:#12735B}
+.c2w.off{background:#F4F0FA; color:#B6A9D2; font-size:15px}
+.c2hint2{margin-top:8px; font-size:10px; font-weight:800; color:var(--muted)}
+
+/* ---- 3단계 리듬 문법 ---- */
+.rg__bar{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:9px}
+.rg__sent{flex:1; min-height:20px; font-size:13px; font-weight:900; color:var(--ink); letter-spacing:-.02em; word-break:keep-all; line-height:1.7}
+.rg__sent .w{display:inline-block; padding:1px 5px; margin-right:3px; border-radius:6px; background:#F3EEFF; color:#6B54C4}
+.rg__sent .w.st{background:#FFE4E8; color:#B3243F; box-shadow:0 0 0 1px #FFC2CB inset}
+.rg__sent .w.miss{background:#F5F3F8; color:#AA9EC2; text-decoration:line-through}
+.rg__sent .w.pend{background:#F1EBFA; color:#C9BBE6; padding:3px 9px; letter-spacing:.06em}
+.rg__sent .rg__ph2{display:block; margin-top:2px; font-size:11px; font-weight:800; color:var(--ink2)}
+.rg__combo{flex:none; font-size:9.5px; font-weight:900; color:#8A63E8; background:var(--soft); padding:4px 9px; border-radius:999px; font-variant-numeric:tabular-nums}
+.rg__combo.hot{background:#FFE4E8; color:#C02A44}
+.rg__speeds{display:flex; gap:2px; margin-bottom:9px}
+.rg__speeds .seg__b{flex:1; padding:7px 4px; font-size:10.5px}
+.rg__stage{
+  position:relative; height:258px; border-radius:20px; overflow:hidden;
+  background:linear-gradient(180deg,#1F1739 0%,#2A1F4D 60%,#372A62 100%);
+  border:1px solid #2E2354; box-shadow:inset 0 0 70px rgba(139,108,240,.2), 0 12px 26px rgba(31,23,57,.22);
+  touch-action:manipulation;
+}
+.rg__lanes{position:absolute; left:0; right:0; top:0; bottom:52px; display:grid; grid-template-columns:repeat(3,1fr)}
+.rg__lane{position:relative; border-right:1px solid rgba(255,255,255,.055); transition:background .12s}
+.rg__lane:last-child{border-right:0}
+.rg__lane.is-hit{background:rgba(255,255,255,.06)}
+.note{
+  position:absolute; left:8%; right:8%; height:34px; display:grid; place-items:center;
+  border-radius:13px; font-weight:900; text-align:center; line-height:1.1; padding:2px 3px;
+  transform:translateY(-50%); will-change:top; pointer-events:none;
+  font-size:11px; letter-spacing:-.03em; word-break:keep-all;
+}
+.note span{position:relative; z-index:1}
+.note.un{background:linear-gradient(158deg,#EDE8FF,#CFC3F2); color:#3B2E63; border:1px solid #DED3F8; opacity:.95}
+.note.st{
+  left:3%; right:3%; height:44px; font-size:12.5px;
+  background:linear-gradient(158deg,#FF6B6B 0%,#EF4444 52%,#D0263A 100%); color:#fff;
+  border:1px solid #FFB8BC; box-shadow:0 0 20px rgba(239,68,68,.55),0 6px 16px rgba(196,34,58,.38);
+}
+.note.st span{text-shadow:0 1px 3px rgba(120,10,30,.35)}
+.note .nst{position:absolute; right:4px; top:1px; font-style:normal; font-size:8px; opacity:.92}
+.note.is-near{filter:brightness(1.18)}
+.note.is-dead{opacity:.25; filter:grayscale(.6)}
+.rg__line{position:absolute; left:0; right:0; bottom:52px; height:2px; background:linear-gradient(90deg,rgba(255,233,168,0),#FFE9A8 22%,#FF7A9C 50%,#FFE9A8 78%,rgba(255,233,168,0)); box-shadow:0 0 16px rgba(255,122,156,.6); pointer-events:none}
+.rg__keys{position:absolute; left:0; right:0; bottom:0; height:52px; display:grid; grid-template-columns:repeat(3,1fr)}
+.rg__key{display:grid; place-items:center; font-size:10px; font-weight:900; color:#CBBCEA; border-top:1px solid rgba(255,255,255,.09); border-right:1px solid rgba(255,255,255,.05); transition:background .1s, color .1s; user-select:none}
+.rg__key:last-child{border-right:0}
+.rg__key.is-hit{background:rgba(139,108,240,.26); color:#fff}
+.rg__fb{
+  position:absolute; left:0; right:0; bottom:104px; text-align:center; font-size:17px; font-weight:900;
+  color:#FFE9A8; text-shadow:0 2px 14px rgba(0,0,0,.5); opacity:0; transform:translateY(7px);
+  transition:opacity .18s, transform .18s; pointer-events:none; z-index:6; letter-spacing:-.02em;
+}
+.rg__fb.show{opacity:1; transform:none}
+.rg__fb.good{color:#8BF0D2}
+.rg__fb.miss{color:#FF9BAE}
+.rg__prev{
+  position:absolute; inset:0; z-index:7; display:grid; place-content:center; justify-items:center; gap:7px;
+  padding:0 18px; text-align:center; background:rgba(20,14,38,.86); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+}
+.rg__pko{font-size:17px; font-weight:900; color:#FFE7AC; letter-spacing:-.03em; line-height:1.45; word-break:keep-all}
+.rg__ph{font-size:9.5px; font-weight:800; color:#C6B7E6}
+.rg__pbar{width:118px; height:5px; border-radius:999px; background:rgba(255,255,255,.16); overflow:hidden; margin-top:2px}
+.rg__pbar i{display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,#FFD98A,#FF7A9C)}
+.rg__legend{display:flex; flex-wrap:wrap; gap:10px; margin-top:9px; font-size:9px; font-weight:800; color:var(--muted)}
+.rg__legend i{display:inline-block; width:11px; height:11px; border-radius:4px; vertical-align:-1px; margin-right:4px}
+.lg-st{background:linear-gradient(158deg,#FF6B6B,#EF4444); box-shadow:0 0 6px rgba(239,68,68,.5)}
+.lg-un{background:linear-gradient(158deg,#EDE8FF,#CFC3F2)}
+.rg__hint{margin-top:9px; font-size:10px; font-weight:800; color:var(--muted); line-height:1.6; word-break:keep-all}
+.rg__hint b{color:var(--violet-d); font-weight:900}
+#rgCta{margin-top:12px}
+
+/* ---- 4단계 보너스 ---- */
+.c4src{font-size:9.5px; font-weight:900; color:#8A63E8; background:var(--soft); padding:4px 9px; border-radius:999px; display:inline-block}
+.c4en{font-size:19px; font-weight:900; line-height:1.5; letter-spacing:-.025em; margin-top:10px; word-break:keep-all}
+.c4ko{font-size:11.5px; font-weight:800; color:var(--ink2); margin-top:6px; line-height:1.6}
+.c4row{display:flex; gap:7px; margin-top:12px}
+.c4row .c1btn{flex:1}
+
+/* ---- 단계 완료 · 완주 ---- */
+.fin{
+  text-align:center; padding:22px 16px 18px; border-radius:24px;
+  background:linear-gradient(165deg,#FFFDF7 0%,#FBF1FF 58%,#FFF0F7 100%);
+  border:1px solid #F0E4FB; box-shadow:0 14px 32px rgba(74,52,140,.09);
+}
+.fin__e{font-size:38px; line-height:1}
+.fin h2{font-size:17px; font-weight:900; margin-top:9px; letter-spacing:-.035em; word-break:keep-all}
+.fin p{font-size:11px; font-weight:800; color:var(--ink2); margin-top:7px; line-height:1.7; word-break:keep-all}
+.fin__stats{display:flex; gap:7px; margin-top:15px}
+.fin__s{flex:1; background:#fff; border:1px solid var(--line); border-radius:14px; padding:9px 5px}
+.fin__s b{display:block; font-size:15px; font-weight:900; color:var(--violet-d); font-variant-numeric:tabular-nums}
+.fin__s span{font-size:9px; font-weight:800; color:var(--muted)}
+
+/* ---- 🎯 퀴즈 탭의 바로가기 알약 ---- */
+.cjpills{display:flex; gap:6px; overflow-x:auto; padding:14px 2px 0; scrollbar-width:none}
+.cjpills::-webkit-scrollbar{display:none}
+.cjp{
+  flex:none; display:flex; align-items:center; gap:5px; padding:8px 11px; border-radius:999px; background:#fff;
+  border:1px solid var(--line); font-size:10.5px; font-weight:900; color:var(--ink2);
+  box-shadow:0 4px 12px rgba(74,52,140,.05); transition:all .16s;
+}
+.cjp em{font-style:normal; font-size:12px}
+.cjp:active{transform:scale(.96)}
+.cjp.is-done{background:#E9FBF4; border-color:#BFEEDD; color:#1B8068}
+
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001s !important; transition-duration:.001s !important}}
 </style>
 </head>
@@ -1090,6 +1307,7 @@ body.is-mapopen{overflow:hidden}
         <span id="lgReflex">⚡ 0 / 5</span>
         <span id="lgShadow">🎙️ 0 / 3</span>
         <span id="lgQuiz">🎯 퀴즈 전</span>
+        <span id="lgCourse">🏁 코스 0/4</span>
       </div>
     </div>
   </header>
@@ -1114,6 +1332,21 @@ body.is-mapopen{overflow:hidden}
           <span class="jm__cta">지도 펼치기 →</span>
         </span>
         <span class="jm__cap hide" id="jmCap">오늘의 탐험 에너지 120 XP를 다 모았어요! 내일 이어서 다음 도시에 불을 켜 봐요 ✨</span>
+      </button>
+
+      <!-- ⚡ 오늘의 15분 데일리 코스 -->
+      <button class="dcard" type="button" data-course="0" aria-label="오늘의 15분 데일리 코스 시작하기">
+        <span class="dcard__top">
+          <span class="dcard__k">⚡ 오늘의 15분 데일리 코스</span>
+          <span class="dcard__t">약 15~18분</span>
+        </span>
+        <span class="dcard__sub">빈칸 말하기 → 리스닝 → 리듬 문법 → 한 줄 보너스</span>
+        <span class="dcard__bar"><i id="dcBar"></i></span>
+        <span class="dcard__meta">
+          <span class="dcard__prog" id="dcProg">0/4 단계 · 약 15~18분</span>
+          <span class="dcard__go" id="dcGo">시작하기 →</span>
+        </span>
+        <span class="dcard__steps" id="dcSteps"></span>
       </button>
 
       <div class="home__grid">
@@ -1246,6 +1479,11 @@ body.is-mapopen{overflow:hidden}
 
   <!-- ================= 1분 퀴즈 · 어원 · 콩글리시 ================= -->
   <section class="page" id="tab-quiz">
+    <div class="cjpills" id="coursePills" role="group" aria-label="15분 코스 바로 가기">
+      <button class="cjp" type="button" data-cjump="1"><em>🎙️</em>빈칸 말하기</button>
+      <button class="cjp" type="button" data-cjump="2"><em>🎧</em>3회 리스닝</button>
+      <button class="cjp" type="button" data-cjump="3"><em>🥁</em>리듬 문법</button>
+    </div>
     <div class="modebar" id="modeBar" role="group" aria-label="퀴즈 종류">
       <button class="modeb is-on" data-mode="grammar" aria-pressed="true"><em>🎯</em><span>문법·표현</span></button>
       <button class="modeb" data-mode="ety" aria-pressed="false"><em>📜</em><span>어원·뉘앙스</span></button>
@@ -1333,6 +1571,19 @@ body.is-mapopen{overflow:hidden}
     </div>
 
     <p class="footnote">기기에 그 나라 음성이 있으면 그 억양으로,<br>없으면 미국식으로 대신 읽어요. 지역 사투리는 특징으로 익혀요.</p>
+  </section>
+
+  <!-- ================= ⚡ 오늘의 15분 데일리 코스 ================= -->
+  <section class="page" id="tab-course">
+    <div class="crs">
+      <div class="crs__top">
+        <button class="crs__back" type="button" data-cback="1">← 홈</button>
+        <span class="crs__ttl">⚡ 오늘의 15분 데일리 코스</span>
+        <span class="crs__prog" id="crsProg">0/4 단계</span>
+      </div>
+      <div class="crs__steps" id="crsSteps"></div>
+      <div class="crs__body" id="crsBody"></div>
+    </div>
   </section>
 
 </div>
@@ -1886,7 +2137,8 @@ body.is-mapopen{overflow:hidden}
 
   function hasAct(rec) {
     return !!rec && ((rec.reflex && rec.reflex.length) || (rec.shadow && rec.shadow.length) ||
-      (rec.quiz && rec.quiz.runs) || (rec.ety && rec.ety.runs) || (rec.kong && rec.kong.runs));
+      (rec.quiz && rec.quiz.runs) || (rec.ety && rec.ety.runs) || (rec.kong && rec.kong.runs) ||
+      (rec.course && rec.course.steps && Object.keys(rec.course.steps).length));
   }
   function calcStreak() {
     var n = 0, d = new Date();
@@ -2077,7 +2329,10 @@ body.is-mapopen{overflow:hidden}
     var q = (t.quiz.runs || t.ety.runs || t.kong.runs) ? 1 : 0;
     var pct = Math.round((r / 5) * 40 + (s / 3) * 30 + q * 30);
     if (r === 0 && s === 0 && !q) pct = 0;
-    return { r: r, s: s, q: q, pct: pct, best: t.quiz.best || 0, runs: t.quiz.runs || 0, reflexAll: t.reflex.length, shadowAll: t.shadow.length };
+    /* ⚡ 15분 데일리 코스도 오늘의 영어 — 4단계를 채우면 그만큼 진행률이 오른다 */
+    var cs = crsCount();
+    if (cs) pct = Math.max(pct, Math.round((cs / 4) * 100));
+    return { r: r, s: s, q: q, cs: cs, pct: pct, best: t.quiz.best || 0, runs: t.quiz.runs || 0, reflexAll: t.reflex.length, shadowAll: t.shadow.length };
   }
   function renderStats() {
     var st = stats();
@@ -2085,7 +2340,11 @@ body.is-mapopen{overflow:hidden}
     $('#stxt').innerHTML = sk ? '<b>' + sk + '</b>일 연속' : '오늘부터 시작';
     $('#todayChip').textContent = '오늘 ' + st.pct + '%';
     $('#progFill').style.width = st.pct + '%';
-    var lr = $('#lgReflex'), ls = $('#lgShadow'), lq = $('#lgQuiz');
+    var lr = $('#lgReflex'), ls = $('#lgShadow'), lq = $('#lgQuiz'), lc = $('#lgCourse');
+    if (lc) {
+      lc.textContent = '🏁 코스 ' + st.cs + '/4';
+      lc.classList.toggle('done', st.cs >= 4);
+    }
     lr.textContent = '⚡ ' + st.r + ' / 5';
     ls.textContent = '🎙️ ' + st.s + ' / 3';
     lq.textContent = st.runs ? ('🎯 ' + st.best + ' / 5') : (st.q ? '🎯 퀴즈 완료' : '🎯 퀴즈 전');
@@ -2108,11 +2367,12 @@ body.is-mapopen{overflow:hidden}
       Snd.tap();
       Array.prototype.forEach.call(tabs, function (b) { b.classList.toggle('is-on', b === btn); });
       var name = btn.getAttribute('data-tab');
-      ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent'].forEach(function (n) {
+      ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent', 'course'].forEach(function (n) {
         var p = document.getElementById('tab-' + n);
         if (p) p.classList.toggle('is-on', n === name);
       });
       try { if (synth) synth.cancel(); } catch (e) {}
+      crsStopAll();
       if (name === 'reflex') renderReflex();
       else stopCd();
       if (name === 'accent') renderAccents();
@@ -4957,6 +5217,7 @@ body.is-mapopen{overflow:hidden}
         return '<i class="jm__dot' + (isUnlocked(r) ? ' on' : '') + (nx && nx.id === r.id ? ' next' : '') + '"></i>';
       }).join('');
     }
+    renderCourseCard();
     e = document.getElementById('jmNext');
     if (e) {
       e.innerHTML = nx
@@ -4969,7 +5230,7 @@ body.is-mapopen{overflow:hidden}
   function showHome() {
     stopCd();
     try { if (synth) synth.cancel(); } catch (e) {}
-    ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent'].forEach(function (n) {
+    ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent', 'course'].forEach(function (n) {
       var p = document.getElementById('tab-' + n);
       if (p) p.classList.toggle('is-on', n === 'home');
     });
@@ -5099,6 +5360,1320 @@ body.is-mapopen{overflow:hidden}
       closeGallery: function () { galleryOpen = false; renderQuizTab(); }
     };
   }
+
+  /* ============================================================
+     ⚡ 오늘의 15분 데일리 코스 — 4단계 러너
+     🎙️ 빈칸 말하기 · 🎧 3회 리스닝 · 🥁 리듬 문법 · 🎬 한 줄 보너스
+     ============================================================ */
+  var DAILY_MIN = '약 15~18분';
+
+  /* ---- 1단계 · 빈칸 말하기 (레벨별 12문제) ---- */
+  var BLANK = [
+    /* Lv.1 */
+    { level: 1, en: 'I ___ from Seoul.', ans: 'am', ko: '저는 서울 <b>출신</b>이에요.' },
+    { level: 1, en: 'My brother ___ a doctor.', ans: 'is', ko: '제 동생은 <b>의사</b>예요.' },
+    { level: 1, en: 'We ___ good friends.', ans: 'are', ko: '우리는 <b>좋은 친구</b>예요.' },
+    { level: 1, en: 'I ___ Korean food.', ans: 'like', ko: '저는 한국 음식을 <b>좋아해요</b>.' },
+    { level: 1, en: 'I ___ coffee every morning.', ans: 'drink', ko: '아침마다 커피를 <b>마셔요</b>.' },
+    { level: 1, en: 'She ___ at a bank.', ans: 'works', ko: '그녀는 은행에서 <b>일해요</b>.' },
+    { level: 1, en: 'I ___ to work by bus.', ans: 'go', ko: '저는 버스로 <b>출근해요</b>.' },
+    { level: 1, en: 'I ___ two kids.', ans: 'have', ko: '저는 아이가 <b>둘</b> 있어요.' },
+    { level: 1, en: 'I can ___ a little English.', ans: 'speak', ko: '영어를 조금 <b>말할 수 있어요</b>.' },
+    { level: 1, en: 'I ___ to learn guitar.', ans: 'want', ko: '기타를 <b>배우고 싶어요</b>.' },
+    { level: 1, en: 'I wake up ___ every day.', ans: 'early', ko: '매일 <b>일찍</b> 일어나요.' },
+    { level: 1, en: 'Let\u2019s get ___ to go.', ans: 'ready', ko: '<b>갈 준비</b>를 해요.' },
+
+    /* Lv.2 */
+    { level: 2, en: 'I\u2019m ___ ready for work.', ans: 'getting', ko: '출근 <b>준비 중</b>이에요.' },
+    { level: 2, en: 'I ___ stay home on weekends.', ans: 'usually', ko: '주말엔 <b>보통</b> 집에 있어요.' },
+    { level: 2, en: 'I ___ working out again.', ans: 'started', ko: '운동을 <b>다시 시작했어요</b>.' },
+    { level: 2, en: 'You ___ get some rest.', ans: 'should', ko: '좀 <b>쉬어야 해요</b>.' },
+    { level: 2, en: 'I\u2019m ___ for a new hobby.', ans: 'looking', ko: '새 취미를 <b>찾고 있어요</b>.' },
+    { level: 2, en: 'I have a ___ at three.', ans: 'meeting', ko: '3시에 <b>회의</b>가 있어요.' },
+    { level: 2, en: 'I ___ ate lunch.', ans: 'already', ko: '점심 <b>이미</b> 먹었어요.' },
+    { level: 2, en: 'I ___ my umbrella at home.', ans: 'forgot', ko: '우산을 집에 <b>두고 왔어요</b>.' },
+    { level: 2, en: 'Can I ___ your pen?', ans: 'borrow', ko: '펜 좀 <b>빌려도</b> 돼요?' },
+    { level: 2, en: 'I\u2019ve lived here ___ 2020.', ans: 'since', ko: '2020년<b>부터</b> 살았어요.' },
+    { level: 2, en: 'Do you ___ if I sit here?', ans: 'mind', ko: '여기 앉아도 <b>괜찮을까요</b>?' },
+    { level: 2, en: 'I\u2019m too ___ to go out.', ans: 'tired', ko: '너무 피곤해서 <b>못 나가요</b>.' },
+
+    /* Lv.3 */
+    { level: 3, en: 'I\u2019m ___ to be there by six.', ans: 'supposed', ko: '6시까지 거기 <b>있어야 해요</b>.' },
+    { level: 3, en: 'I\u2019d ___ stay in tonight.', ans: 'rather', ko: '오늘 밤엔 집에 <b>있고 싶어요</b>.' },
+    { level: 3, en: 'I ___ it out this morning.', ans: 'figured', ko: '오늘 아침에 <b>알아냈어요</b>.' },
+    { level: 3, en: 'I\u2019ve ___ busy all week.', ans: 'been', ko: '일주일 내내 <b>바빴어요</b>.' },
+    { level: 3, en: 'It\u2019s ___ the wait.', ans: 'worth', ko: '기다릴 <b>만한 가치</b>가 있어요.' },
+    { level: 3, en: 'I ___ have time these days.', ans: 'hardly', ko: '요즘 시간이 <b>거의</b> 없어요.' },
+    { level: 3, en: 'I\u2019ll go ___ it rains.', ans: 'unless', ko: '비가 오지 <b>않으면</b> 갈게요.' },
+    { level: 3, en: 'This song ___ me of high school.', ans: 'reminds', ko: '이 노래는 고등학교 때를 <b>떠올리게 해요</b>.' },
+    { level: 3, en: 'I ___ to finish it by noon.', ans: 'managed', ko: '정오까지 <b>끝냈어요</b>.' },
+    { level: 3, en: 'I ___ made it on time.', ans: 'barely', ko: '<b>겨우</b> 시간 맞춰 도착했어요.' },
+    { level: 3, en: 'I ran ___ an old friend.', ans: 'into', ko: '옛 친구를 <b>우연히 만났어요</b>.' },
+    { level: 3, en: 'Don\u2019t ___ I know what you mean.', ans: 'assume', ko: '내가 알 거라고 <b>생각하지 마</b>.' }
+  ];
+
+  /* ---- 2단계 · 3회 리스닝 (레벨별 5문장) ---- */
+  var LISTEN = [
+    { level: 1, en: 'I usually get up at seven.', ko: '저는 보통 7시에 일어나요.' },
+    { level: 1, en: 'Can I get a cup of water?', ko: '물 한 컵 주시겠어요?' },
+    { level: 1, en: 'I\u2019m looking for the subway station.', ko: '지하철역을 찾고 있어요.' },
+    { level: 1, en: 'This is my first time here.', ko: '여기 처음 와 봐요.' },
+    { level: 1, en: 'Let\u2019s meet at the cafe at six.', ko: '6시에 카페에서 만나요.' },
+
+    { level: 2, en: 'I\u2019ve been trying to cut down on coffee.', ko: '커피를 줄이려고 노력 중이에요.' },
+    { level: 2, en: 'Could you say that a little slower?', ko: '조금 천천히 말해 주시겠어요?' },
+    { level: 2, en: 'I\u2019m not sure I follow what you mean.', ko: '무슨 말인지 잘 모르겠어요.' },
+    { level: 2, en: 'It took me an hour to get here.', ko: '여기 오는 데 한 시간 걸렸어요.' },
+    { level: 2, en: 'I\u2019d rather take the train than drive.', ko: '운전하는 것보다 기차가 나아요.' },
+
+    { level: 3, en: 'I should have checked the schedule first.', ko: '일정을 먼저 확인했어야 했어요.' },
+    { level: 3, en: 'There\u2019s no way I\u2019m going to finish this today.', ko: '오늘 이걸 끝낼 방법이 없어요.' },
+    { level: 3, en: 'The sooner we start, the better it\u2019ll be.', ko: '빨리 시작할수록 좋아요.' },
+    { level: 3, en: 'I was about to call you when you texted.', ko: '문자할 때 전화하려던 참이었어요.' },
+    { level: 3, en: 'It\u2019s worth giving it one more shot.', ko: '한 번 더 해 볼 만해요.' }
+  ];
+
+  /* ---- 3단계 · 리듬 문법 (4박자 × 3레인, 강세 st) ---- */
+  var RHY = [
+    { level: 1, ko: '지금 뭐 하고 있어?', say: 'What are you doing?', beats: [
+      { w: ['What', 'Why', 'Who'], ok: 0, st: 1 },
+      { w: ['are', 'is', 'am'], ok: 0, st: 0 },
+      { w: ['you', 'me', 'he'], ok: 0, st: 0 },
+      { w: ['doing', 'did', 'do'], ok: 0, st: 1 }
+    ] },
+    { level: 1, ko: '난 이 노래가 좋아.', say: 'I like this song.', beats: [
+      { w: ['I', 'We', 'He'], ok: 0, st: 0 },
+      { w: ['like', 'look', 'live'], ok: 0, st: 1 },
+      { w: ['this', 'these', 'those'], ok: 0, st: 0 },
+      { w: ['song', 'songs', 'sing'], ok: 0, st: 1 }
+    ] },
+    { level: 1, ko: '여기서 어디 살아?', say: 'Where do you live?', beats: [
+      { w: ['Where', 'When', 'Why'], ok: 0, st: 1 },
+      { w: ['do', 'does', 'did'], ok: 0, st: 0 },
+      { w: ['you', 'your', 'yours'], ok: 0, st: 0 },
+      { w: ['live', 'lives', 'living'], ok: 0, st: 1 }
+    ] },
+    { level: 1, ko: '걔는 내 여동생이야.', say: 'She is my sister.', beats: [
+      { w: ['She', 'He', 'It'], ok: 0, st: 0 },
+      { w: ['is', 'are', 'was'], ok: 0, st: 0 },
+      { w: ['my', 'me', 'mine'], ok: 0, st: 0 },
+      { w: ['sister', 'brother', 'father'], ok: 0, st: 1 }
+    ] },
+    { level: 1, ko: '이제 자자.', say: 'Let\u2019s go to bed.', beats: [
+      { w: ['Let\u2019s', 'Let me', 'Lets'], ok: 0, st: 0 },
+      { w: ['go', 'going', 'went'], ok: 0, st: 1 },
+      { w: ['to', 'for', 'at'], ok: 0, st: 0 },
+      { w: ['bed', 'bad', 'bet'], ok: 0, st: 1 }
+    ] },
+
+    { level: 2, ko: '나 지금 출근하는 길이야.', say: 'I\u2019m going to work.', beats: [
+      { w: ['I\u2019m', 'I\u2019ve', 'I\u2019d'], ok: 0, st: 0 },
+      { w: ['going', 'gone', 'go'], ok: 0, st: 1 },
+      { w: ['to', 'for', 'at'], ok: 0, st: 0 },
+      { w: ['work', 'walk', 'word'], ok: 0, st: 1 }
+    ] },
+    { level: 2, ko: '시간 있어?', say: 'Do you have time?', beats: [
+      { w: ['Do', 'Does', 'Did'], ok: 0, st: 0 },
+      { w: ['you', 'your', 'yours'], ok: 0, st: 0 },
+      { w: ['have', 'has', 'had'], ok: 0, st: 1 },
+      { w: ['time', 'times', 'timed'], ok: 0, st: 1 }
+    ] },
+    { level: 2, ko: '커피가 더 필요해.', say: 'I need more coffee.', beats: [
+      { w: ['I', 'We', 'He'], ok: 0, st: 0 },
+      { w: ['need', 'needs', 'needed'], ok: 0, st: 1 },
+      { w: ['more', 'much', 'many'], ok: 0, st: 1 },
+      { w: ['coffee', 'copy', 'cough'], ok: 0, st: 1 }
+    ] },
+    { level: 2, ko: '우리 지금 가야 해.', say: 'We should leave now.', beats: [
+      { w: ['We', 'Wee', 'Wheat'], ok: 0, st: 0 },
+      { w: ['should', 'would', 'could'], ok: 0, st: 0 },
+      { w: ['leave', 'live', 'leaf'], ok: 0, st: 1 },
+      { w: ['now', 'know', 'no'], ok: 0, st: 1 }
+    ] },
+    { level: 2, ko: '전화해 줄 수 있어?', say: 'Can you call me?', beats: [
+      { w: ['Can', 'Could', 'Will'], ok: 0, st: 0 },
+      { w: ['you', 'your', 'yours'], ok: 0, st: 0 },
+      { w: ['call', 'calls', 'called'], ok: 0, st: 1 },
+      { w: ['me', 'my', 'mine'], ok: 0, st: 0 }
+    ] },
+
+    { level: 3, ko: '요즘 진짜 바빴어.', say: 'I\u2019ve been really busy.', beats: [
+      { w: ['I\u2019ve', 'I\u2019m', 'I\u2019d'], ok: 0, st: 0 },
+      { w: ['been', 'being', 'be'], ok: 0, st: 0 },
+      { w: ['really', 'real', 'rarely'], ok: 0, st: 1 },
+      { w: ['busy', 'buzz', 'bush'], ok: 0, st: 1 }
+    ] },
+    { level: 3, ko: '그건 말이 안 돼.', say: 'That doesn\u2019t make sense.', beats: [
+      { w: ['That', 'This', 'These'], ok: 0, st: 0 },
+      { w: ['doesn\u2019t', 'don\u2019t', 'didn\u2019t'], ok: 0, st: 0 },
+      { w: ['make', 'makes', 'made'], ok: 0, st: 1 },
+      { w: ['sense', 'sins', 'cents'], ok: 0, st: 1 }
+    ] },
+    { level: 3, ko: '내가 도와줄 수도 있었는데.', say: 'I could have helped.', beats: [
+      { w: ['I', 'It', 'Is'], ok: 0, st: 0 },
+      { w: ['could', 'would', 'should'], ok: 0, st: 0 },
+      { w: ['have', 'has', 'had'], ok: 0, st: 0 },
+      { w: ['helped', 'help', 'helping'], ok: 0, st: 1 }
+    ] },
+    { level: 3, ko: '내가 먼저 생각해 볼게.', say: 'Let me think first.', beats: [
+      { w: ['Let', 'Let\u2019s', 'Leaving'], ok: 0, st: 0 },
+      { w: ['me', 'my', 'mine'], ok: 0, st: 0 },
+      { w: ['think', 'thank', 'thing'], ok: 0, st: 1 },
+      { w: ['first', 'fast', 'face'], ok: 0, st: 1 }
+    ] },
+    { level: 3, ko: '그렇게 간단한 문제가 아니야.', say: 'It\u2019s not that simple.', beats: [
+      { w: ['It\u2019s', 'Its', 'It'], ok: 0, st: 0 },
+      { w: ['not', 'now', 'no'], ok: 0, st: 0 },
+      { w: ['that', 'than', 'then'], ok: 0, st: 0 },
+      { w: ['simple', 'simply', 'similar'], ok: 0, st: 1 }
+    ] }
+  ];
+
+  var CRS_STEPS = [
+    { n: 1, ico: '🎙️', name: '빈칸 말하기', short: '빈칸' },
+    { n: 2, ico: '🎧', name: '3회 리스닝', short: '리스닝' },
+    { n: 3, ico: '🥁', name: '리듬 문법', short: '리듬' },
+    { n: 4, ico: '🎬', name: '한 줄 보너스', short: '보너스' }
+  ];
+
+  function crsRec() {
+    var t = todayRec();
+    if (!t.course || typeof t.course !== 'object') t.course = {};
+    if (!t.course.steps || typeof t.course.steps !== 'object') t.course.steps = {};
+    return t.course;
+  }
+  function crsDone(n) { return !!crsRec().steps[n]; }
+  function crsCount() {
+    var c = crsRec(), n = 0;
+    for (var i = 1; i <= 4; i++) if (c.steps[i]) n++;
+    return n;
+  }
+  function crsNextStep() {
+    for (var i = 1; i <= 4; i++) if (!crsDone(i)) return i;
+    return 0;
+  }
+  function crsMark(n, xp) {
+    var c = crsRec();
+    if (c.steps[n]) return false;
+    c.steps[n] = 1;
+    save();
+    if (xp) addXpOnce('crs' + n, xp);
+    renderStats();
+    renderCourseCard();
+    if (crsCount() === 4) crsComplete();
+    return true;
+  }
+  function crsComplete() {
+    var c = crsRec();
+    if (c.done) return;
+    c.done = 1;
+    save();
+    addXpOnce('crsfin', 10);
+    Snd.success();
+    lightToast('🎉 오늘의 15분 데일리 완주! 탐험 에너지까지 챙겼어요 ✨', true);
+  }
+  function lvTag(l) {
+    var u = userLevel(), n = Number(l) || 2;
+    return 'Lv.' + n + (u && u === n ? ' · 내 레벨' : '');
+  }
+  function crsNorm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[\u2018\u2019`]/g, "'")
+      .replace(/[^a-z0-9' ]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  function crsWords(s) { var n = crsNorm(s); return n ? n.split(' ') : []; }
+  function crsHasAns(text, ans) {
+    var t = crsWords(text), a = crsWords(ans);
+    if (!a.length) return false;
+    for (var i = 0; i + a.length <= t.length; i++) {
+      var ok = true;
+      for (var j = 0; j < a.length; j++) if (t[i + j] !== a[j]) { ok = false; break; }
+      if (ok) return true;
+    }
+    return false;
+  }
+
+  /* ---------------- 홈 카드 ---------------- */
+  function renderCourseCard() {
+    /* initMap()이 boot()보다 먼저 renderHome()을 부르므로, 데이터가 아직 없으면 조용히 넘어간다 */
+    if (!CRS_STEPS) return;
+    var n = crsCount(), next = crsNextStep(), e;
+    e = document.getElementById('dcProg');
+    if (e) e.textContent = n + '/4 단계 · ' + DAILY_MIN;
+    e = document.getElementById('dcBar');
+    if (e) e.style.width = Math.max(4, Math.round(n / 4 * 100)) + '%';
+    e = document.getElementById('dcGo');
+    if (e) e.textContent = n >= 4 ? '완주했어요 🎉' : (n ? '이어서 하기 →' : '시작하기 →');
+    e = document.getElementById('dcSteps');
+    if (e) e.innerHTML = CRS_STEPS.map(function (s) {
+      var cls = 'dcs' + (crsDone(s.n) ? ' is-done' : (s.n === next ? ' is-now' : ''));
+      return '<span class="' + cls + '"><em>' + (crsDone(s.n) ? '✅' : s.ico) + '</em><b>' + s.short + '</b></span>';
+    }).join('');
+    var pills = document.getElementById('coursePills');
+    if (pills) Array.prototype.forEach.call(pills.querySelectorAll('.cjp'), function (b) {
+      b.classList.toggle('is-done', crsDone(Number(b.getAttribute('data-cjump'))));
+    });
+  }
+
+  /* ---------------- 러너 ---------------- */
+  var crsState = { step: 0 };
+
+  function crsShowOnly() {
+    Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (b) { b.classList.remove('is-on'); });
+    ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent', 'course'].forEach(function (n) {
+      var p = document.getElementById('tab-' + n);
+      if (p) p.classList.toggle('is-on', n === 'course');
+    });
+  }
+  function openCourse(step) {
+    stopCd();
+    crsStopAll();
+    try { if (synth) synth.cancel(); } catch (e) {}
+    crsShowOnly();
+    var want = Number(step) || 0;
+    crsState.step = want ? want : crsNextStep();
+    crsRenderAll();
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+  function crsGo(n) {
+    crsStopAll();
+    try { if (synth) synth.cancel(); } catch (e) {}
+    crsState.step = Number(n) || 0;
+    crsRenderAll();
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+  function crsStopAll() {
+    c1Stop();
+    c2Stop();
+    rgStop();
+    clearTimeout(c4Timer);
+  }
+  function crsRenderAll() {
+    var n = crsCount(), e;
+    e = document.getElementById('crsProg');
+    if (e) e.textContent = n + '/4 단계';
+    e = document.getElementById('crsSteps');
+    if (e) e.innerHTML = CRS_STEPS.map(function (s) {
+      var cls = 'dcs' + (crsDone(s.n) ? 'is-done' : '') + (crsState.step === s.n ? ' is-now' : '');
+      return '<button class="' + cls + '" type="button" data-cstep="' + s.n + '"><em>' + (crsDone(s.n) ? '✅' : s.ico) + '</em><b>' + s.short + '</b></button>';
+    }).join('');
+    var body = document.getElementById('crsBody');
+    if (!body) return;
+    var st = crsState.step;
+    if (!st) { body.innerHTML = crsFinishHtml(); return; }
+    body.innerHTML = '<div id="c1Host"></div><div id="c2Host"></div><div id="c3Host"></div><div id="c4Host"></div>';
+    if (st === 1) c1Start();
+    else if (st === 2) c2Start();
+    else if (st === 3) rgRender();
+    else c4Start();
+  }
+  function crsStepDoneHtml(n, title, sub, nxtTo) {
+    var nxt = (typeof nxtTo === 'number') ? nxtTo : (n < 4 ? n + 1 : 0);
+    return '<div class="fin">' +
+      '<p class="fin__e">✅</p>' +
+      '<h2>' + title + '</h2>' +
+      '<p>' + sub + '</p>' +
+      '<div class="fin__stats">' +
+        '<div class="fin__s"><b>' + crsCount() + '/4</b><span>오늘 단계</span></div>' +
+        '<div class="fin__s"><b>' + todayXp() + '</b><span>오늘 XP</span></div>' +
+      '</div>' +
+      '<div style="margin-top:15px"><button class="btn--primary" type="button" data-cnext="' + nxt + '">' +
+        (nxt ? '다음 단계 →' : '마무리 하기 🎉') + '</button></div>' +
+      '<p class="footnote">한 단계만 해도 충분해요 — 나머지는 내일 이어서 해도 돼요.</p>' +
+    '</div>';
+  }
+  function crsFinishHtml() {
+    return '<div class="fin">' +
+      '<p class="fin__e">🎉</p>' +
+      '<h2>오늘의 15분 데일리 완주!</h2>' +
+      '<p>빈칸 말하기 · 3회 리스닝 · 리듬 문법 · 한 줄 보너스<br>네 단계를 모두 해냈어요. 내일 또 이어서 만나요 ✨</p>' +
+      '<div class="fin__stats">' +
+        '<div class="fin__s"><b>' + todayXp() + '</b><span>오늘 XP</span></div>' +
+        '<div class="fin__s"><b>' + (store.unlockedRegions || []).length + '/18</b><span>불 켜진 곳</span></div>' +
+        '<div class="fin__s"><b>' + calcStreak() + '일</b><span>연속</span></div>' +
+      '</div>' +
+      '<div style="margin-top:16px"><button class="btn--primary" type="button" data-cback="1">홈으로</button></div>' +
+      '<div style="margin-top:8px"><button class="btn--ghost" type="button" data-cstep="1" style="width:100%">처음부터 다시 하기</button></div>' +
+    '</div>';
+  }
+
+  /* ---------------- 말하기 인식 공통 ---------------- */
+  var csRec = null;
+  function csStopRec() {
+    if (csRec) { try { csRec.abort(); } catch (e) {} csRec = null; }
+  }
+  function csAsr(onText, onEnd, onErr) {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return null;
+    csStopRec();
+    var r = new SR();
+    r.lang = 'en-US';
+    r.interimResults = true;
+    r.continuous = false;
+    r.maxAlternatives = 3;
+    r.onresult = function (ev) {
+      var txt = '', fin = false;
+      for (var i = ev.resultIndex; i < ev.results.length; i++) {
+        txt += ev.results[i][0].transcript + ' ';
+        if (ev.results[i].isFinal) fin = true;
+      }
+      onText(txt.replace(/\s+/g, ' ').trim(), fin);
+    };
+    r.onerror = function (ev) { onErr && onErr(ev && ev.error); };
+    r.onend = function () { csRec = null; onEnd && onEnd(); };
+    try { r.start(); csRec = r; } catch (e) { csRec = null; return null; }
+    return r;
+  }
+  function csNoMic(btn, inputId) {
+    toast('이 브라우저는 말로 답하기를 지원하지 않아요 — ⌨️ 직접 입력해 주세요', true);
+    var i = document.getElementById(inputId);
+    if (i) { try { i.focus(); } catch (e) {} }
+  }
+
+  /* ============================================================
+     1단계 · 🎙️ 빈칸 말하기
+     ============================================================ */
+  var c1 = null;
+  function c1Stop() {
+    csStopRec();
+    c1 = null;
+  }
+  function c1Start() {
+    c1 = { items: levelPick(BLANK, 10), i: 0, hint: 0, ok: false, solved: 0, listening: false };
+    c1Render();
+  }
+  function c1Full(it) { return it.en.replace('___', it.ans); }
+  function c1HintHtml() {
+    var it = c1.items[c1.i], ans = it.ans, out = '';
+    var letters = ans.replace(/[^A-Za-z]/g, '').length;
+    var reveal = c1.hint >= 3 ? letters : Math.min(c1.hint, letters);
+    var k = 0;
+    for (var i = 0; i < ans.length; i++) {
+      var ch = ans.charAt(i);
+      if (ch === ' ') { out += '<span class="sp"> </span>'; continue; }
+      k++;
+      out += (k <= reveal) ? '<b>' + esc(ch.toUpperCase()) + '</b>' : '<i>_</i>';
+    }
+    return out;
+  }
+  function c1Render() {
+    var host = document.getElementById('c1Host');
+    if (!host) return;
+    var it = c1.items[c1.i], p = it.en.split('___');
+    host.innerHTML =
+      '<div class="cshead"><h2>🎙️ 1단계 · 빈칸 말하기</h2><span>' + (c1.i + 1) + ' / ' + c1.items.length + '</span></div>' +
+      '<div class="csbar"><i style="width:' + Math.round(c1.i / c1.items.length * 100) + '%"></i></div>' +
+      '<div class="card2">' +
+        '<div class="csrow"><span class="tag">' + lvTag(it.level) + '</span>' +
+          '<span class="csrow__s">빈칸에 들어갈 말을 말해 보세요</span></div>' +
+        '<p class="c1sent" id="c1Sent">' + esc(p[0]) + '<span class="c1blank" id="c1Blank">_____</span>' + esc(p[1] || '') + '</p>' +
+        '<p class="c1ko">' + it.ko + '</p>' +
+        '<div class="c1row">' +
+          '<button class="c1btn" type="button" id="c1Play">🔊 문장 듣기</button>' +
+          '<button class="c1btn" type="button" id="c1HintBtn">💡 힌트 <span id="c1HintN"></span></button>' +
+        '</div>' +
+        '<p class="c1hint" id="c1Hint"></p>' +
+        '<button class="c1mic" type="button" id="c1Mic">🎙️ 말로 답하기</button>' +
+        '<p class="c1heard" id="c1Heard"></p>' +
+        '<div class="c1type">' +
+          '<input id="c1Input" type="text" placeholder="⌨️ 직접 입력" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">' +
+          '<button type="button" id="c1Go">확인</button>' +
+        '</div>' +
+        '<div class="c1fb hide" id="c1Fb"></div>' +
+        '<div id="c1NextWrap"></div>' +
+      '</div>' +
+      '<p class="footnote">힌트는 <b>한 글자씩</b> — 세 번 누르면 단어가 다 보여요.<br>🎙️가 안 되면 ⌨️로 답해도 똑같아요.</p>';
+
+    document.getElementById('c1Play').addEventListener('click', function () {
+      Snd.tap();
+      speak(c1Full(it), 0.95);
+    });
+    document.getElementById('c1HintBtn').addEventListener('click', function () {
+      Snd.tap();
+      if (c1.ok) return;
+      if (c1.hint < 3) c1.hint++;
+      document.getElementById('c1Hint').innerHTML = c1.hint ? ('💡 ' + c1HintHtml()) : '';
+      document.getElementById('c1HintN').textContent = c1.hint ? '(' + c1.hint + '/3)' : '';
+      if (c1.hint >= 3) this.classList.add('is-max');
+    });
+    document.getElementById('c1Mic').addEventListener('click', function () { c1MicTap(this); });
+    document.getElementById('c1Go').addEventListener('click', function () {
+      Snd.tap();
+      c1Check(document.getElementById('c1Input').value, false);
+    });
+    document.getElementById('c1Input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); Snd.tap(); c1Check(this.value, false); }
+    });
+  }
+  function c1MicTap(btn) {
+    if (!c1 || c1.ok || c1.listening) return;
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var heard = document.getElementById('c1Heard');
+    if (!SR) { csNoMic(btn, 'c1Input'); return; }
+    c1.listening = true;
+    btn.classList.add('is-live');
+    btn.textContent = '🎙️ 듣고 있어요… (다시 누르면 멈춤)';
+    heard.textContent = '';
+    csAsr(function (txt, fin) {
+      heard.textContent = '🎙️ ' + txt;
+      if (fin && txt) { c1.listening = false; btn.classList.remove('is-live'); btn.textContent = '🎙️ 말로 답하기'; c1Check(txt, true); }
+    }, function () {
+      c1.listening = false;
+      btn.classList.remove('is-live');
+      btn.textContent = '🎙️ 말로 답하기';
+    }, function (err) {
+      c1.listening = false;
+      btn.classList.remove('is-live');
+      btn.textContent = '🎙️ 말로 답하기';
+      if (err === 'not-allowed' || err === 'service-not-allowed') toast('마이크 권한을 허락해 주세요 — ⌨️로도 답할 수 있어요', true);
+      else if (err !== 'no-speech' && err !== 'aborted') toast('잘 안 들렸어요 — 한 번 더 말하거나 ⌨️로 답해 주세요', true);
+    });
+  }
+  function c1Check(text, fromMic) {
+    if (!c1 || c1.ok) return;
+    var it = c1.items[c1.i];
+    if (!text || !String(text).trim()) return;
+    var good = crsHasAns(text, it.ans);
+    var fb = document.getElementById('c1Fb');
+    if (good) {
+      c1.ok = true;
+      c1.solved++;
+      var full = c1Full(it);
+      var bl = document.getElementById('c1Blank');
+      bl.textContent = it.ans;
+      bl.classList.add('is-full');
+      fb.className = 'c1fb ok';
+      fb.innerHTML = '✅ 정답이에요! <b>' + esc(full) + '</b>' +
+        '<span class="c2mini">🔊 문장을 한 번 더 들어 보세요 — 강세는 굵게 읽어요.</span>';
+      Snd.success();
+      speak(full, 0.95);
+      addXpOnce('c1:' + it.en, 2);
+      document.getElementById('c1Input').disabled = true;
+      document.getElementById('c1Mic').disabled = true;
+      var last = c1.i === c1.items.length - 1;
+      var w = document.getElementById('c1NextWrap');
+      w.innerHTML = '<div style="margin-top:11px"><button class="btn--primary" type="button" id="c1Next">' +
+        (last ? '1단계 마치기 →' : '다음 문제 →') + '</button></div>';
+      document.getElementById('c1Next').addEventListener('click', function () { Snd.tap(); c1NextQ(); });
+    } else {
+      Snd.fail();
+      fb.className = 'c1fb no';
+      fb.innerHTML = (fromMic ? '🎙️ <b>' + esc(text) + '</b> — ' : '') +
+        '아직이에요. 💡 힌트를 눌러 한 글자씩 봐도 좋아요.';
+    }
+  }
+  function c1NextQ() {
+    c1.hint = 0;
+    c1.ok = false;
+    if (c1.i < c1.items.length - 1) { c1.i++; c1Render(); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {} return; }
+    c1Done();
+  }
+  function c1Done() {
+    crsMark(1, 4);
+    var host = document.getElementById('c1Host');
+    if (!host) return;
+    host.innerHTML = crsStepDoneHtml(1, '빈칸 말하기 10문제, 끝냈어요!',
+      '답한 문제 ' + c1.solved + '개 · 다음은 🎧 <b>3회 리스닝</b> — 듣고 받아쓰기예요.');
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
+  /* ============================================================
+     2단계 · 🎧 3회 리스닝
+     ============================================================ */
+  var c2 = null, c2Timer = 0;
+  function c2Stop() {
+    clearTimeout(c2Timer);
+    csStopRec();
+    c2 = null;
+  }
+  function c2Start() {
+    c2 = { items: levelPick(LISTEN, 5), i: 0, left: 3, tokens: [], hit: [], done: false, solved: 0, listening: false };
+    c2Render();
+  }
+  function c2Render() {
+    var host = document.getElementById('c2Host');
+    if (!host || !c2) return;
+    var it = c2.items[c2.i];
+    c2.tokens = it.en.split(' ');
+    c2.hit = c2.tokens.map(function () { return false; });
+    c2.left = 3;
+    c2.done = false;
+    host.innerHTML =
+      '<div class="cshead"><h2>🎧 2단계 · 3회 리스닝</h2><span>' + (c2.i + 1) + ' / ' + c2.items.length + '</span></div>' +
+      '<div class="csbar"><i style="width:' + Math.round(c2.i / c2.items.length * 100) + '%"></i></div>' +
+      '<div class="card2">' +
+        '<div class="csrow"><span class="tag">' + lvTag(it.level) + '</span>' +
+          '<span class="csrow__s">듣고, 들은 만큼만 받아 적어 보세요</span></div>' +
+        '<p class="c2sent" id="c2Sent"></p>' +
+        '<button class="c2play" type="button" id="c2Play">🔊 문장 듣기</button>' +
+        '<div class="c2row"><span class="c2life" id="c2Life">남은 기회 3/3</span>' +
+          '<span class="csrow__s" id="c2HeardTxt"></span></div>' +
+        '<p class="c1heard" id="c2Heard"></p>' +
+        '<button class="c1mic" type="button" id="c2Mic">🎙️ 말로 답하기</button>' +
+        '<div class="c1type">' +
+          '<input id="c2Input" type="text" placeholder="⌨️ 들은 문장을 입력" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">' +
+          '<button type="button" id="c2Go">확인</button>' +
+        '</div>' +
+        '<div class="c1fb hide" id="c2Fb"></div>' +
+        '<div id="c2NextWrap"></div>' +
+      '</div>' +
+      '<p class="footnote">맞힌 단어는 <b>초록색</b>으로 남아요. 빈칸만 다시 들으면 돼요!<br>세 번째까지 들으면 정답을 보여 줘요.</p>';
+
+    c2Paint();
+    document.getElementById('c2Play').addEventListener('click', function () { c2Play(this); });
+    document.getElementById('c2Mic').addEventListener('click', function () { c2MicTap(this); });
+    document.getElementById('c2Go').addEventListener('click', function () {
+      Snd.tap();
+      c2Attempt(document.getElementById('c2Input').value, false);
+    });
+    document.getElementById('c2Input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); Snd.tap(); c2Attempt(this.value, false); }
+    });
+  }
+  function c2Paint() {
+    var el = document.getElementById('c2Sent');
+    if (!el || !c2) return;
+    el.innerHTML = c2.tokens.map(function (t, i) {
+      return c2.hit[i]
+        ? '<span class="c2w on">' + esc(t) + '</span>'
+        : '<span class="c2w off">[ ____ ]</span>';
+    }).join(' ');
+  }
+  function c2Life() {
+    var l = document.getElementById('c2Life');
+    if (!l) return;
+    l.textContent = c2.left > 0 ? ('남은 기회 ' + c2.left + '/3') : '기회 다 씀 · 정답 공개';
+    l.classList.toggle('is-out', c2.left <= 0);
+    var b = document.getElementById('c2Play');
+    if (b) b.disabled = c2.done || c2.left <= 0;
+  }
+  function c2Play(btn) {
+    if (!c2 || c2.done || c2.left <= 0) return;
+    Snd.tap();
+    c2.left--;
+    c2Life();
+    var it = c2.items[c2.i];
+    speak(it.en, 0.92);
+    clearTimeout(c2Timer);
+    if (c2.left <= 0) {
+      c2Timer = setTimeout(function () { if (c2 && !c2.done) c2Reveal(false); }, 1100 + c2.tokens.length * 190);
+    }
+  }
+  function c2MicTap(btn) {
+    if (!c2 || c2.done || c2.listening) return;
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { csNoMic(btn, 'c2Input'); return; }
+    c2.listening = true;
+    btn.classList.add('is-live');
+    btn.textContent = '🎙️ 듣고 있어요…';
+    var heard = document.getElementById('c2Heard');
+    heard.textContent = '';
+    csAsr(function (txt, fin) {
+      heard.textContent = '🎙️ ' + txt;
+      if (fin && txt) {
+        c2.listening = false;
+        btn.classList.remove('is-live');
+        btn.textContent = '🎙️ 말로 답하기';
+        c2Attempt(txt, true);
+      }
+    }, function () {
+      c2.listening = false;
+      btn.classList.remove('is-live');
+      btn.textContent = '🎙️ 말로 답하기';
+    }, function (err) {
+      c2.listening = false;
+      btn.classList.remove('is-live');
+      btn.textContent = '🎙️ 말로 답하기';
+      if (err === 'not-allowed' || err === 'service-not-allowed') toast('마이크 권한을 허락해 주세요 — ⌨️로도 답할 수 있어요', true);
+    });
+  }
+  function c2Attempt(text, fromMic) {
+    if (!c2 || c2.done || !text || !String(text).trim()) return;
+    var said = crsWords(text), got = 0;
+    c2.tokens.forEach(function (tk, i) {
+      if (c2.hit[i]) { got++; return; }
+      var nt = crsNorm(tk);
+      if (nt && said.indexOf(nt) !== -1) { c2.hit[i] = true; got++; }
+    });
+    c2Paint();
+    var fb = document.getElementById('c2Fb');
+    if (got === c2.tokens.length) { c2Reveal(true); return; }
+    Snd.tap();
+    fb.className = 'c1fb no';
+    fb.innerHTML = (fromMic ? '🎙️ <b>' + esc(text) + '</b> — ' : '') +
+      c2.tokens.length + '단어 중 <b>' + got + '개</b>를 잡았어요. 빈칸만 다시 들어 볼까요? 🎧';
+  }
+  function c2Reveal(solved) {
+    if (!c2 || c2.done) return;
+    c2.done = true;
+    if (solved) c2.solved++;
+    var it = c2.items[c2.i];
+    c2.tokens.forEach(function (t, i) { c2.hit[i] = true; });
+    c2Paint();
+    c2.left = Math.max(0, c2.left);
+    var l = document.getElementById('c2Life');
+    if (l) { l.textContent = solved ? '✅ 다 들었어요!' : '정답을 공개했어요'; l.classList.add('is-out'); }
+    var b = document.getElementById('c2Play');
+    if (b) b.disabled = true;
+    var fb = document.getElementById('c2Fb');
+    fb.className = 'c1fb ok';
+    fb.innerHTML = (solved ? '✅ 정답이에요! ' : '🎧 이 문장이었어요 — ') +
+      '<b>' + esc(it.en) + '</b><br>' + esc(it.ko);
+    Snd.success();
+    speak(it.en, 0.92);
+    addXpOnce('c2:' + it.en, solved ? 3 : 1);
+    var i2 = document.getElementById('c2Input');
+    if (i2) i2.disabled = true;
+    var m = document.getElementById('c2Mic');
+    if (m) m.disabled = true;
+    var last = c2.i === c2.items.length - 1;
+    var w = document.getElementById('c2NextWrap');
+    w.innerHTML = '<div style="margin-top:11px"><button class="btn--primary" type="button" id="c2Next">' +
+      (last ? '2단계 마치기 →' : '다음 문장 →') + '</button></div>';
+    document.getElementById('c2Next').addEventListener('click', function () { Snd.tap(); c2NextQ(); });
+  }
+  function c2NextQ() {
+    if (c2.i < c2.items.length - 1) { c2.i++; c2Render(); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {} return; }
+    c2Done();
+  }
+  function c2Done() {
+    crsMark(2, 3);
+    var host = document.getElementById('c2Host');
+    if (!host) return;
+    host.innerHTML = crsStepDoneHtml(2, '3회 리스닝 5문장, 끝냈어요!',
+      '혼자 다 들은 문장 ' + c2.solved + '개 · 다음은 🥁 <b>리듬 문법</b> — 3개 레인에서 맞는 단어를 쳐요.');
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
+  /* ============================================================
+     3단계 · 🥁 리듬 문법 (3레인 낙하 노트)
+     ============================================================ */
+  var RGN = {
+    sets: [], si: 0, bpm: 85, phase: 'idle', tStart: 0, beatMs: 705.88, fallMs: 2117,
+    notes: [], settled: [], sent: [], combo: 0, maxCombo: 0,
+    perfect: 0, good: 0, miss: 0, raf: 0, pvTimer: 0, endTimer: 0, hitTimer: 0
+  };
+  function rgWin() { return Math.max(170, RGN.beatMs * 0.45); }
+  function rgStageH() {
+    var st = document.getElementById('rgStage');
+    return (st ? st.clientHeight : 258) - 52;
+  }
+  function rgStop() {
+    RGN.phase = RGN.phase === 'fall' ? 'off' : 'idle';
+    if (RGN.raf) { cancelAnimationFrame(RGN.raf); RGN.raf = 0; }
+    clearTimeout(RGN.pvTimer);
+    clearTimeout(RGN.endTimer);
+    clearTimeout(RGN.hitTimer);
+  }
+  function rgRender() {
+    var host = document.getElementById('c3Host');
+    if (!host) return;
+    RGN.phase = 'idle';
+    host.innerHTML =
+      '<div class="cshead"><h2>🥁 3단계 · 리듬 문법</h2><span id="rgProg">1 / 5 문장</span></div>' +
+      '<div class="rg">' +
+        '<div class="rg__bar">' +
+          '<span class="rg__sent" id="rgSent">레인에 떨어지는 <b>맞는 단어</b>를 쳐서 문장을 완성해요</span>' +
+          '<span class="rg__combo" id="rgCombo">COMBO 0</span>' +
+        '</div>' +
+        '<div class="rg__speeds seg" id="rgSpeeds">' +
+          '<button class="seg__b" type="button" data-bpm="65" aria-pressed="false">🐢 천천히</button>' +
+          '<button class="seg__b is-on" type="button" data-bpm="85" aria-pressed="true">🎵 보통</button>' +
+          '<button class="seg__b" type="button" data-bpm="105" aria-pressed="false">🔥 빠르게</button>' +
+        '</div>' +
+        '<div class="rg__stage" id="rgStage">' +
+          '<div class="rg__lanes" id="rgLanes">' +
+            '<div class="rg__lane" data-lane="0"></div><div class="rg__lane" data-lane="1"></div><div class="rg__lane" data-lane="2"></div>' +
+          '</div>' +
+          '<div class="rg__line"></div>' +
+          '<div class="rg__keys" id="rgKeys">' +
+            '<div class="rg__key" data-lane="0">1 · A</div><div class="rg__key" data-lane="1">2 · S</div><div class="rg__key" data-lane="2">3 · D</div>' +
+          '</div>' +
+          '<div class="rg__fb" id="rgFb"></div>' +
+          '<div class="rg__prev hide" id="rgPrev">' +
+            '<span class="rg__pko" id="rgPko"></span>' +
+            '<span class="rg__ph">2초 동안 문장을 머릿속으로 그려 보세요</span>' +
+            '<span class="rg__pbar"><i id="rgPbar"></i></span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rg__legend">' +
+          '<span><i class="lg-st"></i>강세 — 크고 힘 있게</span>' +
+          '<span><i class="lg-un"></i>약박 — 짧고 가볍게</span>' +
+        '</div>' +
+        '<p class="rg__hint" id="rgHint">' + rgHintText() + '</p>' +
+        '<div id="rgCta"><button class="btn--primary" type="button" id="rgStart">▶ 리듬 시작</button></div>' +
+      '</div>';
+
+    document.getElementById('rgStart').addEventListener('click', function () {
+      Snd.tap();
+      rgStartRound();
+    });
+    document.getElementById('rgSpeeds').addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-bpm]') : null;
+      if (!b) return;
+      Snd.tap();
+      rgSpeed(Number(b.getAttribute('data-bpm')));
+    });
+    var mb = document.getElementById('muteBtn');
+    if (mb) mb.addEventListener('click', function () { setTimeout(rgHintRefresh, 0); });
+    var stage = document.getElementById('rgStage');
+    stage.addEventListener('pointerdown', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('[data-lane]') : null;
+      if (!t) return;
+      var lane = Number(t.getAttribute('data-lane'));
+      if (!isNaN(lane)) rgTap(lane);
+    });
+  }
+  function rgHintText() {
+    if (store.muted) {
+      return '지금은 <b>음소거</b> 중이라 소리가 나지 않아요. 위 🔊 버튼을 누르면 <b>단어 발음</b>이 나와요.<br>' +
+        '보라색 줄에 닿는 순간 <b>맞는 단어 칸</b>을 눌러요.';
+    }
+    return '보라색 줄에 닿는 순간 <b>맞는 단어 칸</b>을 눌러요. 틀려도 문장은 이어져요.<br>' +
+      '치는 순간 <b>그 단어 발음</b>이 바로 나와요 🔊';
+  }
+  function rgHintRefresh() {
+    var h = document.getElementById('rgHint');
+    if (h) h.innerHTML = rgHintText();
+  }
+  function rgSpeed(bpm) {
+    bpm = Number(bpm) || 85;
+    RGN.bpm = bpm;
+    Array.prototype.forEach.call(document.querySelectorAll('#rgSpeeds [data-bpm]'), function (b) {
+      var on = Number(b.getAttribute('data-bpm')) === bpm;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if (RGN.sets.length && RGN.phase !== 'idle') rgSetStart(true);
+  }
+  function rgStartRound() {
+    RGN.sets = levelPick(RHY, 5);
+    RGN.si = 0;
+    RGN.perfect = RGN.good = RGN.miss = 0;
+    RGN.combo = 0;
+    RGN.maxCombo = 0;
+    rgSetStart();
+  }
+  function rgSetStart(keep) {
+    rgStop();
+    if (!RGN.sets.length) return;
+    var set = RGN.sets[RGN.si];
+    RGN.beatMs = 60000 / RGN.bpm;
+    RGN.fallMs = RGN.beatMs * 3;
+    RGN.settled = [0, 0, 0, 0];
+    RGN.sent = [];
+    RGN.phase = 'preview';
+    RGN.notes = [];
+    Array.prototype.forEach.call(document.querySelectorAll('#rgLanes .rg__lane'), function (l) { l.innerHTML = ''; });
+    var pg = document.getElementById('rgProg');
+    if (pg) pg.textContent = (RGN.si + 1) + ' / ' + RGN.sets.length + ' 문장';
+    var sent = document.getElementById('rgSent');
+    if (sent) sent.innerHTML = '<span class="w pend">____</span> <span class="w pend">____</span> <span class="w pend">____</span> <span class="w pend">____</span>';
+    var cb = document.getElementById('rgCombo');
+    if (cb) { cb.textContent = 'COMBO ' + RGN.combo; cb.classList.toggle('hot', RGN.combo >= 3); }
+    var prev = document.getElementById('rgPrev');
+    var pko = document.getElementById('rgPko');
+    var bar = document.getElementById('rgPbar');
+    if (prev) prev.classList.remove('hide');
+    if (pko) pko.textContent = '\u201C' + set.ko + '\u201D';
+    if (bar) {
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      void bar.offsetWidth;
+      bar.style.transition = 'width 2s linear';
+      bar.style.width = '100%';
+    }
+    document.getElementById('rgCta').innerHTML = '<button class="btn--ghost" type="button" id="rgQuit" style="width:100%">■ 그만하기</button>';
+    document.getElementById('rgQuit').addEventListener('click', function () { Snd.tap(); rgStop(); rgRender(); });
+    RGN.pvTimer = setTimeout(function () { rgFall(set); }, 2000);
+  }
+  function rgFall(set) {
+    if (!document.getElementById('rgStage')) return;
+    var prev = document.getElementById('rgPrev');
+    if (prev) prev.classList.add('hide');
+    RGN.phase = 'fall';
+    RGN.tStart = performance.now();
+    var sent = document.getElementById('rgSent');
+    if (sent) sent.innerHTML = '';
+    var lanes = document.querySelectorAll('#rgLanes .rg__lane');
+    var frag = [];
+    for (var k = 0; k < 4; k++) {
+      var beat = set.beats[k], row = [];
+      for (var j = 0; j < 3; j++) {
+        var el = document.createElement('div');
+        el.className = 'note ' + (beat.st ? 'st' : 'un');
+        el.innerHTML = '<span>' + esc(beat.w[j]) + '</span>' + (beat.st ? '<i class="nst">🔥</i>' : '');
+        el.style.top = '-60px';
+        row.push(el);
+        frag.push([j, el]);
+      }
+      RGN.notes.push(row);
+    }
+    frag.forEach(function (p) { lanes[p[0]].appendChild(p[1]); });
+    rgPaintSent();
+    rgGroove();
+    RGN.raf = requestAnimationFrame(rgFrame);
+  }
+  function rgFrame(now) {
+    if (RGN.phase !== 'fall') return;
+    var t = now - RGN.tStart;
+    var H = rgStageH();
+    var win = rgWin();
+    for (var k = 0; k < 4; k++) {
+      var px = ((t - k * RGN.beatMs) / RGN.fallMs) * H;
+      for (var j = 0; j < 3; j++) {
+        var el = RGN.notes[k] && RGN.notes[k][j];
+        if (!el) continue;
+        el.style.top = Math.round(px) + 'px';
+        el.classList.toggle('is-near', !RGN.settled[k] && Math.abs(px - H) < 30);
+      }
+      if (!RGN.settled[k] && t > RGN.fallMs + k * RGN.beatMs + win) rgSettle(k, -1, 0);
+    }
+    if (t > RGN.fallMs + 3 * RGN.beatMs + win + 320) { rgEndSet(); return; }
+    RGN.raf = requestAnimationFrame(rgFrame);
+  }
+  function rgTap(lane) {
+    if (RGN.phase !== 'fall') return;
+    var now = performance.now() - RGN.tStart;
+    var win = rgWin(), best = -1, bestD = 1e9;
+    for (var k = 0; k < 4; k++) {
+      if (RGN.settled[k]) continue;
+      var d = Math.abs(now - (RGN.fallMs + k * RGN.beatMs));
+      if (d < bestD) { bestD = d; best = k; }
+    }
+    rgLaneFlash(lane);
+    if (best < 0 || bestD > win) { Snd.tap(); return; }   /* 빗나간 빈 탭 */
+    rgSettle(best, lane, bestD);
+  }
+  function rgLaneFlash(lane) {
+    var key = document.querySelector('#rgKeys [data-lane="' + lane + '"]');
+    var ln = document.querySelector('#rgLanes [data-lane="' + lane + '"]');
+    if (key) {
+      key.classList.add('is-hit');
+      setTimeout(function () { key.classList.remove('is-hit'); }, 110);
+    }
+    if (ln) {
+      ln.classList.add('is-hit');
+      clearTimeout(RGN.hitTimer);
+      RGN.hitTimer = setTimeout(function () { ln.classList.remove('is-hit'); }, 110);
+    }
+  }
+  function rgPaintSent() {
+    var el = document.getElementById('rgSent');
+    if (!el || !RGN.sets.length) return;
+    var html = '';
+    for (var k = 0; k < 4; k++) {
+      var s = RGN.sent[k];
+      if (!s) { html += '<span class="w pend">____</span>'; continue; }
+      html += '<span class="w' + (s.st ? ' st' : '') + (s.ok ? '' : ' miss') + '">' + esc(s.w) + '</span> ';
+    }
+    el.innerHTML = html;
+  }
+  function rgSettle(k, lane, dt) {
+    if (RGN.settled[k]) return;
+    RGN.settled[k] = 1;
+    var set = RGN.sets[RGN.si];
+    var beat = set.beats[k];
+    var word = beat.w[beat.ok];
+    var okHit = (lane === beat.ok);
+    var kind = 'miss';
+    if (okHit) kind = (dt <= RGN.beatMs * 0.18) ? 'perfect' : 'good';
+    RGN.sent[k] = { w: word, st: !!beat.st, ok: okHit };
+    rgPaintSent();
+    var fb = document.getElementById('rgFb');
+    var cb = document.getElementById('rgCombo');
+    if (okHit) {
+      if (kind === 'perfect') { RGN.perfect++; RGN.combo++; }
+      else { RGN.good++; RGN.combo++; }
+      if (RGN.combo > RGN.maxCombo) RGN.maxCombo = RGN.combo;
+      if (cb) {
+        cb.textContent = 'COMBO ' + RGN.combo;
+        cb.classList.toggle('hot', RGN.combo >= 3);
+      }
+      if (fb) {
+        fb.textContent = kind === 'perfect' ? 'PERFECT' : 'GOOD';
+        fb.className = 'rg__fb show' + (kind === 'good' ? ' good' : '');
+        clearTimeout(RGN.fbTimer);
+        RGN.fbTimer = setTimeout(function () { fb.classList.remove('show'); }, 520);
+      }
+      rgMarimba(lane);
+      rgSpeakWord(word);
+    } else {
+      RGN.miss++;
+      RGN.combo = 0;
+      if (cb) { cb.textContent = 'COMBO 0'; cb.classList.remove('hot'); }
+      if (fb) {
+        fb.textContent = 'MISS';
+        fb.className = 'rg__fb show miss';
+        clearTimeout(RGN.fbTimer);
+        RGN.fbTimer = setTimeout(function () { fb.classList.remove('show'); }, 520);
+      }
+      if (lane >= 0) Snd.fail();
+    }
+    var allDone = true;
+    for (var i = 0; i < 4; i++) if (!RGN.settled[i]) allDone = false;
+    if (allDone) {
+      clearTimeout(RGN.endTimer);
+      RGN.endTimer = setTimeout(rgEndSet, 380);
+    }
+  }
+  function rgEndSet() {
+    if (RGN.phase === 'done' || !RGN.sets.length) return;
+    RGN.phase = 'done';
+    if (RGN.raf) { cancelAnimationFrame(RGN.raf); RGN.raf = 0; }
+    for (var k = 0; k < 4; k++) if (!RGN.settled[k]) rgSettle(k, -1, 0);
+    var set = RGN.sets[RGN.si];
+    var full = set.beats.map(function (b) { return b.w[b.ok]; }).join(' ');
+    Array.prototype.forEach.call(document.querySelectorAll('#rgLanes .note'), function (n) {
+      n.classList.add('is-dead');
+      n.style.transition = 'opacity .22s';
+    });
+    setTimeout(function () {
+      Array.prototype.forEach.call(document.querySelectorAll('#rgLanes .note.is-dead'), function (n) { n.remove(); });
+    }, 260);
+    var sent = document.getElementById('rgSent');
+    if (sent) sent.innerHTML = RGN.sent.map(function (s) {
+      return '<span class="w' + (s.st ? ' st' : '') + (s.ok ? '' : ' miss') + '">' + esc(s.w) + '</span> ';
+    }).join('') + '<div class="rg__ph2" style="margin-top:3px">' + esc(set.ko) + '</div>';
+    if (!store.muted) speak(set.say || full, 0.92);
+    addXpOnce('c3:' + full, 4);
+    var last = RGN.si >= RGN.sets.length - 1;
+    var cta = document.getElementById('rgCta');
+    if (cta) {
+      cta.innerHTML = '<button class="btn--primary" type="button" id="rgNext">' +
+        (last ? '5문장 결과 보기 🎉' : '다음 문장 →') + '</button>';
+      document.getElementById('rgNext').addEventListener('click', function () {
+        Snd.tap();
+        if (last) rgResult(); else { RGN.si++; rgSetStart(); }
+      });
+    }
+    var pg = document.getElementById('rgProg');
+    if (pg) pg.textContent = (RGN.si + 1) + ' / ' + RGN.sets.length + ' 문장';
+  }
+  function rgResult() {
+    RGN.phase = 'idle';
+    crsMark(3, 4);
+    var host = document.getElementById('c3Host');
+    if (!host) return;
+    host.innerHTML =
+      '<div class="fin">' +
+        '<p class="fin__e">🥁</p>' +
+        '<h2>리듬 문법 5문장, 끝냈어요!</h2>' +
+        '<p>PERFECT <b>' + RGN.perfect + '</b> · GOOD <b>' + RGN.good + '</b> · MISS <b>' + RGN.miss + '</b><br>' +
+          '최고 콤보 <b>' + RGN.maxCombo + '</b> — 강세 단어를 크게 쳤다면 이미 절반은 온 거예요.</p>' +
+        '<div class="fin__stats">' +
+          '<div class="fin__s"><b>' + crsCount() + '/4</b><span>오늘 단계</span></div>' +
+          '<div class="fin__s"><b>' + todayXp() + '</b><span>오늘 XP</span></div>' +
+        '</div>' +
+        '<div style="margin-top:15px"><button class="btn--primary" type="button" data-cnext="4">4단계 · 한 줄 보너스 →</button></div>' +
+        '<div style="margin-top:8px"><button class="btn--ghost" type="button" id="rgAgain" style="width:100%">한 번 더 🥁</button></div>' +
+      '</div>';
+    var ag = document.getElementById('rgAgain');
+    if (ag) ag.addEventListener('click', function () { Snd.tap(); crsGo(3); });
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
+  /* ---- 리듬 사운드 (드럼 + 마림바) ---- */
+  function rgA() {
+    var ctx = Snd.ensure();
+    return ctx;
+  }
+  function rgKick(at) {
+    var ctx = rgA();
+    if (!ctx) return;
+    try {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(132, at);
+      o.frequency.exponentialRampToValueAtTime(44, at + 0.11);
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.exponentialRampToValueAtTime(0.22, at + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001, at + 0.17);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(at); o.stop(at + 0.2);
+    } catch (e) {}
+  }
+  function rgNoise(at, dur, vol, hp) {
+    var ctx = rgA();
+    if (!ctx) return;
+    try {
+      var len = Math.max(1, Math.floor(ctx.sampleRate * dur));
+      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+      var src = ctx.createBufferSource(); src.buffer = buf;
+      var f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = hp || 4200;
+      var g = ctx.createGain(); g.gain.value = vol;
+      src.connect(f); f.connect(g); g.connect(ctx.destination);
+      src.start(at);
+    } catch (e) {}
+  }
+  function rgHat(at) { rgNoise(at, 0.045, 0.035, 7000); }
+  function rgSnare(at) { rgNoise(at, 0.13, 0.06, 1600); }
+  function rgGroove() {
+    var ctx = rgA();
+    if (!ctx) return;
+    var b = RGN.beatMs / 1000;
+    var t0 = ctx.currentTime + 0.10;
+    for (var i = 0; i <= 6; i++) {
+      var at = t0 + i * b;
+      if (i % 2 === 0) rgKick(at);
+      rgHat(at + b / 2);
+      if (i % 4 === 2) rgSnare(at);
+    }
+  }
+  function rgMarimba(lane) {
+    var ctx = rgA();
+    if (!ctx) return;
+    var freqs = [523.25, 659.25, 783.99];
+    var f = freqs[lane] || 659.25;
+    try {
+      var t = ctx.currentTime;
+      var o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'triangle'; o2.type = 'sine';
+      o.frequency.setValueAtTime(f, t);
+      o2.frequency.setValueAtTime(f * 2.01, t);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.16, t + 0.006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.30);
+      o.connect(g); o2.connect(g); g.connect(ctx.destination);
+      o.start(t); o2.start(t); o.stop(t + 0.32); o2.stop(t + 0.32);
+    } catch (e) {}
+  }
+  /* 단어를 칠 때마다 그 단어 발음이 바로 — 연달아 겹치지 않게 cancel + 살짝 빠르게 */
+  function rgSpeakWord(word) {
+    if (store.muted) return;
+    if (!synth) return;
+    try {
+      synth.cancel();
+      var u = new SpeechSynthesisUtterance(String(word).replace(/\u2019/g, "'"));
+      u.lang = 'en-US';
+      u.rate = 1.15;
+      u.pitch = 1.04;
+      if (voice) u.voice = voice;
+      synth.speak(u);
+    } catch (e) {}
+  }
+  function rgState() {
+    var inFall = RGN.phase === 'fall';
+    var now = inFall ? (performance.now() - RGN.tStart) : -1;
+    var win = rgWin(), k = -1, d = 1e9;
+    if (inFall) {
+      for (var i = 0; i < 4; i++) {
+        if (RGN.settled[i]) continue;
+        var dd = Math.abs(now - (RGN.fallMs + i * RGN.beatMs));
+        if (dd < d) { d = dd; k = i; }
+      }
+    }
+    var inWin = k >= 0 && d <= win;
+    var sent = document.getElementById('rgSent');
+    return {
+      phase: RGN.phase, bpm: RGN.bpm, setIndex: RGN.si, setTotal: RGN.sets.length,
+      inWindow: inWin, beat: inWin ? k : -1,
+      correctLane: inWin ? RGN.sets[RGN.si].beats[k].ok : -1,
+      combo: RGN.combo, maxCombo: RGN.maxCombo,
+      perfect: RGN.perfect, good: RGN.good, miss: RGN.miss,
+      sentence: sent ? sent.textContent.replace(/\s+/g, ' ').trim() : '',
+      noteCount: document.querySelectorAll('#rgLanes .note').length,
+      muted: !!store.muted
+    };
+  }
+
+  /* ============================================================
+     4단계 · 🎬🎵 오늘의 한 줄 보너스
+     ============================================================ */
+  var c4 = null, c4Timer = 0;
+  function c4Start() {
+    var pool = [], seen = {};
+    function add(en, ko, src) {
+      if (!en || en.length > 54 || seen[en]) return;
+      seen[en] = 1;
+      pool.push({ en: en, ko: ko || '', src: src });
+    }
+    POP.forEach(function (p) {
+      (p.songs || []).forEach(function (s) {
+        (s.x || []).forEach(function (x) { add(x.en, x.ko, '🎵 ' + p.name + ' · ' + s.title); });
+      });
+    });
+    MOVIES.forEach(function (m) {
+      (m.lines || []).forEach(function (l) { add(l.en, l.ko, '🎬 ' + m.name); });
+    });
+    GAMES.forEach(function (g) {
+      (g.lines || []).forEach(function (l) { add(l.en, l.ko, '🎮 ' + g.name); });
+    });
+    SLANG.forEach(function (s) { add(s.line, s.lineKo, '🔥 슬랭 · ' + s.exp); });
+    c4 = { lines: shuffle(pool).slice(0, 3), i: 0 };
+    c4Render();
+  }
+  function c4Render() {
+    var host = document.getElementById('c4Host');
+    if (!host || !c4) return;
+    var it = c4.lines[c4.i];
+    host.innerHTML =
+      '<div class="cshead"><h2>🎬 4단계 · 오늘의 한 줄</h2><span>' + (c4.i + 1) + ' / ' + c4.lines.length + '</span></div>' +
+      '<div class="csbar"><i style="width:' + Math.round(c4.i / c4.lines.length * 100) + '%"></i></div>' +
+      '<div class="card2">' +
+        '<span class="c4src">' + esc(it.src) + '</span>' +
+        '<p class="c4en">' + esc(it.en) + '</p>' +
+        '<p class="c4ko">' + esc(it.ko) + '</p>' +
+        '<div class="c4row">' +
+          '<button class="c1btn" type="button" id="c4Play">🔊 듣기</button>' +
+          '<button class="c1btn" type="button" id="c4Slow">🐢 천천히</button>' +
+        '</div>' +
+        '<div style="margin-top:11px"><button class="btn--primary" type="button" id="c4Done">' +
+          (c4.i === c4.lines.length - 1 ? '따라 말했어요 · 마무리 🎉' : '따라 말했어요 →') + '</button></div>' +
+        '<p class="c1fb no" style="background:#F7F3FF;color:#6B54C4;margin-top:10px">' +
+          '한 번 듣고 → 한 번 따라 말하면 끝! 소리 내지 못하는 곳이면 마음속으로요 🤫</p>' +
+      '</div>' +
+      '<p class="footnote">오늘의 15분, 여기까지 왔어요. <b>3분</b>만 더!</p>';
+    document.getElementById('c4Play').addEventListener('click', function () { Snd.tap(); speak(it.en, 1); });
+    document.getElementById('c4Slow').addEventListener('click', function () { Snd.tap(); speak(it.en, 0.78); });
+    document.getElementById('c4Done').addEventListener('click', function () {
+      Snd.pop();
+      addXpOnce('c4:' + it.en, 2);
+      if (c4.i < c4.lines.length - 1) { c4.i++; c4Render(); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {} return; }
+      c4DoneAll();
+    });
+  }
+  function c4DoneAll() {
+    crsMark(4, 3);
+    if (crsCount() === 4) { crsGo(0); Snd.success(); return; }
+    var host = document.getElementById('c4Host');
+    if (!host) return;
+    var rest = crsNextStep();
+    host.innerHTML = crsStepDoneHtml(4, '한 줄 보너스 3줄, 끝냈어요!',
+      '아직 남은 단계가 있어요 — 이어서 하면 오늘 코스 완주예요.', rest);
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
+  /* ---- 화면 연결 ---- */
+  (function wireCourseUi() {
+    var home = document.getElementById('tab-home');
+    if (home) home.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-course]') : null;
+      if (!b) return;
+      e.preventDefault();
+      Snd.tap();
+      openCourse(Number(b.getAttribute('data-course')));
+    });
+    var sec = document.getElementById('tab-course');
+    if (sec) sec.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-cstep],[data-cnext],[data-cback]') : null;
+      if (!b) return;
+      e.preventDefault();
+      Snd.tap();
+      if (b.hasAttribute('data-cback')) { showHome(); return; }
+      if (b.hasAttribute('data-cstep')) { crsGo(Number(b.getAttribute('data-cstep'))); return; }
+      var n = Number(b.getAttribute('data-cnext'));
+      if (n) crsGo(n); else { crsGo(0); }
+    });
+    var pills = document.getElementById('coursePills');
+    if (pills) pills.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-cjump]') : null;
+      if (!b) return;
+      Snd.tap();
+      openCourse(Number(b.getAttribute('data-cjump')));
+    });
+    document.addEventListener('keydown', function (e) {
+      if (crsState.step !== 3 || RGN.phase !== 'fall') return;
+      var map = { a: 0, s: 1, d: 2, '1': 0, '2': 1, '3': 2 };
+      var k = String(e.key || '').toLowerCase();
+      if (map.hasOwnProperty(k)) { e.preventDefault(); rgTap(map[k]); }
+    });
+  })();
+
+  window.__course = {
+    open: openCourse,
+    close: function () { showHome(); },
+    go: crsGo,
+    step: function () { return crsState.step; },
+    count: crsCount,
+    done: crsDone,
+    next: crsNextStep,
+    blank: {
+      state: function () {
+        if (!c1) return null;
+        var it = c1.items[c1.i];
+        return {
+          index: c1.i, total: c1.items.length, level: it.level, ans: it.ans,
+          blank: (document.getElementById('c1Blank') || {}).textContent,
+          hint: (document.getElementById('c1Hint') || {}).textContent,
+          hintStep: c1.hint, solved: c1.ok, solvedCount: c1.solved,
+          input: (document.getElementById('c1Input') || {}).value,
+          disabled: !!(document.getElementById('c1Input') || {}).disabled
+        };
+      },
+      hint: function () {
+        var b = document.getElementById('c1HintBtn');
+        if (b) b.click();
+        return (document.getElementById('c1Hint') || {}).textContent;
+      },
+      send: function (t) {
+        var i = document.getElementById('c1Input');
+        if (i) i.value = t;
+        var g = document.getElementById('c1Go');
+        if (g) g.click();
+      },
+      next: function () {
+        var b = document.getElementById('c1Next');
+        if (b) b.click();
+        return crsState.step;
+      }
+    },
+    listen: {
+      state: function () {
+        if (!c2) return null;
+        return {
+          index: c2.i, total: c2.items.length, level: c2.items[c2.i].level,
+          left: c2.left, done: c2.done, solvedCount: c2.solved,
+          sent: (document.getElementById('c2Sent') || {}).textContent.replace(/\s+/g, ' ').trim(),
+          life: (document.getElementById('c2Life') || {}).textContent
+        };
+      },
+      play: function () {
+        var b = document.getElementById('c2Play');
+        if (b) b.click();
+        return c2 ? c2.left : null;
+      },
+      send: function (t) {
+        var i = document.getElementById('c2Input');
+        if (i) i.value = t;
+        var g = document.getElementById('c2Go');
+        if (g) g.click();
+      },
+      next: function () {
+        var b = document.getElementById('c2Next');
+        if (b) b.click();
+        return crsState.step;
+      }
+    },
+    rhythm: {
+      start: function () {
+        var b = document.getElementById('rgStart');
+        if (b) b.click();
+      },
+      tap: rgTap,
+      speed: rgSpeed,
+      state: rgState,
+      next: function () {
+        var b = document.getElementById('rgNext');
+        if (b) b.click();
+        return rgState();
+      }
+    },
+    bonus: {
+      state: function () {
+        if (!c4) return null;
+        return { index: c4.i, total: c4.lines.length, line: c4.lines[c4.i] };
+      },
+      next: function () {
+        var b = document.getElementById('c4Done');
+        if (b) b.click();
+      }
+    }
+  };
 
   boot();
   /* 첫 방문에는 1분 레벨 테스트를 자동으로 띄운다 (한 번 닫으면 다시 안 띄움) */
