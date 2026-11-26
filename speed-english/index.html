@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>스피드 영어 · 5초 회화 챌린지</title>
+<title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="speed-english-v3-2026-11-26-lightmap">
+<meta name="app-build" content="lightup-english-v4-2026-11-26">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="스피드 영어">
-<meta name="description" content="한국어를 읽고 5초 안에 영어로 — 번역하지 말고 덩어리로 바로 말하는 회화 연습">
+<meta name="apple-mobile-web-app-title" content="라이트업 잉글리시">
+<meta name="description" content="라이트업 잉글리시 — 한국어를 읽고 5초 안에 영어로. 영어를 쌓으면 미국·세계 지도에 불이 하나씩 켜지는 회화 연습">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
@@ -54,7 +54,7 @@ h1,h2,h3,p{margin:0}
 }
 .hdr__top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; position:relative; z-index:1}
 .hdr__hello{font-size:11.5px; font-weight:800; color:var(--muted)}
-.hdr h1{font-size:26px; font-weight:900; letter-spacing:-.045em; line-height:1.14; margin-top:3px}
+.hdr h1{font-size:21px; font-weight:900; letter-spacing:-.05em; line-height:1.16; margin-top:3px; white-space:nowrap}
 .hdr h1 em{font-style:normal; color:var(--violet)}
 .hdr__sub{font-size:11.5px; font-weight:700; color:var(--ink2); margin-top:4px}
 .iconbtn{
@@ -768,7 +768,7 @@ body.is-lvopen{overflow:hidden}
 .gcard__row .sbtn{flex:none; white-space:nowrap}
 .gcard__row .sbtn--check{flex:1 1 auto; margin-left:auto}
 
-/* ============ ✨ 불 켜지는 영어 여행 지도 ============ */
+/* ============ ✨ 라이트업 영어 여행 지도 ============ */
 .mappill{
   display:inline-block; padding:4px 6px; border-radius:999px; line-height:1.2;
   font-size:9.5px; font-weight:900; letter-spacing:-.03em; color:#6E6A86; white-space:nowrap;
@@ -793,7 +793,7 @@ body.is-mapopen{overflow:hidden}
 
 .wm{position:fixed; inset:0; z-index:80; display:flex; align-items:flex-end; justify-content:center}
 .wm__bg{
-  position:absolute; inset:0; background:rgba(39,34,58,.46);
+  position:absolute; inset:0; background:rgba(36,29,56,.52);
   -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); animation:lvFade .22s ease both;
 }
 .wm__card{
@@ -813,18 +813,23 @@ body.is-mapopen{overflow:hidden}
 .wm__head h2{font-size:15.5px; font-weight:900; letter-spacing:-.045em; margin-top:4px; padding-right:30px; line-height:1.32}
 .wm__head h2 b{color:#C2841A; font-weight:900}
 .wm__head h2 em{font-style:normal; color:#8B6CF0; font-weight:900}
+.wm__lead{margin-top:5px; font-size:10.5px; font-weight:700; color:var(--muted); line-height:1.5; word-break:keep-all}
 .wm__xprow{display:flex; align-items:center; gap:5px; margin-top:8px; flex-wrap:wrap}
 .wm__xp{
   font-size:10.5px; font-weight:900; color:#6F58C4; background:#F5EFFF;
   border:1px solid #EAE0FA; border-radius:999px; padding:4px 9px; white-space:nowrap;
+}
+.wm__energy{
+  font-size:10px; font-weight:900; color:#8A6A16; background:#FFF8E6;
+  border:1px solid #F6E6BF; border-radius:999px; padding:4px 8px; white-space:nowrap;
 }
 .wm__cnt{
   font-size:10.5px; font-weight:900; color:#7A6A46; background:#FDF7EA;
   border:1px solid #F4E7C8; border-radius:999px; padding:4px 9px; white-space:nowrap;
 }
 .wm__next{
-  font-size:10.5px; font-weight:900; color:#A8730E; background:#FFF6E0;
-  border:1px solid #FBE7B6; border-radius:999px; padding:4px 9px; white-space:nowrap;
+  display:block; margin-top:7px; font-size:10.5px; font-weight:900; color:#A8730E;
+  background:#FFF6E0; border:1px solid #FBE7B6; border-radius:11px; padding:6px 9px; line-height:1.4;
 }
 .wm__bar{height:9px; border-radius:999px; background:#EFEBF8; overflow:hidden; margin-top:9px}
 .wm__bar i{
@@ -832,60 +837,70 @@ body.is-mapopen{overflow:hidden}
   background:linear-gradient(90deg,#F9DFA0,#F0B33C 55%,#B79BF7);
   box-shadow:0 0 10px rgba(240,179,60,.4); transition:width .5s cubic-bezier(.2,.85,.25,1);
 }
+.wm__cap{
+  margin-top:8px; font-size:10.5px; font-weight:800; color:#8A5A0E; background:#FFF7E4;
+  border:1px solid #F7E3B4; border-radius:11px; padding:7px 10px; line-height:1.5; word-break:keep-all;
+}
 .wm__sect{display:flex; align-items:baseline; gap:5px; font-size:11.5px; font-weight:900; color:var(--ink); margin:13px 2px 0}
 .wm__sect small{font-size:9.5px; font-weight:800; color:var(--muted)}
 
-.wm__svg{display:block; width:100%; height:auto; margin:5px 0 0; overflow:visible}
-.rg{cursor:pointer; -webkit-tap-highlight-color:transparent}
-.rg rect{
-  fill:#E1DEEC; stroke:#D5D0E3; stroke-width:1;
-  transition:fill .45s, stroke .3s, stroke-width .25s, filter .45s;
+/* 밤하늘 지도 판 */
+.wm__panel{
+  position:relative; margin:6px 0 0; border-radius:20px; overflow:hidden;
+  background:radial-gradient(130% 90% at 50% -10%, #322857 0%, #211A38 52%, #171126 100%);
+  border:1px solid #392E5B; box-shadow:0 12px 26px rgba(34,24,66,.22), inset 0 1px 0 rgba(255,255,255,.05);
 }
-.rg text{
-  text-anchor:middle; pointer-events:none;
+.wm__panel::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.75) .7px, transparent 1.2px),
+    radial-gradient(circle at 72% 58%, rgba(255,255,255,.55) .7px, transparent 1.2px),
+    radial-gradient(circle at 42% 82%, rgba(255,255,255,.45) .7px, transparent 1.2px),
+    radial-gradient(circle at 88% 18%, rgba(255,255,255,.45) .7px, transparent 1.2px);
+  background-size:110px 96px, 140px 120px, 90px 76px, 160px 130px;
 }
-.rg .ico{transition:opacity .45s}
-.rg .ico--off{fill:#AFA7C8; opacity:.95}
-.rg .lab2{
-  font-size:8px; font-weight:800; fill:#9C95B1;
-  letter-spacing:-.05em; transition:fill .3s;
-}
-.rg.is-on rect{
-  fill:url(#wmLitUs); stroke:#CCACF8; stroke-width:1.6;
-  filter:drop-shadow(0 0 6px rgba(255,199,105,.6)) drop-shadow(0 0 11px rgba(178,152,240,.34));
-}
-.rg.is-on .lab2{fill:#5B3A05}
-.rg.is-next rect{
-  fill:#F8F1E2; stroke:#F0B331; stroke-width:1.7; stroke-dasharray:4.5 3;
-  animation:wmPulse 1.7s ease-in-out infinite;
-}
-.rg.is-next .lab2{fill:#9A6D14}
-.rg.is-sel rect{stroke:#6B4BD6; stroke-width:2.2; stroke-dasharray:none; animation:none}
-@keyframes wmPulse{0%,100%{stroke-opacity:.35} 50%{stroke-opacity:1}}
+.wm__panel--w{background:radial-gradient(130% 100% at 50% -14%, #2E2450 0%, #1F1834 55%, #161026 100%)}
+.wm__svg{display:block; width:100%; height:auto; position:relative; z-index:1}
 
-.wrg{pointer-events:none}
-.wrg rect{fill:#F7F4FD; stroke:#EFE9FA; stroke-width:1}
-.wrg text{font-size:7px; font-weight:800; fill:#C2B9D8; letter-spacing:.02em}
+/* 실제 미국 주 경계 */
+.usmap path{fill:#332B52; stroke:#473C6F; stroke-width:.45; transition:fill .5s, stroke .3s}
+.usmap path.is-on{
+  fill:url(#wmUsLit); stroke:#FFE3A6; stroke-width:.9;
+  filter:drop-shadow(0 0 3px rgba(255,190,80,.85));
+}
+.usmap path.is-next{stroke:#F6C25C; stroke-width:.85; stroke-dasharray:2.4 1.6; animation:wmPulse 1.7s ease-in-out infinite}
+.usmap path.is-sel{stroke:#D9C8FF; stroke-width:1.3; stroke-dasharray:none; animation:none}
 
-.pin{cursor:pointer}
-.pin .halo{
-  fill:#E1DEEC; stroke:#D5D0E3; stroke-width:1.2;
-  transition:fill .45s, stroke .3s, filter .45s;
+/* 실제 세계 대륙 */
+.wmap path{fill:#302850; stroke:#473D6C; stroke-width:.35}
+
+/* 도시 불빛 · 랜드마크 */
+.upin,.wpin{cursor:pointer; -webkit-tap-highlight-color:transparent}
+.upin .hit,.wpin .hit{fill:transparent}
+.upin .ico,.wpin .ico{pointer-events:none; text-anchor:middle}
+.upin .lbg{fill:#141026; opacity:.62}
+.upin.is-on .lbg{fill:#2A1B00; opacity:.58}
+.upin.is-next .lbg{fill:#141026; opacity:.7}
+.upin .lb,.wpin .lb{
+  font-weight:900; font-size:8px; text-anchor:middle; fill:#C6BBE1; letter-spacing:-.03em;
+  paint-order:stroke; stroke:#1A142B; stroke-width:2.4px; stroke-linejoin:round;
+  pointer-events:none; transition:fill .3s;
 }
-.pin .ico{pointer-events:none}
-.pin .ico--off{fill:#AFA7C8}
-.pin .lab{
-  font-size:8px; font-weight:900; fill:#9C95B1; text-anchor:middle;
-  letter-spacing:-.03em; pointer-events:none; transition:fill .3s;
+.upin.is-on .lb,.wpin.is-on .lb{fill:#FFE3A4}
+.upin.is-next .lb,.wpin.is-next .lb{fill:#FFD07A}
+.upin.is-on .ico,.wpin.is-on .ico{filter:drop-shadow(0 0 5px rgba(255,196,90,.95))}
+.upin .ring{fill:none; stroke:transparent; stroke-width:1.1}
+.upin.is-next .ring{stroke:#F6C25C; stroke-dasharray:3 2.2; animation:wmPulse 1.7s ease-in-out infinite}
+.upin.is-sel .ring{stroke:#D9C8FF; stroke-width:1.5; stroke-dasharray:none; animation:none}
+.wpin .halo{fill:#3A3060; stroke:#54477F; stroke-width:1; transition:fill .45s, stroke .3s, filter .45s}
+.wpin.is-on .halo{
+  fill:url(#wmWLit); stroke:#FFE3A6; stroke-width:1.4;
+  filter:drop-shadow(0 0 6px rgba(255,190,80,.8));
 }
-.pin.is-on .halo{
-  fill:url(#wmLitW); stroke:#CCACF8; stroke-width:2;
-  filter:drop-shadow(0 0 7px rgba(255,199,105,.65)) drop-shadow(0 0 12px rgba(178,152,240,.4));
-}
-.pin.is-on .lab{fill:#8A5A0E}
-.pin.is-next .halo{fill:#F8F1E2; stroke:#F0B331; stroke-width:2; stroke-dasharray:4 2.6; animation:wmPulse 1.7s ease-in-out infinite}
-.pin.is-next .lab{fill:#A8730E}
-.pin.is-sel .halo{stroke:#6B4BD6; stroke-width:2.4; stroke-dasharray:none; animation:none}
+.wpin.is-next .halo{fill:#3A3060; stroke:#F6C25C; stroke-width:1.7; stroke-dasharray:3.5 2.4; animation:wmPulse 1.7s ease-in-out infinite}
+.wpin.is-sel .halo{stroke:#D9C8FF; stroke-width:1.8; stroke-dasharray:none; animation:none}
+.lead{fill:none; stroke:#A79ACD; stroke-width:.45; stroke-dasharray:1.4 1.2; opacity:.75}
+@keyframes wmPulse{0%,100%{stroke-opacity:.4} 50%{stroke-opacity:1}}
 
 .wm__detail{margin:11px 0 2px}
 .wmdet{
@@ -919,7 +934,6 @@ body.is-mapopen{overflow:hidden}
 .wmdet__fact{margin-top:8px; font-size:11px; font-weight:700; color:var(--ink2); line-height:1.6; word-break:keep-all}
 .wmdet__fact b{color:#A8730E; font-weight:900}
 .wmdet__hint{margin-top:7px; font-size:10px; font-weight:700; color:var(--muted)}
-.usnote{font-size:8.5px; font-weight:800; fill:#B9AFD2; letter-spacing:-.02em}
 
 /* ============ 🏠 오늘 뭐 할까요? (홈) ============ */
 .hdr__acts{display:flex; align-items:center; gap:7px; flex:none; position:relative; z-index:1}
@@ -928,7 +942,58 @@ body.is-mapopen{overflow:hidden}
 .home{padding:16px 2px 4px}
 .home__k{font-size:19px; font-weight:900; letter-spacing:-.045em; color:var(--ink)}
 .home__s{font-size:11.5px; font-weight:700; color:var(--ink2); line-height:1.6; margin-top:5px; word-break:keep-all}
-.home__grid{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:15px}
+
+/* ✨ 여행 지도 보상 카드 */
+.jm{
+  position:relative; display:block; width:100%; text-align:left; margin:14px 0 0; padding:14px 15px 13px;
+  border-radius:22px; overflow:hidden; color:#fff;
+  background:radial-gradient(125% 135% at 88% -18%, #5D4A95 0%, #352A5C 42%, #221B3A 78%, #1B1530 100%);
+  border:1px solid #3D3163; box-shadow:0 14px 30px rgba(40,28,80,.24);
+  transition:transform .14s, box-shadow .2s;
+}
+.jm:active{transform:scale(.985); box-shadow:0 8px 18px rgba(40,28,80,.2)}
+.jm::after{
+  content:""; position:absolute; width:158px; height:158px; right:-48px; top:-62px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,214,130,.5) 0%, rgba(255,214,130,0) 70%); pointer-events:none;
+}
+.jm::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.6;
+  background-image:
+    radial-gradient(circle at 22% 30%, rgba(255,255,255,.8) .6px, transparent 1.1px),
+    radial-gradient(circle at 66% 22%, rgba(255,255,255,.55) .6px, transparent 1.1px),
+    radial-gradient(circle at 46% 76%, rgba(255,255,255,.45) .6px, transparent 1.1px),
+    radial-gradient(circle at 84% 62%, rgba(255,255,255,.4) .6px, transparent 1.1px);
+  background-size:86px 74px, 118px 96px, 70px 62px, 140px 118px;
+}
+.jm__top{position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:8px}
+.jm__kick{font-size:10.5px; font-weight:900; color:#FFD98A; letter-spacing:-.01em}
+.jm__energy{
+  font-size:9px; font-weight:900; color:#E9DEFF; background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:3px 7px; white-space:nowrap; flex:none;
+}
+.jm__big{position:relative; z-index:1; display:flex; align-items:baseline; gap:5px; margin-top:7px}
+.jm__big b{font-size:27px; line-height:1; font-weight:900; color:#FFE7AC; letter-spacing:-.04em; text-shadow:0 0 18px rgba(255,200,90,.45)}
+.jm__big span{font-size:11px; font-weight:800; color:#CFC4EA}
+.jm__bar{position:relative; z-index:1; display:block; height:8px; border-radius:999px; background:rgba(255,255,255,.12); overflow:hidden; margin-top:9px}
+.jm__bar i{display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#FFE1A0,#F7C256 60%,#C9A6FF); box-shadow:0 0 10px rgba(255,196,90,.55); transition:width .5s cubic-bezier(.2,.85,.25,1)}
+.jm__dots{position:relative; z-index:1; display:flex; justify-content:space-between; gap:4px; margin-top:8px}
+.jm__dot{display:block; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.16); flex:0 0 6px}
+.jm__dot.on{background:linear-gradient(140deg,#FFE7A8,#F3B23E); box-shadow:0 0 5px rgba(255,200,100,.8)}
+.jm__dot.next{background:rgba(255,214,130,.45); box-shadow:0 0 0 1px rgba(255,214,130,.7) inset}
+.jm__row{position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:10px}
+.jm__next{font-size:10px; font-weight:800; color:#CFC4EA; line-height:1.4; word-break:keep-all}
+.jm__next b{color:#FFE3A4}
+.jm__cta{
+  font-size:10px; font-weight:900; color:#2A2144; background:linear-gradient(140deg,#FFE9AE,#F5C25A);
+  border-radius:999px; padding:6px 10px; white-space:nowrap; flex:none; box-shadow:0 4px 12px rgba(240,180,80,.3);
+}
+.jm__cap{
+  position:relative; z-index:1; display:block; margin-top:9px; font-size:9.5px; font-weight:800; color:#FFE3A4;
+  background:rgba(255,214,130,.12); border:1px solid rgba(255,214,130,.26); border-radius:11px;
+  padding:7px 9px; line-height:1.5; word-break:keep-all;
+}
+
+.home__grid{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:13px}
 .hcard{
   position:relative; overflow:hidden; display:flex; flex-direction:column; text-align:left;
   padding:13px 12px 12px; border-radius:20px; min-height:122px;
@@ -946,12 +1011,18 @@ body.is-mapopen{overflow:hidden}
 .hcard--qiz{--hc:#FFDDEC}
 .hcard--slg{--hc:#FFE5BE}
 .hcard--acc{--hc:#D6E5FF}
-.hcard--map{--hc:#FFEEB4}
+.hcard--wide{
+  grid-column:1 / -1; display:grid; grid-template-columns:auto 1fr auto; grid-template-rows:auto auto;
+  column-gap:11px; align-items:center; min-height:0; padding:12px 13px;
+}
+.hcard--wide .hcard__i{grid-row:1 / 3; font-size:22px}
+.hcard--wide .hcard__t{grid-column:2; align-self:end; margin-top:0}
+.hcard--wide .hcard__d{grid-column:2; align-self:start; margin-top:1px}
+.hcard--wide .hcard__m{grid-column:3; grid-row:1 / 3; margin:0; padding:0; text-align:right}
 .hcard__i{font-size:21px; line-height:1.1; position:relative; z-index:1}
 .hcard__t{font-size:13.5px; font-weight:900; letter-spacing:-.035em; margin-top:7px; position:relative; z-index:1}
 .hcard__d{font-size:10px; font-weight:700; color:var(--ink2); line-height:1.5; margin-top:3px; word-break:keep-all; position:relative; z-index:1}
 .hcard__m{margin-top:auto; padding-top:9px; font-size:9.5px; font-weight:900; color:#7E5FE0; position:relative; z-index:1}
-.hcard--map .hcard__m{color:#B0791B}
 .home__foot{margin-top:14px; text-align:center; font-size:10.5px; font-weight:700; color:var(--muted)}
 
 /* ============ ▶ 시작 준비 (타이머는 누른 뒤에) ============ */
@@ -988,6 +1059,7 @@ body.is-mapopen{overflow:hidden}
   box-shadow:0 10px 26px rgba(56,44,92,.28);
 }
 .toast.show{opacity:1; transform:translate(-50%,0)}
+.toast.long{white-space:normal; text-align:center; line-height:1.55; border-radius:16px; padding:11px 15px; max-width:90vw}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001s !important; transition-duration:.001s !important}}
 </style>
 </head>
@@ -998,8 +1070,8 @@ body.is-mapopen{overflow:hidden}
     <div class="hdr__top">
       <div>
         <p class="hdr__hello" id="hello">오늘도 한 문장부터</p>
-        <h1>스피드 <em>영어</em></h1>
-        <p class="hdr__sub">오늘의 5초 회화 챌린지</p>
+        <h1>✨ 라이트업 <em>잉글리시</em></h1>
+        <p class="hdr__sub">불을 켜는 5초 회화 챌린지</p>
       </div>
       <div class="hdr__acts">
         <button class="iconbtn iconbtn--home" id="homeBtn" aria-label="홈 — 오늘 뭐 할까요?" title="홈">🏠</button>
@@ -1027,6 +1099,23 @@ body.is-mapopen{overflow:hidden}
     <div class="home">
       <p class="home__k">🏠 오늘 뭐 할까요?</p>
       <p class="home__s">고르면 바로 시작해요. 한 가지만 골라도 오늘의 영어는 충분해요.</p>
+
+      <!-- ✨ 나의 영어 여행 지도 — 보상은 맨 위에서 -->
+      <button class="jm" data-go="map" aria-label="나의 영어 여행 지도 펼치기">
+        <span class="jm__top">
+          <span class="jm__kick">✨ 나의 영어 여행 지도</span>
+          <span class="jm__energy" id="jmEnergy">오늘 0/120 XP</span>
+        </span>
+        <span class="jm__big"><b id="jmCount">1</b><span>/18곳 불 켜짐</span></span>
+        <span class="jm__bar"><i id="jmBar" style="width:6%"></i></span>
+        <span class="jm__dots" id="jmDots"></span>
+        <span class="jm__row">
+          <span class="jm__next" id="jmNext">다음 불빛 <b>네바다</b>까지 80 XP</span>
+          <span class="jm__cta">지도 펼치기 →</span>
+        </span>
+        <span class="jm__cap hide" id="jmCap">오늘의 탐험 에너지 120 XP를 다 모았어요! 내일 이어서 다음 도시에 불을 켜 봐요 ✨</span>
+      </button>
+
       <div class="home__grid">
         <button class="hcard hcard--spk" data-go="reflex">
           <span class="hcard__i">⚡</span>
@@ -1052,17 +1141,11 @@ body.is-mapopen{overflow:hidden}
           <span class="hcard__d">90s~요즘 핫한 표현</span>
           <span class="hcard__m">22개 표현</span>
         </button>
-        <button class="hcard hcard--acc" data-go="accent">
+        <button class="hcard hcard--acc hcard--wide" data-go="accent">
           <span class="hcard__i">🌍</span>
           <span class="hcard__t">억양</span>
           <span class="hcard__d">미국·세계 억양 비교</span>
           <span class="hcard__m">9가지 억양</span>
-        </button>
-        <button class="hcard hcard--map" data-go="map">
-          <span class="hcard__i">✨</span>
-          <span class="hcard__t">영어 여행 지도</span>
-          <span class="hcard__d">불이 하나씩 켜지는 18곳</span>
-          <span class="hcard__m" id="hMap">지금 1/18 곳 불 켜짐!</span>
         </button>
       </div>
       <p class="home__foot">한 곳만 골라도 충분해요 ✨</p>
@@ -1272,25 +1355,32 @@ body.is-mapopen{overflow:hidden}
   <div class="lvcard" id="lvCard"></div>
 </div>
 
-<!-- ================= ✨ 불 켜지는 영어 여행 지도 ================= -->
+<!-- ================= ✨ 라이트업 영어 여행 지도 ================= -->
 <div class="wm hide" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="wmTitle">
   <div class="wm__bg" data-mapclose="1"></div>
   <div class="wm__card">
     <button class="wm__x" id="mapClose" aria-label="지도 닫기">✕</button>
     <div class="wm__head">
-      <p class="wm__kick">✨ 불 켜지는 영어 여행 지도</p>
-      <h2 id="wmTitle"><span class="fe">🇺🇸</span> 미국 <b>12</b>곳 불 밝히기 · <span class="fe">🌍</span> 세계 <b>6</b>곳 불 밝히기</h2>
+      <p class="wm__kick">✨ 나의 영어 여행 지도</p>
+      <h2 id="wmTitle"><span class="fe">🇺🇸</span> 미국 <b>12</b>곳 · <span class="fe">🌍</span> 세계 <b>6</b>곳 불 밝히기</h2>
+      <p class="wm__lead">영어를 쌓으면 지도에 불이 하나씩 켜져요. LA에서 시작해 미국을 지나 세계까지!</p>
       <div class="wm__xprow">
         <span class="wm__xp" id="wmXp">영어 XP 0</span>
+        <span class="wm__energy" id="wmEnergy">오늘 0/120 XP</span>
         <span class="wm__cnt" id="wmCounts"><span class="fe">🇺🇸</span> 1/12 · <span class="fe">🌍</span> 0/6</span>
-        <span class="wm__next" id="wmNext">다음 불빛 [네바다]까지 30 XP!</span>
       </div>
       <div class="wm__bar"><i id="wmFill"></i></div>
+      <p class="wm__next" id="wmNext">다음 불빛 [네바다]까지 80 XP!</p>
+      <p class="wm__cap hide" id="wmCap">오늘의 탐험 에너지 120 XP를 다 모았어요! 내일 이어서 다음 도시에 불을 켜 봐요 ✨</p>
     </div>
-    <p class="wm__sect"><span class="fe">🇺🇸</span> 미국 <small>12곳 · XP로 하나씩 불이 켜져요</small></p>
-    <svg id="wmUsSvg" class="wm__svg" viewBox="0 0 336 166" role="group" aria-label="미국 불 밝히기 지도"></svg>
-    <p class="wm__sect"><span class="fe">🌍</span> 세계 <small>6곳 · 억양을 들으면 바로 켜져요</small></p>
-    <svg id="wmWorldSvg" class="wm__svg" viewBox="0 0 336 150" role="group" aria-label="세계 불 밝히기 지도"></svg>
+    <p class="wm__sect"><span class="fe">🇺🇸</span> 미국 <small>12곳 · 영어 XP로 하나씩 불이 켜져요</small></p>
+    <div class="wm__panel">
+      <svg id="wmUsSvg" class="wm__svg" viewBox="0 0 340 208" role="group" aria-label="미국 불 밝히기 지도"></svg>
+    </div>
+    <p class="wm__sect"><span class="fe">🌍</span> 세계 <small>6곳 · 미국을 다 밝힌 뒤 이어서</small></p>
+    <div class="wm__panel wm__panel--w">
+      <svg id="wmWorldSvg" class="wm__svg" viewBox="0 0 340 172" role="group" aria-label="세계 불 밝히기 지도"></svg>
+    </div>
     <div class="wm__detail" id="wmDetail"></div>
   </div>
 </div>
@@ -1957,12 +2047,13 @@ body.is-mapopen{overflow:hidden}
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
   var toastTimer = null;
-  function toast(msg) {
+  function toast(msg, long) {
     var t = $('#toast');
     t.textContent = msg;
+    t.classList.toggle('long', !!long);
     t.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 1700);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, long ? 3400 : 1700);
   }
   function shuffle(a) {
     var arr = a.slice();
@@ -4431,106 +4522,113 @@ body.is-mapopen{overflow:hidden}
 
 
   /* ============================================================
-     ✨ 불 켜지는 영어 여행 지도 — XP로 미국 12곳, 억양·XP로 세계 6곳
+     ✨ 라이트업 영어 여행 지도 — 실제 미국·세계 지도 위에 불을 켠다
      ============================================================ */
   var MAP_TOTAL = 18, MAP_US_TOTAL = 12, MAP_W_TOTAL = 6;
-  var mapOpen = false, mapSel = null;
+  var DAILY_CAP = 120;                 /* 하루에 모을 수 있는 탐험 에너지 */
+  var mapOpen = false, mapSel = null, usBuilt = false, worldBuilt = false;
+
+  /* 실제 지형: 미국 50개 주(알래스카 제외 + 하와이 인셋) · 세계 대륙 (GeoJSON → SVG) */
+  var US_SHAPES = '<path data-st="AL" d="M220 108.8 229.5 107.9 233.4 121.9 235 124.7 234.8 125.4 235.5 125.7 234.7 126.7 234.4 128.7 235.2 130.7 235 132.5 235.9 134.2 221.1 135.8 221 136.7 222.4 137.8 222.2 139 222.7 139.5 222 140.5 221.2 140.8 219.7 139.9 219.4 138.2 218.9 138.1 218.4 140.6 216.9 140.4 215.6 130.2 216 109.9 215.4 109.2Z"/><path data-st="AZ" d="M104.1 92.6 98.8 130.6 87.4 128.9 67.9 117.4 68.7 116 69.8 116 70.3 115.5 70.2 114.2 69.5 114 69.6 111.4 70.9 110.7 71.3 108.2 74 106.1 73.1 105 72 101.8 72.7 100.1 73.1 93.6 75.1 93.7 75.6 94.6 76.1 94.7 76.9 93.7 77.9 88.3 96.4 91.5Z"/><path data-st="AR" d="M181.2 100.7 204.2 99.8 204.8 101.1 203.2 103.3 206.7 103 206.6 104.3 205.8 104.7 205.7 105.8 204.8 107 205 108.6 204.5 109.8 204 110 204.3 110.6 203.5 111.2 203.2 112.3 202.6 112.7 202.8 114 201.8 114.4 201.9 114.8 200.8 116 201.2 116.7 200.2 117.9 199.5 120 200.5 120.8 200 121.4 200.4 122.8 200 123.7 184 124.2 183.9 120.6 183.1 120.3 182 120.7 181.4 120.1 181.5 108.2 180.4 100.7Z"/><path data-st="CA" d="M40.1 44.3 55.5 48.7 50.5 68.3 72.2 101 72 101.8 73.1 105 74 106.1 71.3 108.2 70.9 110.7 69.6 111.4 69.5 114 70.2 114.2 70.3 115.5 69.8 116 55.3 114.4 54.8 113.4 55 110.3 54.5 109 51.4 105 50.9 105.3 50.1 104.9 50.4 104.2 49.8 102.7 48.4 102.7 46.4 101.1 46.3 100.3 45.1 98.9 40.3 97.5 39.6 96.4 40.6 93 39.4 91.6 39.7 90.3 38.2 88.3 36.1 83.2 36.5 81.1 36.9 81.4 37.6 80.2 37.2 78.9 36.2 78.8 35.2 76.5 35.7 72.8 36.6 73.1 36.9 70.6 36.4 70.7 36 71.8 35 71.8 34 70.6 34.3 69 33.9 67.6 31.8 63.4 32.2 63 32.2 60.6 32.8 59.5 33 57.5 31.3 54 31.4 52.8 34.1 49.4 34 48.6 35.1 46.8 35.2 44.9 34.8 44.3 35.5 43Z"/><path data-st="CO" d="M113.4 66.5 142.7 69.3 141 96.4 115.5 94.1 104.1 92.6 107.7 65.8Z"/><path data-st="CT" d="M285.4 49.7 291.4 48.2 292.4 52.2 292.3 52.9 289.9 54 287.3 54.4 286.4 55.6 284.1 57.3 283.6 56.6 284.6 55.6 284.1 55.1 283.3 50.1Z"/><path data-st="DE" d="M277.2 67.1 276.5 68.5 276.9 69.5 277.8 70.4 278.4 71.9 279.8 73.4 280.3 73.4 281.1 75.6 277.8 76.2 275.5 68 276.2 67.1Z"/><path data-st="DC" d="M270.2 74.1 271 74.7 270.5 75.5 269.9 74.6Z"/><path data-st="FL" d="M233.1 134.6 235.9 134.2 236.9 136.1 252.1 135 252.6 136.4 253.3 136.3 252.9 133.7 253.4 133.1 256.4 133.5 258.4 139.4 260.7 143.4 264 147.5 263.7 147.9 264.2 150 268.8 158 269.3 165 268.7 165.2 268.4 167 268.7 167.5 267.7 168.9 267.2 168.7 264.3 170 263.6 169.4 263.7 168.3 261.9 165.6 260.8 165.3 259.9 165.8 258.6 163 257.1 161.7 256.6 159.3 255.9 159.2 256.2 160 255.6 160.3 252.3 156.2 253.7 153.3 252.6 153.6 251.9 154.6 251 153.4 251.5 149.6 251.3 146.6 250.1 145 249 144.9 246.3 143 246.1 142 245.3 141.7 244.6 140.7 242.2 139.5 240.3 140.1 240.5 141.1 239.9 141 237.6 142.5 235.1 143.1 235.1 142.4 234.4 141.6 231.2 139.9 228.9 139.3 227 139.3 222 140.5 222.7 139.5 222.2 139 222.4 137.8 221 136.7 221.1 135.8Z"/><path data-st="GA" d="M243 106.1 242 108.4 244 109.6 244.6 109.4 247 112.8 250.9 115.5 251 116.3 252.1 117.4 253.7 118.2 254.6 120.6 255.4 121 256.6 122.7 256.8 123.8 258.1 124.2 257.1 126.6 256.7 130 256.2 130.6 256.4 133.5 253.4 133.1 252.9 133.7 253.3 136.3 252.6 136.4 252.1 135 236.9 136.1 235 132.5 235.2 130.7 234.4 128.7 234.7 126.7 235.5 125.7 234.8 125.4 235 124.7 233.4 121.9 229.5 107.9 240.3 106.6Z"/><path data-st="ID" d="M84.4 7.3 83 13.9 84 16 83.7 17.8 85.2 19.3 86.6 22.6 87.6 23.5 87.6 24 88.9 24.2 87.4 28 87.6 29.1 86.7 29.7 86.9 30.4 86.5 31.1 87.3 32 89.2 30.7 90 31.5 89.9 33.4 90.9 35.4 90.7 36.7 91.1 37.3 92.1 37.6 92.3 39.8 92.8 40.3 93.4 39.7 94.8 40 96 39.6 96.6 40.1 97.7 40 97.9 40.4 98.9 40.3 100.2 39.1 101.5 41.2 98.9 57.7 69.8 52.1 72.5 40.1 73.6 38 73.4 37.4 72.5 37.1 72.4 36.1 73.9 34 75.1 33 75.1 32.4 77.8 28.9 77.6 27.9 76.6 27.2 76.1 23.6 80.1 6.3Z"/><path data-st="IL" d="M199.3 59.4 213.2 58.5 213.2 59.8 215.1 63.6 216.5 79.5 216 80.8 217 83.4 215.5 86.8 214.9 87 214.8 90.2 214.2 91.2 214.8 92.4 212.7 93.2 212.5 93.9 213.1 94.7 212.5 95.3 210.4 94.5 209.8 94.6 209.1 95.8 209.4 96.2 208.6 96.2 207.2 94.3 207.6 93.8 207 91.5 205.3 90.2 204.7 90.4 202.4 88.3 202.4 87.2 203.5 83.9 201.5 83.3 201 83.9 200.6 83.6 200.1 81.3 196.7 78.3 195.9 76.3 196.2 72.7 197.6 71.9 197.7 70.9 198.3 70.2 198.3 69 197.5 68.1 197.7 66.9 199.6 66.4 201.1 65.5 201.2 64.4 201.9 64 201.8 61.8 200.6 61.2 200.5 60.5Z"/><path data-st="IN" d="M222.6 62.6 228.4 61.9 230.5 79.8 230.1 80.1 230.8 81.9 229 82.8 227.6 82.6 227.8 83.9 227 84.6 226.8 85.5 225.9 85.9 225.6 87.7 225.1 88.2 223.8 87.7 223.5 86.9 222.5 87.9 222.7 88.6 221.5 89 221.1 88.3 219.8 89.1 219.5 89.9 218.1 89 217.4 89.3 216.9 88.8 216.5 89.4 215.2 89.5 214.8 90.2 214.6 89.8 215.1 87.8 214.9 87 215.5 86.8 217 83.4 216 80.8 216.5 79.5 215.1 63.6 215.6 64 217.1 63.9 218.5 63Z"/><path data-st="IA" d="M195.4 52.9 196.2 52.8 196.3 53.8 197 54.5 196.5 55.3 197.1 57.9 198.9 58.5 200.6 61.2 201.8 61.8 202 62.7 201.1 65.5 199.6 66.4 197.7 66.9 197.5 68.1 198.3 69 198.3 70.2 197.7 70.9 197.6 71.9 196.2 72.7 196.2 73.9 194.6 72.4 174.2 73.1 173.6 72.2 173.9 70.5 173.4 67.2 172.5 66.7 172.4 63.7 171.7 63.3 170.8 60.3 169.9 58.8 170.9 56 170.3 55.3 170.2 53.6 170.8 53.4Z"/><path data-st="KS" d="M143 76.1 176.5 77 177.1 77.7 178.7 78.2 177.6 80.2 179.1 82.4 180.2 82.7 180.4 97.3 141 96.4 142.2 76.1Z"/><path data-st="KY" d="M235.5 81.4 236.7 82.2 237.5 81.6 239.5 81.9 240.7 80.8 241.1 81.9 242.5 82.8 242.7 84.9 243.5 86.1 244.8 87.7 246.6 88.3 244.9 90.4 243.1 91.7 242.5 93.3 241.5 93.7 241.3 94.5 238.5 95.9 216.4 98 215.2 97.8 215.4 99 208.1 99.6 208.4 98.7 209.2 98.9 209.4 96.2 209.1 95.8 209.8 94.6 210.4 94.5 212.5 95.3 213.1 94.7 212.5 93.9 212.7 93.2 214.8 92.4 214.2 91.2 215.2 89.5 216.5 89.4 216.9 88.8 217.4 89.3 218.1 89 219.5 89.9 219.8 89.1 221.1 88.3 221.5 89 222.7 88.6 222.5 87.9 223.5 86.9 223.8 87.7 225.1 88.2 225.6 87.7 225.9 85.9 226.8 85.5 227 84.6 227.8 83.9 227.6 82.6 229 82.8 230.8 81.9 230.1 80.1 230.5 79.8 232.5 79.5 233.8 81.4Z"/><path data-st="LA" d="M186.4 124.1 200 123.7 200.6 124.5 200.2 124.8 200.2 126.2 201.1 127 201.3 128.9 200.7 130.5 199.4 131.5 199.1 133.1 198.6 133 198.6 135.4 197.9 135.5 198.4 136.8 198 137.3 208.8 136.7 208.4 139 210.5 142.1 208.8 143.1 208.7 143.8 210.2 144.2 210.7 143.1 212 144 211.9 144.9 211.3 145.3 209.9 145.1 209.8 146.7 210.9 147.4 212.7 147.6 214 148.6 213.1 149.8 212.1 149.7 211.1 148.6 208.9 148.1 208.9 146.9 207.8 147.4 207.5 149.2 206.8 149.4 206.1 148.5 204.8 148.5 204.4 149.6 203.5 149.9 201.7 149.3 200.9 147.7 199.1 147.2 198.5 145.8 197 146 196.9 145.2 195.4 146.1 195.7 146.7 194.5 147.3 189.1 145.9 185.6 146.6 185.1 145.9 186.4 143.5 185.9 142.2 186.3 141.5 186.1 140.6 187.2 138.1 187.1 136.7 185.4 134 185.4 132.5 184.1 131.1 184 124.2Z"/><path data-st="ME" d="M294.8 40.1 293.1 38.6 289.1 26 290.8 24.6 290.4 24.2 291.5 22.4 291.2 22 291.8 21.2 291.3 20.1 291.2 18.3 291.8 17.6 291.5 15.7 293.5 9.8 294.4 9.8 294.8 11 295.5 11.2 298.1 9.2 300.6 10.4 303.2 19.4 304.9 19.3 304.9 20.1 305.5 20.7 305.4 21.5 306.4 22.2 307.1 21.8 308.7 23.8 308 25.1 307.4 24.9 307.2 25.7 306.5 25.8 306.6 26.4 305.7 26.6 304.8 28.3 304.1 27.5 303.6 27.6 304.2 28.5 303.3 29.3 302.8 28.6 302.4 29.2 301.2 29.5 300.9 28.6 300.3 29 300.6 31.6 300 32.6 299 32.6 298.7 33.5 298.1 33.8 297.7 34.7 296.9 34.7 296.5 34.1 295.8 35.5 296.3 36.1 295.6 36.6 295.7 37.2 295 38.2Z"/><path data-st="MD" d="M257 71.6 275.5 68 277.8 76.2 281.1 75.6 280.7 78.6 277.6 80.1 277.4 79 276.9 78.7 277.4 78.1 276.3 77.2 276.2 77.7 275.1 77.8 274.5 76.7 274.8 76.6 274.7 74.4 273.8 72.3 274.1 71 274.9 70.6 274.8 69.3 274.2 69.6 274.3 70.2 273.2 71.3 273 75.1 273.5 76.6 274.4 77.5 274.9 79.7 273.5 78.8 271.8 78.7 271.1 77.8 270.2 78.5 269.7 77.8 271 74.7 270.2 74.1 269.9 74.6 268 74 267.8 73 266.3 72.7 265.4 70.9 264.6 71.1 263.6 70.6 263.2 71.2 262.4 71.3 262.3 72.1 260.7 71.9 259.9 73.1 259.2 73 257.5 75.1Z"/><path data-st="MA" d="M294.1 41.5 294.6 41.5 295.1 42.6 294.6 44.6 294.8 45.6 295.9 45.5 297.8 48 299.3 48.3 300.7 47.2 300.6 48.2 298.5 49.6 297.7 49.9 297 49.4 295.6 50.8 294.1 49.2 293.4 47.8 283.3 50.1 283.2 45.3 292.6 43.2 293 42.5Z"/><path data-st="MI" d="M235.1 61.3 228.5 62.3 228.4 61.9 218.5 63 219.4 62 220.5 59.4 220.9 56.2 220.6 54.3 218.7 50.5 219 49 218.5 47.3 219.5 45.4 219.3 43.1 220 42.6 220 41.5 221.2 41.1 222 39.8 222.2 42.2 222.7 42.3 223.2 41 223 39 223.3 38.4 224.5 37.9 224 36.6 224.7 35.3 225.7 35.1 227 35.7 228.1 35.7 228.8 36.5 231.8 37.1 232.8 38.4 232.2 39.2 233.3 41.2 233.4 43.8 232.5 44.5 232.4 45.8 231.4 46.4 230.9 48 231.2 48.6 232.5 49 234.1 46.2 235.6 45.3 236.5 45.7 239.1 52.2 238.9 54.7 238.2 55.2 238 54.3 237.5 54.7 237.2 56.8 236.3 57.7 236.2 59.2 235.1 60.7Z"/><path data-st="MI" d="M222 35.7 222.2 36.5 221.6 36.7 221.7 35.6Z"/><path data-st="MI" d="M212.7 41 211.9 40.3 212.3 39.3 211.2 39.3 211.5 37.2 209.8 35.6 207.8 35.1 207.2 35.4 200.3 33.5 199.7 32.4 198.8 32.1 200.6 31.3 201.3 30.4 203.3 30 205.2 28.8 208.6 25.5 209.7 25.8 207.7 28.8 207.8 30 208.6 29 210.2 29 211.5 29.5 212.8 31.3 213.4 31.5 214.5 31.1 216 31.6 218.4 29.8 221.3 29.4 223.3 28.7 223.7 30.5 225.5 30.2 225.9 30.6 226.5 30 227.8 29.7 228.1 32 228.8 32.9 229.8 33 229.8 32.4 230.7 32.3 231.3 32.9 230.9 33.4 228.3 33.3 227.2 33.8 225.7 33.1 225.7 34.5 224.1 33.6 221.8 33.3 221.2 34.3 218.6 34.6 218.1 35.7 216.7 36.5 216.7 35.6 216 35.5 215.8 36.4 214.3 37 212.6 40.8Z"/><path data-st="MI" d="M205.5 22.2 203.9 23.3 203.9 22.6 206.6 20.8 206.1 22Z"/><path data-st="MN" d="M191.4 31.5 191 31.3 190.1 31.9 190.3 35.8 188.7 36.8 187.7 38.3 187.6 39.2 188.2 39.3 188.8 40.1 188.3 41.2 188.2 44.8 189.5 45.9 190.5 46 191 46.7 192.5 47.4 192.8 48.3 194.9 49.6 195.9 51 196.2 52.8 170.8 53.4 170.9 41.3 169 39.3 170.3 37.9 170.2 34.4 169.3 32.2 169.1 25.9 167.9 22.3 168.1 18.7 167.5 16.6 176.8 16.6 176.8 14.1 177.6 14.2 178.2 14.7 178.9 18.1 181 18.9 182.7 19 182.9 19.7 185.5 18.8 186.5 19 187.7 19.5 188 20.1 188.7 20 189.4 21.5 189.6 20.9 190.8 20.5 191 21.2 192.3 21.5 192.4 22.1 193.1 22.6 196.3 21.1 196.7 22 199.5 21.7 200.7 22.5 201.9 22.3 200.3 23.6 196.9 25.1 191 31Z"/><path data-st="MS" d="M214 109.3 215.4 109.2 216 109.9 215.6 130.2 216.9 140.4 214.9 140.7 214.3 140.3 210.5 142.1 208.4 139 208.8 136.7 198 137.3 198.4 136.8 197.9 135.5 198.6 135.4 198.6 133 199.1 133.1 199.4 131.5 200.7 130.5 201.3 128.9 201.1 127 200.2 126.2 200.2 124.8 200.6 124.5 200 123.7 200.4 122.8 200 121.4 200.5 120.8 199.5 120 200.2 117.9 201.2 116.7 200.8 116 201.9 114.8 201.8 114.4 202.8 114 202.6 112.7 203.2 112.3 203.5 111.2 204.3 110.6 204 110Z"/><path data-st="MO" d="M194 72.5 194.6 72.4 196.2 73.9 195.9 76.3 196.7 78.3 200.1 81.3 200.6 83.6 201 83.9 201.5 83.3 203.5 83.9 202.4 87.2 202.4 88.3 204.7 90.4 205.3 90.2 207 91.5 207.6 93.8 207.2 94.3 208.6 96.2 209.4 96.2 209.2 98.9 208.4 98.7 208.1 99.6 207.5 99.6 207.6 101.3 206.7 103 203.2 103.3 204.8 101.1 204.2 99.8 180.4 100.7 180.2 82.7 179.1 82.4 177.6 80.2 178.7 78.2 177.1 77.7 174.2 73.1 186.9 72.9Z"/><path data-st="MT" d="M137.2 15.1 135 41.8 102 37.7 101.5 41.2 100.2 39.1 98.9 40.3 97.9 40.4 97.7 40 96.6 40.1 96 39.6 94.8 40 93.4 39.7 92.8 40.3 92.3 39.8 92.1 37.6 91.1 37.3 90.7 36.7 90.9 35.4 89.9 33.4 90 31.5 89.2 30.7 87.3 32 86.5 31.1 86.9 30.4 86.7 29.7 87.6 29.1 87.4 28 88.9 24.2 87.6 24 87.6 23.5 86.6 22.6 85.2 19.3 83.7 17.8 84 16 83 13.9 84.4 7.3 113.3 12.4Z"/><path data-st="NE" d="M137.3 55.4 160.8 56.7 163.5 58.3 164.1 57.6 167.1 57.8 169.6 59.1 169.9 60.1 170.8 60.3 171.7 63.3 172.4 63.7 172.5 66.7 173.4 67.2 173.9 70.5 173.6 72.2 176.5 77 142.2 76.1 142.7 69.3 132.7 68.6 133.8 55.1Z"/><path data-st="NV" d="M69.8 52.1 84.3 55.1 76.9 93.7 76.1 94.7 75.6 94.6 75.1 93.7 73.1 93.6 72.7 100.1 72.2 101 50.5 68.3 55.5 48.7 61.8 50.3Z"/><path data-st="NH" d="M289.1 26 293.1 38.6 294.8 40.1 294.6 41.5 293 42.5 292.6 43.2 287.1 44.4 286.5 44 286.1 38.8 286.8 35.1 286.4 33.5 287.8 32.5 288.3 31.2 287.6 30.3 287.9 26.6 289 26.5Z"/><path data-st="NJ" d="M281.1 56.9 282.9 57.5 282.8 59.5 282.1 60.2 281.9 61.3 283.3 61.5 283.9 65.9 281.5 71.7 280.8 70.7 279.2 70.5 277.1 69.5 276.8 68.4 277.2 67.1 278.5 66.2 279.8 63.6 278.1 62.6 277 61 277.5 59.6 276.9 59.1 278.5 56Z"/><path data-st="NM" d="M112.6 93.7 135.9 96 133.1 129.7 113.1 127.8 112.8 128.5 113.4 129.3 103.9 128.2 103.5 131.2 98.8 130.6 104.1 92.6Z"/><path data-st="NY" d="M279.2 30.5 279.7 33.2 280.4 34.2 280.3 37 281.2 38.7 281.1 39.3 282.1 40.2 283.2 45.3 283.1 49.9 284.1 55.1 284.6 55.6 283.6 56.6 284.1 57.3 286.3 57.3 286.7 56.8 289.3 55.9 290.5 54.5 290.8 55.2 291.7 55.4 286.7 59.2 283.5 60.5 282.8 59.5 282.9 57.5 278.2 55.6 277.4 55.7 276.3 54.8 276.2 53.8 274.3 52.5 252.9 56.7 252.6 54.9 255.3 52.5 256.4 50.7 255.4 49.5 254.8 47.7 257.5 46.5 261 46 262.2 46.5 266 45 267.1 43.6 268 43.3 267.8 40.4 266.6 39.9 266.7 39 268.3 37.5 270.5 33.7 272.4 32.1 275.6 31.6Z"/><path data-st="NC" d="M252.8 94 279.6 89.1 280.8 91.6 279.3 91.7 277.2 93.2 276.1 93.6 276.2 94 279.4 93 280 93.5 280.9 93 281.6 94.6 281.5 95.4 280.9 95.6 279.9 97.5 278.1 98 278.1 99.1 279.7 100.2 279 102.3 277.9 102.3 275.2 103.4 272.4 107 272.1 109.3 270.8 109 269 109.8 261.7 104.6 255.6 105.5 255.6 104.7 254.6 103.7 254.1 104.2 254 103.5 247.3 104.2 243 106.1 236.5 107.1 236.4 105.5 237.5 105.2 237.7 104 238.9 102.9 240.4 102.6 241.6 101.4 242.9 100.9 244.5 98.7 244.8 99.3 246.7 97.7 247.7 97.9 248.2 96.5 249.1 96 249.1 94.4Z"/><path data-st="ND" d="M167.5 16.6 168.1 18.7 167.9 22.3 169.1 25.9 169.3 32.2 170.2 34.4 170.4 37.1 135.5 35.4 137.2 15.1Z"/><path data-st="OK" d="M151.3 96.9 180.4 97.3 180.4 100.7 181.5 108.2 181.4 120.1 179.3 119.3 178.7 118.6 177.3 117.9 176.9 118.5 175.5 118.5 175.2 118.1 173.9 118.8 173.4 118.4 172.2 118.7 171.1 119.8 169.5 118.7 168.3 118.7 167.9 117.9 166.5 119.4 166.1 118.6 165.4 118.8 163.7 117.7 162.7 118.6 162.3 117.6 161.5 117.5 161.1 116.8 160 116.4 159.3 117.1 158.9 116.5 155.5 115.9 155.1 114.6 152.7 114.7 151.5 113.3 151.1 113.4 151.7 100.3 135.7 99.4 135.9 96 141 96.4Z"/><path data-st="OR" d="M48.2 17.5 49.4 18.5 49.2 21.4 51.3 22.8 53.6 22.3 54.9 22.5 56.2 23.3 56.2 23.7 59 23.5 59.5 24 60.9 24.1 66.8 23.7 76.2 26 76.6 27.2 77.6 27.9 77.8 28.9 75.1 32.4 75.1 33 73.9 34 72.4 36.1 72.5 37.1 73.4 37.4 73.6 38 72.5 40.1 69.8 52.1 50.6 47.4 35.5 43 35 42 35.8 38.4 35.6 37.1 39.3 31.4 42.7 23.1 44.2 17.9 44.8 16.9 46.8 16.5 47.4 17.5Z"/><path data-st="PA" d="M252.7 55 252.9 56.7 274.3 52.5 276.2 53.8 276.3 54.8 278.5 56 276.9 59.1 277.5 59.6 277 61 278.1 62.6 279.8 63.6 278.5 66.2 277.2 67.1 276.2 67.1 275.5 68 251.8 72.5 249.3 57.5 252.6 54.9Z"/><path data-st="RI" d="M294.9 49.7 295.6 50.8 294.7 51.2Z"/><path data-st="RI" d="M292.7 47.9 293.4 47.8 294.1 49.2 294.7 49.6 294.1 49.6 294 52.1 292.3 52.9 291.4 48.4Z"/><path data-st="SC" d="M244.8 105.5 247.3 104.2 254 103.5 254.1 104.2 254.6 103.7 255.6 104.7 255.6 105.5 261.7 104.6 269 109.8 267.1 111.7 266.2 113.6 266.3 115 265.5 116.2 264.3 116.5 264.1 117.3 262.4 119.5 261.4 120.1 258.1 124.2 256.8 123.8 256.6 122.7 255.4 121 254.6 120.6 253.7 118.2 252.1 117.4 251 116.3 250.9 115.5 247 112.8 244.6 109.4 244 109.6 242 108.4 243 106.1Z"/><path data-st="SD" d="M135.5 35.4 170.4 37.1 170.3 37.9 169 39.3 170.9 41.3 170.8 53.4 170.2 53.6 170.3 55.3 170.9 56 169.9 58.8 170.8 60.3 169.9 60.1 169.6 59.1 167.1 57.8 164.1 57.6 163.5 58.3 160.8 56.7 133.8 55.1 135 41.8Z"/><path data-st="TN" d="M215.4 99 215.2 97.8 216.4 98 233.9 96.4 249.1 94.4 249.1 96 248.2 96.5 247.7 97.9 246.7 97.7 244.8 99.3 244.5 98.7 242.9 100.9 241.6 101.4 240.4 102.6 238.9 102.9 237.7 104 237.5 105.2 236.4 105.5 236.5 107.1 204 110 204.5 109.8 205 108.6 204.8 107 205.7 105.8 205.8 104.7 206.6 104.3 206.7 103 207.6 101.3 207.5 99.6 208.8 99.5Z"/><path data-st="TX" d="M142 99.8 151.7 100.3 151.1 113.4 151.5 113.3 152.7 114.7 155.1 114.6 155.5 115.9 158.9 116.5 159.3 117.1 160 116.4 161.1 116.8 161.5 117.5 162.3 117.6 162.7 118.6 163.7 117.7 165.4 118.8 166.1 118.6 166.5 119.4 167.9 117.9 168.3 118.7 169.5 118.7 171.1 119.8 172.2 118.7 173.4 118.4 173.9 118.8 175.2 118.1 175.5 118.5 176.9 118.5 177.3 117.9 182 120.7 183.1 120.3 183.9 120.6 184.1 131.1 185.4 132.5 185.4 134 187.1 136.7 187.2 138.1 186.1 140.6 186.3 141.5 185.9 142.2 186.4 143.5 185.1 145.9 185.6 146.6 181.6 147.6 180.5 147.1 180.3 146 179.6 146.8 179 146.6 178.8 147.6 179.4 147.9 179.5 149.2 176.6 152.2 173.1 154 172.7 153.7 171.7 154.1 171.6 153.7 170.2 154 169.5 153.1 169.1 153.3 170.6 155.1 169.5 155.6 168.4 155.3 168.3 156.5 166.9 157.7 164.6 162.4 164 162.2 163.8 163.1 164.5 162.9 163.6 165.7 164.2 166.2 164.3 168.2 164.9 168.9 165.6 171.3 163.7 172 163 171.1 159.7 170.8 158.1 169.7 156.8 169.5 153.8 167.4 153.3 165.4 152.3 164.2 152.2 161.1 151.5 160 149.9 158.9 149.6 157.7 147.6 155.6 145.6 150 143.5 147.5 142.4 146.9 141.5 145.4 137.5 144.9 136.2 144.3 135.9 144.9 134.5 145.1 133.3 146.4 132.5 148.6 131.3 149.8 130.3 149.8 125.5 146.7 123.5 144.8 122.7 142.8 122.8 141.1 122 139.6 121.8 138.4 121.3 137.6 119.2 136.2 116.3 132.5 115 131.6 114.2 129.8 112.8 128.5 113.1 127.8 133.1 129.7 135.7 99.4Z"/><path data-st="UT" d="M93.4 56.8 98.9 57.7 97.8 64.4 107.7 65.8 104.1 92.6 77.9 88.3 84.3 55.1Z"/><path data-st="VT" d="M287.7 28.4 287.6 30.3 288.3 31.2 287.8 32.5 286.4 33.5 286.8 35.1 286.1 38.8 286.7 42.6 286.4 43.1 286.5 44 287.1 44.4 283.2 45.3 282.1 40.2 281.1 39.3 281.2 38.7 280.3 37 280.4 34.2 279.7 33.2 279.2 30.5 284 29.4Z"/><path data-st="VA" d="M279.9 78.9 280.7 78.6 279.7 80.4 279 84.7 278.3 85.4 277.8 84.6 277.8 82.5 278.6 79.6Z"/><path data-st="VA" d="M263 72.3 266 74 266.3 72.7 267.1 72.6 267.8 73 268 74 269.9 74.6 270.5 75.5 269.5 78.1 269.9 78.7 271.2 78.2 271.6 79.2 273.5 79.3 274.2 80 275.8 80.6 275.6 82.6 276.5 84 275.9 84.8 276 85.6 276.8 86 276.2 87 274.9 86.1 274.7 86.6 275.8 87.1 278.4 86.8 279.6 89.1 260.6 92.9 238.5 95.8 241.3 94.5 241.5 93.7 242.5 93.3 243.1 91.7 244.9 90.4 246.6 88.3 247.5 89.9 248.5 90.3 249.1 90.2 250 89.1 250.8 89.7 254.2 87.5 254.5 87.9 255.3 87.1 255.2 85.9 257.3 80.9 257.5 79.3 259.4 80.2 260.5 77 261.2 77.5 263.1 74.3Z"/><path data-st="WA" d="M80.1 6.3 76.1 23.6 76.5 24.8 76.2 26 66.8 23.7 60.9 24.1 59.5 24 59 23.5 56.2 23.7 56.2 23.3 54.9 22.5 53.6 22.3 51.3 22.8 49.2 21.4 49.5 19.4 48.6 17.5 47.4 17.5 46.8 16.5 46.1 16 45.3 16.2 44.7 15.4 45.1 14.5 45.8 14.3 45.3 12.7 45.8 9 45.8 5.9 45.3 4.7 45.5 2.7 46.4 1.6 48.6 3.8 50.9 4.8 52.1 4.8 52.5 5.5 53.5 5.8 53.9 7.4 54.4 7.4 53.8 11.2 54.3 11.1 54.3 9.5 54.8 8.1 55.9 6.8 55.5 6.1 56.1 1.9 55.1 0.6 55.4 0Z"/><path data-st="WA" d="M54.3 4.4 55 4.3 54.5 5.6 53.9 4.9Z"/><path data-st="WA" d="M53.5 2.3 54.2 1.6 54.6 2.8 54.1 3.6 53.2 3.1Z"/><path data-st="WV" d="M250.8 66.4 251.8 72.5 257 71.6 257.5 75.1 259.2 73 259.9 73.1 260.7 71.9 262.3 72.1 262.4 71.3 263.2 71.2 263.6 70.6 264.6 71.1 265.4 70.9 266.3 72.7 266 74 263 72.3 263.1 74.3 261.2 77.5 260.5 77 259.4 80.2 257.5 79.3 257.3 80.9 255.2 85.9 255.3 87.1 254.5 87.9 254.2 87.5 250.8 89.7 250 89.1 249.1 90.2 248.5 90.3 247.5 89.9 246.6 88.3 244.8 87.7 242.7 84.9 242.5 82.8 243.8 82.5 243.9 81.6 244.5 81.1 244.1 80.1 244.8 78.4 245.7 79.3 246.3 76.5 246.9 76.4 247.4 75.4 248 75.7 248.6 75.3 250.2 72.9 250.7 68.6 250.1 66.9Z"/><path data-st="WI" d="M198.8 32.1 199.7 32.4 200.3 33.5 207.2 35.4 207.8 35.1 209.8 35.6 211.5 37.2 211.2 39.3 212.3 39.3 211.9 40.3 212.7 41 212.6 41.8 211.7 42 210.9 44.7 211.4 44.8 212.8 42.7 213.7 42.1 214.3 40.3 215.3 39.9 215.3 40.8 213.6 44.5 213.5 47.2 212.7 49.2 213 50.4 212.3 53.5 213.2 56.5 213.2 58.5 199.3 59.4 198.9 58.5 197.1 57.9 196.5 55.3 197 54.5 196.3 53.8 195.9 51 194.9 49.6 192.8 48.3 192.5 47.4 191 46.7 190.5 46 189.5 45.9 188.2 44.8 188.3 41.2 188.8 40.1 188.2 39.3 187.6 39.2 187.7 38.3 188.7 36.8 190.3 35.8 190.1 31.9 191 31.3 192.4 31.6 196.7 29.6 197.2 30.1 196.6 31 198.2 32Z"/><path data-st="WY" d="M111.3 39.1 134.9 41.8 132.7 68.6 113.4 66.5 97.8 64.4 102 37.7Z"/><path data-st="HI" d="M35.7 200.0 34.0 199.4 33.8 198.8 34.0 197.3 32.8 194.7 33.7 193.9 34.4 192.7 33.9 192.0 34.1 191.1 35.9 192.1 38.0 192.8 39.3 193.8 39.3 194.7 41.2 196.1 40.1 197.3 38.0 197.9 36.5 198.8 35.7 200.0ZM29.3 186.0 30.1 187.0 31.1 186.6 33.2 187.6 32.9 188.6 30.7 189.1 30.3 188.9 30.1 187.7 29.0 187.4 28.6 186.8 29.3 186.0ZM26.7 184.8 26.0 185.5 24.5 185.5 24.9 184.8 26.7 184.8ZM20.2 181.6 20.9 183.1 20.5 184.1 19.1 184.2 18.1 182.3 19.0 182.3 20.2 181.6ZM10.0 178.0 10.8 178.1 11.1 178.8 10.9 179.8 10.1 180.4 8.0 179.6 8.3 178.5 10.0 178.0Z"/>';
+  var WORLD_SHAPE = 'M113.7 208.4 113.2 210.5 109.1 210.3 107.9 209.6 107.4 208.9 111.6 209.2 112.8 207.5ZM19.6 207.2 17.8 207.5 16.6 206.8 15.4 205.4 16.0 204.6 17.7 204.9 19.4 206.3ZM127.4 204.2 128.5 205.1 129.1 208.4 124.3 210.1 122.3 210.6 120.1 210.4 118.8 209.7 119.0 208.8 121.0 208.2 121.8 207.5 124.0 204.2 125.9 203.8ZM55.5 195.5 56.7 195.7 57.9 195.4 56.4 196.5 55.1 196.4 54.2 195.7 54.4 195.1ZM51.4 195.4 52.9 196.1 49.8 195.4 50.5 195.0ZM76.5 192.7 77.6 192.9 78.6 192.7 79.1 193.7 74.8 193.7 73.9 193.3 73.4 192.6 73.9 192.3 75.1 192.5ZM105.4 191.0 105.5 191.7 105.0 193.1 102.9 193.7 101.6 193.6 102.1 192.9 99.9 193.4 99.2 192.9 99.2 192.2 100.2 191.5 101.9 191.4 102.2 188.5 102.8 187.7 103.6 187.5 105.1 190.2ZM114.6 180.0 114.2 180.3 112.8 180.2 111.4 181.0 110.8 182.0 111.3 183.1 109.8 183.6 108.1 185.3 108.0 185.9 108.8 187.1 110.3 188.0 111.9 191.2 112.7 194.9 112.0 196.6 111.5 197.2 110.2 197.4 109.2 198.7 104.1 200.6 103.3 201.4 97.1 201.5 97.3 202.3 99.8 203.2 100.4 203.9 99.4 204.6 97.8 204.4 96.4 204.9 96.3 206.6 97.4 207.3 97.6 208.1 98.8 208.9 100.8 209.2 105.6 211.2 110.3 212.2 113.6 213.6 115.0 215.6 119.4 213.4 123.0 212.1 125.4 212.1 129.6 212.9 130.2 212.0 131.5 211.3 133.9 211.3 143.0 209.1 142.0 207.5 142.0 206.7 136.3 207.2 136.2 204.8 136.6 204.4 139.6 203.4 142.7 201.5 148.8 200.4 153.5 198.5 155.2 197.3 155.4 196.6 154.4 196.1 154.8 195.4 158.4 193.5 160.3 191.5 161.4 191.6 161.9 192.2 163.0 192.2 163.5 190.9 164.5 191.1 164.8 191.7 165.9 191.8 168.3 191.3 169.4 191.4 169.8 192.1 170.8 191.6 175.9 190.1 177.3 189.1 178.0 189.6 179.0 189.3 180.2 190.7 181.3 190.4 181.7 189.7 182.7 189.3 183.9 189.4 184.3 190.0 185.1 189.4 188.2 189.1 190.3 189.4 191.3 190.5 195.6 190.1 200.2 188.7 202.0 186.8 203.0 187.1 204.2 188.1 205.1 187.9 206.5 188.9 207.5 188.6 207.8 187.8 209.6 187.0 213.9 185.4 214.8 185.6 216.3 184.6 217.9 184.2 218.1 183.7 218.9 183.2 221.5 182.5 223.2 182.8 224.0 183.2 224.1 183.9 225.5 184.9 226.6 185.1 228.0 185.9 228.9 186.0 230.5 185.1 235.1 185.9 235.8 188.0 235.7 188.8 234.0 189.8 234.2 190.5 235.2 190.5 234.2 192.5 234.9 193.1 236.0 193.2 237.1 192.9 239.8 189.1 243.3 188.4 244.7 186.5 247.5 185.0 251.9 184.6 252.6 184.2 253.1 183.2 253.9 184.3 254.7 184.6 258.9 184.6 260.5 185.0 263.2 184.6 264.2 184.8 267.1 182.1 268.5 182.8 270.3 184.3 274.1 183.9 275.5 183.0 277.3 182.6 279.2 183.9 280.2 183.9 283.2 184.8 284.2 184.7 285.5 183.7 286.4 183.6 288.2 184.0 289.9 183.7 291.6 184.0 293.5 183.5 297.3 183.2 297.6 181.8 298.2 182.2 299.0 184.1 299.8 184.3 307.4 184.3 308.1 184.8 307.9 185.4 308.5 185.8 310.6 186.6 314.0 187.4 315.1 187.5 315.7 186.9 318.1 188.3 320.3 188.6 320.8 189.3 322.6 190.3 328.0 190.7 331.0 191.7 331.7 192.2 329.9 195.7 328.6 196.0 328.1 196.7 326.9 197.1 325.1 199.1 324.5 200.6 324.4 202.2 325.6 204.5 327.3 204.8 327.7 205.7 324.6 206.5 322.8 206.5 320.9 210.4 322.2 211.1 323.5 212.9 324.6 213.7 329.5 215.9 330.0 217.1 332.7 217.6 333.6 218.5 336.2 217.9 340.0 219.2 340.0 233.8 0.0 233.8 0.0 219.2 0.9 217.8 2.6 218.6 3.8 217.7 5.3 218.8 6.7 217.6 9.5 217.2 12.3 218.9 17.1 220.3 20.7 220.9 23.4 220.2 27.4 220.7 29.7 221.5 34.8 220.1 35.0 218.9 31.3 218.8 28.3 218.2 27.5 217.2 24.9 216.7 25.8 213.8 25.6 212.9 24.1 212.2 23.3 211.4 21.9 210.7 24.2 210.9 26.4 210.5 27.7 211.3 31.0 209.8 31.7 209.1 31.4 208.2 28.8 206.9 23.3 206.3 20.7 204.2 20.4 201.9 21.7 202.7 24.8 202.2 25.6 203.1 27.1 202.9 30.6 201.3 32.0 201.1 31.6 199.6 31.9 199.0 33.1 198.6 33.7 199.3 36.2 198.4 38.9 198.2 42.3 196.9 55.7 197.3 56.9 197.3 59.1 196.4 60.2 196.8 62.4 195.9 63.9 197.7 64.9 197.2 68.4 198.6 71.0 198.1 74.9 198.8 75.4 198.0 74.4 196.7 73.2 196.6 72.6 195.9 72.1 193.9 76.4 194.4 77.3 194.9 77.7 195.6 79.0 195.7 82.7 194.9 83.7 195.3 84.9 195.1 85.7 193.8 86.5 194.6 87.6 194.9 88.8 194.7 89.5 195.4 93.1 196.1 94.2 194.8 95.1 195.5 96.4 195.3 98.0 196.3 99.3 196.1 101.2 195.3 104.9 194.6 106.4 193.6 106.5 192.1 105.3 188.8 106.2 186.9 106.0 184.9 106.5 184.2 110.5 180.7 111.4 180.6 115.4 178.7 116.0 179.0 115.6 179.5ZM106.0 165.6 107.2 166.4 108.6 166.7 108.1 167.4 107.2 167.5 106.8 167.0 105.6 167.9 104.6 167.8 101.8 166.5 99.5 164.3 102.8 165.9 103.6 164.4 104.5 163.9 105.2 164.1 105.5 164.7ZM114.7 162.1 115.5 162.7 115.2 163.1 113.9 163.5 113.5 163.1 112.7 163.6 112.2 163.1 113.3 162.3 114.1 162.6ZM236.4 160.4 234.9 160.5 235.1 159.1 236.6 159.9ZM307.3 150.0 308.2 150.3 310.1 150.1 310.1 151.4 309.7 152.7 309.4 152.4 308.7 153.2 307.9 153.1 306.7 149.9ZM333.4 150.1 333.6 150.6 334.3 150.1 334.6 151.1 333.1 152.9 333.5 153.4 331.9 153.9 331.1 155.8 329.9 156.7 327.4 156.2 327.3 155.8 327.8 154.9 329.0 153.8 331.1 152.5 332.5 150.1 333.2 149.6ZM334.9 144.9 335.6 146.0 335.6 145.3 336.0 145.6 336.2 146.4 336.9 146.7 338.6 146.5 338.1 148.1 337.4 148.1 336.2 150.5 335.5 151.0 334.9 150.5 335.5 149.6 335.2 149.0 334.2 148.5 334.2 148.1 334.9 147.7 335.0 146.2 333.0 143.1 333.4 143.0 334.6 143.9ZM327.8 130.4 327.5 130.7 325.7 129.4 324.9 128.4 325.3 128.4 327.3 130.0ZM338.5 125.7 338.8 126.0 338.6 126.5 337.5 126.5 337.4 126.1 337.8 125.7 338.2 125.9ZM339.4 125.2 338.8 125.4 338.7 125.0 340.0 124.5 340.0 124.9ZM328.5 124.9 328.2 125.0 327.9 124.3ZM327.8 123.4 328.0 124.2 327.5 124.1 327.4 123.1ZM217.3 122.0 217.6 124.1 217.4 124.4 217.1 123.8 216.9 124.1 217.0 125.3 214.5 133.2 212.9 133.9 211.6 133.3 211.3 132.7 210.9 130.3 211.9 128.4 211.5 125.8 212.0 124.6 213.7 124.2 215.1 123.0 215.2 122.1 215.6 122.3 216.5 120.6 217.0 121.4ZM305.6 122.2 305.9 123.0 306.5 122.6 307.3 123.4 308.3 127.3 310.6 128.7 311.4 130.6 311.7 130.4 312.1 130.8 312.4 130.7 312.5 131.7 314.4 133.5 314.6 135.6 315.0 136.4 314.4 140.1 312.6 142.9 311.7 145.1 311.7 146.2 311.1 146.6 310.1 146.7 308.2 148.0 306.8 147.3 307.0 146.8 305.6 147.8 302.8 146.9 302.2 146.2 301.8 144.8 301.4 144.4 300.4 144.3 300.8 143.8 300.5 143.0 300.1 143.7 299.2 143.9 300.2 142.2 300.2 141.4 298.8 142.7 298.4 143.5 297.7 143.1 297.7 142.5 296.6 141.3 296.8 141.1 294.0 139.9 289.1 140.7 287.3 141.5 286.8 142.4 283.2 142.5 281.5 143.7 280.1 143.6 278.6 142.8 278.7 142.2 279.3 141.8 279.4 140.7 278.6 137.8 277.0 134.4 277.5 134.8 277.1 133.9 277.9 134.6 277.1 132.7 277.8 130.0 277.9 130.8 278.3 130.1 280.2 129.0 284.1 128.0 285.5 126.5 285.5 125.6 286.2 124.8 286.6 125.6 287.0 125.4 286.6 125.0 286.9 124.5 287.4 124.7 287.5 124.0 288.7 122.7 289.1 122.8 290.0 122.3 291.2 123.3 292.4 123.4 292.2 122.9 293.4 121.1 295.2 120.7 295.2 120.2 294.5 119.9 295.0 119.7 297.8 120.8 298.9 120.4 299.3 120.9 298.4 121.8 298.0 123.4 302.4 126.1 303.0 125.7 303.8 123.5 303.7 122.2 304.2 119.6 304.6 119.3 305.6 121.9ZM323.1 119.1 323.4 119.4 322.7 119.4 322.4 118.8 322.9 119.1ZM284.0 118.9 282.4 118.2 283.2 118.0 284.1 118.6ZM321.9 118.5 320.8 118.3 320.8 117.9 321.8 118.3ZM322.7 118.3 322.6 118.4 321.9 117.6 321.7 117.0 322.0 117.0 322.3 117.8ZM287.5 118.8 286.6 118.9 287.1 118.0 288.1 117.4 290.3 117.1 288.1 118.1ZM281.4 116.8 282.3 117.0 282.5 117.4 280.3 117.7 280.6 117.2 281.1 117.2ZM286.1 116.8 285.9 117.4 284.5 117.6 283.3 117.5 283.3 117.2 285.2 117.2ZM321.0 117.1 319.4 116.2 320.8 116.8ZM318.8 116.1 318.2 116.0 317.8 115.4 318.4 115.8ZM272.6 115.6 274.4 115.7 274.6 115.3 276.4 115.7 276.7 116.4 278.1 116.5 279.3 117.1 278.2 117.5 270.5 116.1 270.4 115.7 269.5 115.6 270.2 114.7 272.5 115.2ZM297.2 115.0 296.8 115.7 296.7 115.0 297.0 114.3 297.2 114.6ZM317.2 115.6 316.5 115.3 315.9 114.0 317.4 115.3ZM313.5 114.3 311.4 115.1 310.1 114.6 310.2 114.3 311.5 114.4 311.8 113.9 311.9 114.4 312.4 114.3 313.2 113.7 313.1 113.1 313.9 113.2 313.9 113.8ZM290.2 112.4 289.8 112.7 289.2 112.6 289.0 112.2 289.9 112.1ZM293.2 112.1 293.6 112.8 292.8 112.4 290.8 112.4 291.0 111.9 292.2 111.8ZM314.6 113.4 314.3 113.7 313.9 112.7 312.3 111.8 312.6 111.5 313.1 111.8 314.5 112.9ZM296.7 110.3 297.0 111.8 297.9 112.3 298.7 111.3 299.8 110.8 300.6 110.8 306.6 112.8 307.7 113.8 307.9 114.3 309.4 114.9 309.7 115.4 308.8 115.5 309.0 116.2 310.5 117.8 311.0 117.8 311.0 118.2 312.4 118.9 311.7 119.3 309.7 118.8 307.9 116.8 306.7 116.4 305.3 117.0 305.4 117.7 304.7 118.0 303.2 117.8 302.4 117.0 301.4 116.8 300.0 117.1 300.4 116.4 301.0 116.1 300.3 114.3 297.7 113.4 296.2 112.5 295.6 113.1 295.4 112.3 294.7 111.8 296.3 111.5 296.3 111.3 294.9 111.3 294.5 110.7 293.7 110.5 293.3 110.1 295.0 109.5 296.5 109.9ZM288.3 107.8 287.5 108.8 286.8 108.9 283.5 108.9 283.4 109.7 284.2 110.5 284.7 110.1 286.5 109.7 286.4 110.2 286.0 110.0 284.8 111.0 285.7 112.2 285.5 112.5 286.3 113.6 286.3 114.2 285.8 114.5 285.4 114.2 285.9 113.4 285.0 113.8 284.7 113.5 284.9 113.1 284.2 112.6 284.3 111.6 283.6 111.9 283.7 114.4 282.7 114.3 282.9 112.5 282.5 112.5 282.2 111.8 283.4 108.6 284.2 107.9 287.2 108.3 288.1 107.6ZM291.5 108.1 291.5 108.9 291.0 108.8 290.9 109.4 291.2 109.9 291.0 110.0 290.3 108.2 290.8 107.1 290.9 107.6 291.5 107.7ZM269.9 114.7 268.9 114.7 266.9 113.2 263.7 109.0 263.1 107.4 260.1 104.5 260.0 104.0 262.1 104.2 265.1 107.2 266.0 107.2 266.8 107.8 268.1 109.1 267.7 109.8 268.6 110.2 269.1 111.4 269.8 111.5 270.2 112.1 270.0 113.2ZM281.3 107.4 282.4 108.3 281.3 108.4 281.0 109.9 280.1 110.6 279.7 113.0 279.6 112.6 278.5 113.0 278.1 112.5 277.0 112.1 275.8 112.5 275.5 112.0 274.1 111.9 274.0 110.7 273.0 109.6 273.0 107.9 273.6 107.3 274.3 107.6 275.0 107.4 275.2 106.6 276.7 106.2 280.2 102.6 280.6 102.6 281.2 103.5 282.6 104.1 282.5 104.4 281.9 104.5 282.0 104.9 281.3 105.3 280.8 106.1 281.5 107.0ZM289.4 101.2 289.5 102.4 289.2 103.2 288.8 102.3 288.4 102.7 288.7 103.4 288.4 103.9 287.3 103.3 287.1 102.7 287.3 102.2 286.7 101.8 285.3 102.6 285.1 102.4 285.5 101.6 286.6 100.9 287.0 101.4 287.7 101.1 287.8 100.7 288.5 100.7 288.4 99.9 289.2 100.4 289.3 100.8ZM246.7 103.3 245.9 103.5 245.4 102.8 245.3 101.4 245.7 99.9 246.3 100.4 247.2 102.0 247.1 103.0ZM112.5 99.6 111.5 99.6 111.7 99.0 112.5 98.9ZM287.1 99.4 286.2 100.6 285.6 100.0 286.1 98.8 286.6 98.8 286.5 99.4 287.2 98.5ZM281.9 100.3 280.7 101.2 281.1 100.6 282.9 98.4 283.0 99.2 282.4 99.7ZM285.1 97.9 286.3 98.2 286.3 98.6 285.2 99.3 285.3 98.3ZM288.5 97.6 288.8 98.7 288.1 98.4 288.3 99.3 287.9 99.6 287.4 98.3 288.0 98.3 287.9 98.0 287.4 97.2 288.3 97.3ZM284.8 96.8 284.5 97.6 283.6 96.4 284.4 96.4ZM284.6 91.5 285.2 91.8 285.5 91.5 285.7 92.9 285.5 93.7 284.9 94.0 285.0 95.5 285.9 95.5 287.1 96.1 287.2 97.3 286.1 96.3 285.9 96.6 285.3 96.1 283.9 96.0 284.3 95.4 284.0 95.1 283.9 95.5 283.4 94.9 283.2 93.6 283.6 93.9 284.0 91.5ZM108.1 91.8 106.5 92.0 106.6 91.5 107.9 91.6ZM97.4 92.1 97.1 92.3 96.0 91.8 96.5 91.5 98.0 92.1ZM101.5 90.2 103.9 90.4 105.5 91.4 105.1 91.8 103.3 91.6 102.6 92.4 101.6 91.8 100.2 92.0 99.7 91.6 99.8 91.3 101.7 91.3 101.3 90.5 100.7 90.4 100.9 90.1ZM274.2 91.3 273.4 91.8 272.6 91.5 272.6 90.6 273.1 90.2 274.6 89.9 274.8 90.3 274.4 90.8ZM23.1 90.9 22.7 90.9 22.8 89.8 23.8 90.5 23.4 90.8ZM22.6 89.4 22.0 89.1 22.7 89.3ZM21.1 88.7 20.7 88.7 20.5 88.5 20.8 88.4ZM19.5 88.1 19.1 88.0 19.5 87.8ZM94.7 87.3 95.1 87.7 96.0 87.5 97.7 88.8 98.6 89.0 98.5 89.3 99.9 89.7 99.2 90.1 96.6 90.2 97.2 89.6 96.2 89.3 95.7 88.5 92.7 87.9 92.4 87.7 92.7 87.4 91.8 87.4 90.6 88.1 89.7 88.2 91.4 87.1 93.9 87.0ZM96.8 86.3 95.9 85.5 96.2 84.8 96.4 84.9 96.8 85.7ZM284.4 87.3 284.0 88.1 283.4 86.5 284.7 84.8 285.2 85.1 285.0 85.7ZM96.5 83.5 95.5 83.6 95.4 83.3 96.5 83.2ZM97.3 83.5 97.1 84.2 96.5 83.0ZM297.2 75.6 297.3 76.0 296.7 76.6 296.4 76.3 295.6 77.1 295.0 76.8 295.0 76.3 295.5 75.7 296.1 75.8 296.5 75.4ZM202.7 74.0 202.0 74.4 202.1 74.7 201.1 75.2 200.5 74.6 201.8 74.3ZM192.4 74.0 192.9 74.3 194.8 74.4 194.7 74.7 193.4 74.8 192.2 74.4ZM184.7 71.2 184.3 73.0 181.7 71.9 181.9 71.3 183.9 71.3ZM178.7 67.9 179.3 68.7 179.1 70.2 178.3 70.5 178.0 70.2 177.7 68.2 178.2 68.2ZM303.1 72.4 302.8 73.3 303.0 73.8 302.5 74.6 301.3 75.1 299.6 75.1 298.2 76.3 297.6 75.9 297.6 75.1 293.7 75.9 294.7 76.7 294.0 78.5 293.4 78.9 293.0 78.5 293.2 77.5 292.6 77.2 292.2 76.5 293.1 76.2 295.3 74.2 297.1 73.9 298.1 74.1 299.1 72.2 299.8 72.7 301.7 71.2 302.3 69.9 302.1 68.6 302.5 67.9 303.5 67.7 304.0 69.3 304.0 70.2 303.1 71.3ZM179.0 66.8 178.7 67.7 178.3 67.5 178.1 66.7 178.9 65.9ZM305.9 64.5 306.6 64.8 307.2 64.3 307.5 65.6 306.1 65.9 305.2 67.0 303.7 66.2 303.2 67.5 302.2 67.5 302.0 66.4 302.5 65.5 303.5 65.4 304.1 62.9 305.2 64.1ZM109.9 61.7 111.4 61.9 110.6 62.4 109.4 61.9 109.2 61.5 109.5 61.2ZM111.6 58.7 109.9 58.3 109.1 57.7 110.6 57.9 111.6 58.4ZM53.4 59.4 52.9 59.6 51.3 59.0 50.0 57.8 49.1 57.6 48.8 56.6 51.2 57.2 52.0 58.2 53.0 58.7ZM117.0 56.7 116.4 57.8 117.0 57.4 117.6 57.6 117.3 58.1 119.5 58.5 119.2 59.4 119.9 59.2 120.3 60.6 119.9 61.6 118.8 61.4 119.0 60.4 118.8 60.3 117.7 61.3 117.1 61.3 117.8 60.7 116.9 60.4 114.0 60.5 113.9 60.1 114.5 59.7 114.1 59.4 114.9 58.6 115.8 56.7 117.2 55.5 117.7 55.6 117.5 55.9ZM44.7 52.5 45.6 52.4 45.3 53.8 46.1 54.8 45.7 54.8 44.3 53.3 44.2 52.3ZM305.7 56.6 306.6 58.8 305.2 58.4 304.6 60.2 305.6 61.4 305.5 62.2 304.8 61.5 304.2 62.4 304.0 59.0 304.3 56.4 303.7 55.1 303.8 53.4 304.7 52.8 304.3 52.2 304.7 52.0 305.3 54.1 305.3 55.4ZM163.6 54.7 161.9 55.5 160.6 55.3 161.3 54.0 160.8 52.7 162.8 51.0 163.6 51.0 164.7 51.8 164.1 52.7 164.3 53.6ZM182.0 50.4 181.4 51.5 180.4 50.7 180.3 50.2 181.7 49.7ZM25.5 48.4 24.6 48.9 23.9 47.9 25.3 47.2 26.3 47.7ZM167.2 46.3 166.2 47.8 168.1 47.6 167.9 48.7 167.1 49.9 168.0 50.0 168.9 51.7 169.6 51.9 170.4 53.9 171.6 54.1 171.5 54.9 171.0 55.3 171.4 56.0 170.5 56.6 167.6 56.9 167.2 56.7 166.6 57.3 165.7 57.1 165.0 57.6 164.5 57.4 165.9 56.1 166.8 55.8 165.3 55.6 165.0 55.1 166.0 54.7 165.5 54.0 165.7 53.2 167.1 53.3 167.2 52.5 166.6 51.7 165.4 51.5 165.2 51.1 165.5 50.5 165.2 50.2 164.7 50.8 164.7 49.5 164.2 48.8 164.5 47.4 165.3 46.3 166.0 46.4ZM13.6 44.5 13.0 44.7 11.8 44.1 13.5 44.0ZM95.1 41.3 94.8 42.1 94.4 41.9 94.1 41.4 94.9 41.0ZM92.7 40.5 91.5 41.3 90.9 41.3 90.7 40.9 91.4 40.2 92.7 40.2ZM7.8 38.9 10.7 39.6 9.9 40.1 8.8 39.5 7.8 39.5ZM89.6 36.0 89.7 36.7 90.2 36.5 92.9 37.9 93.0 38.6 93.7 38.5 94.3 39.0 93.5 39.5 92.0 39.1 91.5 38.4 89.2 40.0 88.9 39.1 87.6 39.3 88.4 38.5 88.9 35.9ZM156.3 34.8 156.1 35.8 157.1 36.9 155.9 38.0 152.4 39.3 148.5 38.6 149.4 38.0 147.4 37.2 149.0 36.9 149.0 36.5 147.0 36.1 147.7 35.1 149.1 34.9 150.6 35.9 152.0 35.1 153.2 35.5 154.7 34.7ZM98.3 33.7 97.3 33.8 97.1 33.0 97.5 32.1 98.3 31.8 99.1 32.3 99.0 33.2ZM4.7 34.6 5.3 35.0 5.1 33.8 7.7 34.1 9.5 35.5 8.6 36.2 7.1 36.4 7.0 37.9 6.7 38.2 5.8 38.1 3.8 37.2 3.6 36.5 2.6 36.2 1.5 36.4 1.0 35.9 1.2 35.3 0.1 35.7 0.5 36.4 0.0 37.1 0.0 30.7 4.8 33.6ZM79.7 30.5 79.1 31.1 77.8 30.6 77.0 30.8 75.7 30.0 77.2 28.8 79.1 29.9ZM340.0 27.6 339.0 27.7 338.8 27.1 340.0 26.4ZM1.2 27.5 0.0 27.6 0.1 26.3 0.9 26.3 2.3 26.8 2.2 27.1ZM84.5 29.9 84.5 31.5 85.7 30.2 86.9 31.3 86.6 32.5 87.5 33.6 89.2 31.0 89.2 29.2 92.0 29.6 93.2 30.4 93.3 31.2 92.6 32.1 93.3 33.0 93.1 33.7 91.3 34.9 90.0 35.1 89.0 34.6 87.5 37.4 86.4 38.4 85.1 38.5 84.3 39.2 84.3 40.1 83.2 40.3 82.0 41.5 81.0 43.1 80.6 45.9 82.0 46.1 82.8 48.4 84.2 48.2 85.9 48.7 87.5 49.9 89.7 50.8 92.3 51.0 92.4 53.4 93.1 54.9 94.5 56.1 95.3 55.7 95.8 54.4 95.3 52.3 94.6 51.6 96.1 51.0 97.7 49.2 97.6 48.3 97.0 47.1 95.8 46.1 97.0 44.6 96.2 41.1 96.9 40.7 99.5 41.3 100.3 40.9 102.3 42.2 102.6 42.8 104.3 42.9 104.6 45.9 105.4 46.1 106.1 46.9 107.5 46.1 109.0 43.9 112.0 48.6 111.6 49.4 113.7 50.9 115.9 51.7 116.2 52.8 117.0 53.0 117.3 53.4 117.4 54.9 116.0 55.8 114.5 56.2 113.3 57.3 107.3 57.3 106.5 58.2 105.3 58.7 102.8 61.4 103.6 61.2 105.2 59.6 107.1 58.6 108.6 58.5 109.4 59.1 108.5 59.9 109.1 62.1 110.3 62.7 111.9 62.5 112.8 61.2 112.9 62.0 113.5 62.5 109.3 64.4 108.3 65.2 107.6 65.2 107.5 64.2 109.2 63.2 106.6 63.4 106.8 63.8 103.8 65.1 103.2 65.8 103.1 66.6 103.4 67.2 103.8 67.3 103.7 66.8 104.0 67.1 103.9 67.4 100.4 68.2 102.1 68.2 100.2 68.4 99.9 68.7 100.1 68.8 99.9 69.6 99.3 70.4 98.7 69.8 99.1 71.0 98.3 72.3 98.5 71.5 98.0 71.1 97.9 70.2 97.9 71.4 97.3 71.2 97.9 71.6 98.5 74.1 97.9 74.9 95.3 76.3 93.2 78.5 93.2 79.9 94.4 83.2 94.1 84.9 93.3 84.9 92.8 84.2 91.7 82.1 91.9 81.5 91.7 80.9 90.6 79.9 89.6 80.3 88.4 79.6 85.8 79.6 85.4 79.8 85.7 80.7 84.9 80.9 84.2 80.8 83.5 80.3 81.4 80.3 78.8 81.7 78.0 82.7 78.3 84.2 77.6 87.6 78.2 89.4 79.4 91.2 80.8 91.8 84.3 90.7 84.7 89.0 87.8 88.5 88.0 89.2 87.2 90.4 87.0 91.7 86.6 91.5 86.6 93.4 86.0 94.0 89.7 93.9 91.2 94.6 91.4 95.6 90.8 98.6 92.4 100.6 93.5 100.8 94.8 100.1 97.4 101.0 98.5 100.2 98.7 99.1 99.3 98.7 100.7 98.5 102.2 97.4 102.8 97.7 102.6 98.2 102.1 98.3 102.3 99.3 101.9 99.8 102.3 100.6 102.7 100.5 102.9 99.8 102.6 98.8 103.7 98.4 103.6 97.9 103.9 97.6 104.3 98.3 104.9 98.3 105.6 99.2 107.5 99.1 108.7 99.6 109.3 99.1 111.6 99.0 110.8 99.3 111.1 99.7 112.5 100.3 112.7 101.0 114.2 101.6 114.8 102.7 116.0 103.5 119.0 103.7 120.1 104.1 121.2 105.2 121.5 105.2 122.3 107.4 122.8 107.5 122.8 108.2 122.1 109.0 122.4 109.2 124.1 109.4 124.1 110.3 124.8 109.7 127.6 110.6 128.1 111.2 127.9 111.7 129.0 111.4 130.8 111.9 132.2 111.9 134.8 113.7 136.4 114.0 137.2 116.1 136.8 117.7 133.5 121.6 132.9 126.2 132.4 127.9 131.5 129.2 131.3 130.2 130.6 130.6 130.3 131.2 127.8 131.6 125.0 133.2 124.2 134.2 123.8 137.0 122.1 139.4 120.6 140.7 119.2 143.0 118.1 143.6 116.9 143.5 115.4 143.0 114.8 142.5 114.8 143.0 116.0 143.9 115.8 144.7 116.4 145.1 115.5 147.1 114.1 147.7 111.1 147.8 111.3 149.8 109.8 150.4 108.9 150.0 108.5 150.3 108.6 151.4 109.3 151.7 109.8 151.4 110.1 152.0 108.4 153.0 108.1 154.8 107.2 154.8 106.4 155.4 106.2 156.3 107.1 157.2 108.0 157.4 107.7 158.5 106.6 159.2 106.0 160.6 104.7 161.7 105.0 163.0 105.6 163.7 104.4 163.6 103.1 164.4 102.9 165.6 102.5 165.6 99.2 163.6 98.6 159.1 99.0 158.0 100.0 157.1 98.6 156.7 99.5 155.7 99.8 153.7 100.8 154.1 101.3 151.8 100.7 151.5 100.4 152.9 99.8 152.7 100.4 149.0 100.9 148.3 100.5 145.9 100.9 145.9 102.5 140.9 102.5 137.2 103.0 135.9 103.7 128.1 103.5 126.7 102.6 126.1 102.5 125.7 98.2 123.1 98.0 122.0 94.7 116.0 93.3 115.0 93.6 114.5 93.1 113.6 94.7 111.7 94.5 111.3 94.1 111.7 93.5 111.3 93.6 110.2 93.9 110.0 94.4 108.4 95.5 107.9 95.9 106.7 96.4 106.6 97.2 105.5 96.8 105.3 96.8 102.8 96.1 102.1 95.9 101.5 96.2 101.3 95.3 100.6 94.9 100.7 94.0 101.5 94.4 102.0 93.6 102.3 93.4 101.8 91.1 101.2 91.0 100.6 89.7 99.6 89.6 100.1 89.1 99.8 88.8 98.8 89.0 98.7 87.2 96.9 87.5 96.8 87.4 96.5 86.4 96.7 83.8 95.9 81.8 94.3 80.6 93.7 78.8 94.3 72.2 91.7 70.4 90.1 70.1 89.6 70.5 89.5 70.6 88.6 69.9 87.3 67.6 84.9 66.8 84.5 66.8 83.6 64.0 81.0 63.1 78.7 62.5 78.3 61.6 78.1 61.7 79.8 64.6 83.4 65.5 85.8 65.9 85.8 66.7 86.7 66.1 87.2 65.8 86.6 64.1 85.3 63.9 84.0 61.3 82.3 61.8 82.3 62.2 81.4 60.9 80.4 59.2 76.8 58.1 75.7 56.1 75.1 52.5 68.9 52.7 67.0 52.4 66.1 53.0 62.9 52.2 59.8 52.4 59.5 53.7 60.0 54.2 61.1 54.5 60.8 54.0 58.8 51.4 57.0 49.6 56.5 49.1 55.4 49.3 54.6 48.0 54.1 47.9 53.1 46.7 52.1 46.7 51.5 45.4 50.5 45.1 49.4 43.9 48.3 43.4 47.0 41.0 46.9 39.9 46.5 37.9 45.1 35.3 44.3 34.0 44.4 31.1 43.1 30.0 43.4 30.2 44.4 26.7 45.6 26.6 44.8 27.0 43.4 28.0 42.9 27.7 42.6 24.5 45.3 25.2 46.0 24.3 47.0 22.4 48.0 22.1 48.6 20.7 49.3 20.4 49.9 14.4 52.0 14.2 51.8 17.2 50.0 18.4 49.9 21.0 47.8 21.7 45.9 20.6 46.3 20.3 46.1 19.8 46.6 19.2 45.9 18.9 46.4 18.6 45.7 17.0 46.3 17.1 44.9 16.5 44.4 15.3 44.7 13.8 43.7 13.8 42.9 13.1 42.3 14.6 39.8 16.0 40.0 16.8 39.3 17.4 39.4 18.2 38.9 18.0 38.2 17.5 38.0 18.2 37.4 16.3 38.1 15.5 37.7 14.2 37.9 12.8 37.5 11.2 36.0 14.7 34.6 15.4 34.6 15.3 35.4 17.3 35.3 16.5 34.3 15.4 33.7 13.8 32.2 12.5 31.7 13.0 30.9 14.7 30.8 15.9 30.1 16.1 29.2 17.1 28.4 19.8 27.5 20.7 27.6 22.1 26.7 23.5 27.0 24.2 27.8 24.6 27.5 26.2 27.6 26.2 28.0 27.6 28.3 28.6 28.1 33.1 29.0 34.4 28.7 41.1 30.8 43.1 29.6 44.5 29.8 47.4 28.7 48.1 29.4 48.8 29.0 49.0 28.2 49.6 28.4 51.2 29.9 52.5 28.7 52.6 30.0 53.8 29.7 54.1 29.3 55.3 29.3 58.9 30.7 61.2 30.8 62.4 31.7 61.1 32.5 62.8 32.8 66.2 32.3 67.2 33.3 68.2 32.5 67.2 31.8 67.8 31.2 69.7 31.0 71.5 32.3 72.5 32.2 74.2 32.9 77.0 32.7 76.9 31.7 77.8 31.4 79.2 31.9 79.2 33.5 79.8 32.2 80.6 32.2 81.0 30.6 78.9 28.9 79.0 27.0 80.1 25.7 81.3 26.0 82.3 26.7 83.6 28.7 82.7 29.5ZM62.2 23.6 61.7 24.4 63.8 23.9 65.1 24.8 66.2 23.8 67.0 24.4 67.8 26.2 68.3 25.4 67.6 23.6 68.5 23.3 69.4 23.6 70.5 24.4 71.3 27.3 74.6 29.0 74.5 29.7 73.0 29.8 73.6 30.5 73.3 31.1 69.9 30.4 63.0 31.4 62.5 30.7 61.2 30.2 60.3 30.4 59.2 29.1 63.8 28.4 62.0 28.0 58.6 28.1 58.1 27.5 60.3 26.8 58.9 26.8 57.2 26.3 58.7 24.3 61.2 23.2ZM71.3 23.0 70.5 24.2 69.0 22.9 70.6 22.6ZM97.9 23.6 98.0 24.1 94.7 24.1 93.6 23.2 93.7 22.5 96.3 22.6ZM88.2 23.5 89.0 24.6 89.9 23.2 92.3 22.4 93.9 24.3 93.7 25.4 95.6 24.9 96.5 24.2 99.9 26.0 100.0 26.7 101.8 26.3 102.8 27.4 105.0 28.1 105.9 28.8 106.8 30.4 105.0 31.1 108.7 32.6 110.1 34.0 111.6 34.1 111.3 35.2 109.6 37.1 108.5 36.4 107.0 34.9 105.8 35.1 105.6 36.0 108.3 38.0 108.9 39.5 108.6 40.5 105.0 39.0 107.4 41.1 107.5 41.6 102.9 40.2 101.8 39.5 102.1 39.1 99.3 37.5 99.3 38.0 96.6 38.2 95.8 37.7 96.4 36.6 100.1 36.3 99.8 35.8 101.4 33.5 101.1 32.8 100.8 32.2 99.3 31.4 97.4 30.9 98.0 30.4 97.0 29.4 96.2 29.3 95.4 28.7 94.9 29.2 93.2 29.4 86.2 28.3 85.5 27.7 86.4 26.9 85.1 26.9 84.8 25.1 85.5 23.5 86.5 22.8 88.9 22.3ZM75.2 22.2 76.3 22.6 78.0 22.4 78.3 22.9 77.4 23.8 78.8 24.6 78.7 26.2 77.1 26.8 76.2 26.7 73.2 24.7 73.2 24.1 75.1 24.3 74.1 23.1ZM305.6 23.4 302.1 23.1 303.0 22.4 304.2 22.2 305.5 22.9ZM82.0 24.2 81.0 25.5 79.9 25.4 79.3 23.0 79.8 22.2 80.7 21.7 84.5 22.2 83.1 23.8ZM56.2 26.6 53.7 27.5 53.2 26.7 51.1 25.8 52.9 22.5 52.0 21.4 55.2 21.1 59.0 21.6 60.9 22.9 57.4 24.6 56.2 25.9ZM312.4 19.9 311.3 20.7 309.8 20.5 308.0 19.8 308.2 19.1 310.0 19.4ZM81.6 20.1 81.1 20.9 78.6 20.2 79.1 19.4 80.4 18.9 81.2 19.5ZM307.0 19.0 306.3 20.4 302.8 20.4 301.2 20.8 299.4 19.6 299.9 18.3 301.1 17.9 303.6 18.0ZM77.0 16.8 77.7 17.7 77.3 20.1 75.7 20.3 74.7 20.0 74.7 18.9 73.2 19.0 73.1 17.5 74.1 17.6 75.6 16.9 76.9 17.0ZM67.8 17.8 68.2 18.5 70.0 18.2 70.2 19.2 69.6 20.1 66.4 20.4 64.0 21.2 62.6 21.2 62.5 20.6 64.4 19.8 60.1 20.0 58.8 19.7 60.1 17.8 61.0 17.2 63.7 17.9 65.3 19.0 67.0 19.2 65.6 17.3 66.5 16.6 67.5 16.8ZM224.3 27.8 220.7 27.7 220.4 26.9 218.7 26.5 218.6 25.5 219.6 25.2 219.5 24.2 221.4 22.6 220.5 22.4 222.8 20.8 222.5 19.9 227.8 17.7 230.9 17.3 232.5 16.6 234.4 16.3 235.0 17.1 234.4 17.7 228.2 19.6 225.2 21.4 222.3 24.9 222.5 26.4ZM80.6 16.0 81.6 16.7 83.5 16.7 84.3 17.3 84.1 18.0 85.8 18.9 88.4 19.2 91.8 18.6 93.4 18.7 94.4 19.4 94.6 20.2 92.6 21.1 91.4 20.9 86.7 21.2 82.7 20.4 82.3 18.4 81.3 17.6 79.4 17.3 78.3 16.7 78.6 15.9ZM60.3 14.9 60.1 16.5 59.4 17.1 56.8 18.1 55.3 18.4 54.0 17.9 57.5 15.2 59.0 15.2ZM271.0 16.3 271.3 17.2 272.1 16.8 274.9 16.8 277.0 17.7 277.8 18.5 277.6 19.5 273.3 21.6 275.9 22.3 276.7 22.0 277.2 23.2 277.6 22.7 279.1 22.4 282.2 22.7 282.4 23.6 286.4 23.8 286.4 22.4 289.9 22.7 291.4 23.7 291.9 24.9 291.3 25.6 292.5 27.0 294.0 27.7 294.9 25.8 296.4 26.6 298.0 26.2 299.9 26.7 300.6 26.2 302.1 26.5 301.4 24.8 302.7 24.0 311.2 25.2 312.0 26.2 314.5 27.6 318.3 27.2 320.2 27.5 321.0 28.2 320.8 29.5 322.0 30.0 323.3 29.6 328.5 29.7 330.2 31.2 331.3 30.7 330.6 29.6 331.0 28.8 334.0 29.3 336.0 29.2 338.7 30.0 340.0 30.7 340.0 37.1 338.8 37.8 337.6 37.6 339.4 40.1 339.3 41.1 337.5 40.8 334.0 42.0 331.2 43.9 330.9 44.6 329.5 43.6 327.1 44.7 326.6 44.2 325.7 44.8 324.5 44.6 324.1 45.5 323.0 46.8 323.1 47.4 324.1 47.7 324.0 49.7 323.1 49.7 322.7 50.8 323.1 51.4 321.5 52.1 321.1 53.5 319.7 53.8 319.4 55.1 318.1 56.3 316.8 50.7 317.3 48.9 318.0 48.0 318.1 47.4 319.6 47.1 322.9 43.9 324.6 42.8 325.3 40.7 324.2 40.9 323.6 42.1 321.2 43.6 320.5 41.9 318.0 42.4 315.7 44.7 316.4 45.6 312.9 46.1 312.9 45.1 311.5 44.9 310.3 45.6 307.4 45.3 304.3 45.7 297.6 51.6 299.1 51.7 299.6 52.5 300.5 52.8 301.1 52.2 302.1 52.3 303.5 53.7 303.5 54.8 302.8 56.0 302.3 59.5 300.5 62.0 297.4 65.4 296.1 66.1 295.5 66.1 294.9 65.5 292.7 67.1 292.5 68.3 290.4 69.5 290.3 70.1 291.2 70.8 292.3 72.8 292.3 74.0 291.9 74.6 289.5 75.4 289.5 74.0 289.1 72.9 289.8 72.7 289.2 71.7 288.7 71.5 288.3 71.8 287.8 71.3 288.3 70.7 288.4 69.8 287.4 69.3 284.3 70.5 284.8 70.0 284.6 69.5 285.4 68.8 284.9 68.2 282.4 70.1 281.5 70.1 281.0 70.7 281.5 71.4 282.3 71.6 282.3 72.1 283.1 72.4 284.1 71.6 285.6 72.1 285.7 72.6 284.4 72.9 282.5 74.8 283.5 75.4 285.1 78.2 285.1 79.0 284.5 79.3 285.3 80.1 284.9 81.8 284.4 81.9 282.1 85.5 279.5 87.3 278.4 87.4 277.8 87.8 277.5 87.5 276.9 88.0 274.6 88.6 274.3 89.7 273.8 89.7 273.5 89.0 273.8 88.7 272.5 88.3 270.8 89.3 270.0 90.3 269.8 90.9 271.4 93.2 272.8 94.6 273.3 96.4 273.1 98.1 269.3 101.0 269.0 100.4 269.2 99.8 267.7 99.1 266.9 97.6 265.2 97.2 265.4 96.4 264.5 96.4 263.7 100.4 264.3 100.4 264.9 102.1 267.2 103.9 267.6 104.6 267.8 106.5 268.4 107.9 267.8 108.0 265.8 106.6 264.6 104.1 264.5 103.1 263.0 101.2 262.9 101.8 262.7 101.3 263.3 98.3 261.8 93.0 260.1 94.2 259.0 93.9 259.3 92.7 259.1 91.8 258.3 90.6 258.5 90.3 257.9 90.2 257.2 89.4 256.3 87.3 255.5 87.3 255.3 88.2 254.1 88.0 254.0 88.4 252.1 88.6 252.2 89.3 251.7 89.9 250.3 90.5 247.6 92.9 247.6 93.4 245.9 94.0 245.6 94.8 245.8 96.8 245.4 97.7 245.4 99.3 244.9 99.4 244.5 100.1 244.8 100.4 243.9 100.7 243.2 101.6 242.3 100.7 240.7 97.1 240.3 95.3 239.4 93.9 238.6 88.7 237.2 89.3 236.6 89.2 235.3 88.0 235.8 87.6 235.5 87.2 233.7 86.1 232.7 84.6 228.1 85.0 224.2 84.3 223.8 83.1 223.4 82.9 221.7 83.6 220.5 83.2 218.7 82.2 217.3 79.8 216.8 80.0 216.2 79.6 215.9 80.0 215.3 80.0 216.1 82.3 217.4 83.4 217.3 84.1 218.0 85.3 218.2 84.0 218.7 84.3 218.5 85.4 218.9 86.0 221.0 85.9 223.2 83.7 223.3 85.1 223.7 85.8 225.5 86.5 226.5 87.7 225.2 89.6 224.6 89.8 224.5 91.1 223.5 91.4 223.2 92.1 222.2 92.3 222.2 92.7 219.5 93.6 219.3 94.3 216.8 95.2 216.0 95.9 213.1 96.5 212.5 97.1 211.1 97.2 210.2 94.7 210.3 93.2 208.7 90.5 207.0 88.8 206.9 87.5 206.4 86.4 205.4 85.8 203.2 82.0 202.7 82.0 203.0 80.5 202.0 82.4 200.6 80.1 202.2 83.9 203.7 86.1 203.6 87.0 204.8 88.1 205.4 91.4 206.3 92.0 207.1 94.0 210.9 97.4 210.9 97.8 210.3 98.0 211.7 99.3 212.1 99.3 218.3 97.8 218.2 99.1 216.7 102.7 215.1 105.2 208.0 111.6 207.0 113.6 206.6 115.3 207.2 115.6 207.0 117.2 208.2 119.4 208.5 123.1 207.3 125.1 205.3 125.9 202.9 128.1 202.8 128.8 203.6 130.4 203.6 132.0 203.1 132.7 200.8 134.0 201.1 134.5 200.4 137.1 198.4 139.5 195.9 141.7 194.3 142.5 191.3 142.4 188.5 143.4 187.2 142.4 186.9 141.1 187.2 140.9 187.2 140.1 184.4 135.4 183.5 130.4 181.1 126.4 181.1 124.2 181.8 122.0 182.9 120.6 182.9 119.3 182.2 117.8 182.5 117.3 181.3 113.9 178.3 110.2 179.3 106.3 178.9 105.6 178.0 104.7 175.6 105.1 174.1 103.2 171.8 103.4 168.1 104.7 165.6 104.3 162.9 105.1 161.5 104.6 158.3 102.3 156.0 98.9 154.3 97.6 154.2 96.2 153.4 95.2 154.5 93.8 154.8 91.9 154.6 89.9 153.9 89.0 154.0 88.2 154.6 87.4 154.9 86.3 155.7 85.5 156.4 83.8 158.1 82.0 159.0 81.9 161.0 80.0 160.7 78.7 161.2 77.3 161.8 76.6 163.5 75.7 164.4 73.9 165.1 73.9 165.7 74.4 168.0 74.5 171.4 73.0 175.0 72.9 175.9 72.4 178.0 72.6 179.0 72.2 179.6 72.3 179.6 72.9 180.5 72.7 180.0 73.2 180.3 74.0 180.2 74.9 179.6 75.4 179.8 76.0 180.3 76.0 180.9 76.7 184.4 77.6 184.8 78.5 188.0 79.7 188.9 78.9 188.7 78.1 189.0 77.6 190.3 77.0 191.6 77.2 191.9 77.7 193.5 78.0 193.8 78.3 195.0 78.3 197.3 79.1 199.3 78.3 199.9 78.5 200.2 79.0 200.4 78.7 201.9 79.0 202.6 78.4 204.0 75.1 204.1 73.8 203.8 73.3 204.2 72.9 202.8 72.8 202.1 73.4 200.7 73.5 199.9 72.9 198.9 72.9 198.7 73.4 198.1 73.5 197.1 72.9 196.1 72.9 194.9 71.2 195.3 70.4 194.7 69.9 195.8 68.8 197.2 68.7 197.6 67.9 199.4 68.0 201.7 67.0 203.2 67.0 206.2 68.2 208.1 68.1 209.2 67.5 209.4 67.0 209.2 66.3 204.6 63.3 205.3 63.1 206.1 62.1 205.6 61.6 207.0 61.1 206.9 60.9 203.0 62.1 203.1 62.8 204.5 63.0 204.3 63.4 202.0 64.3 201.5 64.1 201.7 63.5 200.7 63.2 201.7 62.6 201.4 62.3 200.0 62.0 199.9 61.5 199.0 61.7 198.0 63.5 197.2 63.7 197.0 65.1 196.1 66.4 196.6 67.4 197.4 67.8 197.2 68.1 196.1 68.1 194.9 69.1 194.6 68.3 193.5 68.2 192.4 68.5 193.1 69.1 192.6 69.3 192.0 69.3 191.5 68.7 191.4 69.0 192.1 70.2 191.7 70.4 192.7 71.2 192.7 71.8 191.8 71.6 192.1 72.1 191.5 72.2 191.9 73.2 191.2 73.2 190.5 72.7 189.9 71.1 188.3 69.0 188.5 67.3 185.1 65.3 184.3 64.4 184.1 63.5 183.5 63.3 183.2 63.8 182.9 63.4 183.2 62.9 182.4 62.7 181.6 63.1 181.9 64.6 182.8 65.2 183.3 66.1 184.3 67.1 185.0 67.1 185.3 67.3 185.0 67.5 187.5 69.1 187.3 69.5 185.9 68.8 185.5 69.5 186.2 69.9 186.1 70.5 185.7 70.5 185.2 71.5 184.8 71.6 185.2 70.4 184.6 69.2 182.9 67.9 181.4 67.3 179.9 65.9 179.6 64.8 178.4 64.3 176.2 65.7 174.3 65.4 172.9 65.8 172.9 67.1 172.0 67.9 170.8 68.1 169.7 70.0 170.1 70.7 169.4 71.9 168.6 72.1 168.0 72.9 165.9 72.9 164.9 73.7 164.5 73.6 163.8 72.6 161.6 72.7 161.7 71.2 161.0 70.7 161.7 68.4 161.5 66.3 161.1 65.8 162.5 65.0 168.2 65.4 168.7 64.7 168.9 62.4 167.2 60.5 165.8 60.1 165.7 59.2 166.9 58.9 168.5 59.2 168.2 57.8 169.1 58.4 171.3 57.4 171.5 56.4 173.6 55.5 174.4 53.7 176.7 52.9 177.5 52.8 177.7 53.1 178.3 52.5 177.7 50.5 177.6 49.2 178.1 48.4 178.9 48.3 180.0 47.6 179.7 48.7 180.3 49.3 179.1 50.6 179.4 51.7 180.3 52.0 180.3 52.5 181.8 51.9 183.3 52.8 186.6 51.4 187.6 51.6 187.7 51.9 188.6 52.0 188.8 51.4 190.1 51.0 189.9 48.8 190.4 48.0 191.3 47.5 192.0 48.5 192.8 48.5 193.1 46.7 192.7 46.8 192.1 46.3 192.0 45.5 194.4 44.9 196.4 45.1 197.5 44.4 196.5 43.7 191.6 44.6 191.1 43.8 190.1 43.4 190.3 42.0 189.9 40.6 190.3 39.8 194.0 36.9 193.9 36.2 192.6 35.5 191.0 35.9 190.0 37.0 190.2 37.9 186.9 40.4 186.2 42.5 187.7 44.3 186.9 45.9 185.9 46.2 185.0 49.7 183.9 49.6 183.3 50.7 182.2 50.7 180.4 46.0 179.8 45.1 177.9 46.8 176.7 47.1 175.4 46.4 174.7 41.6 175.6 40.6 178.1 39.4 179.9 37.8 183.9 32.6 188.1 29.3 190.2 28.6 191.7 28.7 193.2 27.2 196.6 27.0 199.6 28.2 198.3 28.7 199.4 29.7 200.3 29.2 201.9 30.2 204.5 30.6 208.1 32.4 208.8 33.2 208.8 34.3 207.8 35.1 206.3 35.5 202.0 34.3 201.3 34.5 202.9 35.7 203.0 37.9 205.0 38.8 205.1 38.1 204.5 37.4 205.1 36.8 207.4 37.8 208.2 37.4 207.6 36.3 209.8 34.8 211.5 35.4 212.1 34.3 211.3 33.4 211.7 32.4 211.0 31.4 213.7 31.9 214.2 32.8 213.0 33.0 213.0 33.9 213.8 34.5 215.2 34.1 215.5 33.1 220.7 30.9 221.4 31.0 220.5 32.0 221.7 32.2 222.4 31.6 224.1 31.6 225.5 30.9 226.6 31.9 227.7 30.8 226.7 29.8 227.2 29.3 230.0 29.8 234.7 32.2 235.3 31.3 234.4 30.1 233.2 29.9 233.5 29.1 233.0 27.2 234.7 25.7 235.4 24.1 236.1 23.7 238.6 24.2 238.8 25.2 237.9 26.6 238.4 27.1 238.7 28.3 238.5 30.6 239.6 31.7 239.2 32.7 237.3 35.0 238.4 35.2 238.8 34.7 239.8 34.3 240.1 33.5 240.9 32.7 240.3 31.8 240.8 30.7 239.7 30.6 239.5 29.6 240.3 27.9 239.0 26.5 240.7 25.3 240.5 24.1 241.0 24.0 241.5 25.0 241.1 26.7 242.1 27.0 241.7 25.8 243.3 25.1 245.2 25.0 247.0 26.0 246.1 24.5 246.0 22.6 247.7 22.2 252.0 22.1 251.2 21.1 252.3 19.9 253.4 19.8 255.2 18.9 257.7 18.6 258.1 18.1 260.5 17.9 261.3 18.3 263.4 17.3 265.2 17.3 265.4 16.5 266.3 15.6 268.6 14.8 270.2 15.5 268.9 16.0ZM81.4 15.2 79.2 15.1 78.9 14.5 80.8 14.6 81.5 14.9ZM65.9 14.8 64.2 15.4 62.8 14.7 63.5 14.1 64.9 13.9 66.2 14.2ZM193.4 14.5 191.2 15.3 189.6 14.9 190.2 14.3 189.7 13.7 191.6 13.3 192.0 14.0ZM66.4 13.0 65.3 13.4 63.7 13.4 64.7 12.4 65.2 12.5ZM79.5 14.1 78.1 14.5 77.3 14.0 76.8 12.4 78.6 12.6 79.7 13.3ZM75.5 13.5 75.9 14.4 72.8 13.5 70.7 13.4 71.6 12.8 70.4 12.3 70.4 11.5 74.8 12.6ZM269.2 13.6 263.9 14.4 265.6 11.6 266.4 11.4 269.5 12.7ZM187.2 10.6 190.3 12.2 188.0 13.0 187.4 14.6 186.6 14.9 186.2 16.6 185.0 16.7 183.0 15.5 183.9 14.7 182.4 14.1 180.6 12.4 179.9 10.8 182.4 10.0 183.0 10.7 184.3 10.7 184.7 10.0 186.0 9.9ZM194.0 9.1 195.9 9.9 194.5 11.0 191.7 11.3 189.0 10.9 188.8 10.3 187.4 10.3 186.4 9.3 189.3 8.7 190.7 9.2 191.6 8.6ZM218.3 8.8 216.2 9.3 216.0 9.6 214.9 10.0 213.9 9.5 214.5 8.8 212.4 8.7 215.6 8.3 215.8 8.9 217.3 8.0 218.7 8.5ZM264.4 12.4 262.3 12.6 259.7 12.0 258.1 11.2 257.4 9.7 256.1 9.3 258.6 7.8 260.6 7.3 262.4 8.4 264.6 10.5ZM87.8 10.7 89.0 11.4 87.7 12.1 85.9 13.6 84.2 13.8 82.3 13.5 81.3 12.7 81.3 11.9 82.0 11.3 80.3 11.3 79.3 10.6 78.7 9.7 80.0 8.0 80.9 7.9 80.5 7.4 82.7 7.3 83.9 8.4 87.1 9.3ZM105.3 3.0 109.9 3.5 111.6 4.1 111.5 4.7 106.1 6.7 108.2 6.7 104.4 8.7 102.8 10.4 100.8 10.8 100.2 11.2 97.4 11.5 98.7 11.7 98.0 12.1 98.8 13.1 94.7 15.8 94.8 16.2 96.4 16.2 96.4 16.7 93.9 17.8 91.4 17.3 88.7 17.6 85.5 17.3 85.4 16.3 87.1 15.9 86.6 14.4 87.2 14.3 89.7 15.1 88.5 13.8 86.9 13.4 87.7 12.6 89.4 12.1 89.6 11.4 88.3 10.6 87.9 9.5 91.2 9.8 92.7 9.0 87.3 8.9 85.6 8.1 83.7 6.6 83.5 5.8 87.9 4.9 89.2 4.1 90.4 4.2 91.4 4.8 92.2 3.6 95.1 2.9 103.3 2.8ZM144.4 2.0 150.3 3.9 148.6 4.8 139.9 5.1 140.3 5.5 143.7 5.3 146.5 6.1 148.4 5.4 149.2 6.2 148.1 7.5 150.5 6.7 155.1 5.8 157.9 6.2 158.5 7.2 154.6 8.7 154.1 9.3 151.1 9.6 153.3 9.7 151.4 12.7 151.4 14.9 152.6 16.2 151.1 16.3 149.5 16.9 151.3 18.0 151.5 19.6 150.5 19.8 151.7 21.4 149.6 21.5 150.7 22.3 150.4 22.9 147.7 23.2 148.9 24.4 148.9 25.2 147.1 24.5 146.6 25.0 147.9 25.4 149.1 26.5 149.5 27.9 147.8 28.2 145.9 26.6 146.2 27.7 145.1 28.6 148.9 28.8 143.8 31.6 140.0 32.1 139.0 32.7 137.7 34.4 135.7 35.5 132.4 36.3 131.6 37.3 131.6 38.4 131.1 39.3 129.6 40.5 129.9 41.7 129.0 44.3 127.7 44.3 126.3 43.2 124.4 43.2 123.5 42.4 122.9 41.0 121.2 39.1 120.6 36.8 119.3 35.3 119.7 34.2 119.0 33.6 120.0 31.7 121.4 31.1 122.0 29.1 119.5 30.2 118.4 29.7 118.3 28.5 118.7 27.6 121.5 28.0 119.0 26.4 118.1 26.6 117.3 26.2 118.3 24.5 115.9 20.6 114.7 19.9 114.7 19.1 112.1 18.0 105.3 18.1 102.6 16.2 106.9 15.5 102.9 14.9 100.8 14.1 100.9 13.3 107.9 11.3 108.3 10.5 105.8 9.8 106.6 8.9 109.8 7.3 111.2 7.1 110.8 6.1 116.0 5.1 118.9 5.1 119.9 5.8 122.4 4.6 128.0 6.3 125.7 5.1 125.8 4.1 129.0 2.7 132.3 2.8 133.5 1.9 136.9 1.7Z';
 
   var REGIONS = [
     /* ---- 🇺🇸 미국 12곳 (XP 순서대로 하나씩 불이 켜진다) ---- */
-    { id: 'cal', kind: 'us', name: '캘리포니아', short: '캘리', full: '캘리포니아 · LA', sub: '미국 · 서부 해안', icon: '🌴', emoji: '🌴', xp: 0,
+    { id: 'cal', st: 'CA', kind: 'us', name: '캘리포니아', short: '캘리', full: '캘리포니아 · LA', sub: '미국 · 서부 해안', icon: '🌴', xp: 0,
       cond: '출발지 — 여기서 첫 불을 켜요',
       fact: "LA의 'I'm good'은 '괜찮아'이자 '필요 없어' — 거절도 이 한마디로 끝나요.",
-      box: [10, 58, 52, 58] },
-    { id: 'nev', kind: 'us', name: '네바다', short: '네바', full: '네바다 · 라스베이거스', sub: '미국 · 서부 사막', icon: '🎰', emoji: '🎰', xp: 30,
-      cond: '영어 XP 30',
+      pin: [50, 80], lab: [48, 98], fs: 12 },
+    { id: 'nev', st: 'NV', kind: 'us', name: '네바다', short: '네바', full: '네바다 · 라스베이거스', sub: '미국 · 서부 사막', icon: '🎰', xp: 80,
+      cond: '영어 XP 80',
       fact: "라스베이거스의 'What happens here stays here' — 여기서 생긴 일은 여기서 끝!",
-      box: [66, 48, 46, 30] },
-    { id: 'ari', kind: 'us', name: '애리조나', short: '애리', full: '애리조나 · 피닉스', sub: '미국 · 남서부', icon: '🏜️', emoji: '🌵', xp: 60,
-      cond: '영어 XP 60',
-      fact: "사막 사람들은 'It's a dry heat!' — 덥긴 한데 습하지 않다는 자부심이에요.",
-      box: [66, 82, 46, 36] },
-    { id: 'tex', kind: 'us', name: '텍사스', short: '텍사', full: '텍사스 · 댈러스', sub: '미국 · 남부', icon: '🤠', emoji: '🤠', xp: 100,
-      cond: '영어 XP 100',
-      fact: "y'all 한 마디면 현지인 느낌! fixin' to는 '막 ~하려고'라는 뜻이에요.",
-      box: [116, 92, 64, 52] },
-    { id: 'flo', kind: 'us', name: '플로리다', short: '플로', full: '플로리다 · 마이애미', sub: '미국 · 남동부', icon: '🚀', emoji: '🐊', xp: 140,
-      cond: '영어 XP 140',
-      fact: "겨울만 내려와 사는 북부 사람을 'snowbird'라고 불러요.",
-      box: [258, 108, 34, 36] },
-    { id: 'geo', kind: 'us', name: '조지아', short: '조지', full: '조지아 · 애틀랜타', sub: '미국 · 남동부', icon: '🍑', emoji: '🍑', xp: 180,
+      pin: [68, 70], lab: [69, 84], fs: 9.5 },
+    { id: 'ari', st: 'AZ', kind: 'us', name: '애리조나', short: '애리', full: '애리조나 · 피닉스', sub: '미국 · 남서부', icon: '🏜️', xp: 180,
       cond: '영어 XP 180',
+      fact: "사막 사람들은 'It's a dry heat!' — 덥긴 한데 습하지 않다는 자부심이에요.",
+      pin: [87, 108], lab: [88, 125], fs: 12 },
+    { id: 'tex', st: 'TX', kind: 'us', name: '텍사스', short: '텍사', full: '텍사스 · 댈러스', sub: '미국 · 남부', icon: '🤠', xp: 300,
+      cond: '영어 XP 300',
+      fact: "y'all 한 마디면 현지인 느낌! fixin' to는 '막 ~하려고'라는 뜻이에요.",
+      pin: [154, 133], lab: [154, 151], fs: 12 },
+    { id: 'flo', st: 'FL', kind: 'us', name: '플로리다', short: '플로', full: '플로리다 · 마이애미', sub: '미국 · 남동부', icon: '🚀', xp: 440,
+      cond: '영어 XP 440',
+      fact: "겨울만 내려와 사는 북부 사람을 'snowbird'라고 불러요.",
+      pin: [252, 147], lab: [248, 164], fs: 11 },
+    { id: 'geo', st: 'GA', kind: 'us', name: '조지아', short: '조지', full: '조지아 · 애틀랜타', sub: '미국 · 남동부', icon: '🍑', xp: 600,
+      cond: '영어 XP 600',
       fact: "'bless your heart'는 칭찬 같지만 상황에 따라 한마디가 돼요.",
-      box: [250, 76, 42, 30] },
-    { id: 'ill', kind: 'us', name: '일리노이', short: '일리', full: '일리노이 · 시카고', sub: '미국 · 중서부', icon: '🏙️', emoji: '🌬️', xp: 220,
-      cond: '영어 XP 220',
+      pin: [243, 121], lab: [228, 135], fs: 10.5 },
+    { id: 'ill', st: 'IL', kind: 'us', name: '일리노이', short: '일리', full: '일리노이 · 시카고', sub: '미국 · 중서부', icon: '🏙️', xp: 780,
+      cond: '영어 XP 780',
       fact: "시카고는 'Windy City' — 바람보다 정치 수사가 거세서 붙은 별명이에요.",
-      box: [184, 50, 48, 34] },
-    { id: 'dc', kind: 'us', name: '워싱턴 D.C.', short: 'D.C.', full: '워싱턴 D.C.', sub: '미국 · 수도', icon: '🏛️', emoji: '🏛️', xp: 270,
-      cond: '영어 XP 270',
+      pin: [208, 75], lab: [206, 91], fs: 11.5 },
+    { id: 'dc', st: 'DC', kind: 'us', name: '워싱턴 D.C.', short: 'D.C.', full: '워싱턴 D.C.', sub: '미국 · 수도', icon: '🏛️', xp: 980,
+      cond: '영어 XP 980',
       fact: "D.C.는 주가 아니라 'District' — 그래서 주 번호가 없는 우편번호를 써요.",
-      box: [292, 44, 34, 28] },
-    { id: 'pen', kind: 'us', name: '펜실베이니아', short: '펜실', full: '펜실베이니아 · 필라델피아', sub: '미국 · 동부', icon: '🔔', emoji: '🔔', xp: 320,
-      cond: '영어 XP 320',
+      pin: [270, 74], lab: [290, 90], fs: 9.5, lead: [276, 78, 285, 86] },
+    { id: 'pen', st: 'PA', kind: 'us', name: '펜실베이니아', short: '펜실', full: '펜실베이니아 · 필라델피아', sub: '미국 · 동부', icon: '🔔', xp: 1200,
+      cond: '영어 XP 1,200',
       fact: "필라델피아의 'jawn'은 만능 단어 — 사람·물건·상황에 다 써요.",
-      box: [238, 44, 48, 30] },
-    { id: 'mas', kind: 'us', name: '매사추세츠', short: '보스', full: '매사추세츠 · 보스턴', sub: '미국 · 뉴잉글랜드', icon: '🎓', emoji: '🎓', xp: 380,
-      cond: '영어 XP 380',
+      pin: [264, 60], lab: [252, 71], fs: 9 },
+    { id: 'mas', st: 'MA', kind: 'us', name: '매사추세츠', short: '보스', full: '매사추세츠 · 보스턴', sub: '미국 · 뉴잉글랜드', icon: '🎓', xp: 1440,
+      cond: '영어 XP 1,440',
       fact: "보스턴에서는 'wicked good'이 '아주 좋아' — wicked가 강조 부사예요.",
-      box: [292, 10, 36, 30] },
-    { id: 'ny', kind: 'us', name: '뉴욕', short: '뉴욕', full: '뉴욕 · NYC', sub: '미국 · 동부', icon: '🗽', emoji: '🗽', xp: 450,
-      cond: '영어 XP 450',
+      pin: [291, 46], lab: [310, 36], fs: 9.5, lead: [296, 43, 305, 38] },
+    { id: 'ny', st: 'NY', kind: 'us', name: '뉴욕', short: '뉴욕', full: '뉴욕 · NYC', sub: '미국 · 동부', icon: '🗽', xp: 1700,
+      cond: '영어 XP 1,700',
       fact: "뉴욕에서는 줄 설 때 'on line'이 아니라 'in line'이에요.",
-      box: [240, 10, 48, 30] },
-    { id: 'haw', kind: 'us', name: '하와이', short: '하와', full: '하와이 · 호놀룰루', sub: '미국 · 태평양', icon: '🌺', emoji: '🌺', xp: 530,
-      cond: '영어 XP 530',
+      pin: [272, 45], lab: [269, 31], fs: 9.5 },
+    { id: 'haw', st: 'HI', kind: 'us', name: '하와이', short: '하와', full: '하와이 · 호놀룰루', sub: '미국 · 태평양', icon: '🌺', xp: 2000,
+      cond: '영어 XP 2,000',
       fact: "'aloha'는 안녕·사랑·고마움을 한 번에 담은 인사예요.",
-      box: [12, 132, 36, 28] },
+      pin: [33, 185], lab: [34, 201], fs: 10.5 },
 
-    /* ---- 🌍 세계 6곳 (억양 학습 즉시 또는 높은 XP) ---- */
-    { id: 'gb', kind: 'world', name: '영국', short: '영국', full: '영국 · 런던', sub: '세계 · en-GB', icon: '🎡', emoji: '🇬🇧', xp: 600,
-      cond: '영국 억양(en-GB) 듣기 또는 영어 XP 600',
+    /* ---- 🌍 세계 6곳 (미국을 다 밝힌 뒤, 더 높은 XP로) ---- */
+    { id: 'gb', kind: 'world', name: '영국', short: '영국', full: '영국 · 런던', sub: '세계 · en-GB', icon: '🎡', xp: 2400,
+      cond: '영어 XP 2,400',
       fact: "영국에서는 'Cheers'가 건배 말고 '고마워'로도 쓰여요.",
-      pin: [150, 30], lab: [150, 58] },
-    { id: 'canada', kind: 'world', name: '캐나다', short: '캐나다', full: '캐나다 · 토론토', sub: '세계 · 북미', icon: '🍁', emoji: '🇨🇦', xp: 680,
-      cond: '북미 아티스트·슬랭 5개 학습 또는 영어 XP 680',
+      pin: [152, 52], lab: [151, 72], fs: 11 },
+    { id: 'canada', kind: 'world', name: '캐나다', short: '캐나다', full: '캐나다 · 토론토', sub: '세계 · 북미', icon: '🍁', xp: 2850,
+      cond: '영어 XP 2,850',
       fact: "캐나다 영어의 'sorry'는 사과보다 '실례합니다'에 가까워요.",
-      pin: [66, 36], lab: [66, 64] },
-    { id: 'australia', kind: 'world', name: '호주', short: '호주', full: '호주 · 시드니', sub: '세계 · en-AU', icon: '🦘', emoji: '🇦🇺', xp: 760,
-      cond: '호주 억양(en-AU) 듣기 또는 영어 XP 760',
+      pin: [70, 51], lab: [70, 72], fs: 11 },
+    { id: 'australia', kind: 'world', name: '호주', short: '호주', full: '호주 · 시드니', sub: '세계 · en-AU', icon: '🦘', xp: 3350,
+      cond: '영어 XP 3,350',
       fact: "'No worries!'가 만능 인사 — 사과도 고마움도 이 한마디로 돼요.",
-      pin: [288, 108], lab: [288, 136] },
-    { id: 'india', kind: 'world', name: '인도', short: '인도', full: '인도 · 델리', sub: '세계 · en-IN', icon: '🕌', emoji: '🇮🇳', xp: 850,
-      cond: '인도 억양(en-IN) 듣기 또는 영어 XP 850',
+      pin: [297, 133], lab: [293, 153], fs: 11 },
+    { id: 'india', kind: 'world', name: '인도', short: '인도', full: '인도 · 델리', sub: '세계 · en-IN', icon: '🕌', xp: 3900,
+      cond: '영어 XP 3,900',
       fact: "인도 영어의 'prepone'은 '앞당기다' — 미국 사전엔 없는 단어예요.",
-      pin: [258, 40], lab: [258, 68] },
-    { id: 'eeurope', kind: 'world', name: '동유럽', short: '동유럽', full: '동유럽 · 슬라브권', sub: '세계 · 러시아 억양', icon: '🏰', emoji: '🇷🇺', xp: 950,
-      cond: '동유럽 억양 학습 또는 영어 XP 950',
+      pin: [245, 89], lab: [245, 110], fs: 11 },
+    { id: 'eeurope', kind: 'world', name: '동유럽', short: '동유럽', full: '동유럽 · 슬라브권', sub: '세계 · 러시아 억양', icon: '🏰', xp: 4500,
+      cond: '영어 XP 4,500',
       fact: "동유럽 영어는 관사를 자주 빼요 — 'I think plan is good.'",
-      pin: [188, 42], lab: [188, 70] },
-    { id: 'samerica', kind: 'world', name: '남미', short: '남미', full: '남미 · 브라질·멕시코', sub: '세계 · 스페인어권', icon: '💃', emoji: '🌎', xp: 1050,
-      cond: '남미 억양 학습 또는 영어 XP 1050',
+      pin: [198, 58], lab: [203, 78], fs: 10 },
+    { id: 'samerica', kind: 'world', name: '남미', short: '남미', full: '남미 · 브라질·멕시코', sub: '세계 · 스페인어권', icon: '💃', xp: 5200,
+      cond: '영어 XP 5,200',
       fact: "v와 b 소리가 비슷해 'very'가 '베리'로 들려요 — 그래서 더 다정하게 들리죠.",
-      pin: [68, 102], lab: [68, 130] }
+      pin: [113, 121], lab: [113, 142], fs: 11 }
   ];
-
-  var WORLDBLOCKS = [
-    { x: 14, y: 6, w: 104, h: 66, lab: '북미', lx: 20, ly: 16 },
-    { x: 34, y: 78, w: 62, h: 62, lab: '', lx: 0, ly: 0 },
-    { x: 122, y: 4, w: 78, h: 60, lab: '유럽', lx: 128, ly: 14 },
-    { x: 204, y: 4, w: 118, h: 70, lab: '아시아', lx: 210, ly: 14 },
-    { x: 250, y: 92, w: 76, h: 50, lab: '', lx: 0, ly: 0 }
-  ];
-  var ACCENT_REGION = { gb: 'gb', au: 'australia', 'in': 'india', slav: 'eeurope', latam: 'samerica' };
 
   function regionById(id) {
     for (var i = 0; i < REGIONS.length; i++) if (REGIONS[i].id === id) return REGIONS[i];
+    return null;
+  }
+  function regionByState(st) {
+    for (var i = 0; i < REGIONS.length; i++) if (REGIONS[i].st === st) return REGIONS[i];
     return null;
   }
   function isUnlocked(r) { return !!r && store.unlockedRegions.indexOf(r.id) !== -1; }
   function xpTotal() {
     var n = Number(store.xp);
     return (isFinite(n) && n > 0) ? Math.round(n) : 0;
+  }
+  function fmt(n) {
+    return String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  function todayXp() {
+    var n = Number(todayRec().xpGain);
+    return (isFinite(n) && n > 0) ? Math.min(DAILY_CAP, Math.round(n)) : 0;
   }
   function regionCount(kind) {
     return REGIONS.filter(function (r) { return r.kind === kind && isUnlocked(r); }).length;
@@ -4542,6 +4640,14 @@ body.is-mapopen{overflow:hidden}
       if (!best || r.xp < best.xp) best = r;
     });
     return best;
+  }
+  /* XP만이 불을 켠다 — 저장된 XP에서 켜짐 목록을 다시 계산한다 (LA는 0 XP 출발지) */
+  function recomputeUnlocked() {
+    var list = [];
+    REGIONS.forEach(function (r) {
+      if (r.id === 'cal' || (r.xp > 0 && xpTotal() >= r.xp)) list.push(r.id);
+    });
+    store.unlockedRegions = list;
   }
 
   /* 불빛 알림은 겹치지 않게 한 줄씩 차례로 띄운다 */
@@ -4575,15 +4681,39 @@ body.is-mapopen{overflow:hidden}
     });
     return got;
   }
-  /* XP 적립 — 여기 한 곳을 거쳐야만 모든 화면의 XP가 같이 움직인다 */
+
+  /* XP 적립 — 하루 120 XP까지. 다 모아도 연습은 계속할 수 있고 XP만 더 안 쌓인다. */
   function addXp(n) {
     n = Number(n) || 0;
     if (!n) return;
-    store.xp = xpTotal() + n;
+    var r = todayRec();
+    var got = Number(r.xpGain) || 0;
+    var room = DAILY_CAP - got;
+    if (room <= 0) { capNotice(); return; }
+    var give = Math.min(n, room);
+    r.xpGain = got + give;
+    store.xp = xpTotal() + give;
     save();
     checkXpUnlocks();
     renderMapPill();
     if (mapOpen) renderMap();
+    if (give < n) capNotice();
+  }
+  function capNotice() {
+    var r = todayRec();
+    if (r.capNote) { renderCapNote(); return; }
+    r.capNote = 1;
+    save();
+    toast('오늘의 탐험 에너지 ' + DAILY_CAP + ' XP를 다 모았어요! 내일 이어서 다음 도시에 불을 켜 봐요 ✨', true);
+    renderCapNote();
+    renderMapPill();
+  }
+  function renderCapNote() {
+    var full = todayXp() >= DAILY_CAP;
+    ['jmCap', 'wmCap'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.toggle('hide', !full);
+    });
   }
   /* 같은 카드를 껐다 켰다 해서 XP를 두 번 받지 않도록 하루 한 번만 */
   function addXpOnce(key, n) {
@@ -4594,29 +4724,10 @@ body.is-mapopen{overflow:hidden}
     addXp(n);
     return true;
   }
-  /* 억양을 들으면 그 나라에 바로 불이 켜진다 */
-  function noteLangStudy(lang) {
-    var l = String(lang || '');
-    if (/^en-GB/i.test(l)) unlockRegion(regionById('gb'));
-    else if (/^en-AU/i.test(l)) unlockRegion(regionById('australia'));
-    else if (/^en-IN/i.test(l)) unlockRegion(regionById('india'));
-  }
-  function noteAccentStudy(aid) {
-    var id = ACCENT_REGION[String(aid || '')];
-    if (id) unlockRegion(regionById(id));
-  }
-  /* 북미(미국·캐나다) 아티스트 곡이나 슬랭 5개를 들으면 캐나다에 불이 켜진다 */
-  function noteNorthAmerica(key, flag) {
-    var f = String(flag || '');
-    if (f !== '🇺🇸' && f !== '🇨🇦') return;
-    var r = todayRec();
-    if (!r.na) r.na = {};
-    if (r.na[key]) return;
-    r.na[key] = 1;
-    store.naCount = (Number(store.naCount) || 0) + 1;
-    save();
-    if (store.naCount >= 5) unlockRegion(regionById('canada'));
-  }
+  /* 억양을 듣기만 해서는 불이 켜지지 않는다 — 2026-11-26 밸런스: 오직 영어 XP로만 */
+  function noteLangStudy() {}
+  function noteAccentStudy() {}
+  function noteNorthAmerica() {}
 
   function renderMapPill() {
     var el = document.getElementById('mapPill');
@@ -4630,54 +4741,84 @@ body.is-mapopen{overflow:hidden}
     renderHome();
   }
 
-  /* 켜진 곳은 랜드마크 아이콘이 환하게, 꺼진 곳은 작은 점 하나만 */
-  function usSvgHtml() {
-    var nx = nextRegion();
-    var back = '<defs>' +
-        '<pattern id="wmDots" width="9" height="9" patternUnits="userSpaceOnUse">' +
-          '<circle cx="2" cy="2" r="1" fill="#E4DEF5"/></pattern>' +
-        '<linearGradient id="wmLitUs" x1="0" y1="0" x2="1" y2="1">' +
-          '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".55" stop-color="#F8CB72"/><stop offset="1" stop-color="#DCB9F9"/>' +
+  /* ---------- 미국 지도 (실제 주 경계) ---------- */
+  function usBuild() {
+    if (usBuilt) return;
+    var el = document.getElementById('wmUsSvg');
+    if (!el) return;
+    el.innerHTML =
+      '<defs>' +
+        '<linearGradient id="wmUsLit" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".5" stop-color="#F8C258"/><stop offset="1" stop-color="#EFA23F"/>' +
         '</linearGradient>' +
       '</defs>' +
-      '<rect x="0" y="0" width="336" height="166" fill="url(#wmDots)" opacity=".55" pointer-events="none"/>' +
-      '<text class="usnote" x="118" y="34" text-anchor="middle">🧭 서쪽에서 동쪽으로 한 곳씩</text>';
-    return back + REGIONS.filter(function (r) { return r.kind === 'us'; }).map(function (r) {
-      var b = r.box, on = isUnlocked(r);
-      var cx = b[0] + b[2] / 2, cy = b[1] + b[3] / 2;
-      var fs = Math.max(9, Math.min(15, b[3] * 0.36));
-      var cls = 'rg rg--us' + (on ? ' is-on' : '') + (!on && nx && r.id === nx.id ? ' is-next' : '') + (r.id === mapSel ? ' is-sel' : '');
-      var lab = 'aria-label="' + esc(r.name) + (on ? ' 불 켜짐' : ' 아직 어두움 — ' + r.xp + ' XP') + '"';
-      return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" ' + lab + '>' +
-        '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" rx="' + Math.min(15, b[3] / 2 - 1) + '"/>' +
-        '<text class="ico' + (on ? '' : ' ico--off') + '" x="' + cx + '" y="' + (cy + fs * 0.33).toFixed(1) + '"' +
-          ' style="font-size:' + (on ? fs : (fs * 0.72)).toFixed(1) + 'px">' + (on ? (r.icon || '•') : '•') + '</text>' +
-        '<text class="lab2" x="' + cx + '" y="' + (cy + fs * 0.33 + 8.6).toFixed(1) + '">' + esc(r.short) + '</text>' +
+      '<g class="usmap">' + US_SHAPES + '</g>' +
+      '<g id="usPins"></g>';
+    usBuilt = true;
+  }
+  function renderUs() {
+    var svg = document.getElementById('wmUsSvg');
+    if (!svg) return;
+    var nx = nextRegion();
+    REGIONS.forEach(function (r) {
+      if (r.kind !== 'us' || !r.st) return;
+      var p = svg.querySelector('[data-st="' + r.st + '"]');
+      if (!p) return;
+      var on = isUnlocked(r);
+      p.classList.toggle('is-on', on);
+      p.classList.toggle('is-next', !on && !!nx && nx.id === r.id);
+      p.classList.toggle('is-sel', r.id === mapSel);
+    });
+    var box = document.getElementById('usPins');
+    if (!box) return;
+    var nx2 = nx;
+    box.innerHTML = REGIONS.filter(function (r) { return r.kind === 'us'; }).map(function (r) {
+      var x = r.pin[0], y = r.pin[1], on = isUnlocked(r);
+      var cls = 'upin' + (on ? ' is-on' : '') + (!on && nx2 && nx2.id === r.id ? ' is-next' : '') + (r.id === mapSel ? ' is-sel' : '');
+      var lead = r.lead ? '<path class="lead" d="M' + r.lead[0] + ' ' + r.lead[1] + ' L' + r.lead[2] + ' ' + r.lead[3] + '"/>' : '';
+      var aria = esc(r.name) + (on ? ' 불 켜짐' : ' — ' + fmt(r.xp) + ' XP에 불이 켜져요');
+      var lw = Math.max(17, r.short.length * 7.4 + 7);
+      return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" aria-label="' + aria + '">' +
+        lead +
+        '<circle class="hit" cx="' + x + '" cy="' + y + '" r="' + (r.fs >= 11 ? 12 : 9) + '"/>' +
+        '<circle class="ring" cx="' + x + '" cy="' + y + '" r="' + (r.fs >= 11 ? 10 : 8.2) + '"/>' +
+        '<text class="ico" x="' + x + '" y="' + (y + r.fs * 0.34).toFixed(1) + '" style="font-size:' + r.fs + 'px">' + r.icon + '</text>' +
+        '<rect class="lbg" x="' + (r.lab[0] - lw / 2).toFixed(1) + '" y="' + (r.lab[1] - 7.6) + '" width="' + lw.toFixed(1) + '" height="10.6" rx="3.4"/>' +
+        '<text class="lb" x="' + r.lab[0] + '" y="' + r.lab[1] + '">' + esc(r.short) + '</text>' +
       '</g>';
     }).join('');
   }
 
-  function worldSvgHtml() {
+  /* ---------- 세계 지도 (실제 대륙 실루엣) ---------- */
+  function worldBuild() {
+    if (worldBuilt) return;
+    var el = document.getElementById('wmWorldSvg');
+    if (!el) return;
+    el.innerHTML =
+      '<defs>' +
+        '<linearGradient id="wmWLit" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".5" stop-color="#F8C258"/><stop offset="1" stop-color="#EFA23F"/>' +
+        '</linearGradient>' +
+      '</defs>' +
+      '<g class="wmap"><path d="' + WORLD_SHAPE + '"/></g>' +
+      '<g id="wPins"></g>';
+    worldBuilt = true;
+  }
+  function renderWorld() {
+    var box = document.getElementById('wPins');
+    if (!box) return;
     var nx = nextRegion();
-    var defs = '<defs><linearGradient id="wmLitW" x1="0" y1="0" x2="1" y2="1">' +
-        '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".55" stop-color="#F8CB72"/><stop offset="1" stop-color="#DCB9F9"/>' +
-      '</linearGradient></defs>';
-    var blocks = WORLDBLOCKS.map(function (b) {
-      return '<g class="wrg"><rect x="' + b.x + '" y="' + b.y + '" width="' + b.w + '" height="' + b.h + '" rx="16"/>' +
-        (b.lab ? '<text x="' + b.lx + '" y="' + b.ly + '" text-anchor="start">' + b.lab + '</text>' : '') + '</g>';
-    }).join('');
-    var pins = REGIONS.filter(function (r) { return r.kind === 'world'; }).map(function (r) {
+    box.innerHTML = REGIONS.filter(function (r) { return r.kind === 'world'; }).map(function (r) {
       var p = r.pin, on = isUnlocked(r);
-      var cls = 'rg pin' + (on ? ' is-on' : '') + (!on && nx && r.id === nx.id ? ' is-next' : '') + (r.id === mapSel ? ' is-sel' : '');
-      var lab = 'aria-label="' + esc(r.name) + (on ? ' 불 켜짐' : ' 아직 어두움 — ' + esc(r.cond)) + '"';
-      return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" ' + lab + '>' +
-        '<circle class="halo" cx="' + p[0] + '" cy="' + p[1] + '" r="15"/>' +
-        '<text class="ico' + (on ? '' : ' ico--off') + '" x="' + p[0] + '" y="' + (p[1] + 5.2) + '"' +
-          ' style="font-size:' + (on ? 15 : 8) + 'px">' + (on ? (r.icon || '•') : '•') + '</text>' +
-        '<text class="lab" x="' + p[0] + '" y="' + ((r.lab && r.lab[1]) || (p[1] + 27)) + '">' + esc(r.name) + '</text>' +
+      var cls = 'wpin' + (on ? ' is-on' : '') + (!on && nx && nx.id === r.id ? ' is-next' : '') + (r.id === mapSel ? ' is-sel' : '');
+      var aria = esc(r.name) + (on ? ' 불 켜짐' : ' — ' + fmt(r.xp) + ' XP에 불이 켜져요');
+      return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" aria-label="' + aria + '">' +
+        '<circle class="halo" cx="' + p[0] + '" cy="' + p[1] + '" r="12.5"/>' +
+        '<circle class="hit" cx="' + p[0] + '" cy="' + p[1] + '" r="15"/>' +
+        '<text class="ico" x="' + p[0] + '" y="' + (p[1] + r.fs * 0.34).toFixed(1) + '" style="font-size:' + r.fs + 'px">' + r.icon + '</text>' +
+        '<text class="lb" x="' + r.lab[0] + '" y="' + r.lab[1] + '">' + esc(r.short) + '</text>' +
       '</g>';
     }).join('');
-    return defs + blocks + pins;
   }
 
   function renderDetail() {
@@ -4690,7 +4831,7 @@ body.is-mapopen{overflow:hidden}
     var cond;
     if (on) cond = '✅ <b>불이 켜졌어요!</b> ' + (r.kind === 'us' ? '이 주의 영어를 마음껏 써 보세요.' : '이 지역 영어도 이제 편하게 들려요.');
     else if (r.xp <= 0) cond = '🔑 ' + r.cond;
-    else cond = '🔑 ' + r.cond + ' — <b>' + left + ' XP</b> 남았어요';
+    else cond = '🔑 ' + r.cond + ' — <b>' + fmt(left) + ' XP</b> 남았어요';
     box.innerHTML =
       '<div class="wmdet">' +
         '<div class="wmdet__top">' +
@@ -4707,19 +4848,21 @@ body.is-mapopen{overflow:hidden}
   }
 
   function renderMap() {
-    var us = document.getElementById('wmUsSvg');
-    var wd = document.getElementById('wmWorldSvg');
-    if (us) us.innerHTML = usSvgHtml();
-    if (wd) wd.innerHTML = worldSvgHtml();
+    usBuild();
+    worldBuild();
+    renderUs();
+    renderWorld();
     var ce = document.getElementById('wmCounts');
     if (ce) ce.innerHTML = '<span class="fe">🇺🇸</span> ' + regionCount('us') + '/12 · <span class="fe">🌍</span> ' + regionCount('world') + '/6';
     var xe = document.getElementById('wmXp');
-    if (xe) xe.textContent = '영어 XP ' + xpTotal();
+    if (xe) xe.textContent = '영어 XP ' + fmt(xpTotal());
+    var en = document.getElementById('wmEnergy');
+    if (en) en.textContent = '오늘 ' + todayXp() + '/' + DAILY_CAP + ' XP';
     var nx = nextRegion();
     var ne = document.getElementById('wmNext');
     if (ne) {
       ne.textContent = nx
-        ? ('다음 불빛 [' + nx.name + ']까지 ' + Math.max(0, nx.xp - xpTotal()) + ' XP!')
+        ? ('다음 불빛 [' + nx.name + ']까지 ' + fmt(Math.max(0, nx.xp - xpTotal())) + ' XP!')
         : '18곳 모두 환하게 밝혔어요!';
     }
     var fill = document.getElementById('wmFill');
@@ -4728,6 +4871,7 @@ body.is-mapopen{overflow:hidden}
       if (nx) pct = nx.xp > 0 ? Math.min(100, Math.round((xpTotal() / nx.xp) * 100)) : 100;
       fill.style.width = pct + '%';
     }
+    renderCapNote();
     renderDetail();
   }
 
@@ -4746,6 +4890,8 @@ body.is-mapopen{overflow:hidden}
     mapSel = null;
     m.classList.remove('hide');
     document.body.classList.add('is-mapopen');
+    usBuild();
+    worldBuild();
     renderMap();
     var card = m.querySelector('.wm__card');
     if (card) card.scrollTop = 0;
@@ -4767,7 +4913,10 @@ body.is-mapopen{overflow:hidden}
         var t = e.target;
         if (t && t.getAttribute && t.getAttribute('data-mapclose')) { Snd.tap(); closeMap(); return; }
         var g = t && t.closest ? t.closest('[data-rid]') : null;
-        if (g) { Snd.tap(); selectRegion(g.getAttribute('data-rid')); }
+        if (g) { Snd.tap(); selectRegion(g.getAttribute('data-rid')); return; }
+        var sp = t && t.closest ? t.closest('[data-st]') : null;
+        var rr = sp ? regionByState(sp.getAttribute('data-st')) : null;
+        if (rr) { Snd.tap(); selectRegion(rr.id); }
       });
       m.addEventListener('keydown', function (e) {
         if (e.key !== 'Enter' && e.key !== ' ') return;
@@ -4794,8 +4943,27 @@ body.is-mapopen{overflow:hidden}
     if (e) e.textContent = '오늘 ' + st.s + ' / 3';
     e = document.getElementById('hQuiz');
     if (e) e.textContent = st.runs ? ('오늘 최고 ' + st.best + ' / 5') : (st.q ? '오늘 퀴즈 완료' : '아직 안 했어요');
-    e = document.getElementById('hMap');
-    if (e) e.textContent = '지금 ' + store.unlockedRegions.length + '/18 곳 불 켜짐!';
+
+    var n = store.unlockedRegions.length, nx = nextRegion();
+    e = document.getElementById('jmCount');
+    if (e) e.textContent = n;
+    e = document.getElementById('jmEnergy');
+    if (e) e.textContent = '오늘 ' + todayXp() + '/' + DAILY_CAP + ' XP';
+    e = document.getElementById('jmBar');
+    if (e) e.style.width = Math.max(3, Math.round((n / MAP_TOTAL) * 100)) + '%';
+    e = document.getElementById('jmDots');
+    if (e) {
+      e.innerHTML = REGIONS.map(function (r) {
+        return '<i class="jm__dot' + (isUnlocked(r) ? ' on' : '') + (nx && nx.id === r.id ? ' next' : '') + '"></i>';
+      }).join('');
+    }
+    e = document.getElementById('jmNext');
+    if (e) {
+      e.innerHTML = nx
+        ? ('다음 불빛 <b>[' + esc(nx.name) + ']</b>까지 ' + fmt(Math.max(0, nx.xp - xpTotal())) + ' XP')
+        : '18곳 모두 환하게 밝혔어요! 🎉';
+    }
+    renderCapNote();
   }
 
   function showHome() {
@@ -4829,15 +4997,13 @@ body.is-mapopen{overflow:hidden}
   (function initMap() {
     if (typeof store.xp !== 'number' || !isFinite(store.xp)) store.xp = 0;
     if (!Array.isArray(store.unlockedRegions)) store.unlockedRegions = [];
-    if (store.unlockedRegions.indexOf('cal') === -1) store.unlockedRegions.unshift('cal');
     if (typeof store.naCount !== 'number') store.naCount = 0;
-    /* 예전에 쌓인 XP가 있으면 조용히 맞춰 둔다 */
-    REGIONS.forEach(function (r) {
-      if (r.xp > 0 && xpTotal() >= r.xp && !isUnlocked(r)) store.unlockedRegions.push(r.id);
-    });
+    /* 예전에 억양만 듣고 켜졌던 불도 XP 기준으로 다시 계산한다 */
+    recomputeUnlocked();
     save();
     renderMapPill();
   })();
+
   /* ============================================================
      음소거 · 초기화
      ============================================================ */
@@ -4911,10 +5077,15 @@ body.is-mapopen{overflow:hidden}
       selected: function () { return mapSel; },
       detail: function () { var el = document.getElementById('wmDetail'); return el ? el.textContent : ''; },
       pill: function () { var el = document.getElementById('mapPill'); return el ? el.textContent : ''; },
+      todayXp: todayXp,
+      cap: DAILY_CAP,
+      recompute: function () { recomputeUnlocked(); save(); renderMapPill(); },
+      shapes: function () { return document.querySelectorAll('#wmUsSvg .usmap path').length; },
+      worldPath: function () { var p = document.querySelector('#wmWorldSvg .wmap path'); return p ? p.getAttribute('d').length : 0; },
       reset: function () {
         store.xp = 0; store.unlockedRegions = ['cal']; store.naCount = 0;
         var d = store.dates || {};
-        Object.keys(d).forEach(function (k) { delete d[k].xp; delete d[k].na; });
+        Object.keys(d).forEach(function (k) { delete d[k].xp; delete d[k].na; delete d[k].xpGain; delete d[k].capNote; });
         save(); renderMapPill();
         if (mapOpen) renderMap();
       }
