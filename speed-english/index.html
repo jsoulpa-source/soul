@@ -9048,6 +9048,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     window.__v7m = v7ms;
   }
   function v7MsClose() {
+    v9FxTok++;
     try { csStopRec(); } catch (e) {}
     try { if (synth) synth.cancel(); } catch (e) {}
     var root = document.getElementById('v7ms');
@@ -9059,6 +9060,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   }
   function v7MsNext() {
     if (!v7ms) return;
+    v9FxTok++;                       /* 다음 문제로 넘어가면 예약된 낭독·칭찬은 취소 */
     if (v7ms.i < v7ms.items.length - 1) {
       v7ms.i++; v7ms.hint = 0; v7ms.ok = false; v7ms.wrong = ''; v7ms.mode = 'mic';
       v7ms.left = 3; v7ms.matched = []; v7ms.revealed = false; v7ms.pos = 0; v7ms.filled = [];
