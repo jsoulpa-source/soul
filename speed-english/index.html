@@ -6,7 +6,7 @@
 <title>스피드 영어 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="speed-english-v1-2026-11-26">
+<meta name="app-build" content="speed-english-v3-2026-11-26-lightmap">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -768,6 +768,217 @@ body.is-lvopen{overflow:hidden}
 .gcard__row .sbtn{flex:none; white-space:nowrap}
 .gcard__row .sbtn--check{flex:1 1 auto; margin-left:auto}
 
+/* ============ ✨ 불 켜지는 영어 여행 지도 ============ */
+.mappill{
+  display:inline-block; padding:4px 6px; border-radius:999px; line-height:1.2;
+  font-size:9.5px; font-weight:900; letter-spacing:-.03em; color:#6E6A86; white-space:nowrap;
+  background:linear-gradient(140deg,#F3F1FA,#FCF8FF); border:1px solid #E9E4F5;
+  transition:transform .12s, box-shadow .2s, background .3s, color .3s, border-color .3s;
+}
+.mappill b{font-size:10.5px; font-weight:900}
+.mappill:active{transform:scale(.94)}
+.mappill.is-warm{
+  color:#6B4A0A; background:linear-gradient(140deg,#FFF1CD,#F6E9FF); border-color:#F2DCA6;
+  box-shadow:0 5px 13px rgba(240,178,90,.22);
+}
+.mappill.is-gold{
+  color:#5E3F04; background:linear-gradient(140deg,#FFE9A6,#F6C948 62%,#F0AB3C); border-color:#F2D07A;
+  box-shadow:0 6px 15px rgba(240,171,60,.32);
+}
+.mappill.is-full{
+  color:#5A3602; background:linear-gradient(118deg,#FFE49B,#F7CB55 38%,#E8C6FF 72%,#FFC8DE);
+  border-color:transparent; box-shadow:0 8px 20px rgba(240,180,80,.34);
+}
+body.is-mapopen{overflow:hidden}
+
+.wm{position:fixed; inset:0; z-index:80; display:flex; align-items:flex-end; justify-content:center}
+.wm__bg{
+  position:absolute; inset:0; background:rgba(39,34,58,.46);
+  -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); animation:lvFade .22s ease both;
+}
+.wm__card{
+  position:relative; width:100%; max-width:440px; max-height:93dvh; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  background:linear-gradient(168deg,#FFFFFF 0%,#FDFAFF 56%,#FBF6FF 100%);
+  border-radius:26px 26px 0 0; border-top:1px solid #F2ECFB;
+  padding:16px 13px calc(16px + env(safe-area-inset-bottom));
+  box-shadow:0 -18px 44px rgba(39,34,58,.24); animation:lvUp .3s cubic-bezier(.2,.85,.25,1) both;
+}
+.wm__x{
+  position:absolute; right:11px; top:11px; z-index:3; width:32px; height:32px; border-radius:11px;
+  background:#F6F1FF; color:#7A63C8; font-size:13px; font-weight:900; display:grid; place-items:center;
+  transition:transform .12s, background .18s;
+}
+.wm__x:active{transform:scale(.93); background:#EDE5FB}
+.wm__kick{font-size:10px; font-weight:900; color:#B0791B; letter-spacing:.01em}
+.wm__head h2{font-size:15.5px; font-weight:900; letter-spacing:-.045em; margin-top:4px; padding-right:30px; line-height:1.32}
+.wm__head h2 b{color:#C2841A; font-weight:900}
+.wm__head h2 em{font-style:normal; color:#8B6CF0; font-weight:900}
+.wm__xprow{display:flex; align-items:center; gap:5px; margin-top:8px; flex-wrap:wrap}
+.wm__xp{
+  font-size:10.5px; font-weight:900; color:#6F58C4; background:#F5EFFF;
+  border:1px solid #EAE0FA; border-radius:999px; padding:4px 9px; white-space:nowrap;
+}
+.wm__cnt{
+  font-size:10.5px; font-weight:900; color:#7A6A46; background:#FDF7EA;
+  border:1px solid #F4E7C8; border-radius:999px; padding:4px 9px; white-space:nowrap;
+}
+.wm__next{
+  font-size:10.5px; font-weight:900; color:#A8730E; background:#FFF6E0;
+  border:1px solid #FBE7B6; border-radius:999px; padding:4px 9px; white-space:nowrap;
+}
+.wm__bar{height:9px; border-radius:999px; background:#EFEBF8; overflow:hidden; margin-top:9px}
+.wm__bar i{
+  display:block; height:100%; width:0; border-radius:999px;
+  background:linear-gradient(90deg,#F9DFA0,#F0B33C 55%,#B79BF7);
+  box-shadow:0 0 10px rgba(240,179,60,.4); transition:width .5s cubic-bezier(.2,.85,.25,1);
+}
+.wm__sect{display:flex; align-items:baseline; gap:5px; font-size:11.5px; font-weight:900; color:var(--ink); margin:13px 2px 0}
+.wm__sect small{font-size:9.5px; font-weight:800; color:var(--muted)}
+
+.wm__svg{display:block; width:100%; height:auto; margin:5px 0 0; overflow:visible}
+.rg{cursor:pointer; -webkit-tap-highlight-color:transparent}
+.rg rect{
+  fill:#E1DEEC; stroke:#D5D0E3; stroke-width:1;
+  transition:fill .45s, stroke .3s, stroke-width .25s, filter .45s;
+}
+.rg text{
+  text-anchor:middle; pointer-events:none;
+}
+.rg .ico{transition:opacity .45s}
+.rg .ico--off{fill:#C7C0D8; opacity:.9}
+.rg .lab2{
+  font-size:8px; font-weight:800; fill:#9C95B1;
+  letter-spacing:-.05em; transition:fill .3s;
+}
+.rg.is-on rect{
+  fill:url(#wmLitUs); stroke:#CCACF8; stroke-width:1.6;
+  filter:drop-shadow(0 0 6px rgba(255,199,105,.6)) drop-shadow(0 0 11px rgba(178,152,240,.34));
+}
+.rg.is-on .lab2{fill:#5B3A05}
+.rg.is-next rect{
+  fill:#F8F1E2; stroke:#F0B331; stroke-width:1.7; stroke-dasharray:4.5 3;
+  animation:wmPulse 1.7s ease-in-out infinite;
+}
+.rg.is-next .lab2{fill:#9A6D14}
+.rg.is-sel rect{stroke:#6B4BD6; stroke-width:2.2; stroke-dasharray:none; animation:none}
+@keyframes wmPulse{0%,100%{stroke-opacity:.35} 50%{stroke-opacity:1}}
+
+.wrg{pointer-events:none}
+.wrg rect{fill:#F7F4FD; stroke:#EFE9FA; stroke-width:1}
+.wrg text{font-size:7px; font-weight:800; fill:#C2B9D8; letter-spacing:.02em}
+
+.pin{cursor:pointer}
+.pin .halo{
+  fill:#E1DEEC; stroke:#D5D0E3; stroke-width:1.2;
+  transition:fill .45s, stroke .3s, filter .45s;
+}
+.pin .ico{pointer-events:none}
+.pin .ico--off{fill:#C7C0D8}
+.pin .lab{
+  font-size:8px; font-weight:900; fill:#9C95B1; text-anchor:middle;
+  letter-spacing:-.03em; pointer-events:none; transition:fill .3s;
+}
+.pin.is-on .halo{
+  fill:url(#wmLitW); stroke:#CCACF8; stroke-width:2;
+  filter:drop-shadow(0 0 7px rgba(255,199,105,.65)) drop-shadow(0 0 12px rgba(178,152,240,.4));
+}
+.pin.is-on .lab{fill:#8A5A0E}
+.pin.is-next .halo{fill:#F8F1E2; stroke:#F0B331; stroke-width:2; stroke-dasharray:4 2.6; animation:wmPulse 1.7s ease-in-out infinite}
+.pin.is-next .lab{fill:#A8730E}
+.pin.is-sel .halo{stroke:#6B4BD6; stroke-width:2.4; stroke-dasharray:none; animation:none}
+
+.wm__detail{margin:11px 0 2px}
+.wmdet{
+  background:linear-gradient(150deg,#FFFFFF,#FBF7FF); border:1px solid #F0E9FA; border-radius:18px;
+  padding:12px 13px; box-shadow:0 8px 20px rgba(74,52,140,.06);
+}
+.wmdet__top{display:flex; align-items:center; gap:9px}
+.wmdet__f{
+  width:38px; height:38px; border-radius:12px; display:grid; place-items:center; font-size:19px;
+  background:var(--soft); flex:none;
+}
+.wmdet__f.is-on{background:linear-gradient(140deg,#FFF3D6,#F7E9FF); box-shadow:0 4px 12px rgba(240,180,80,.22)}
+.wmdet__n{font-size:13.5px; font-weight:900; letter-spacing:-.035em; line-height:1.25}
+.wmdet__s{font-size:10.5px; font-weight:700; color:var(--muted); margin-top:1px}
+.wmdet__st{
+  margin-left:auto; font-size:9.5px; font-weight:900; padding:4px 8px; border-radius:999px; white-space:nowrap; flex:none;
+}
+.wmdet__st.is-on{background:#FFF3D6; color:#A8730E}
+.wmdet__st.is-lock{background:#F2F0F8; color:#8A82A3}
+.wmdet__cond{
+  margin-top:9px; font-size:11px; font-weight:800; color:#6B4BD6; background:#F7F2FF;
+  border-radius:11px; padding:8px 10px; line-height:1.5; word-break:keep-all;
+}
+.wmdet__cond.is-on{color:#8A5A0E; background:#FFF7E4}
+.wmdet__cond b{font-weight:900}
+.wmdet__bar{height:7px; border-radius:999px; background:#EFEBF8; overflow:hidden; margin-top:8px}
+.wmdet__bar i{
+  display:block; height:100%; width:0; border-radius:999px;
+  background:linear-gradient(90deg,#F9DFA0,#F0B33C 58%,#B79BF7); transition:width .5s;
+}
+.wmdet__fact{margin-top:8px; font-size:11px; font-weight:700; color:var(--ink2); line-height:1.6; word-break:keep-all}
+.wmdet__fact b{color:#A8730E; font-weight:900}
+.wmdet__hint{margin-top:7px; font-size:10px; font-weight:700; color:var(--muted)}
+.usnote{font-size:8.5px; font-weight:800; fill:#B9AFD2; letter-spacing:-.02em}
+
+/* ============ 🏠 오늘 뭐 할까요? (홈) ============ */
+.hdr__acts{display:flex; align-items:center; gap:7px; flex:none; position:relative; z-index:1}
+.iconbtn--home{background:linear-gradient(150deg,#F5EEFF,#FFF3E4); font-size:16px}
+
+.home{padding:16px 2px 4px}
+.home__k{font-size:19px; font-weight:900; letter-spacing:-.045em; color:var(--ink)}
+.home__s{font-size:11.5px; font-weight:700; color:var(--ink2); line-height:1.6; margin-top:5px; word-break:keep-all}
+.home__grid{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:15px}
+.hcard{
+  position:relative; overflow:hidden; display:flex; flex-direction:column; text-align:left;
+  padding:13px 12px 12px; border-radius:20px; min-height:122px;
+  background:linear-gradient(160deg,#FFFFFF,#FCF9FF); border:1px solid #EFE8FA;
+  box-shadow:0 8px 20px rgba(74,52,140,.06);
+  transition:transform .14s, box-shadow .2s;
+}
+.hcard::after{
+  content:""; position:absolute; width:70px; height:70px; right:-22px; top:-24px; border-radius:50%;
+  background:radial-gradient(circle, var(--hc,#EADDFF) 0%, rgba(255,255,255,0) 70%); opacity:.9;
+}
+.hcard:active{transform:scale(.973); box-shadow:0 4px 12px rgba(74,52,140,.12)}
+.hcard--spk{--hc:#E3D6FF}
+.hcard--shd{--hc:#CDF2EA}
+.hcard--qiz{--hc:#FFDDEC}
+.hcard--slg{--hc:#FFE5BE}
+.hcard--acc{--hc:#D6E5FF}
+.hcard--map{--hc:#FFEEB4}
+.hcard__i{font-size:21px; line-height:1.1; position:relative; z-index:1}
+.hcard__t{font-size:13.5px; font-weight:900; letter-spacing:-.035em; margin-top:7px; position:relative; z-index:1}
+.hcard__d{font-size:10px; font-weight:700; color:var(--ink2); line-height:1.5; margin-top:3px; word-break:keep-all; position:relative; z-index:1}
+.hcard__m{margin-top:auto; padding-top:9px; font-size:9.5px; font-weight:900; color:#7E5FE0; position:relative; z-index:1}
+.hcard--map .hcard__m{color:#B0791B}
+.home__foot{margin-top:14px; text-align:center; font-size:10.5px; font-weight:700; color:var(--muted)}
+
+/* ============ ▶ 시작 준비 (타이머는 누른 뒤에) ============ */
+.ready{
+  margin-top:12px; padding:15px 14px 14px; border-radius:18px; text-align:center;
+  background:linear-gradient(160deg,#FBF7FF,#FFF7EA); border:1px dashed #E4D8F8;
+  animation:pageIn .26s ease both;
+}
+.ready__t{font-size:13.5px; font-weight:900; color:var(--violet-d); letter-spacing:-.03em}
+.ready__s{font-size:11px; font-weight:700; color:var(--ink2); margin-top:4px}
+.ready__b{
+  margin-top:11px; display:inline-flex; align-items:center; gap:5px; padding:11px 26px; border-radius:999px;
+  font-size:13.5px; font-weight:900; color:#fff;
+  background:linear-gradient(152deg,#A183F7,#7A57DD 58%,#6B4BD6);
+  box-shadow:0 10px 22px rgba(122,87,221,.32); transition:transform .12s, box-shadow .2s;
+}
+.ready__b:active{transform:scale(.96); box-shadow:0 5px 14px rgba(122,87,221,.28)}
+
+/* 국기 이모지는 컬러 이모지 폰트로 */
+.fe{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji','Noto Sans Symbols 2',sans-serif; font-weight:400}
+
+/* 준비 상태에서는 '정답 & 듣기'를 한 걸음 뒤로 */
+.qcard.is-ready #cta .btn--primary{
+  background:#FFFFFF; color:var(--violet-d); border:1px solid #E9DCFC;
+  box-shadow:0 6px 16px rgba(122,87,221,.08);
+}
+
 /* ============ toast ============ */
 .toast{
   position:fixed; left:50%; bottom:calc(100px + env(safe-area-inset-bottom)); transform:translate(-50%,14px);
@@ -790,11 +1001,15 @@ body.is-lvopen{overflow:hidden}
         <h1>스피드 <em>영어</em></h1>
         <p class="hdr__sub">오늘의 5초 회화 챌린지</p>
       </div>
-      <button class="iconbtn" id="muteBtn" aria-label="효과음 끄기" title="효과음">🔊</button>
+      <div class="hdr__acts">
+        <button class="iconbtn iconbtn--home" id="homeBtn" aria-label="홈 — 오늘 뭐 할까요?" title="홈">🏠</button>
+        <button class="iconbtn" id="muteBtn" aria-label="효과음 끄기" title="효과음">🔊</button>
+      </div>
     </div>
     <div class="hdr__row">
       <div class="streak"><span class="flame">🔥</span><span class="stxt" id="stxt"><b>0</b>일 연속</span></div>
       <button class="lvpill" id="levelPill" aria-label="1분 레벨 테스트">🎯 레벨 측정</button>
+      <button class="mappill" id="mapPill" aria-label="영어 여행 지도 — 불 켜지는 18곳">✨ <b>1</b>/18</button>
       <div class="todaychip" id="todayChip">오늘 0%</div>
     </div>
     <div class="prog">
@@ -807,8 +1022,55 @@ body.is-lvopen{overflow:hidden}
     </div>
   </header>
 
+  <!-- ================= 🏠 오늘 뭐 할까요? ================= -->
+  <section class="page is-on" id="tab-home">
+    <div class="home">
+      <p class="home__k">🏠 오늘 뭐 할까요?</p>
+      <p class="home__s">고르면 바로 시작해요. 한 가지만 골라도 오늘의 영어는 충분해요.</p>
+      <div class="home__grid">
+        <button class="hcard hcard--spk" data-go="reflex">
+          <span class="hcard__i">⚡</span>
+          <span class="hcard__t">5초 말하기</span>
+          <span class="hcard__d">준비 후 타이머 시작</span>
+          <span class="hcard__m" id="hReflex">오늘 0 / 5</span>
+        </button>
+        <button class="hcard hcard--shd" data-go="shadow">
+          <span class="hcard__i">🎙️</span>
+          <span class="hcard__t">쉐도잉</span>
+          <span class="hcard__d">4주 회화 · 팝송 · 게임 · 영화</span>
+          <span class="hcard__m" id="hShadow">오늘 0 / 3</span>
+        </button>
+        <button class="hcard hcard--qiz" data-go="quiz">
+          <span class="hcard__i">🎯</span>
+          <span class="hcard__t">퀴즈</span>
+          <span class="hcard__d">문법 · 어원 · 콩글리시</span>
+          <span class="hcard__m" id="hQuiz">아직 안 했어요</span>
+        </button>
+        <button class="hcard hcard--slg" data-go="slang">
+          <span class="hcard__i">🔥</span>
+          <span class="hcard__t">슬랭</span>
+          <span class="hcard__d">90s~요즘 핫한 표현</span>
+          <span class="hcard__m">22개 표현</span>
+        </button>
+        <button class="hcard hcard--acc" data-go="accent">
+          <span class="hcard__i">🌍</span>
+          <span class="hcard__t">억양</span>
+          <span class="hcard__d">미국·세계 억양 비교</span>
+          <span class="hcard__m">9가지 억양</span>
+        </button>
+        <button class="hcard hcard--map" data-go="map">
+          <span class="hcard__i">✨</span>
+          <span class="hcard__t">영어 여행 지도</span>
+          <span class="hcard__d">불이 하나씩 켜지는 18곳</span>
+          <span class="hcard__m" id="hMap">지금 1/18 곳 불 켜짐!</span>
+        </button>
+      </div>
+      <p class="home__foot">한 곳만 골라도 충분해요 ✨</p>
+    </div>
+  </section>
+
   <!-- ================= 스피드 말하기 ================= -->
-  <section class="page is-on" id="tab-reflex">
+  <section class="page" id="tab-reflex">
     <div class="chips" id="chips">
       <button class="chip chip--lv hide" id="lvChip" data-cat="level">🎯 내 레벨 맞춤</button>
       <button class="chip is-on" data-cat="all">전체</button>
@@ -838,6 +1100,12 @@ body.is-lvopen{overflow:hidden}
         <div class="cd__meta" id="cdMeta">
           <p class="cd__hint" id="cdHint"><b>5초</b> 안에 영어로 말해 보세요</p>
           <span class="cd__num" id="cdNum">5.0s</span>
+        </div>
+
+        <div class="ready" id="ready">
+          <p class="ready__t">준비되셨나요?</p>
+          <p class="ready__s" id="readySub">5초 안에 영어로 말해 보세요</p>
+          <button class="ready__b" id="startBtn">▶ 시작하기</button>
         </div>
 
         <div class="reveal hide" id="reveal">
@@ -988,7 +1256,7 @@ body.is-lvopen{overflow:hidden}
 
 <nav class="tabbar">
   <div class="tabbar__inner">
-    <button class="tab is-on" data-tab="reflex"><span class="tab__ico">⚡</span><span>말하기</span></button>
+    <button class="tab" data-tab="reflex"><span class="tab__ico">⚡</span><span>말하기</span></button>
     <button class="tab" data-tab="shadow"><span class="tab__ico">🎙️</span><span>쉐도잉</span></button>
     <button class="tab" data-tab="quiz"><span class="tab__ico">🎯</span><span>퀴즈</span></button>
     <button class="tab" data-tab="slang"><span class="tab__ico">🔥</span><span>슬랭</span></button>
@@ -1002,6 +1270,29 @@ body.is-lvopen{overflow:hidden}
 <div class="lvmodal hide" id="levelTestModal" role="dialog" aria-modal="true" aria-labelledby="lvTitle">
   <div class="lvmodal__bg" data-lvclose="1"></div>
   <div class="lvcard" id="lvCard"></div>
+</div>
+
+<!-- ================= ✨ 불 켜지는 영어 여행 지도 ================= -->
+<div class="wm hide" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="wmTitle">
+  <div class="wm__bg" data-mapclose="1"></div>
+  <div class="wm__card">
+    <button class="wm__x" id="mapClose" aria-label="지도 닫기">✕</button>
+    <div class="wm__head">
+      <p class="wm__kick">✨ 불 켜지는 영어 여행 지도</p>
+      <h2 id="wmTitle"><span class="fe">🇺🇸</span> 미국 <b>12</b>곳 불 밝히기 · <span class="fe">🌍</span> 세계 <b>6</b>곳 불 밝히기</h2>
+      <div class="wm__xprow">
+        <span class="wm__xp" id="wmXp">영어 XP 0</span>
+        <span class="wm__cnt" id="wmCounts"><span class="fe">🇺🇸</span> 1/12 · <span class="fe">🌍</span> 0/6</span>
+        <span class="wm__next" id="wmNext">다음 불빛 [네바다]까지 30 XP!</span>
+      </div>
+      <div class="wm__bar"><i id="wmFill"></i></div>
+    </div>
+    <p class="wm__sect"><span class="fe">🇺🇸</span> 미국 <small>12곳 · XP로 하나씩 불이 켜져요</small></p>
+    <svg id="wmUsSvg" class="wm__svg" viewBox="0 0 336 166" role="group" aria-label="미국 불 밝히기 지도"></svg>
+    <p class="wm__sect"><span class="fe">🌍</span> 세계 <small>6곳 · 억양을 들으면 바로 켜져요</small></p>
+    <svg id="wmWorldSvg" class="wm__svg" viewBox="0 0 336 150" role="group" aria-label="세계 불 밝히기 지도"></svg>
+    <div class="wm__detail" id="wmDetail"></div>
+  </div>
 </div>
 
 <script>
@@ -1489,6 +1780,8 @@ body.is-lvopen{overflow:hidden}
     if (!r.quiz) r.quiz = { best: 0, total: 5, runs: 0 };
     if (!r.ety) r.ety = { best: 0, runs: 0 };
     if (!r.kong) r.kong = { best: 0, runs: 0 };
+    if (!r.xp) r.xp = {};
+    if (!r.na) r.na = {};
     return r;
   }
   /* 퀴즈 모드별 오늘 기록: grammar = r.quiz, ety = r.ety, konglish = r.kong */
@@ -1708,6 +2001,7 @@ body.is-lvopen{overflow:hidden}
     lr.classList.toggle('done', st.r >= 5);
     ls.classList.toggle('done', st.s >= 3);
     lq.classList.toggle('done', !!st.runs);
+    renderHome();
   }
   function praise() {
     var arr = ['좋아요! 입에 붙었어요', '바로 나왔네요 👏', '이 감각이에요!', '한 장 더!', '영어가 튀어나오네요 ✨'];
@@ -1723,7 +2017,7 @@ body.is-lvopen{overflow:hidden}
       Snd.tap();
       Array.prototype.forEach.call(tabs, function (b) { b.classList.toggle('is-on', b === btn); });
       var name = btn.getAttribute('data-tab');
-      ['reflex', 'shadow', 'quiz', 'slang', 'accent'].forEach(function (n) {
+      ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent'].forEach(function (n) {
         var p = document.getElementById('tab-' + n);
         if (p) p.classList.toggle('is-on', n === name);
       });
@@ -1793,8 +2087,36 @@ body.is-lvopen{overflow:hidden}
     if (cdRAF) { cancelAnimationFrame(cdRAF); cdRAF = null; }
   }
 
+  var reflexReady = false;
+  function showReady() {
+    reflexReady = true;
+    var el = document.getElementById('ready');
+    if (el) el.classList.remove('hide');
+    var qc = document.getElementById('qcard');
+    if (qc) qc.classList.add('is-ready');
+    var cb = $('#cdBox'), cm = $('#cdMeta');
+    if (cb) cb.classList.add('hide');
+    if (cm) cm.classList.add('hide');
+    var sub = document.getElementById('readySub');
+    var sec = timerSec();
+    if (sub) sub.textContent = sec ? sec + '초 안에 영어로 말해 보세요' : '바로 영어로 말해 보세요';
+  }
+  function startReflex() {
+    reflexReady = false;
+    var el = document.getElementById('ready');
+    if (el) el.classList.add('hide');
+    var qc = document.getElementById('qcard');
+    if (qc) qc.classList.remove('is-ready');
+    var cm = $('#cdMeta');
+    if (cm) cm.classList.remove('hide');
+    startCountdown();
+  }
+
   function startCountdown() {
     stopCd();
+    reflexReady = false;
+    var rdy = document.getElementById('ready');
+    if (rdy) rdy.classList.add('hide');
     var fill = $('#cdFill');
     var box = $('#cdBox');
     var hint = $('#cdHint');
@@ -1848,15 +2170,19 @@ body.is-lvopen{overflow:hidden}
     $('#reveal').classList.add('hide');
     $('#cta').classList.remove('hide');
     $('#cdHint').classList.remove('hide');
-    $('#cdMeta').classList.remove('hide');
     renderTimerSeg();
-    startCountdown();
+    showReady();
   }
 
   function reveal(alsoSpeak) {
     if (revealed) return;
     revealed = true;
     stopCd();
+    reflexReady = false;
+    var rdyEl = document.getElementById('ready');
+    if (rdyEl) rdyEl.classList.add('hide');
+    var qcR = document.getElementById('qcard');
+    if (qcR) qcR.classList.remove('is-ready');
     $('#reveal').classList.remove('hide');
     $('#cta').classList.add('hide');
     $('#cdBox').classList.add('hide');
@@ -1884,6 +2210,7 @@ body.is-lvopen{overflow:hidden}
   });
 
   $('#showBtn').addEventListener('click', function () { Snd.tap(); reveal(true); });
+  $('#startBtn').addEventListener('click', function () { Snd.tap(); startReflex(); });
   $('#qcard').addEventListener('click', function (e) {
     if (revealed) return;
     if (e.target.closest('button')) return;
@@ -1907,7 +2234,7 @@ body.is-lvopen{overflow:hidden}
 
   $('#yesBtn').addEventListener('click', function () {
     var t = todayRec();
-    if (t.reflex.indexOf(current.id) === -1) t.reflex.push(current.id);
+    if (t.reflex.indexOf(current.id) === -1) { t.reflex.push(current.id); addXp(10); }
     save(); renderStats();
     Snd.pop();
     toast(praise());
@@ -1931,7 +2258,10 @@ body.is-lvopen{overflow:hidden}
     var sec = Number(b.getAttribute('data-sec'));
     if (sec === timerSec()) {
       /* 이미 고른 시간을 한 번 더 누르면 카운트다운을 처음부터 */
-      if (sec && !revealed) { startCountdown(); toast(sec + '초 다시'); }
+      if (sec && !revealed) {
+        if (reflexReady) startReflex();
+        else { startCountdown(); toast(sec + '초 다시'); }
+      }
       return;
     }
     Snd.tap();
@@ -1939,7 +2269,7 @@ body.is-lvopen{overflow:hidden}
     store.timerOff = sec === 0;
     save();
     renderTimerSeg();
-    if (!revealed) startCountdown();
+    if (!revealed && !reflexReady) startCountdown();
     toast(sec ? (sec + '초 타이머' + (revealed ? ' · 다음 카드부터' : '')) : ('타이머를 껐어요' + (revealed ? ' · 다음 카드부터' : '')));
   });
 
@@ -2020,6 +2350,7 @@ body.is-lvopen{overflow:hidden}
       var i = t.shadow.indexOf(id);
       if (i === -1) {
         t.shadow.push(id);
+        addXpOnce('sh:' + id, 10);
         card.classList.add('is-done');
         btn.classList.add('on');
         btn.textContent = '따라 했어요 ✓';
@@ -2846,6 +3177,7 @@ body.is-lvopen{overflow:hidden}
           if (songs) songs.setAttribute('data-lang', next);
           tog.innerHTML = '🔊 억양 <span class="flag">' + langFlag(next) + '</span><b>' + langName(next) + '</b> ↔';
           toast('이제 ' + langName(next) + '으로 읽어요');
+          noteLangStudy(next);
           var first = a2.songs.filter(function (s) { return s.id === popOpenSong; })[0] || a2.songs[0];
           flashAccent(tog, first.x[0].en, next);
           return;
@@ -2862,6 +3194,9 @@ body.is-lvopen{overflow:hidden}
           Snd.tap();
           var res = speakAccent(expr.en, Number(rb.getAttribute('data-r')) || 1, lang);
           if (res && res.fallback) toast(langName(lang) + ' 발음이 없어 미국식으로 재생했어요');
+          addXpOnce('p:' + song.id + ':' + rb.getAttribute('data-i'), 10);
+          noteNorthAmerica('pop:' + song.id, artist ? artist.flag : '');
+          noteLangStudy(lang);
           rb.classList.add('is-playing');
           setTimeout(function () { rb.classList.remove('is-playing'); }, 900);
         }
@@ -2901,6 +3236,7 @@ body.is-lvopen{overflow:hidden}
             Snd.tap();
           } else {
             store.gameDone[line.id] = 1;
+            addXpOnce('g:' + line.id, 10);
             card.classList.add('is-done');
             btn.classList.add('on');
             btn.textContent = '따라 했어요 ✓';
@@ -2947,6 +3283,7 @@ body.is-lvopen{overflow:hidden}
           if (box) box.setAttribute('data-lang', next);
           tog.innerHTML = '🔊 억양 <span class="flag">' + langFlag(next) + '</span><b>' + langName(next) + '</b> ↔';
           toast('이제 ' + langName(next) + '으로 읽어요');
+          noteLangStudy(next);
           flashAccent(tog, m2.lines[0].en, next);
           return;
         }
@@ -2963,6 +3300,7 @@ body.is-lvopen{overflow:hidden}
           Snd.tap();
           var res = speakAccent(line.en, act === 'slow' ? 0.8 : 1, lang2);
           if (res && res.fallback) toast(langName(lang2) + ' 발음이 없어 미국식으로 재생했어요');
+          noteLangStudy(lang2);
         }
         if (act === 'check') {
           store.movieDone = store.movieDone || {};
@@ -2974,6 +3312,7 @@ body.is-lvopen{overflow:hidden}
             Snd.tap();
           } else {
             store.movieDone[line.id] = 1;
+            addXpOnce('mv:' + line.id, 10);
             card.classList.add('is-done');
             btn.classList.add('on');
             btn.textContent = '따라 했어요 ✓';
@@ -3261,6 +3600,7 @@ body.is-lvopen{overflow:hidden}
     var ok = item.opts[idx].ok;
     item.pickedOk = ok;
     if (ok) quiz.score++;
+    if (ok) addXp(15);
 
     var btns = document.querySelectorAll('#opts .opt');
     Array.prototype.forEach.call(btns, function (b, i) {
@@ -3594,6 +3934,7 @@ body.is-lvopen{overflow:hidden}
         Snd.tap();
         var res = speakAccent(a.en, 1, a.lang || 'en-US');
         flashBtn(btn, Math.min(2600, 900 + a.en.length * 62));
+        noteAccentStudy(a.id);
         if (res && res.state === 'missing') toast(a.country + ' 음성이 없어 미국식으로 재생했어요');
       });
     }
@@ -3607,6 +3948,7 @@ body.is-lvopen{overflow:hidden}
         var country = btn.getAttribute('data-country');
         var res = speakAccent(CMP_TEXT, 0.95, lang);
         flashBtn(btn, 2200);
+        noteLangStudy(lang);
         var hint = $('#cmpHint');
         if (!hint) return;
         if (!res) { hint.innerHTML = '이 기기에서는 음성을 쓸 수 없어요.'; return; }
@@ -3743,6 +4085,7 @@ body.is-lvopen{overflow:hidden}
         Snd.tap();
         speak(b.getAttribute('data-saytxt'), 1);
         flashBtn(b, 1200);
+        noteNorthAmerica('slang:' + (b.closest('.slcard') ? b.closest('.slcard').getAttribute('data-sl') : ''), '🇺🇸');
       });
     }
     window.__slang = { list: SLANG, era: function () { return era; }, render: renderSlang };
@@ -4009,7 +4352,7 @@ body.is-lvopen{overflow:hidden}
     if (m) m.classList.add('hide');
     document.body.classList.remove('is-lvopen');
     lvTest = null;
-    if (current && !revealed) startCountdown();
+    if (current && !revealed && !reflexReady) startCountdown();
   }
 
   function lvAnswer(idx) {
@@ -4086,6 +4429,415 @@ body.is-lvopen{overflow:hidden}
     });
   })();
 
+
+  /* ============================================================
+     ✨ 불 켜지는 영어 여행 지도 — XP로 미국 12곳, 억양·XP로 세계 6곳
+     ============================================================ */
+  var MAP_TOTAL = 18, MAP_US_TOTAL = 12, MAP_W_TOTAL = 6;
+  var mapOpen = false, mapSel = null;
+
+  var REGIONS = [
+    /* ---- 🇺🇸 미국 12곳 (XP 순서대로 하나씩 불이 켜진다) ---- */
+    { id: 'cal', kind: 'us', name: '캘리포니아', short: '캘리', full: '캘리포니아 · LA', sub: '미국 · 서부 해안', icon: '🌴', emoji: '🌴', xp: 0,
+      cond: '출발지 — 여기서 첫 불을 켜요',
+      fact: "LA의 'I'm good'은 '괜찮아'이자 '필요 없어' — 거절도 이 한마디로 끝나요.",
+      box: [10, 58, 52, 58] },
+    { id: 'nev', kind: 'us', name: '네바다', short: '네바', full: '네바다 · 라스베이거스', sub: '미국 · 서부 사막', icon: '🎰', emoji: '🎰', xp: 30,
+      cond: '영어 XP 30',
+      fact: "라스베이거스의 'What happens here stays here' — 여기서 생긴 일은 여기서 끝!",
+      box: [66, 48, 46, 30] },
+    { id: 'ari', kind: 'us', name: '애리조나', short: '애리', full: '애리조나 · 피닉스', sub: '미국 · 남서부', icon: '🏜️', emoji: '🌵', xp: 60,
+      cond: '영어 XP 60',
+      fact: "사막 사람들은 'It's a dry heat!' — 덥긴 한데 습하지 않다는 자부심이에요.",
+      box: [66, 82, 46, 36] },
+    { id: 'tex', kind: 'us', name: '텍사스', short: '텍사', full: '텍사스 · 댈러스', sub: '미국 · 남부', icon: '🤠', emoji: '🤠', xp: 100,
+      cond: '영어 XP 100',
+      fact: "y'all 한 마디면 현지인 느낌! fixin' to는 '막 ~하려고'라는 뜻이에요.",
+      box: [116, 92, 64, 52] },
+    { id: 'flo', kind: 'us', name: '플로리다', short: '플로', full: '플로리다 · 마이애미', sub: '미국 · 남동부', icon: '🚀', emoji: '🐊', xp: 140,
+      cond: '영어 XP 140',
+      fact: "겨울만 내려와 사는 북부 사람을 'snowbird'라고 불러요.",
+      box: [258, 108, 34, 36] },
+    { id: 'geo', kind: 'us', name: '조지아', short: '조지', full: '조지아 · 애틀랜타', sub: '미국 · 남동부', icon: '🍑', emoji: '🍑', xp: 180,
+      cond: '영어 XP 180',
+      fact: "'bless your heart'는 칭찬 같지만 상황에 따라 한마디가 돼요.",
+      box: [250, 76, 42, 30] },
+    { id: 'ill', kind: 'us', name: '일리노이', short: '일리', full: '일리노이 · 시카고', sub: '미국 · 중서부', icon: '🏙️', emoji: '🌬️', xp: 220,
+      cond: '영어 XP 220',
+      fact: "시카고는 'Windy City' — 바람보다 정치 수사가 거세서 붙은 별명이에요.",
+      box: [184, 50, 48, 34] },
+    { id: 'dc', kind: 'us', name: '워싱턴 D.C.', short: 'D.C.', full: '워싱턴 D.C.', sub: '미국 · 수도', icon: '🏛️', emoji: '🏛️', xp: 270,
+      cond: '영어 XP 270',
+      fact: "D.C.는 주가 아니라 'District' — 그래서 주 번호가 없는 우편번호를 써요.",
+      box: [292, 44, 34, 28] },
+    { id: 'pen', kind: 'us', name: '펜실베이니아', short: '펜실', full: '펜실베이니아 · 필라델피아', sub: '미국 · 동부', icon: '🔔', emoji: '🔔', xp: 320,
+      cond: '영어 XP 320',
+      fact: "필라델피아의 'jawn'은 만능 단어 — 사람·물건·상황에 다 써요.",
+      box: [238, 44, 48, 30] },
+    { id: 'mas', kind: 'us', name: '매사추세츠', short: '보스', full: '매사추세츠 · 보스턴', sub: '미국 · 뉴잉글랜드', icon: '🎓', emoji: '🎓', xp: 380,
+      cond: '영어 XP 380',
+      fact: "보스턴에서는 'wicked good'이 '아주 좋아' — wicked가 강조 부사예요.",
+      box: [292, 10, 36, 30] },
+    { id: 'ny', kind: 'us', name: '뉴욕', short: '뉴욕', full: '뉴욕 · NYC', sub: '미국 · 동부', icon: '🗽', emoji: '🗽', xp: 450,
+      cond: '영어 XP 450',
+      fact: "뉴욕에서는 줄 설 때 'on line'이 아니라 'in line'이에요.",
+      box: [240, 10, 48, 30] },
+    { id: 'haw', kind: 'us', name: '하와이', short: '하와', full: '하와이 · 호놀룰루', sub: '미국 · 태평양', icon: '🌺', emoji: '🌺', xp: 530,
+      cond: '영어 XP 530',
+      fact: "'aloha'는 안녕·사랑·고마움을 한 번에 담은 인사예요.",
+      box: [12, 132, 36, 28] },
+
+    /* ---- 🌍 세계 6곳 (억양 학습 즉시 또는 높은 XP) ---- */
+    { id: 'gb', kind: 'world', name: '영국', short: '영국', full: '영국 · 런던', sub: '세계 · en-GB', icon: '🎡', emoji: '🇬🇧', xp: 600,
+      cond: '영국 억양(en-GB) 듣기 또는 영어 XP 600',
+      fact: "영국에서는 'Cheers'가 건배 말고 '고마워'로도 쓰여요.",
+      pin: [150, 30], lab: [150, 58] },
+    { id: 'canada', kind: 'world', name: '캐나다', short: '캐나다', full: '캐나다 · 토론토', sub: '세계 · 북미', icon: '🍁', emoji: '🇨🇦', xp: 680,
+      cond: '북미 아티스트·슬랭 5개 학습 또는 영어 XP 680',
+      fact: "캐나다 영어의 'sorry'는 사과보다 '실례합니다'에 가까워요.",
+      pin: [66, 36], lab: [66, 64] },
+    { id: 'australia', kind: 'world', name: '호주', short: '호주', full: '호주 · 시드니', sub: '세계 · en-AU', icon: '🦘', emoji: '🇦🇺', xp: 760,
+      cond: '호주 억양(en-AU) 듣기 또는 영어 XP 760',
+      fact: "'No worries!'가 만능 인사 — 사과도 고마움도 이 한마디로 돼요.",
+      pin: [288, 108], lab: [288, 136] },
+    { id: 'india', kind: 'world', name: '인도', short: '인도', full: '인도 · 델리', sub: '세계 · en-IN', icon: '🕌', emoji: '🇮🇳', xp: 850,
+      cond: '인도 억양(en-IN) 듣기 또는 영어 XP 850',
+      fact: "인도 영어의 'prepone'은 '앞당기다' — 미국 사전엔 없는 단어예요.",
+      pin: [258, 40], lab: [258, 68] },
+    { id: 'eeurope', kind: 'world', name: '동유럽', short: '동유럽', full: '동유럽 · 슬라브권', sub: '세계 · 러시아 억양', icon: '🏰', emoji: '🇷🇺', xp: 950,
+      cond: '동유럽 억양 학습 또는 영어 XP 950',
+      fact: "동유럽 영어는 관사를 자주 빼요 — 'I think plan is good.'",
+      pin: [188, 42], lab: [188, 70] },
+    { id: 'samerica', kind: 'world', name: '남미', short: '남미', full: '남미 · 브라질·멕시코', sub: '세계 · 스페인어권', icon: '💃', emoji: '🌎', xp: 1050,
+      cond: '남미 억양 학습 또는 영어 XP 1050',
+      fact: "v와 b 소리가 비슷해 'very'가 '베리'로 들려요 — 그래서 더 다정하게 들리죠.",
+      pin: [68, 102], lab: [68, 130] }
+  ];
+
+  var WORLDBLOCKS = [
+    { x: 14, y: 6, w: 104, h: 66, lab: '북미', lx: 20, ly: 16 },
+    { x: 34, y: 78, w: 62, h: 62, lab: '', lx: 0, ly: 0 },
+    { x: 122, y: 4, w: 78, h: 60, lab: '유럽', lx: 128, ly: 14 },
+    { x: 204, y: 4, w: 118, h: 70, lab: '아시아', lx: 210, ly: 14 },
+    { x: 250, y: 92, w: 76, h: 50, lab: '', lx: 0, ly: 0 }
+  ];
+  var ACCENT_REGION = { gb: 'gb', au: 'australia', 'in': 'india', slav: 'eeurope', latam: 'samerica' };
+
+  function regionById(id) {
+    for (var i = 0; i < REGIONS.length; i++) if (REGIONS[i].id === id) return REGIONS[i];
+    return null;
+  }
+  function isUnlocked(r) { return !!r && store.unlockedRegions.indexOf(r.id) !== -1; }
+  function xpTotal() {
+    var n = Number(store.xp);
+    return (isFinite(n) && n > 0) ? Math.round(n) : 0;
+  }
+  function regionCount(kind) {
+    return REGIONS.filter(function (r) { return r.kind === kind && isUnlocked(r); }).length;
+  }
+  function nextRegion() {
+    var best = null;
+    REGIONS.forEach(function (r) {
+      if (isUnlocked(r)) return;
+      if (!best || r.xp < best.xp) best = r;
+    });
+    return best;
+  }
+
+  /* 불빛 알림은 겹치지 않게 한 줄씩 차례로 띄운다 */
+  var ltList = [], ltOn = false;
+  function lightToast(msg) {
+    ltList.push(msg);
+    if (!ltOn) { ltOn = true; setTimeout(ltNext, 460); }
+  }
+  function ltNext() {
+    var m = ltList.shift();
+    if (!m) { ltOn = false; return; }
+    toast(m);
+    setTimeout(ltNext, 1780);
+  }
+
+  function unlockRegion(r) {
+    if (!r || isUnlocked(r)) return false;
+    var first = (!ltOn && !ltList.length);
+    store.unlockedRegions.push(r.id);
+    save();
+    lightToast('✨ ' + r.name + '에 불이 켜졌어요! ' + (r.icon || ''));
+    if (first) setTimeout(function () { Snd.success(); }, 780);
+    renderMapPill();
+    if (mapOpen) renderMap();
+    return true;
+  }
+  function checkXpUnlocks() {
+    var got = false;
+    REGIONS.forEach(function (r) {
+      if (!isUnlocked(r) && r.xp > 0 && xpTotal() >= r.xp) got = unlockRegion(r) || got;
+    });
+    return got;
+  }
+  /* XP 적립 — 여기 한 곳을 거쳐야만 모든 화면의 XP가 같이 움직인다 */
+  function addXp(n) {
+    n = Number(n) || 0;
+    if (!n) return;
+    store.xp = xpTotal() + n;
+    save();
+    checkXpUnlocks();
+    renderMapPill();
+    if (mapOpen) renderMap();
+  }
+  /* 같은 카드를 껐다 켰다 해서 XP를 두 번 받지 않도록 하루 한 번만 */
+  function addXpOnce(key, n) {
+    var r = todayRec();
+    if (!r.xp) r.xp = {};
+    if (r.xp[key]) return false;
+    r.xp[key] = 1;
+    addXp(n);
+    return true;
+  }
+  /* 억양을 들으면 그 나라에 바로 불이 켜진다 */
+  function noteLangStudy(lang) {
+    var l = String(lang || '');
+    if (/^en-GB/i.test(l)) unlockRegion(regionById('gb'));
+    else if (/^en-AU/i.test(l)) unlockRegion(regionById('australia'));
+    else if (/^en-IN/i.test(l)) unlockRegion(regionById('india'));
+  }
+  function noteAccentStudy(aid) {
+    var id = ACCENT_REGION[String(aid || '')];
+    if (id) unlockRegion(regionById(id));
+  }
+  /* 북미(미국·캐나다) 아티스트 곡이나 슬랭 5개를 들으면 캐나다에 불이 켜진다 */
+  function noteNorthAmerica(key, flag) {
+    var f = String(flag || '');
+    if (f !== '🇺🇸' && f !== '🇨🇦') return;
+    var r = todayRec();
+    if (!r.na) r.na = {};
+    if (r.na[key]) return;
+    r.na[key] = 1;
+    store.naCount = (Number(store.naCount) || 0) + 1;
+    save();
+    if (store.naCount >= 5) unlockRegion(regionById('canada'));
+  }
+
+  function renderMapPill() {
+    var el = document.getElementById('mapPill');
+    if (!el) return;
+    var n = store.unlockedRegions.length;
+    el.innerHTML = '✨ <b>' + n + '</b>/' + MAP_TOTAL;
+    el.classList.toggle('is-warm', n >= 3 && n < 9);
+    el.classList.toggle('is-gold', n >= 9 && n < MAP_TOTAL);
+    el.classList.toggle('is-full', n >= MAP_TOTAL);
+    el.setAttribute('aria-label', '영어 여행 지도 · 18곳 중 ' + n + '곳에 불이 켜졌어요');
+    renderHome();
+  }
+
+  /* 켜진 곳은 랜드마크 아이콘이 환하게, 꺼진 곳은 작은 점 하나만 */
+  function usSvgHtml() {
+    var nx = nextRegion();
+    var back = '<defs>' +
+        '<pattern id="wmDots" width="9" height="9" patternUnits="userSpaceOnUse">' +
+          '<circle cx="2" cy="2" r="1" fill="#E4DEF5"/></pattern>' +
+        '<linearGradient id="wmLitUs" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".55" stop-color="#F8CB72"/><stop offset="1" stop-color="#DCB9F9"/>' +
+        '</linearGradient>' +
+      '</defs>' +
+      '<rect x="0" y="0" width="336" height="166" fill="url(#wmDots)" opacity=".55" pointer-events="none"/>' +
+      '<text class="usnote" x="118" y="34" text-anchor="middle">🧭 서쪽에서 동쪽으로 한 곳씩</text>';
+    return back + REGIONS.filter(function (r) { return r.kind === 'us'; }).map(function (r) {
+      var b = r.box, on = isUnlocked(r);
+      var cx = b[0] + b[2] / 2, cy = b[1] + b[3] / 2;
+      var fs = Math.max(9, Math.min(15, b[3] * 0.36));
+      var cls = 'rg rg--us' + (on ? ' is-on' : '') + (!on && nx && r.id === nx.id ? ' is-next' : '') + (r.id === mapSel ? ' is-sel' : '');
+      var lab = 'aria-label="' + esc(r.name) + (on ? ' 불 켜짐' : ' 아직 어두움 — ' + r.xp + ' XP') + '"';
+      return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" ' + lab + '>' +
+        '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" rx="' + Math.min(15, b[3] / 2 - 1) + '"/>' +
+        '<text class="ico' + (on ? '' : ' ico--off') + '" x="' + cx + '" y="' + (cy + fs * 0.33).toFixed(1) + '"' +
+          ' style="font-size:' + (on ? fs : (fs * 0.62)).toFixed(1) + 'px">' + (on ? (r.icon || '•') : '•') + '</text>' +
+        '<text class="lab2" x="' + cx + '" y="' + (cy + fs * 0.33 + 8.6).toFixed(1) + '">' + esc(r.short) + '</text>' +
+      '</g>';
+    }).join('');
+  }
+
+  function worldSvgHtml() {
+    var nx = nextRegion();
+    var defs = '<defs><linearGradient id="wmLitW" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#FFE9AE"/><stop offset=".55" stop-color="#F8CB72"/><stop offset="1" stop-color="#DCB9F9"/>' +
+      '</linearGradient></defs>';
+    var blocks = WORLDBLOCKS.map(function (b) {
+      return '<g class="wrg"><rect x="' + b.x + '" y="' + b.y + '" width="' + b.w + '" height="' + b.h + '" rx="16"/>' +
+        (b.lab ? '<text x="' + b.lx + '" y="' + b.ly + '" text-anchor="start">' + b.lab + '</text>' : '') + '</g>';
+    }).join('');
+    var pins = REGIONS.filter(function (r) { return r.kind === 'world'; }).map(function (r) {
+      var p = r.pin, on = isUnlocked(r);
+      var cls = 'rg pin' + (on ? ' is-on' : '') + (!on && nx && r.id === nx.id ? ' is-next' : '') + (r.id === mapSel ? ' is-sel' : '');
+      var lab = 'aria-label="' + esc(r.name) + (on ? ' 불 켜짐' : ' 아직 어두움 — ' + esc(r.cond)) + '"';
+      return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" ' + lab + '>' +
+        '<circle class="halo" cx="' + p[0] + '" cy="' + p[1] + '" r="15"/>' +
+        '<text class="ico' + (on ? '' : ' ico--off') + '" x="' + p[0] + '" y="' + (p[1] + 5.2) + '"' +
+          ' style="font-size:' + (on ? 15 : 8) + 'px">' + (on ? (r.icon || '•') : '•') + '</text>' +
+        '<text class="lab" x="' + p[0] + '" y="' + ((r.lab && r.lab[1]) || (p[1] + 27)) + '">' + esc(r.name) + '</text>' +
+      '</g>';
+    }).join('');
+    return defs + blocks + pins;
+  }
+
+  function renderDetail() {
+    var box = document.getElementById('wmDetail');
+    if (!box) return;
+    var r = regionById(mapSel) || nextRegion() || REGIONS[REGIONS.length - 1];
+    var on = isUnlocked(r);
+    var left = Math.max(0, r.xp - xpTotal());
+    var pct = on ? 100 : (r.xp > 0 ? Math.min(99, Math.round((xpTotal() / r.xp) * 100)) : 0);
+    var cond;
+    if (on) cond = '✅ <b>불이 켜졌어요!</b> ' + (r.kind === 'us' ? '이 주의 영어를 마음껏 써 보세요.' : '이 지역 영어도 이제 편하게 들려요.');
+    else if (r.xp <= 0) cond = '🔑 ' + r.cond;
+    else cond = '🔑 ' + r.cond + ' — <b>' + left + ' XP</b> 남았어요';
+    box.innerHTML =
+      '<div class="wmdet">' +
+        '<div class="wmdet__top">' +
+          '<span class="wmdet__f' + (on ? ' is-on' : '') + '">' + (r.icon || '•') + '</span>' +
+          '<span><span class="wmdet__n">' + esc(r.full) + '</span>' +
+            '<span class="wmdet__s" style="display:block">' + esc(r.sub) + '</span></span>' +
+          '<span class="wmdet__st ' + (on ? 'is-on' : 'is-lock') + '">' + (on ? '불 밝힘' : '아직 꺼짐') + '</span>' +
+        '</div>' +
+        '<p class="wmdet__cond' + (on ? ' is-on' : '') + '">' + cond + '</p>' +
+        (on ? '' : '<div class="wmdet__bar"><i style="width:' + pct + '%"></i></div>') +
+        '<p class="wmdet__fact"><b>💡 ' + esc(r.name) + '</b> · ' + esc(r.fact) + '</p>' +
+        (!mapSel ? '<p class="wmdet__hint">지도에서 다른 곳을 눌러 보세요.</p>' : '') +
+      '</div>';
+  }
+
+  function renderMap() {
+    var us = document.getElementById('wmUsSvg');
+    var wd = document.getElementById('wmWorldSvg');
+    if (us) us.innerHTML = usSvgHtml();
+    if (wd) wd.innerHTML = worldSvgHtml();
+    var ce = document.getElementById('wmCounts');
+    if (ce) ce.innerHTML = '<span class="fe">🇺🇸</span> ' + regionCount('us') + '/12 · <span class="fe">🌍</span> ' + regionCount('world') + '/6';
+    var xe = document.getElementById('wmXp');
+    if (xe) xe.textContent = '영어 XP ' + xpTotal();
+    var nx = nextRegion();
+    var ne = document.getElementById('wmNext');
+    if (ne) {
+      ne.textContent = nx
+        ? ('다음 불빛 [' + nx.name + ']까지 ' + Math.max(0, nx.xp - xpTotal()) + ' XP!')
+        : '18곳 모두 환하게 밝혔어요!';
+    }
+    var fill = document.getElementById('wmFill');
+    if (fill) {
+      var pct = 100;
+      if (nx) pct = nx.xp > 0 ? Math.min(100, Math.round((xpTotal() / nx.xp) * 100)) : 100;
+      fill.style.width = pct + '%';
+    }
+    renderDetail();
+  }
+
+  function selectRegion(id) {
+    if (!regionById(id)) return;
+    mapSel = id;
+    renderMap();
+  }
+
+  function openMap() {
+    var m = document.getElementById('mapModal');
+    if (!m) return;
+    stopCd();
+    try { if (synth) synth.cancel(); } catch (e) {}
+    mapOpen = true;
+    mapSel = null;
+    m.classList.remove('hide');
+    document.body.classList.add('is-mapopen');
+    renderMap();
+    var card = m.querySelector('.wm__card');
+    if (card) card.scrollTop = 0;
+  }
+  function closeMap() {
+    var m = document.getElementById('mapModal');
+    mapOpen = false;
+    if (m) m.classList.add('hide');
+    document.body.classList.remove('is-mapopen');
+    if (current && !revealed && !reflexReady) startCountdown();
+  }
+
+  (function wireMap() {
+    var pill = document.getElementById('mapPill');
+    if (pill) pill.addEventListener('click', function () { Snd.tap(); openMap(); });
+    var m = document.getElementById('mapModal');
+    if (m) {
+      m.addEventListener('click', function (e) {
+        var t = e.target;
+        if (t && t.getAttribute && t.getAttribute('data-mapclose')) { Snd.tap(); closeMap(); return; }
+        var g = t && t.closest ? t.closest('[data-rid]') : null;
+        if (g) { Snd.tap(); selectRegion(g.getAttribute('data-rid')); }
+      });
+      m.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var g = e.target && e.target.closest ? e.target.closest('[data-rid]') : null;
+        if (!g) return;
+        e.preventDefault();
+        Snd.tap();
+        selectRegion(g.getAttribute('data-rid'));
+      });
+    }
+    var x = document.getElementById('mapClose');
+    if (x) x.addEventListener('click', function () { Snd.tap(); closeMap(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && mapOpen) closeMap(); });
+  })();
+
+  /* ============================================================
+     🏠 홈 — 오늘 뭐 할까요?
+     ============================================================ */
+  function renderHome() {
+    var st = stats(), e;
+    e = document.getElementById('hReflex');
+    if (e) e.textContent = '오늘 ' + st.r + ' / 5';
+    e = document.getElementById('hShadow');
+    if (e) e.textContent = '오늘 ' + st.s + ' / 3';
+    e = document.getElementById('hQuiz');
+    if (e) e.textContent = st.runs ? ('오늘 최고 ' + st.best + ' / 5') : (st.q ? '오늘 퀴즈 완료' : '아직 안 했어요');
+    e = document.getElementById('hMap');
+    if (e) e.textContent = '지금 ' + store.unlockedRegions.length + '/18 곳 불 켜짐!';
+  }
+
+  function showHome() {
+    stopCd();
+    try { if (synth) synth.cancel(); } catch (e) {}
+    ['home', 'reflex', 'shadow', 'quiz', 'slang', 'accent'].forEach(function (n) {
+      var p = document.getElementById('tab-' + n);
+      if (p) p.classList.toggle('is-on', n === 'home');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (b) { b.classList.remove('is-on'); });
+    renderHome();
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
+  (function wireHome() {
+    var home = document.getElementById('tab-home');
+    if (home) {
+      home.addEventListener('click', function (e) {
+        var b = e.target && e.target.closest ? e.target.closest('[data-go]') : null;
+        if (!b) return;
+        var go = b.getAttribute('data-go');
+        if (go === 'map') { Snd.tap(); openMap(); return; }
+        var tab = document.querySelector('.tab[data-tab="' + go + '"]');
+        if (tab) tab.click();
+      });
+    }
+    var hb = document.getElementById('homeBtn');
+    if (hb) hb.addEventListener('click', function () { Snd.tap(); showHome(); });
+  })();
+
+  (function initMap() {
+    if (typeof store.xp !== 'number' || !isFinite(store.xp)) store.xp = 0;
+    if (!Array.isArray(store.unlockedRegions)) store.unlockedRegions = [];
+    if (store.unlockedRegions.indexOf('cal') === -1) store.unlockedRegions.unshift('cal');
+    if (typeof store.naCount !== 'number') store.naCount = 0;
+    /* 예전에 쌓인 XP가 있으면 조용히 맞춰 둔다 */
+    REGIONS.forEach(function (r) {
+      if (r.xp > 0 && xpTotal() >= r.xp && !isUnlocked(r)) store.unlockedRegions.push(r.id);
+    });
+    save();
+    renderMapPill();
+  })();
   /* ============================================================
      음소거 · 초기화
      ============================================================ */
@@ -4119,6 +4871,7 @@ body.is-lvopen{overflow:hidden}
     if (userLevel()) { cat = 'level'; week = recommendedWeek(); }
     syncCatChips();
     renderLevelPill();
+    renderMapPill();
     renderStats();
     buildQueue();
     renderReflex();
@@ -4141,6 +4894,30 @@ body.is-lvopen{overflow:hidden}
       level: userLevel,
       apply: applyLevel,
       scoreToLevel: lvFromScore
+    };
+    window.__home = { show: showHome, render: renderHome, current: function () { return document.getElementById('tab-home').classList.contains('is-on') ? 'home' : 'tab'; } };
+    window.__app.ready = function () { return reflexReady; };
+    window.__app.startReflex = startReflex;
+    window.__map = {
+      open: openMap,
+      close: closeMap,
+      isOpen: function () { return mapOpen; },
+      regions: REGIONS,
+      xp: xpTotal,
+      addXp: addXp,
+      unlocked: function () { return store.unlockedRegions.slice(); },
+      next: nextRegion,
+      select: selectRegion,
+      selected: function () { return mapSel; },
+      detail: function () { var el = document.getElementById('wmDetail'); return el ? el.textContent : ''; },
+      pill: function () { var el = document.getElementById('mapPill'); return el ? el.textContent : ''; },
+      reset: function () {
+        store.xp = 0; store.unlockedRegions = ['cal']; store.naCount = 0;
+        var d = store.dates || {};
+        Object.keys(d).forEach(function (k) { delete d[k].xp; delete d[k].na; });
+        save(); renderMapPill();
+        if (mapOpen) renderMap();
+      }
     };
     window.__quiz = {
       mode: function () { return quizMode; },
