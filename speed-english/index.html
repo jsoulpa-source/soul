@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v5-2026-11-26-rhythm15">
+<meta name="app-build" content="lightup-english-v5-2026-11-26-rhythm-fs">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1176,28 +1176,90 @@ body.is-mapopen{overflow:hidden}
 .c2w.off{background:#F4F0FA; color:#B6A9D2; font-size:15px}
 .c2hint2{margin-top:8px; font-size:10px; font-weight:800; color:var(--muted)}
 
-/* ---- 3단계 리듬 문법 ---- */
-.rg__bar{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:9px}
-.rg__sent{flex:1; min-height:20px; font-size:13px; font-weight:900; color:var(--ink); letter-spacing:-.02em; word-break:keep-all; line-height:1.7}
-.rg__sent .w{display:inline-block; padding:1px 5px; margin-right:3px; border-radius:6px; background:#F3EEFF; color:#6B54C4}
-.rg__sent .w.st{background:#FFE4E8; color:#B3243F; box-shadow:0 0 0 1px #FFC2CB inset}
-.rg__sent .w.miss{background:#F5F3F8; color:#AA9EC2; text-decoration:line-through}
-.rg__sent .w.pend{background:#EDE4FA; color:#B4A2D6; padding:3px 9px; letter-spacing:.08em}
-.rg__sent .rg__ph2{display:block; margin-top:2px; font-size:11px; font-weight:800; color:var(--ink2)}
-.rg__combo{flex:none; font-size:9.5px; font-weight:900; color:#8A63E8; background:var(--soft); padding:4px 9px; border-radius:999px; font-variant-numeric:tabular-nums}
-.rg__combo.hot{background:#FFE4E8; color:#C02A44}
-.rg__speeds{display:flex; gap:2px; margin-bottom:9px}
-.rg__speeds .seg__b{flex:1; padding:7px 4px; font-size:10.5px}
+/* ---- 3단계 리듬 문법 · 전체 화면 게임 (rhythm-fs) ---- */
+:root{--rgk:62px}
+#rgFS{
+  position:fixed; inset:0; height:100dvh; z-index:55; display:none; flex-direction:column; gap:7px;
+  padding:calc(env(safe-area-inset-top,0px) + 9px) 10px calc(env(safe-area-inset-bottom,0px) + 9px);
+  color:#fff; overscroll-behavior:contain;
+  background:
+    radial-gradient(130% 55% at 50% -8%, rgba(139,108,240,.45), rgba(139,108,240,0) 62%),
+    radial-gradient(95% 45% at 50% 104%, rgba(255,122,156,.26), rgba(255,122,156,0) 68%),
+    linear-gradient(180deg,#150E28 0%,#1D1536 46%,#291E4A 100%);
+}
+#rgFS.is-on{display:flex}
+body.rg-lock{overflow:hidden}
+
+/* 상단 바 */
+.rgfs__top{flex:none; display:flex; align-items:center; gap:6px}
+.rgfs__exit{
+  flex:none; display:inline-flex; align-items:center; gap:4px; padding:8px 12px; border-radius:12px;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:#fff;
+  font-size:11.5px; font-weight:900; letter-spacing:-.02em; transition:background .14s, transform .1s;
+}
+.rgfs__exit:active{transform:scale(.96); background:rgba(255,255,255,.2)}
+.rgfs__prog{
+  flex:none; padding:7px 9px; border-radius:11px; background:rgba(255,255,255,.08);
+  font-size:11px; font-weight:900; color:#E9DEFF; font-variant-numeric:tabular-nums;
+}
+.rgfs__combo{
+  flex:none; padding:7px 10px; border-radius:11px; background:rgba(255,255,255,.08);
+  font-size:9.5px; font-weight:900; color:#C7B4FF; font-variant-numeric:tabular-nums; letter-spacing:.01em;
+  transition:background .16s, color .16s, box-shadow .16s;
+}
+.rgfs__combo.hot{background:linear-gradient(158deg,#FF7A9C,#E23D63); color:#fff; box-shadow:0 0 16px rgba(255,122,156,.65)}
+.rgfs__snd{
+  flex:none; width:36px; height:34px; margin-left:auto; border-radius:12px; line-height:1;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); font-size:15px;
+  transition:transform .1s, opacity .14s;
+}
+.rgfs__snd.is-off{opacity:.55}
+.rgfs__snd:active{transform:scale(.94)}
+
+/* 속도 알약 */
+.rgfs__speeds{flex:none; display:flex; gap:5px}
+.rgfs__sp{
+  flex:1; display:inline-flex; align-items:center; justify-content:center; gap:4px;
+  padding:8px 4px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13);
+  color:#D9CCF6; font-size:11.5px; font-weight:900; font-variant-numeric:tabular-nums; letter-spacing:-.01em;
+  transition:background .16s, color .16s, box-shadow .16s, transform .1s;
+}
+.rgfs__sp em{font-style:normal; font-size:12.5px}
+.rgfs__sp:active{transform:scale(.97)}
+.rgfs__sp.is-on{
+  background:linear-gradient(158deg,#A98BFF,#7A57DD); color:#fff; border-color:rgba(255,255,255,.32);
+  box-shadow:0 6px 18px rgba(122,87,221,.5), 0 0 0 1px rgba(255,255,255,.12) inset;
+}
+
+/* 문장 조립 줄 */
+.rgfs__sent{
+  flex:none; min-height:36px; font-size:14px; font-weight:900; line-height:1.55; letter-spacing:-.025em;
+  word-break:keep-all; color:#F1ECFF; padding:7px 10px; border-radius:14px;
+  background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.08);
+}
+.rgfs__sent b{color:#FFE9A8}
+.rgfs__sent .w{display:inline-block; padding:1px 7px; margin-right:3px; border-radius:8px; background:rgba(167,139,250,.28); color:#E6DBFF}
+.rgfs__sent .w.st{background:rgba(255,110,140,.32); color:#FFD9E0; box-shadow:0 0 0 1px rgba(255,168,186,.45) inset}
+.rgfs__sent .w.miss{background:rgba(255,255,255,.07); color:#9C90B8; text-decoration:line-through}
+.rgfs__sent .w.pend{background:rgba(255,255,255,.05); color:#A292CA; letter-spacing:.1em; padding:1px 8px}
+.rgfs__sent .rg__ph2{display:block; font-size:10.5px; font-weight:800; color:#BEAEE6; letter-spacing:-.01em}
+
+/* 무대 */
 .rg__stage{
-  position:relative; height:258px; border-radius:20px; overflow:hidden;
-  background:linear-gradient(180deg,#1F1739 0%,#2A1F4D 60%,#372A62 100%);
-  border:1px solid #2E2354; box-shadow:inset 0 0 70px rgba(139,108,240,.2), 0 12px 26px rgba(31,23,57,.22);
+  position:relative; flex:1 1 auto; min-height:230px; border-radius:20px; overflow:hidden;
+  background:linear-gradient(180deg,#1F1739 0%,#251C45 58%,#332856 100%);
+  border:1px solid rgba(167,139,250,.28);
+  box-shadow:inset 0 0 90px rgba(139,108,240,.22), 0 12px 30px rgba(10,6,24,.45);
   touch-action:manipulation;
 }
-.rg__lanes{position:absolute; left:0; right:0; top:0; bottom:52px; display:grid; grid-template-columns:repeat(3,1fr)}
-.rg__lane{position:relative; border-right:1px solid rgba(255,255,255,.055); transition:background .12s}
+.rg__stage::after{
+  content:''; position:absolute; left:0; right:0; top:0; height:56px; z-index:7; pointer-events:none;
+  background:linear-gradient(180deg,#1F1739 8%,rgba(31,23,57,.75) 45%,rgba(31,23,57,0) 100%);
+}
+.rg__lanes{position:absolute; left:0; right:0; top:0; bottom:var(--rgk); z-index:6; display:grid; grid-template-columns:repeat(3,1fr)}
+.rg__lane{position:relative; border-right:1px solid rgba(255,255,255,.06); transition:background .12s}
 .rg__lane:last-child{border-right:0}
-.rg__lane.is-hit{background:rgba(255,255,255,.06)}
+.rg__lane.is-hit{background:rgba(167,139,250,.12)}
 .note{
   position:absolute; left:8%; right:8%; height:34px; display:grid; place-items:center;
   border-radius:13px; font-weight:900; text-align:center; line-height:1.1; padding:2px 3px;
@@ -1209,41 +1271,149 @@ body.is-mapopen{overflow:hidden}
 .note.st{
   left:3%; right:3%; height:44px; font-size:12.5px;
   background:linear-gradient(158deg,#FF6B6B 0%,#EF4444 52%,#D0263A 100%); color:#fff;
-  border:1px solid #FFB8BC; box-shadow:0 0 20px rgba(239,68,68,.55),0 6px 16px rgba(196,34,58,.38);
+  border:1px solid #FFB8BC; box-shadow:0 0 22px rgba(239,68,68,.6),0 6px 16px rgba(196,34,58,.4);
 }
 .note.st span{text-shadow:0 1px 3px rgba(120,10,30,.35)}
 .note .nst{position:absolute; right:4px; top:1px; font-style:normal; font-size:8px; opacity:.92}
-.note.is-near{filter:brightness(1.18)}
+.note.is-near{filter:brightness(1.22); box-shadow:0 0 16px rgba(255,233,168,.5)}
 .note.is-dead{opacity:.25; filter:grayscale(.6)}
-.rg__line{position:absolute; left:0; right:0; bottom:52px; z-index:4; height:2px; background:linear-gradient(90deg,rgba(255,233,168,0),#FFE9A8 22%,#FF7A9C 50%,#FFE9A8 78%,rgba(255,233,168,0)); box-shadow:0 0 16px rgba(255,122,156,.6); pointer-events:none}
-.rg__keys{position:absolute; left:0; right:0; bottom:0; height:52px; display:grid; grid-template-columns:repeat(3,1fr); z-index:3; background:linear-gradient(180deg,#2A1F4D,#221940)}
-.rg__key{display:grid; place-items:center; font-size:10px; font-weight:900; color:#CBBCEA; border-top:1px solid rgba(255,255,255,.09); border-right:1px solid rgba(255,255,255,.05); transition:background .1s, color .1s; user-select:none}
-.rg__key:last-child{border-right:0}
-.rg__key.is-hit{background:rgba(139,108,240,.26); color:#fff}
-.rg__fb{
-  position:absolute; left:0; right:0; bottom:142px; text-align:center; font-size:16px; font-weight:900;
-  color:#FFE9A8; text-shadow:0 2px 14px rgba(0,0,0,.5); opacity:0; transform:translateY(7px);
-  transition:opacity .18s, transform .18s; pointer-events:none; z-index:6; letter-spacing:-.02em;
+
+/* 결승선(HIT ZONE) — 판정 밴드 */
+.rg__hz{
+  position:absolute; left:0; right:0; bottom:var(--rgk); height:64px; transform:translateY(50%); z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,209,102,0),rgba(167,139,250,.16) 34%,rgba(255,224,150,.24) 50%,rgba(167,139,250,.16) 66%,rgba(255,209,102,0));
+  border-top:1px dashed rgba(255,225,160,.3); border-bottom:1px dashed rgba(255,225,160,.3);
 }
-.rg__fb span{display:inline-block; padding:3px 14px; border-radius:999px; background:rgba(16,11,32,.62); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px)}
+.rg__hzl{
+  position:absolute; left:10px; right:10px; bottom:calc(var(--rgk) + 33px); z-index:9; pointer-events:none;
+  display:flex; align-items:center; justify-content:space-between; gap:6px;
+}
+.rg__hzlab{font-size:7.5px; font-weight:900; letter-spacing:.18em; color:#FFE9A8; opacity:.66; text-shadow:0 1px 6px rgba(10,6,24,.8)}
+.rg__hzhint{font-size:8.5px; font-weight:900; color:#FFE3B0; opacity:.85; letter-spacing:-.02em; text-shadow:0 1px 6px rgba(10,6,24,.8)}
+
+/* 결승선 — 판정 바 */
+.rg__line{
+  position:absolute; left:0; right:0; bottom:var(--rgk); height:5px; transform:translateY(50%); z-index:8;
+  border-radius:3px; pointer-events:none;
+  background:linear-gradient(90deg,#B79CF5 0%,#FFD166 16%,#FFF9E0 50%,#FFD166 84%,#B79CF5 100%);
+  box-shadow:0 0 6px rgba(255,255,255,.95), 0 0 16px rgba(255,241,190,.95), 0 0 30px rgba(255,209,102,.9), 0 0 52px rgba(167,139,250,.9), 0 0 80px rgba(255,209,102,.5);
+  animation:rgLineGlow var(--rgbeat,705ms) ease-in-out infinite;
+}
+.rg__line::before{
+  content:''; position:absolute; left:0; right:0; top:50%; height:40px; transform:translateY(-50%);
+  background:radial-gradient(70% 50% at 50% 50%, rgba(255,233,168,.5), rgba(255,209,102,.14) 55%, rgba(255,209,102,0) 78%);
+}
+@keyframes rgLineGlow{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.25)}
+}
+
+/* 결승선 위 리셉터 패드 (레인별) */
+.rg__pads{
+  position:absolute; left:0; right:0; bottom:var(--rgk); height:50px; transform:translateY(50%); z-index:5;
+  display:grid; grid-template-columns:repeat(3,1fr); pointer-events:none;
+}
+.rg__pad{
+  display:block; margin:0 4%; height:100%; border-radius:16px;
+  border:2.5px solid rgba(255,229,168,.85);
+  background:linear-gradient(180deg,rgba(255,233,168,.2),rgba(167,139,250,.3));
+  box-shadow:0 0 16px rgba(255,209,102,.3), 0 0 22px rgba(167,139,250,.28);
+  animation:rgPadPulse var(--rgbeat,705ms) ease-in-out infinite;
+  transition:background .1s, border-color .1s, box-shadow .1s;
+}
+.rg__pad:nth-child(2){animation-delay:calc(var(--rgbeat,705ms) * -.33)}
+.rg__pad:nth-child(3){animation-delay:calc(var(--rgbeat,705ms) * -.66)}
+@keyframes rgPadPulse{
+  0%,100%{box-shadow:0 0 12px rgba(255,209,102,.18) inset,0 0 14px rgba(255,209,102,.26),0 0 20px rgba(167,139,250,.24); border-color:rgba(255,229,168,.7)}
+  50%{box-shadow:0 0 20px rgba(255,209,102,.42) inset,0 0 26px rgba(255,209,102,.5),0 0 38px rgba(167,139,250,.5); border-color:#FFF3C4}
+}
+.rg__pad.is-hit{
+  animation:none; background:linear-gradient(180deg,#8CF7C8,#22C88A); border-color:#E7FFF3;
+  box-shadow:0 0 0 3px rgba(231,255,243,.55), 0 0 30px rgba(34,200,138,.95), 0 0 60px rgba(34,200,138,.55);
+}
+.rg__pad.is-perfect{
+  animation:none; background:linear-gradient(180deg,#FFF2C0,#FFC24B); border-color:#FFF8E0;
+  box-shadow:0 0 0 3px rgba(255,248,224,.6), 0 0 30px rgba(255,194,75,.95), 0 0 62px rgba(255,233,168,.62);
+}
+.rg__pad.is-tap{animation:none; border-color:rgba(255,255,255,.9); box-shadow:0 0 20px rgba(255,255,255,.5)}
+
+/* 하단 터치 레인 */
+.rg__keys{
+  position:absolute; left:0; right:0; bottom:0; height:var(--rgk); z-index:2;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  background:linear-gradient(180deg,#2A1F4D,#1F1738); border-top:1px solid rgba(255,225,160,.35);
+}
+.rg__key{
+  display:grid; place-items:center; font-size:11px; font-weight:900; color:#D6C8F5;
+  border-right:1px solid rgba(255,255,255,.06); transition:background .1s, color .1s, box-shadow .1s; user-select:none;
+}
+.rg__key:last-child{border-right:0}
+.rg__key.is-hit{background:rgba(167,139,250,.34); color:#fff; box-shadow:0 0 18px rgba(167,139,250,.6) inset}
+
+/* 판정 피드백 */
+.rg__fb{
+  position:absolute; left:0; right:0; bottom:calc(var(--rgk) + 52px); text-align:center; font-size:16px; font-weight:900;
+  color:#FFE9A8; text-shadow:0 2px 14px rgba(0,0,0,.55); opacity:0; transform:translateY(7px);
+  transition:opacity .18s, transform .18s; pointer-events:none; z-index:9; letter-spacing:-.02em;
+}
+.rg__fb span{display:inline-block; padding:3px 14px; border-radius:999px; background:rgba(16,11,32,.68); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px)}
 .rg__fb.show{opacity:1; transform:none}
 .rg__fb.good{color:#8BF0D2}
 .rg__fb.miss{color:#FF9BAE}
+
+/* 문장 끝 다음 버튼 */
+#rgCta{position:absolute; left:10px; right:10px; bottom:calc(var(--rgk) + 74px); z-index:9; display:flex; justify-content:center}
+#rgCta button{
+  padding:13px 24px; border-radius:16px; color:#fff; font-size:13px; font-weight:900; letter-spacing:-.02em;
+  background:linear-gradient(152deg,#A98BFF,#7A57DD); box-shadow:0 10px 26px rgba(122,87,221,.5);
+}
+#rgCta button:active{transform:scale(.97)}
+
+/* 시작 전 · 한국어 미리보기 */
 .rg__prev{
-  position:absolute; inset:0; z-index:7; display:grid; place-content:center; justify-items:center; gap:7px;
-  padding:0 18px; text-align:center; background:rgba(20,14,38,.86); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+  position:absolute; inset:0; z-index:10; display:grid; place-content:center; justify-items:center; gap:7px;
+  padding:0 18px; text-align:center; background:rgba(20,14,38,.88); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
 }
 .rg__pko{font-size:17px; font-weight:900; color:#FFE7AC; letter-spacing:-.03em; line-height:1.45; word-break:keep-all}
 .rg__ph{font-size:9.5px; font-weight:800; color:#C6B7E6}
 .rg__pbar{width:118px; height:5px; border-radius:999px; background:rgba(255,255,255,.16); overflow:hidden; margin-top:2px}
 .rg__pbar i{display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,#FFD98A,#FF7A9C)}
-.rg__legend{display:flex; flex-wrap:wrap; gap:10px; margin-top:9px; font-size:9px; font-weight:800; color:var(--muted)}
-.rg__legend i{display:inline-block; width:11px; height:11px; border-radius:4px; vertical-align:-1px; margin-right:4px}
-.lg-st{background:linear-gradient(158deg,#FF6B6B,#EF4444); box-shadow:0 0 6px rgba(239,68,68,.5)}
-.lg-un{background:linear-gradient(158deg,#EDE8FF,#CFC3F2)}
-.rg__hint{margin-top:9px; font-size:10px; font-weight:800; color:var(--muted); line-height:1.6; word-break:keep-all}
-.rg__hint b{color:var(--violet-d); font-weight:900}
-#rgCta{margin-top:12px}
+
+/* 결과 카드 */
+.rg__fin{
+  position:absolute; inset:0; z-index:12; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:7px; padding:16px; text-align:center; background:rgba(18,12,32,.94);
+  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+}
+.rg__fin.hide{display:none}
+.rg__fin h2{font-size:16.5px; font-weight:900; color:#fff; letter-spacing:-.035em; word-break:keep-all}
+.rg__fin p{font-size:11.5px; font-weight:800; color:#CFC2EC; line-height:1.7; word-break:keep-all}
+.rg__fin p b{color:#FFE9A8; font-weight:900}
+.rg__finStats{display:flex; gap:6px; width:100%; max-width:310px; margin-top:3px}
+.rg__finStats div{flex:1; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:8px 3px}
+.rg__finStats b{display:block; font-size:15px; font-weight:900; color:#fff; font-variant-numeric:tabular-nums}
+.rg__finStats span{font-size:8.5px; font-weight:800; color:#A99AC8}
+.rg__finBtns{display:flex; flex-direction:column; gap:6px; width:100%; max-width:310px; margin-top:6px}
+.rg__finBtns button{padding:13px; border-radius:15px; font-size:12.5px; font-weight:900; color:#fff; letter-spacing:-.02em}
+.rg__finBtns .rg__fb2{background:linear-gradient(152deg,#A98BFF,#7A57DD); box-shadow:0 10px 26px rgba(122,87,221,.45)}
+.rg__finBtns .rg__fb1{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2)}
+
+/* 하단 안내 */
+.rgfs__foot{flex:none; margin:0; font-size:9.5px; font-weight:800; color:#9E90BE; line-height:1.55; text-align:center; word-break:keep-all}
+.rgfs__foot b{color:#C9B6FF; font-weight:900}
+
+/* 코스 화면에 남는 '다시 열기' 카드 */
+.rg__reopen{
+  text-align:center; padding:26px 18px 20px; border-radius:24px;
+  background:linear-gradient(165deg,#FFFDF7 0%,#FBF1FF 58%,#FFF0F7 100%);
+  border:1px solid #F0E4FB; box-shadow:0 14px 32px rgba(74,52,140,.09);
+}
+.rg__reopenE{font-size:40px; line-height:1}
+.rg__reopenT{font-size:15px; font-weight:900; margin-top:8px; letter-spacing:-.03em; word-break:keep-all}
+.rg__reopenT b{color:var(--violet-d)}
+.rg__reopenS{font-size:11px; font-weight:800; color:var(--ink2); margin-top:6px; line-height:1.7; word-break:keep-all}
+.rg__reopen .btn--primary{width:100%; margin-top:14px}
 
 /* ---- 4단계 보너스 ---- */
 .c4src{font-size:9.5px; font-weight:900; color:#8A63E8; background:var(--soft); padding:4px 9px; border-radius:999px; display:inline-block}
@@ -5628,19 +5798,21 @@ body.is-mapopen{overflow:hidden}
       if (p) p.classList.toggle('is-on', n === 'course');
     });
   }
-  function openCourse(step) {
+  function openCourse(step, from) {
     stopCd();
     crsStopAll();
     try { if (synth) synth.cancel(); } catch (e) {}
+    RGN.from = from || 'course';
     crsShowOnly();
     var want = Number(step) || 0;
     crsState.step = want ? want : crsNextStep();
     crsRenderAll();
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
   }
-  function crsGo(n) {
+  function crsGo(n, from) {
     crsStopAll();
     try { if (synth) synth.cancel(); } catch (e) {}
+    if (from) RGN.from = from;
     crsState.step = Number(n) || 0;
     crsRenderAll();
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
@@ -5649,6 +5821,7 @@ body.is-mapopen{overflow:hidden}
     c1Stop();
     c2Stop();
     rgStop();
+    rgFsClose();
     clearTimeout(c4Timer);
   }
   function crsRenderAll() {
@@ -6054,12 +6227,22 @@ body.is-mapopen{overflow:hidden}
   var RGN = {
     sets: [], si: 0, bpm: 85, phase: 'idle', tStart: 0, beatMs: 705.88, fallMs: 2117,
     notes: [], settled: [], sent: [], combo: 0, maxCombo: 0,
-    perfect: 0, good: 0, miss: 0, raf: 0, pvTimer: 0, endTimer: 0, hitTimer: 0
+    perfect: 0, good: 0, miss: 0, raf: 0, pvTimer: 0, endTimer: 0, hitTimer: 0,
+    fsOpen: false, from: 'course', finished: false
   };
   function rgWin() { return Math.max(170, RGN.beatMs * 0.45); }
+  /* 결승선의 y = 무대 높이 - 하단 터치레인 높이. 노트 top(px)은 노트 중심이라
+     px === rgStageH() 인 순간 노트 중심이 결승선(=리셉터 패드 중심)에 정확히 온다. */
+  function rgKeyH() {
+    var k = document.getElementById('rgKeys');
+    var h = k ? k.offsetHeight : 0;
+    return h > 10 ? h : 62;
+  }
   function rgStageH() {
     var st = document.getElementById('rgStage');
-    return (st ? st.clientHeight : 258) - 52;
+    var h = st ? st.clientHeight : 0;
+    if (!h || h < 120) h = 520;
+    return Math.max(120, h - rgKeyH());
   }
   function rgStop() {
     RGN.phase = RGN.phase === 'fall' ? 'off' : 'idle';
@@ -6068,48 +6251,111 @@ body.is-mapopen{overflow:hidden}
     clearTimeout(RGN.endTimer);
     clearTimeout(RGN.hitTimer);
   }
+  /* ---- 전체 화면 껍데기 ---- */
+  function rgFsEl() {
+    var el = document.getElementById('rgFS');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'rgFS';
+      el.setAttribute('role', 'dialog');
+      el.setAttribute('aria-modal', 'true');
+      el.setAttribute('aria-label', '리듬 문법 게임');
+      document.body.appendChild(el);
+    }
+    return el;
+  }
+  function rgFsShow() {
+    rgFsEl().classList.add('is-on');
+    document.body.classList.add('rg-lock');
+    RGN.fsOpen = true;
+  }
+  function rgFsClose() {
+    var el = document.getElementById('rgFS');
+    if (el) el.classList.remove('is-on');
+    document.body.classList.remove('rg-lock');
+    RGN.fsOpen = false;
+  }
+
+  /* 코스 화면(오버레이 뒤)에 남는 카드 */
+  function rgLauncherHtml() {
+    return '<div class="cshead"><h2>🥁 3단계 · 리듬 문법</h2><span>전체 화면 게임</span></div>' +
+      '<div class="rg__reopen">' +
+        '<p class="rg__reopenE">🥁</p>' +
+        '<p class="rg__reopenT">리듬 문법은 <b>전체 화면</b>으로 열려요</p>' +
+        '<p class="rg__reopenS">3개 레인에 떨어지는 <b>맞는 단어</b>를<br>빛나는 결승선 위 초록 패드에서 탭!</p>' +
+        '<button class="btn--primary" type="button" id="rgReopen">▶ 리듬 문법 열기</button>' +
+      '</div>';
+  }
+  function rgBindReopen() {
+    var b = document.getElementById('rgReopen');
+    if (b) b.addEventListener('click', function () { Snd.tap(); rgGameOpen(); });
+  }
+
+  /* 3단계로 들어오면 바로 전체 화면 게임을 연다 */
   function rgRender() {
     var host = document.getElementById('c3Host');
-    if (!host) return;
-    RGN.phase = 'idle';
-    host.innerHTML =
-      '<div class="cshead"><h2>🥁 3단계 · 리듬 문법</h2><span id="rgProg">1 / 5 문장</span></div>' +
-      '<div class="rg">' +
-        '<div class="rg__bar">' +
-          '<span class="rg__sent" id="rgSent">레인에 떨어지는 <b>맞는 단어</b>를 쳐서 문장을 완성해요</span>' +
-          '<span class="rg__combo" id="rgCombo">COMBO 0</span>' +
-        '</div>' +
-        '<div class="rg__speeds seg" id="rgSpeeds">' +
-          '<button class="seg__b" type="button" data-bpm="65" aria-pressed="false">🐢 천천히</button>' +
-          '<button class="seg__b is-on" type="button" data-bpm="85" aria-pressed="true">🎵 보통</button>' +
-          '<button class="seg__b" type="button" data-bpm="105" aria-pressed="false">🔥 빠르게</button>' +
-        '</div>' +
-        '<div class="rg__stage" id="rgStage">' +
-          '<div class="rg__lanes" id="rgLanes">' +
-            '<div class="rg__lane" data-lane="0"></div><div class="rg__lane" data-lane="1"></div><div class="rg__lane" data-lane="2"></div>' +
-          '</div>' +
-          '<div class="rg__line"></div>' +
-          '<div class="rg__keys" id="rgKeys">' +
-            '<div class="rg__key" data-lane="0">1 · A</div><div class="rg__key" data-lane="1">2 · S</div><div class="rg__key" data-lane="2">3 · D</div>' +
-          '</div>' +
-          '<div class="rg__fb" id="rgFb"></div>' +
-          '<div class="rg__prev hide" id="rgPrev">' +
-            '<span class="rg__pko" id="rgPko"></span>' +
-            '<span class="rg__ph">2초 동안 문장을 머릿속으로 그려 보세요</span>' +
-            '<span class="rg__pbar"><i id="rgPbar"></i></span>' +
-          '</div>' +
-        '</div>' +
-        '<div class="rg__legend">' +
-          '<span><i class="lg-st"></i>강세 — 크고 힘 있게</span>' +
-          '<span><i class="lg-un"></i>약박 — 짧고 가볍게</span>' +
-        '</div>' +
-        '<p class="rg__hint" id="rgHint">' + rgHintText() + '</p>' +
-        '<div id="rgCta"><button class="btn--primary" type="button" id="rgStart">▶ 리듬 시작</button></div>' +
-      '</div>';
+    if (host) { host.innerHTML = rgLauncherHtml(); rgBindReopen(); }
+    rgGameOpen();
+  }
 
-    document.getElementById('rgStart').addEventListener('click', function () {
-      Snd.tap();
-      rgStartRound();
+  function rgGameOpen() {
+    rgStop();
+    RGN.phase = 'idle';
+    RGN.notes = [];
+    RGN.settled = [0, 0, 0, 0];
+    RGN.sent = [];
+    RGN.finished = false;
+    var fs = rgFsEl();
+    fs.innerHTML =
+      '<div class="rgfs__top">' +
+        '<button class="rgfs__exit" type="button" id="rgExit" aria-label="리듬 문법 나가기">✕ 나가기</button>' +
+        '<span class="rgfs__prog" id="rgProg">1 / 5</span>' +
+        '<span class="rgfs__combo" id="rgCombo">COMBO 0</span>' +
+        '<button class="rgfs__snd" type="button" id="rgSnd" aria-label="효과음 켜기/끄기">' + (store.muted ? '🔇' : '🔊') + '</button>' +
+      '</div>' +
+      '<div class="rgfs__speeds" id="rgSpeeds" role="group" aria-label="속도">' +
+        '<button class="rgfs__sp" type="button" data-bpm="65" aria-pressed="false"><em>🐢</em>65</button>' +
+        '<button class="rgfs__sp is-on" type="button" data-bpm="85" aria-pressed="true"><em>🎵</em>85</button>' +
+        '<button class="rgfs__sp" type="button" data-bpm="105" aria-pressed="false"><em>🔥</em>105</button>' +
+      '</div>' +
+      '<div class="rgfs__sent" id="rgSent">레인에 떨어지는 <b>맞는 단어</b>를 결승선에서 쳐서 문장을 완성해요</div>' +
+      '<div class="rg__stage" id="rgStage">' +
+        '<div class="rg__lanes" id="rgLanes">' +
+          '<div class="rg__lane" data-lane="0"></div><div class="rg__lane" data-lane="1"></div><div class="rg__lane" data-lane="2"></div>' +
+        '</div>' +
+        '<div class="rg__hz"></div>' +
+        '<div class="rg__hzl"><span class="rg__hzlab">HIT ZONE</span><span class="rg__hzhint">▼ 여기 올 때 탭!</span></div>' +
+        '<div class="rg__pads" id="rgPads">' +
+          '<i class="rg__pad" data-pad="0"></i><i class="rg__pad" data-pad="1"></i><i class="rg__pad" data-pad="2"></i>' +
+        '</div>' +
+        '<div class="rg__line"></div>' +
+        '<div class="rg__keys" id="rgKeys">' +
+          '<div class="rg__key" data-lane="0">1 · A</div><div class="rg__key" data-lane="1">2 · S</div><div class="rg__key" data-lane="2">3 · D</div>' +
+        '</div>' +
+        '<div class="rg__fb" id="rgFb"></div>' +
+        '<div id="rgCta"></div>' +
+        '<div class="rg__prev hide" id="rgPrev">' +
+          '<span class="rg__pko" id="rgPko"></span>' +
+          '<span class="rg__ph">2초 동안 문장을 머릿속으로 그려 보세요</span>' +
+          '<span class="rg__pbar"><i id="rgPbar"></i></span>' +
+        '</div>' +
+        '<div class="rg__fin hide" id="rgFin"></div>' +
+      '</div>' +
+      '<p class="rgfs__foot" id="rgHint">' + rgHintText() + '</p>';
+    rgFsShow();
+
+    document.getElementById('rgExit').addEventListener('click', rgExitTo);
+    document.getElementById('rgSnd').addEventListener('click', function () {
+      store.muted = !store.muted;
+      save();
+      try { renderMute(); } catch (e) {}
+      var b = document.getElementById('rgSnd');
+      if (b) {
+        b.textContent = store.muted ? '🔇' : '🔊';
+        b.classList.toggle('is-off', !!store.muted);
+      }
+      if (!store.muted) Snd.pop();
+      rgHintRefresh();
     });
     document.getElementById('rgSpeeds').addEventListener('click', function (e) {
       var b = e.target && e.target.closest ? e.target.closest('[data-bpm]') : null;
@@ -6117,22 +6363,45 @@ body.is-mapopen{overflow:hidden}
       Snd.tap();
       rgSpeed(Number(b.getAttribute('data-bpm')));
     });
-    var mb = document.getElementById('muteBtn');
-    if (mb) mb.addEventListener('click', function () { setTimeout(rgHintRefresh, 0); });
     var stage = document.getElementById('rgStage');
     stage.addEventListener('pointerdown', function (e) {
       var t = e.target && e.target.closest ? e.target.closest('[data-lane]') : null;
       if (!t) return;
       var lane = Number(t.getAttribute('data-lane'));
-      if (!isNaN(lane)) rgTap(lane);
+      if (!isNaN(lane) && lane >= 0) rgTap(lane);
     });
+    var cta = document.getElementById('rgCta');
+    if (cta) cta.innerHTML = '<button type="button" id="rgStart">▶ 리듬 시작</button>';
+    var st = document.getElementById('rgStart');
+    if (st) st.addEventListener('click', function () { Snd.tap(); rgStartRound(); });
+    rgSpeed(RGN.bpm);
   }
+
+  /* ✕ 나가기 — 코스(또는 퀴즈 탭)로 깔끔하게 돌아간다 */
+  function rgExitTo() {
+    try { Snd.tap(); } catch (e) {}
+    rgStop();
+    try { if (synth) synth.cancel(); } catch (e) {}
+    rgFsClose();
+    var from = RGN.from;
+    RGN.from = 'course';
+    if (from === 'quiz') {
+      var t = document.querySelector('.tab[data-tab="quiz"]');
+      if (t) { t.click(); return; }
+    }
+    if (!RGN.finished) {
+      var host = document.getElementById('c3Host');
+      if (host) { host.innerHTML = rgLauncherHtml(); rgBindReopen(); }
+    }
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  }
+
   function rgHintText() {
     if (store.muted) {
-      return '지금은 <b>음소거</b> 중이라 소리가 나지 않아요. 위 🔊 버튼을 누르면 <b>단어 발음</b>이 나와요.<br>' +
-        '보라색 줄에 닿는 순간 <b>맞는 단어 칸</b>을 눌러요.';
+      return '지금은 <b>음소거</b> 중 — 위 🔊 를 누르면 <b>단어 발음</b>이 나와요.<br>' +
+        '단어가 <b>빛나는 결승선</b> 위 초록 패드에 딱 올 때 탭!';
     }
-    return '보라색 줄에 닿는 순간 <b>맞는 단어 칸</b>을 눌러요. 틀려도 문장은 이어져요.<br>' +
+    return '단어가 <b>빛나는 결승선</b> 위 초록 패드에 딱 올 때 탭!<br>' +
       '치는 순간 <b>그 단어 발음</b>이 바로 나와요 🔊';
   }
   function rgHintRefresh() {
@@ -6147,6 +6416,8 @@ body.is-mapopen{overflow:hidden}
       b.classList.toggle('is-on', on);
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
+    var stage = document.getElementById('rgStage');
+    if (stage) stage.style.setProperty('--rgbeat', (60000 / bpm) + 'ms');
     if (RGN.sets.length && RGN.phase !== 'idle') rgSetStart(true);
   }
   function rgStartRound() {
@@ -6155,6 +6426,9 @@ body.is-mapopen{overflow:hidden}
     RGN.perfect = RGN.good = RGN.miss = 0;
     RGN.combo = 0;
     RGN.maxCombo = 0;
+    RGN.finished = false;
+    var fin = document.getElementById('rgFin');
+    if (fin) fin.classList.add('hide');
     rgSetStart();
   }
   function rgSetStart(keep) {
@@ -6169,7 +6443,9 @@ body.is-mapopen{overflow:hidden}
     RGN.notes = [];
     Array.prototype.forEach.call(document.querySelectorAll('#rgLanes .rg__lane'), function (l) { l.innerHTML = ''; });
     var pg = document.getElementById('rgProg');
-    if (pg) pg.textContent = (RGN.si + 1) + ' / ' + RGN.sets.length + ' 문장';
+    if (pg) pg.textContent = (RGN.si + 1) + ' / ' + RGN.sets.length;
+    var stageEl = document.getElementById('rgStage');
+    if (stageEl) stageEl.style.setProperty('--rgbeat', RGN.beatMs + 'ms');
     var sent = document.getElementById('rgSent');
     if (sent) sent.innerHTML = '<span class="w pend">____</span> <span class="w pend">____</span> <span class="w pend">____</span> <span class="w pend">____</span>';
     var cb = document.getElementById('rgCombo');
@@ -6186,8 +6462,8 @@ body.is-mapopen{overflow:hidden}
       bar.style.transition = 'width 2s linear';
       bar.style.width = '100%';
     }
-    document.getElementById('rgCta').innerHTML = '<button class="btn--ghost" type="button" id="rgQuit" style="width:100%">■ 그만하기</button>';
-    document.getElementById('rgQuit').addEventListener('click', function () { Snd.tap(); rgStop(); rgRender(); });
+    var cta = document.getElementById('rgCta');
+    if (cta) cta.innerHTML = '';
     RGN.pvTimer = setTimeout(function () { rgFall(set); }, 2000);
   }
   function rgFall(set) {
@@ -6222,13 +6498,14 @@ body.is-mapopen{overflow:hidden}
     var t = now - RGN.tStart;
     var H = rgStageH();
     var win = rgWin();
+    var TOP = 42;   /* 무대 위쪽 밖에서 들어와 부드럽게 내려온다 — 판정 시각은 그대로(px=H) */
     for (var k = 0; k < 4; k++) {
-      var px = ((t - k * RGN.beatMs) / RGN.fallMs) * H;
+      var px = ((t - k * RGN.beatMs) / RGN.fallMs) * (H + TOP) - TOP;
       for (var j = 0; j < 3; j++) {
         var el = RGN.notes[k] && RGN.notes[k][j];
         if (!el) continue;
         el.style.top = Math.round(px) + 'px';
-        el.classList.toggle('is-near', !RGN.settled[k] && Math.abs(px - H) < 30);
+        el.classList.toggle('is-near', !RGN.settled[k] && Math.abs(px - H) < 26);
       }
       if (!RGN.settled[k] && t > RGN.fallMs + k * RGN.beatMs + win) rgSettle(k, -1, 0);
     }
@@ -6244,9 +6521,21 @@ body.is-mapopen{overflow:hidden}
       var d = Math.abs(now - (RGN.fallMs + k * RGN.beatMs));
       if (d < bestD) { bestD = d; best = k; }
     }
+    var set = RGN.sets[RGN.si];
+    var inWin = best >= 0 && bestD <= win && !!set;
+    var okHit = inWin && set.beats[best].ok === lane;
     rgLaneFlash(lane);
-    if (best < 0 || bestD > win) { Snd.tap(); return; }   /* 빗나간 빈 탭 */
+    rgPadFlash(lane, okHit ? (bestD <= RGN.beatMs * 0.18 ? 'perfect' : 'good') : 'tap');
+    if (!inWin) { Snd.tap(); return; }   /* 빗나간 빈 탭 */
     rgSettle(best, lane, bestD);
+  }
+  /* 결승선 위 리셉터 패드를 쳤을 때 반짝 */
+  function rgPadFlash(lane, kind) {
+    var pad = document.querySelector('#rgPads [data-pad="' + lane + '"]');
+    if (!pad) return;
+    var cls = kind === 'perfect' ? 'is-perfect' : (kind === 'good' ? 'is-hit' : 'is-tap');
+    pad.classList.add(cls);
+    setTimeout(function () { pad.classList.remove(cls); }, kind === 'tap' ? 140 : 200);
   }
   function rgLaneFlash(lane) {
     var key = document.querySelector('#rgKeys [data-lane="' + lane + '"]');
@@ -6351,29 +6640,51 @@ body.is-mapopen{overflow:hidden}
       });
     }
     var pg = document.getElementById('rgProg');
-    if (pg) pg.textContent = (RGN.si + 1) + ' / ' + RGN.sets.length + ' 문장';
+    if (pg) pg.textContent = (RGN.si + 1) + ' / ' + RGN.sets.length;
   }
   function rgResult() {
     RGN.phase = 'idle';
+    RGN.finished = true;
     crsMark(3, 4);
     var host = document.getElementById('c3Host');
-    if (!host) return;
-    host.innerHTML =
-      '<div class="fin">' +
-        '<p class="fin__e">🥁</p>' +
+    if (host) {
+      host.innerHTML =
+        '<div class="fin">' +
+          '<p class="fin__e">🥁</p>' +
+          '<h2>리듬 문법 5문장, 끝냈어요!</h2>' +
+          '<p>PERFECT <b>' + RGN.perfect + '</b> · GOOD <b>' + RGN.good + '</b> · MISS <b>' + RGN.miss + '</b><br>' +
+            '최고 콤보 <b>' + RGN.maxCombo + '</b> — 강세 단어를 크게 쳤다면 이미 절반은 온 거예요.</p>' +
+          '<div class="fin__stats">' +
+            '<div class="fin__s"><b>' + crsCount() + '/4</b><span>오늘 단계</span></div>' +
+            '<div class="fin__s"><b>' + todayXp() + '</b><span>오늘 XP</span></div>' +
+          '</div>' +
+          '<div style="margin-top:15px"><button class="btn--primary" type="button" data-cnext="4">4단계 · 한 줄 보너스 →</button></div>' +
+          '<div style="margin-top:8px"><button class="btn--ghost" type="button" id="rgAgain" style="width:100%">한 번 더 🥁</button></div>' +
+        '</div>';
+      var ag = document.getElementById('rgAgain');
+      if (ag) ag.addEventListener('click', function () { Snd.tap(); rgGameOpen(); });
+    }
+    var fin = document.getElementById('rgFin');
+    if (fin) {
+      fin.innerHTML =
+        '<p class="fin__e" style="font-size:34px">🥁</p>' +
         '<h2>리듬 문법 5문장, 끝냈어요!</h2>' +
-        '<p>PERFECT <b>' + RGN.perfect + '</b> · GOOD <b>' + RGN.good + '</b> · MISS <b>' + RGN.miss + '</b><br>' +
-          '최고 콤보 <b>' + RGN.maxCombo + '</b> — 강세 단어를 크게 쳤다면 이미 절반은 온 거예요.</p>' +
-        '<div class="fin__stats">' +
-          '<div class="fin__s"><b>' + crsCount() + '/4</b><span>오늘 단계</span></div>' +
-          '<div class="fin__s"><b>' + todayXp() + '</b><span>오늘 XP</span></div>' +
+        '<p>PERFECT <b>' + RGN.perfect + '</b> · GOOD <b>' + RGN.good + '</b> · MISS <b>' + RGN.miss + '</b></p>' +
+        '<div class="rg__finStats">' +
+          '<div><b>' + crsCount() + '/4</b><span>오늘 단계</span></div>' +
+          '<div><b>' + todayXp() + '</b><span>오늘 XP</span></div>' +
+          '<div><b>' + RGN.maxCombo + '</b><span>최고 콤보</span></div>' +
         '</div>' +
-        '<div style="margin-top:15px"><button class="btn--primary" type="button" data-cnext="4">4단계 · 한 줄 보너스 →</button></div>' +
-        '<div style="margin-top:8px"><button class="btn--ghost" type="button" id="rgAgain" style="width:100%">한 번 더 🥁</button></div>' +
-      '</div>';
-    var ag = document.getElementById('rgAgain');
-    if (ag) ag.addEventListener('click', function () { Snd.tap(); crsGo(3); });
-    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+        '<div class="rg__finBtns">' +
+          '<button class="rg__fb2" type="button" id="rgFinNext">4단계 · 한 줄 보너스 →</button>' +
+          '<button class="rg__fb1" type="button" id="rgFinAgain">한 번 더 🥁</button>' +
+        '</div>';
+      fin.classList.remove('hide');
+      var nx = document.getElementById('rgFinNext');
+      if (nx) nx.addEventListener('click', function () { Snd.tap(); rgFsClose(); crsGo(4, 'course'); });
+      var ag2 = document.getElementById('rgFinAgain');
+      if (ag2) ag2.addEventListener('click', function () { Snd.tap(); rgStartRound(); });
+    }
   }
 
   /* ---- 리듬 사운드 (드럼 + 마림바) ---- */
@@ -6472,13 +6783,14 @@ body.is-mapopen{overflow:hidden}
     var sent = document.getElementById('rgSent');
     return {
       phase: RGN.phase, bpm: RGN.bpm, setIndex: RGN.si, setTotal: RGN.sets.length,
-      inWindow: inWin, beat: inWin ? k : -1,
+      inWindow: inWin, beat: inWin ? k : -1, err: (inFall && k >= 0) ? Math.round(d) : -1,
       correctLane: inWin ? RGN.sets[RGN.si].beats[k].ok : -1,
       combo: RGN.combo, maxCombo: RGN.maxCombo,
       perfect: RGN.perfect, good: RGN.good, miss: RGN.miss,
       sentence: sent ? sent.textContent.replace(/\s+/g, ' ').trim() : '',
       noteCount: document.querySelectorAll('#rgLanes .note').length,
-      muted: !!store.muted
+      muted: !!store.muted,
+      fs: !!RGN.fsOpen, from: RGN.from, finished: !!RGN.finished
     };
   }
 
@@ -6557,7 +6869,7 @@ body.is-mapopen{overflow:hidden}
       if (!b) return;
       e.preventDefault();
       Snd.tap();
-      openCourse(Number(b.getAttribute('data-course')));
+      openCourse(Number(b.getAttribute('data-course')), 'home');
     });
     var sec = document.getElementById('tab-course');
     if (sec) sec.addEventListener('click', function (e) {
@@ -6566,18 +6878,20 @@ body.is-mapopen{overflow:hidden}
       e.preventDefault();
       Snd.tap();
       if (b.hasAttribute('data-cback')) { showHome(); return; }
-      if (b.hasAttribute('data-cstep')) { crsGo(Number(b.getAttribute('data-cstep'))); return; }
+      if (b.hasAttribute('data-cstep')) { crsGo(Number(b.getAttribute('data-cstep')), 'course'); return; }
       var n = Number(b.getAttribute('data-cnext'));
-      if (n) crsGo(n); else { crsGo(0); }
+      if (n) crsGo(n, 'course'); else { crsGo(0, 'course'); }
     });
     var pills = document.getElementById('coursePills');
     if (pills) pills.addEventListener('click', function (e) {
       var b = e.target && e.target.closest ? e.target.closest('[data-cjump]') : null;
       if (!b) return;
       Snd.tap();
-      openCourse(Number(b.getAttribute('data-cjump')));
+      openCourse(Number(b.getAttribute('data-cjump')), 'quiz');
     });
     document.addEventListener('keydown', function (e) {
+      if (!RGN.fsOpen) return;
+      if (e.key === 'Escape') { e.preventDefault(); rgExitTo(); return; }
       if (crsState.step !== 3 || RGN.phase !== 'fall') return;
       var map = { a: 0, s: 1, d: 2, '1': 0, '2': 1, '3': 2 };
       var k = String(e.key || '').toLowerCase();
@@ -6653,8 +6967,11 @@ body.is-mapopen{overflow:hidden}
     rhythm: {
       start: function () {
         var b = document.getElementById('rgStart');
-        if (b) b.click();
+        if (b) b.click(); else rgStartRound();
       },
+      open: rgGameOpen,
+      exit: rgExitTo,
+      fsOpen: function () { return !!RGN.fsOpen; },
       tap: rgTap,
       speed: rgSpeed,
       state: rgState,
