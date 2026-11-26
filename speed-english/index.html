@@ -4867,9 +4867,8 @@ body.is-mapopen{overflow:hidden}
     }
     var fill = document.getElementById('wmFill');
     if (fill) {
-      var pct = 100;
-      if (nx) pct = nx.xp > 0 ? Math.min(100, Math.round((xpTotal() / nx.xp) * 100)) : 100;
-      fill.style.width = pct + '%';
+      /* 위 막대는 18곳 중 켜진 비율 — '다음 불빛까지'는 아래 줄이 따로 알려 준다 */
+      fill.style.width = Math.max(2, Math.round((store.unlockedRegions.length / MAP_TOTAL) * 100)) + '%';
     }
     renderCapNote();
     renderDetail();
