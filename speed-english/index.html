@@ -845,7 +845,7 @@ body.is-mapopen{overflow:hidden}
   text-anchor:middle; pointer-events:none;
 }
 .rg .ico{transition:opacity .45s}
-.rg .ico--off{fill:#C7C0D8; opacity:.9}
+.rg .ico--off{fill:#AFA7C8; opacity:.95}
 .rg .lab2{
   font-size:8px; font-weight:800; fill:#9C95B1;
   letter-spacing:-.05em; transition:fill .3s;
@@ -873,7 +873,7 @@ body.is-mapopen{overflow:hidden}
   transition:fill .45s, stroke .3s, filter .45s;
 }
 .pin .ico{pointer-events:none}
-.pin .ico--off{fill:#C7C0D8}
+.pin .ico--off{fill:#AFA7C8}
 .pin .lab{
   font-size:8px; font-weight:900; fill:#9C95B1; text-anchor:middle;
   letter-spacing:-.03em; pointer-events:none; transition:fill .3s;
@@ -4651,7 +4651,7 @@ body.is-mapopen{overflow:hidden}
       return '<g class="' + cls + '" data-rid="' + r.id + '" role="button" tabindex="0" ' + lab + '>' +
         '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" rx="' + Math.min(15, b[3] / 2 - 1) + '"/>' +
         '<text class="ico' + (on ? '' : ' ico--off') + '" x="' + cx + '" y="' + (cy + fs * 0.33).toFixed(1) + '"' +
-          ' style="font-size:' + (on ? fs : (fs * 0.62)).toFixed(1) + 'px">' + (on ? (r.icon || '•') : '•') + '</text>' +
+          ' style="font-size:' + (on ? fs : (fs * 0.72)).toFixed(1) + 'px">' + (on ? (r.icon || '•') : '•') + '</text>' +
         '<text class="lab2" x="' + cx + '" y="' + (cy + fs * 0.33 + 8.6).toFixed(1) + '">' + esc(r.short) + '</text>' +
       '</g>';
     }).join('');
