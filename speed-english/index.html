@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v8-2026-11-27-m5hint">
+<meta name="app-build" content="lightup-english-v9-2026-11-27-pastel">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1929,6 +1929,7 @@ body.is-mission .v7nav{display:none !important}
 .v7splash__badge b{color:#C2841A; font-size:12px}
 .v7splash__t{font-size:24px; font-weight:900; letter-spacing:-.05em; margin-top:14px; line-height:1.2}
 .v7splash__t span{color:#B7A6E8; font-weight:900}
+.v9spark{width:26px; height:26px; vertical-align:-4px; margin-right:2px}
 .v7splash__s{font-size:11.5px; font-weight:800; color:#847DA0; margin-top:7px; line-height:1.55; word-break:keep-all}
 .v7splash__map{margin:16px 0 4px; border-radius:18px; background:radial-gradient(130% 100% at 50% -18%,#2C2450,#1B1630 62%,#151024); padding:8px 10px; border:1px solid #2E274B}
 .v7splash__map svg{display:block; width:100%; height:auto}
@@ -2121,13 +2122,361 @@ body.v8sh-on .toast{
 body.v8sh-on .toast.show{transform:translate(-50%,0)}
 
 </style>
+<style id="v9css">
+/* ================= v9 · 동화책 파스텔 2톤 아이콘 · 꽉 찬 미션 화면 ================= */
+.pico{display:inline-block; width:22px; height:22px; flex:none; vertical-align:-5px; overflow:visible}
+.v7ask .pico{width:17px; height:17px; vertical-align:-4px; margin-right:2px}
+
+/* 내비게이션 */
+.v7nv__i{display:grid; place-items:center; width:22px; height:22px; transition:transform .15s}
+.v7nv__i .pico{width:22px; height:22px}
+.v7nv:not(.on) .pico{filter:grayscale(.5); opacity:.62}
+.v7nv.on .v7nv__i{transform:translateY(-1px)}
+
+/* 오늘의 미션 · 허브 */
+.v7mis__ico .pico{width:24px; height:24px}
+.v7hcard__i .pico{width:24px; height:24px}
+.v7streak__n i .pico{width:20px; height:20px; vertical-align:-4px}
+.v7day i .pico{width:16px; height:16px; vertical-align:0}
+.v7day:not(.on) i .pico{filter:grayscale(1); opacity:.45}
+.v7day.on i .pico{filter:drop-shadow(0 0 5px rgba(255,190,60,.75))}
+
+/* 우측 미션 탭 — 아이콘을 흰 칩에 담아 파스텔끼 유지 */
+.v7t__ic{display:grid; place-items:center; width:22px; height:22px; border-radius:8px}
+.v7t:not(.on) .v7t__ic .pico{width:21px; height:21px; opacity:.95}
+.v7t.on .v7t__ic{background:rgba(255,255,255,.94); box-shadow:0 2px 6px rgba(20,10,50,.16)}
+.v7t.on .v7t__ic .pico{width:18px; height:18px}
+.v7t__ck{position:absolute; top:-5px; right:-4px; width:16px; height:16px; display:grid; place-items:center}
+.v7t__ck .pico{width:16px; height:16px}
+
+/* ------ 미션 전면 화면: 파스텔 그라데이션 배경 ------ */
+.v7ms{
+  background:radial-gradient(125% 92% at 50% -12%, #EDE6FF 0%, #F7F4FF 48%, #FEF6FC 100%);
+  transition:background .35s ease;
+}
+.v7ms::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.9) .8px, transparent 1.4px),
+    radial-gradient(circle at 78% 12%, rgba(255,255,255,.8) .8px, transparent 1.4px),
+    radial-gradient(circle at 34% 78%, rgba(255,255,255,.75) .7px, transparent 1.3px),
+    radial-gradient(circle at 88% 62%, rgba(255,255,255,.8) .8px, transparent 1.4px);
+  background-size:96px 84px, 128px 112px, 82px 70px, 146px 122px;
+}
+.v7ms[data-m="1"]{background:radial-gradient(125% 92% at 50% -12%, #E9DEFF 0%, #F6F2FF 48%, #FEF5FD 100%)}
+.v7ms[data-m="2"]{background:radial-gradient(125% 92% at 50% -12%, #FFE8D2 0%, #FFF7EF 48%, #FFF2F7 100%)}
+.v7ms[data-m="3"]{background:radial-gradient(125% 92% at 50% -12%, #DAF6E9 0%, #F1FCF7 48%, #FFF9EE 100%)}
+.v7ms[data-m="4"]{background:radial-gradient(125% 92% at 50% -12%, #DAEDFF 0%, #F2FAFF 48%, #FBF4FF 100%)}
+.v7ms[data-m="5"]{background:radial-gradient(125% 92% at 50% -12%, #FFDEEC 0%, #FFF5F9 48%, #F8F3FF 100%)}
+.v7ms__top{position:relative; z-index:2}
+.v7ms__x{background:rgba(255,255,255,.86); backdrop-filter:blur(6px)}
+.v7ms__snd{background:rgba(255,255,255,.86); backdrop-filter:blur(6px)}
+.v7ms__prog{background:rgba(255,255,255,.9); box-shadow:inset 0 0 0 1px rgba(150,138,200,.16)}
+.v7ms__body{position:relative; z-index:1; display:flex; flex-direction:column; padding:6px 15px 4px; overflow-y:auto; overflow-x:hidden}
+.v7ms__dock{position:relative; z-index:2; min-height:92px; padding:8px 15px calc(12px + env(safe-area-inset-bottom))}
+
+/* 카드 한 장에 문제+답+결과를 모두 담아 가운데 빈 공간을 없앤다 */
+.v9wrap{width:100%; max-width:460px; margin:auto; display:flex; flex-direction:column; gap:12px}
+.v9sheet{
+  width:100%; min-height:clamp(300px, 50vh, 420px);
+  background:rgba(255,255,255,.95); border:1.5px solid #EDE7FA; border-radius:26px;
+  padding:22px 18px 20px; box-shadow:0 18px 40px rgba(60,40,120,.10); flex:0 0 auto;
+  display:flex; flex-direction:column; justify-content:center; text-align:center;
+  animation:v9cardIn .28s cubic-bezier(.2,.85,.25,1) both;
+}
+@keyframes v9cardIn{from{opacity:0; transform:translateY(6px) scale(.99)}to{opacity:1; transform:none}}
+.v7ms[data-m="1"] .v9sheet{border-color:#E7DCFB}
+.v7ms[data-m="2"] .v9sheet{border-color:#FBE3CE}
+.v7ms[data-m="3"] .v9sheet{border-color:#CFF0E2}
+.v7ms[data-m="4"] .v9sheet{border-color:#CFE7F9}
+.v7ms[data-m="5"] .v9sheet{border-color:#FAD9E6}
+.v7ms .v7ask{
+  display:inline-flex; align-items:center; justify-content:center; gap:4px;
+  font-size:11.5px; font-weight:900; color:#8C86A2; letter-spacing:-.01em;
+}
+.v7ms .v7ko{
+  margin-top:14px; text-align:center; background:#F4F1FB; border-radius:18px; padding:15px 14px;
+  font-size:16px; font-weight:900; line-height:1.55; color:#2A2342; letter-spacing:-.02em; word-break:keep-all;
+}
+.v7ms .v9left{font-size:11.5px; font-weight:900; color:#8C86A2; margin-top:12px; text-align:center}
+.v7ms .v9left b{color:#E8730C}
+.v7ms .v7ko small{display:block; font-size:10px; font-weight:900; color:#8C86A2; margin-bottom:3px; letter-spacing:.02em}
+.v7ms .v7en{
+  margin-top:18px; text-align:center; font-size:25px; font-weight:900; line-height:1.45;
+  letter-spacing:-.03em; color:#221D35; word-break:keep-all;
+}
+.v7ms .v7blank u{min-width:62px; height:32px; border-bottom-width:3px}
+.v7ms .v7blank u.full{font-size:17px; line-height:29px}
+.v9prompt{
+  display:flex; align-items:center; justify-content:center; gap:6px; margin-top:14px;
+  font-size:11.5px; font-weight:800; color:#8C86A2;
+}
+.v9prompt .pico{width:18px; height:18px; vertical-align:-4px}
+.v9inbox{margin-top:14px; text-align:left}
+.v7ms .v7in{height:50px; border-radius:15px; text-align:center; font-size:16px}
+.v7ms .v7listen{margin-top:12px}
+.v9tools{display:flex; justify-content:center; margin-top:14px}
+.v9tools button{
+  display:inline-flex; align-items:center; gap:6px; height:40px; padding:0 16px; border-radius:14px;
+  background:#F1F6FF; border:1.5px solid #D5E7F8; font-size:12px; font-weight:900; color:#2C6E93;
+}
+.v9tools button:active{transform:scale(.97)}
+.v9tools .pico{width:18px; height:18px}
+.v9ok{
+  display:flex; align-items:center; justify-content:center; gap:9px; margin-top:15px; padding:11px 13px;
+  border-radius:16px; background:#E9FAF2; border:1.5px solid #BEEEDC; text-align:left;
+}
+.v9ok .pico{width:24px; height:24px}
+.v9ok span{display:block; font-size:9.5px; font-weight:900; color:#2E9C7B; letter-spacing:.02em}
+.v9ok b{display:block; font-size:14px; font-weight:900; color:#127F60; line-height:1.4; word-break:keep-all}
+
+/* 아래 액션 독 — 서로 다른 색의 둥근 사각 파스텔 버튼 */
+.v9dock2{display:flex; gap:10px; width:100%; max-width:460px; margin:0 auto; animation:v9cardIn .26s ease both}
+.v9act{
+  flex:1; min-height:76px; border-radius:22px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:3px; border:1.5px solid transparent;
+  transition:transform .12s ease, box-shadow .2s;
+}
+.v9act b{font-size:13px; font-weight:900; letter-spacing:-.03em; line-height:1}
+.v9act .pico{width:26px; height:26px}
+.v9act:active{transform:scale(.96)}
+.v9act--listen{
+  background:linear-gradient(165deg,#E6F7FF,#D3EBFF); border-color:#BDE1F8; color:#226E93;
+  box-shadow:0 10px 22px rgba(58,166,224,.20), inset 0 1px 0 #fff;
+}
+.v9act--next{
+  background:linear-gradient(165deg,#A183F8,#6A48D6); border-color:#7C5CE6; color:#fff;
+  box-shadow:0 14px 28px rgba(106,72,214,.32), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.v9act--next .pico{filter:drop-shadow(0 1px 2px rgba(0,0,0,.18))}
+
+/* 미션 3 — 문장 카드 + 쌓인 3지선다 덱 */
+.v9wrap--m3{gap:12px; max-width:480px; justify-content:center}
+.v9sheet--m3{min-height:clamp(280px, 38vh, 340px); flex:0 0 auto; padding:24px 18px 22px}
+.v9sheet--m3 .v7en{font-size:22px; line-height:1.75; margin-top:14px}
+.v9sheet--m3 .v7pillword{padding:2px 9px; border-radius:9px}
+.v9sheet--m3 .v7ko{margin-top:12px; font-size:12.5px; padding:10px 12px}
+.v9dots{display:flex; align-items:center; justify-content:center; gap:6px; margin-top:12px}
+.v9dots i{width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.9); border:1.5px solid #D9ECe6}
+.v9dots i.on{background:#22AE87; border-color:#22AE87; box-shadow:0 0 0 3px rgba(34,174,135,.14)}
+.v9dots span{font-size:10px; font-weight:900; color:#8C86A2; margin-left:4px}
+.v9stack{position:relative; padding-top:34px; margin-top:2px; flex:none}
+.v9stack__l{position:absolute; display:block; height:70px; border-radius:20px; border:1.5px solid #DDEBF3; background:#F3F9FE}
+.v9stack__l3{top:0; left:20px; right:20px; height:66px; background:#F6F9FD; border-color:#E5EEF5; opacity:.95}
+.v9stack__l2{top:11px; left:11px; right:11px; height:70px; background:#EEFAF4; border-color:#D3EEE2}
+.v9stack__l1{top:22px; left:3px; right:3px; height:72px; background:#F9FDFB; border-color:#CBEAD9}
+.v9stack .v7row{position:relative; z-index:3; margin-top:26px; gap:9px}
+.v9stack .v7ch{height:70px; border-radius:20px; font-size:17px; background:#fff; box-shadow:0 8px 18px rgba(38,28,80,.09)}
+.v9stack .v7ch:nth-child(1){border-color:#CBEAD9}
+.v9stack .v7ch:nth-child(2){border-color:#CFE7F9}
+.v9stack .v7ch:nth-child(3){border-color:#E0D4FA}
+
+/* 미션 4·5 — 콩글리시 / 팝송 reveal */
+.v9kong{
+  margin-top:12px; background:#EAF5FD; border-radius:18px; padding:13px 14px;
+  font-size:14px; font-weight:900; line-height:1.6; color:#20415A; text-align:center; word-break:keep-all;
+}
+.v9kong b{color:#166A96; background:#D8EEFB; border-radius:7px; padding:0 5px}
+.v9kong small{display:block; margin-top:6px; font-size:10px; font-weight:800; color:#6D8CA1}
+.v9cue{margin-top:13px; font-size:13px; font-weight:800; color:#5B5470; text-align:center}
+.v9ans{
+  margin-top:14px; border-radius:18px; padding:13px 14px; text-align:center;
+  background:#F7F5FC; border:1.5px solid #E9E3F7;
+}
+.v9ans.is-ok{background:#E9FAF2; border-color:#BEEEDC}
+.v9ans.is-new{background:#FFF8E8; border-color:#FFE7A8}
+.v9ans__k{display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:900; color:#7A6E9E}
+.v9ans.is-ok .v9ans__k{color:#2E9C7B}
+.v9ans.is-new .v9ans__k{color:#A9761A}
+.v9ans__k .pico{width:15px; height:15px}
+.v9ans > b{display:block; margin-top:6px; font-size:21px; font-weight:900; color:#1E1A32; letter-spacing:-.02em; line-height:1.4}
+.v9ans__why b{display:inline; font-size:inherit; color:#2A2342; font-weight:900; margin:0; line-height:inherit}
+.v9ans__mine{margin-top:6px; font-size:11px; font-weight:800; color:#847DA0}
+.v9ans__why{margin-top:8px; font-size:11.5px; font-weight:700; line-height:1.65; color:#5B5470; text-align:left; word-break:keep-all}
+.v7ms .v7tip{text-align:left}
+.v7ms .v7cmp{text-align:left; margin-top:14px}
+.v7ms .v7cmp div{font-size:12px; padding:13px 12px; border-radius:16px}
+.v7ms .v7cmp .real b{font-size:15px; line-height:1.45}
+.v7ms .v7hint{text-align:left}
+.v7ms .v7fb{text-align:left}
+.v7ms .v7foot{margin-top:10px}
+
+/* 큰 화면(펼친 Fold·태블릿)에서 카드가 작게 떠 보이지 않게 */
+@media (min-width:560px){
+  .v7splash__card{max-width:none; width:min(92vw,520px); padding:32px 30px 28px; border-radius:32px}
+  .v7splash__t{font-size:30px}
+  .v7splash__s{font-size:13px}
+  .v7splash__map{margin:20px 0 6px; padding:12px 14px; border-radius:22px}
+  .v7splash__b{height:60px; font-size:17px; border-radius:18px}
+  .v7splash__badge{font-size:12px; padding:6px 13px}
+  .v9wrap, .v9dock2{max-width:560px}
+  .v9sheet{padding:28px 30px 26px; border-radius:30px; min-height:clamp(320px, 50vh, 440px)}
+  .v9sheet--m3{min-height:clamp(280px, 40vh, 380px)}
+  .v9sheet--m3 .v7en{font-size:25px}
+  .v7ms .v7ko{font-size:17px}
+  .v7ms .v7en{font-size:26px}
+  .v9sheet--m3 .v7en{font-size:23px}
+  .v9act{min-height:84px; border-radius:24px}
+  .v9act b{font-size:14.5px}
+  .v9act .pico{width:29px; height:29px}
+  .v7ms__body{padding:8px 24px 4px}
+  .v7ms__dock{padding:10px 24px calc(16px + env(safe-area-inset-bottom))}
+}
+@media (max-width:359px){
+  .v7ms .v7en{font-size:21px}
+  .v9sheet{padding:16px 14px 14px; min-height:clamp(300px, 54vh, 420px)}
+  .v9act{min-height:70px; border-radius:20px}
+}
+
+/* ------ 칭찬 팡! 파스텔 버스트 (#7201) ------ */
+.v9burst{position:fixed; inset:0; z-index:138; pointer-events:none; overflow:hidden}
+.v9burst i{
+  position:absolute; display:block; animation:v9pop .95s cubic-bezier(.16,.8,.3,1) forwards;
+  transform:translate(-50%,-50%) scale(.4); will-change:transform, opacity;
+}
+.v9burst i.v9st{clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 58%,79% 94%,50% 72%,21% 94%,32% 58%,2% 35%,39% 35%)}
+@keyframes v9pop{
+  0%{transform:translate(-50%,-50%) scale(.35) rotate(0deg); opacity:1}
+  55%{opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 110px)) scale(.85) rotate(var(--r)); opacity:0}
+}
+@media (prefers-reduced-motion: reduce){
+  .v9burst i{animation-duration:.5s}
+}
+</style>
 </head>
 <body>
+<svg id="v9icons" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="pi-home" viewBox="0 0 24 24">
+  <path d="M4.6 10.9 12 4.4l7.4 6.5v7.2a2.3 2.3 0 0 1-2.3 2.3H6.9a2.3 2.3 0 0 1-2.3-2.3Z" fill="#FFE2EC" stroke="#EF9DB9" stroke-width="1.7" stroke-linejoin="round"/>
+  <path d="M9.7 20.2v-4.1a2.3 2.3 0 0 1 4.6 0v4.1" fill="#FFF7FB" stroke="#EF9DB9" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="9.1" cy="9.2" r="1.15" fill="#fff" opacity=".95"/>
+  <circle cx="14.6" cy="12.6" r=".85" fill="#fff" opacity=".7"/>
+</symbol>
+<symbol id="pi-map" viewBox="0 0 24 24">
+  <path d="M3.5 6.5 8.7 4.5l6.6 2 5.2-2v13l-5.2 2-6.6-2-5.2 2Z" fill="#E3F1FF" stroke="#7FB7E8" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M8.7 4.5v13M15.3 6.5v13" stroke="#9BC9EF" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M9.2 16.4c1.3-1.3 2.1-2.5 2.1-3.9" stroke="#F1A2BE" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="1.3 1.6"/>
+  <circle cx="11.9" cy="9.6" r="2" fill="#FFE3EC" stroke="#EF9DB9" stroke-width="1.4"/>
+  <circle cx="11.9" cy="9.6" r=".65" fill="#EF9DB9"/>
+</symbol>
+<symbol id="pi-book" viewBox="0 0 24 24">
+  <path d="M12 6.3C10.4 5 8.4 4.5 5.8 4.6c-.8 0-1.4.6-1.4 1.4v10.3c0 .8.7 1.4 1.5 1.4 2.3-.1 4.2.4 6.1 1.6 1.9-1.2 3.8-1.7 6.1-1.6.8 0 1.5-.6 1.5-1.4V6c0-.8-.6-1.4-1.4-1.4-2.6-.1-4.6.4-6.2 1.7Z" fill="#E7FAF1" stroke="#68C7A4" stroke-width="1.7" stroke-linejoin="round"/>
+  <path d="M12 6.3v13" stroke="#68C7A4" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M6 8.9c1.4 0 2.6.3 3.6.8M6 11.7c1.4 0 2.6.3 3.6.8" stroke="#A6E3CA" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M15.2 9.7c1 0 1.9.1 2.8.4" stroke="#A6E3CA" stroke-width="1.3" stroke-linecap="round"/>
+  <circle cx="7.4" cy="7.2" r=".9" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-chart" viewBox="0 0 24 24">
+  <rect x="3.2" y="3.6" width="17.6" height="16.8" rx="4.6" fill="#FFF4DA" stroke="#EFC471" stroke-width="1.6"/>
+  <rect x="6.5" y="12.4" width="3.2" height="5" rx="1.6" fill="#FFCF8A" stroke="#E5A94B" stroke-width="1.1"/>
+  <rect x="10.4" y="8.9" width="3.2" height="8.5" rx="1.6" fill="#D6C6FA" stroke="#A98BF0" stroke-width="1.1"/>
+  <rect x="14.3" y="10.9" width="3.2" height="6.5" rx="1.6" fill="#B6E7D2" stroke="#6FC3A2" stroke-width="1.1"/>
+  <circle cx="6.6" cy="6.7" r=".9" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-mic" viewBox="0 0 24 24">
+  <rect x="8.6" y="2.9" width="6.8" height="10.2" rx="3.4" fill="#EDE4FF" stroke="#A98BF0" stroke-width="1.6"/>
+  <path d="M5.9 11.3a6.1 6.1 0 0 0 12.2 0" fill="none" stroke="#A98BF0" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M12 17.4v3.4M8.9 21h6.2" fill="none" stroke="#A98BF0" stroke-width="1.7" stroke-linecap="round"/>
+  <circle cx="10.8" cy="6.1" r=".85" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-head" viewBox="0 0 24 24">
+  <path d="M4.6 14.2v-2.3a7.4 7.4 0 0 1 14.8 0v2.3" fill="none" stroke="#EFA45C" stroke-width="1.9" stroke-linecap="round"/>
+  <rect x="3" y="12.6" width="4.6" height="7.2" rx="2.3" fill="#FFEAD3" stroke="#EFA45C" stroke-width="1.6"/>
+  <rect x="16.4" y="12.6" width="4.6" height="7.2" rx="2.3" fill="#FFEAD3" stroke="#EFA45C" stroke-width="1.6"/>
+  <circle cx="8.3" cy="6.1" r=".85" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-puzzle" viewBox="0 0 24 24">
+  <circle cx="12" cy="5.6" r="2.5" fill="#DFF7EA" stroke="#66C4A0" stroke-width="1.6"/>
+  <circle cx="18.4" cy="12" r="2.5" fill="#DFF7EA" stroke="#66C4A0" stroke-width="1.6"/>
+  <rect x="4.2" y="4.9" width="15.4" height="15.2" rx="4.2" fill="#DFF7EA" stroke="#66C4A0" stroke-width="1.6"/>
+  <circle cx="12.6" cy="15.6" r="2" fill="#F4FDF9" stroke="#8CD6BA" stroke-width="1.4"/>
+  <circle cx="8.2" cy="9.1" r=".95" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-cup" viewBox="0 0 24 24">
+  <path d="M6.2 8.4h11.6l-1 10.8a2.5 2.5 0 0 1-2.5 2.2H9.7a2.5 2.5 0 0 1-2.5-2.2Z" fill="#E4F2FF" stroke="#78B4E6" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M5.3 8.4h13.4" stroke="#78B4E6" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M12.6 8.4 15.7 3" stroke="#F1A2BE" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M8.8 12.6h6" stroke="#B7D9F5" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="9.9" cy="10.8" r=".9" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-movie" viewBox="0 0 24 24">
+  <rect x="3" y="8.4" width="18" height="12" rx="3.4" fill="#FFE7F1" stroke="#EE95B6" stroke-width="1.6"/>
+  <path d="M3.4 8.2 5 3.9c.2-.6.9-1 1.5-.8l13.2 3.7-1.4 4.4Z" fill="#FFF3F8" stroke="#EE95B6" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M8.6 3.9 7.9 8.1M13.2 5.1 12.5 9.3" stroke="#EE95B6" stroke-width="1.3" stroke-linecap="round"/>
+  <circle cx="6.2" cy="11.4" r=".9" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-flame" viewBox="0 0 24 24">
+  <path d="M12.5 2.4c3.5 3.2 6.4 6.2 6.4 10.2a6.9 6.9 0 0 1-13.8 0c0-2.6 1.5-4.2 3-5.7.3 1.6.9 2.6 1.9 3.2.1-2.8.9-5.2 2.5-7.7Z" fill="#FFD7C2" stroke="#F2894F" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M11.9 20.4c-1.9-.7-3-2.2-3-3.9 0-1.5 1-2.5 2-3.6.2 1.4.8 2.2 1.7 2.6.1-1.5.5-2.9 1.3-4.1 1.5 1.5 2.6 3.1 2.6 5.1 0 1.7-1.2 3.2-3 3.9Z" fill="#FFF1E7" stroke="#F6AE82" stroke-width="1.2"/>
+  <circle cx="9.7" cy="7.3" r=".9" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-star" viewBox="0 0 24 24">
+  <path d="m12 3.4 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.5l5.8-.8Z" fill="#FFF0C2" stroke="#EFC24E" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="10.6" cy="9.3" r=".95" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-bolt" viewBox="0 0 24 24">
+  <path d="M13.6 2.8 5.4 13.1c-.4.5 0 1.2.6 1.2h4.4l-1.4 6.6c-.1.7.7 1.1 1.2.6l8.2-10.3c.4-.5 0-1.2-.6-1.2h-4.4l1.3-6.6c.1-.7-.7-1.1-1.1-.6Z" fill="#FFF3C8" stroke="#EFC24E" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="9.8" cy="11.8" r=".85" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-globe" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="8.6" fill="#DFF0FF" stroke="#6FAEE8" stroke-width="1.6"/>
+  <path d="M3.6 12h16.8" stroke="#8FC4EE" stroke-width="1.2"/>
+  <path d="M12 3.5c2.4 2.4 3.6 5.3 3.6 8.5s-1.2 6.1-3.6 8.5c-2.4-2.4-3.6-5.3-3.6-8.5S9.6 5.9 12 3.5Z" fill="none" stroke="#8FC4EE" stroke-width="1.2"/>
+  <circle cx="9.4" cy="8.2" r="1" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-scroll" viewBox="0 0 24 24">
+  <path d="M6.4 5.4h11.2a2.2 2.2 0 0 1 2.2 2.2v11a2.4 2.4 0 0 1-2.4 2.4H6.6a2.6 2.6 0 0 1-2.6-2.6V7.6a2.2 2.2 0 0 1 2.4-2.2Z" fill="#FFF6E4" stroke="#DDBB7E" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M8.2 9.4h8M8.2 12.4h8M8.2 15.4h5" stroke="#E7CD9B" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="8.9" cy="8.4" r=".8" fill="#fff" opacity=".9"/>
+</symbol>
+<symbol id="pi-speaker" viewBox="0 0 24 24">
+  <path d="M4.2 9.6h3l4.2-3.4c.6-.5 1.5-.1 1.5.7v10.2c0 .8-.9 1.2-1.5.7l-4.2-3.4h-3a1.4 1.4 0 0 1-1.4-1.4v-2a1.4 1.4 0 0 1 1.4-1.4Z" fill="#DDF1FF" stroke="#5FA9DC" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M16.4 8.6a4.8 4.8 0 0 1 0 6.8M18.9 6.1a8.3 8.3 0 0 1 0 11.8" fill="none" stroke="#5FA9DC" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="9.1" cy="10.4" r=".85" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-play" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="#fff" opacity=".2"/>
+  <path d="M9.6 6.6 17.4 12l-7.8 5.4Z" fill="#fff" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/>
+</symbol>
+<symbol id="pi-check" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9.2" fill="#D9F7EA" stroke="#4FC29B" stroke-width="1.6"/>
+  <path d="m7.8 12.3 2.9 2.9 5.5-6.1" fill="none" stroke="#2FA37E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="pi-bulb" viewBox="0 0 24 24">
+  <path d="M12 3.2a6 6 0 0 1 3.5 10.9c-.6.4-.9 1-.9 1.7v.6H9.4v-.6c0-.7-.3-1.3-.9-1.7A6 6 0 0 1 12 3.2Z" fill="#FFF4C9" stroke="#E9C25B" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M9.9 19.2h4.2M10.6 21.2h2.8" stroke="#E9C25B" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="10.4" cy="8.6" r=".85" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-keyboard" viewBox="0 0 24 24">
+  <rect x="2.6" y="6.4" width="18.8" height="11.2" rx="3.4" fill="#F2EEFB" stroke="#A991DE" stroke-width="1.5"/>
+  <path d="M6.2 10.2h.9M9.2 10.2h.9M12.2 10.2h.9M15.2 10.2h.9M18 10.2h.4M6.2 13.4h.9M9.2 13.4h.9M12.2 13.4h.9M15.2 13.4h.9M18 13.4h.4M8.4 15.9h7.2" stroke="#A991DE" stroke-width="1.5" stroke-linecap="round"/>
+</symbol>
+<symbol id="pi-spark" viewBox="0 0 24 24">
+  <path d="M12 2.8c1 3.2 2.2 4.4 5.4 5.4-3.2 1-4.4 2.2-5.4 5.4-1-3.2-2.2-4.4-5.4-5.4 3.2-1 4.4-2.2 5.4-5.4Z" fill="#FFF1C6" stroke="#EFC24E" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M17.8 13.6c.6 1.9 1.3 2.6 3.2 3.2-1.9.6-2.6 1.3-3.2 3.2-.6-1.9-1.3-2.6-3.2-3.2 1.9-.6 2.6-1.3 3.2-3.2Z" fill="#E8DDFF" stroke="#B79BF7" stroke-width="1.4" stroke-linejoin="round"/>
+  <circle cx="9.4" cy="7.4" r=".8" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-mute" viewBox="0 0 24 24">
+  <path d="M4.2 9.6h3l4.2-3.4c.6-.5 1.5-.1 1.5.7v10.2c0 .8-.9 1.2-1.5.7l-4.2-3.4h-3a1.4 1.4 0 0 1-1.4-1.4v-2a1.4 1.4 0 0 1 1.4-1.4Z" fill="#EEF1F8" stroke="#A9B3C9" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="m16.2 9.4 4.2 5.2M20.4 9.4l-4.2 5.2" fill="none" stroke="#A9B3C9" stroke-width="1.7" stroke-linecap="round"/>
+</symbol>
+<symbol id="pi-target" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="8.6" fill="#FFE7F0" stroke="#EE95B6" stroke-width="1.6"/>
+  <circle cx="12" cy="12" r="5.4" fill="#FFF6FA" stroke="#EFA9C2" stroke-width="1.5"/>
+  <circle cx="12" cy="12" r="2.3" fill="#F1A2BE" stroke="#E8558E" stroke-width="1.1"/>
+  <circle cx="9.4" cy="8.4" r=".85" fill="#fff" opacity=".95"/>
+</symbol>
+<symbol id="pi-stop" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="#FFE3EC" stroke="#EF95B4" stroke-width="1.5"/>
+  <rect x="8.4" y="8.4" width="7.2" height="7.2" rx="2.2" fill="#E8558E"/>
+</symbol>
+</svg>
 <!-- ================= 스플래시 (첫 진입) ================= -->
 <div class="v7splash" id="v7Splash" role="dialog" aria-modal="true" aria-label="라이트업 잉글리시 시작">
   <div class="v7splash__card">
     <p class="v7splash__badge">미국 <b>50</b>개 주 · 세계 <b>6</b>곳 불 밝히기</p>
-    <h2 class="v7splash__t">✨ LightUp <span>English</span></h2>
+    <h2 class="v7splash__t"><svg class="pico v9spark" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-spark"/></svg> LightUp <span>English</span></h2>
     <p class="v7splash__s">오늘도 한 문장부터 —<br>영어를 쌓으면 지도에 불이 하나씩 켜져요</p>
     <div class="v7splash__map" id="v7SplashMap" aria-hidden="true"></div>
     <button class="v7splash__b" id="v7SplashGo" type="button">Let's dive in! →</button>
@@ -2148,8 +2497,8 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       <span class="map" id="v7MapPill">✨ <b id="v7UsN">0</b>/50</span>
     </button>
     <div class="v7acts">
-      <button class="v7ib" id="v7TestBtn" type="button" aria-label="1분 레벨 테스트" title="레벨 측정">🎯</button>
-      <button class="v7ib" id="muteBtn" type="button" aria-label="효과음 끄기" title="효과음">🔊</button>
+      <button class="v7ib" id="v7TestBtn" type="button" aria-label="1분 레벨 테스트" title="레벨 측정"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-target"/></svg></button>
+      <button class="v7ib" id="muteBtn" type="button" aria-label="효과음 끄기" title="효과음"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-speaker"/></svg></button>
     </div>
   </header>
 
@@ -2158,7 +2507,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     <div class="v7streak">
       <div class="v7streak__l">
         <p class="v7streak__k">연속 학습</p>
-        <p class="v7streak__n"><i>🔥</i><b id="v7StreakN">0</b><span>일</span></p>
+        <p class="v7streak__n"><i><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-flame"/></svg></i><b id="v7StreakN">0</b><span>일</span></p>
       </div>
       <div class="v7week" id="v7Week" aria-label="이번 주 학습 별"></div>
     </div>
@@ -2213,32 +2562,32 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     <div class="v7sect"><b>전체 학습</b><span>하고 싶은 것만 골라요</span></div>
     <div class="v7hub">
       <button class="v7hcard" type="button" data-v7go="reflex" style="--tint:#F6F2FF">
-        <span class="v7hcard__i">⚡</span>
+        <span class="v7hcard__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-bolt"/></svg></span>
         <span class="v7hcard__tt"><span class="v7hcard__t">5초 말하기</span><span class="v7hcard__d">한국어를 읽고 5초 안에 영어로</span></span>
         <span class="v7hcard__g">›</span>
       </button>
       <button class="v7hcard" type="button" data-v7go="shadow" style="--tint:#FFF2E8">
-        <span class="v7hcard__i">🎙️</span>
+        <span class="v7hcard__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-mic"/></svg></span>
         <span class="v7hcard__tt"><span class="v7hcard__t">4주 쉐도잉</span><span class="v7hcard__d">회화 · 팝송 · 게임 · 영화 대사 따라 말하기</span></span>
         <span class="v7hcard__g">›</span>
       </button>
       <button class="v7hcard" type="button" data-v7go="slang" style="--tint:#EAF8F3">
-        <span class="v7hcard__i">🔥</span>
+        <span class="v7hcard__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-flame"/></svg></span>
         <span class="v7hcard__tt"><span class="v7hcard__t">세대별 슬랭</span><span class="v7hcard__d">90s~요즘까지, 지금 쓰는 표현 22개</span></span>
         <span class="v7hcard__g">›</span>
       </button>
       <button class="v7hcard" type="button" data-v7go="accent" style="--tint:#EAF4FD">
-        <span class="v7hcard__i">🌍</span>
+        <span class="v7hcard__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-globe"/></svg></span>
         <span class="v7hcard__tt"><span class="v7hcard__t">미국·세계 억양</span><span class="v7hcard__d">지역 억양 비교 · 유튜브 · 음성 설치 가이드</span></span>
         <span class="v7hcard__g">›</span>
       </button>
       <button class="v7hcard" type="button" data-v7go="ety" style="--tint:#FBF1F7">
-        <span class="v7hcard__i">📜</span>
+        <span class="v7hcard__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-scroll"/></svg></span>
         <span class="v7hcard__tt"><span class="v7hcard__t">어원 단어 카드</span><span class="v7hcard__d">단어가 어떻게 생겼는지로 뜻을 붙잡기</span></span>
         <span class="v7hcard__g">›</span>
       </button>
       <button class="v7hcard" type="button" data-v7go="kong" style="--tint:#FFF6E6">
-        <span class="v7hcard__i">🥤</span>
+        <span class="v7hcard__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-cup"/></svg></span>
         <span class="v7hcard__tt"><span class="v7hcard__t">콩글리시 전체 카드</span><span class="v7hcard__d">한국에서만 통하는 말 → 진짜 영어</span></span>
         <span class="v7hcard__g">›</span>
       </button>
@@ -2497,10 +2846,10 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 
 <nav class="v7nav" aria-label="주요 화면">
   <div class="v7nav__in">
-    <button class="v7nv on" type="button" data-v7tab="home"><em>🏠</em>홈</button>
-    <button class="v7nv" type="button" data-v7tab="map"><em>🗺️</em>50주 지도</button>
-    <button class="v7nv" type="button" data-v7tab="study"><em>📚</em>전체 학습</button>
-    <button class="v7nv" type="button" data-v7tab="stats"><em>📊</em>통계</button>
+    <button class="v7nv on" type="button" data-v7tab="home"><span class="v7nv__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-home"/></svg></span>홈</button>
+    <button class="v7nv" type="button" data-v7tab="map"><span class="v7nv__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-map"/></svg></span>50주 지도</button>
+    <button class="v7nv" type="button" data-v7tab="study"><span class="v7nv__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-book"/></svg></span>전체 학습</button>
+    <button class="v7nv" type="button" data-v7tab="stats"><span class="v7nv__i"><svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-chart"/></svg></span>통계</button>
   </div>
 </nav>
 
@@ -6489,7 +6838,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
      ============================================================ */
   function renderMute() {
     var b = $('#muteBtn');
-    b.textContent = store.muted ? '🔇' : '🔊';
+    b.innerHTML = '<svg class="pico" viewBox="0 0 24 24" aria-hidden="true"><use href="#pi-' + (store.muted ? 'mute' : 'speaker') + '"/></svg>';
     b.classList.toggle('is-off', store.muted);
     b.setAttribute('aria-label', store.muted ? '효과음 켜기' : '효과음 끄기');
   }
@@ -8325,7 +8674,8 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       var p = v7Prog(m.n), on = m.n === v7Sel;
       return '<button class="v7t' + (on ? ' on' : '') + '" type="button" role="tab" aria-selected="' + (on ? 'true' : 'false') +
         '" data-v7m="' + m.n + '" style="--c:' + m.c + '" aria-label="' + m.name + (p.done ? ' 완료' : '') + '">' +
-        m.ico + '<span>' + m.short + '</span>' + (p.done ? '<i class="v7t__ck">✅</i>' : '') + '</button>';
+        '<span class="v7t__ic">' + PICO(V9_MICO[m.n - 1]) + '</span><span>' + m.short + '</span>' +
+        (p.done ? '<i class="v7t__ck">' + PICO('check') + '</i>' : '') + '</button>';
     }).join('');
   }
   function v7PaintWeek() {
@@ -8336,7 +8686,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       var on = v7SegTotal(store.dates[dkey(d)]) > 0 || hasAct(store.dates[dkey(d)]);
       var isT = dkey(d) === today;
       return '<div class="v7day' + (on ? ' on' : '') + (isT ? ' today' : '') + '"><em>' + lbl[i] + '</em>' +
-        (isT ? '<span><i>★</i></span>' : '<i>★</i>') + '</div>';
+        (isT ? '<span><i>' + PICO('star') + '</i></span>' : '<i>' + PICO('star') + '</i>') + '</div>';
     }).join('');
   }
   function v7PaintChart() {
@@ -8399,7 +8749,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       mis.style.setProperty('--c', m.c);
       mis.style.background = m.tint;
       mis.style.borderColor = m.tline;
-      var k = document.getElementById('v7MisIco'); if (k) k.textContent = m.ico;
+      var k = document.getElementById('v7MisIco'); if (k) k.innerHTML = PICO(V9_MICO[m.n - 1]);
       k = document.getElementById('v7MisK'); if (k) k.textContent = m.name;
       k = document.getElementById('v7MisS');
       if (k) k.textContent = pr.done ? ('오늘 완료 · ' + m.total + '문제') : (pr.solved ? (pr.solved + ' / ' + m.total + '문제 · 이어서 하기') : m.sub);
@@ -8673,7 +9023,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         '<button class="v7ms__x" type="button" data-mact="close" aria-label="미션 닫기">‹</button>' +
         '<div class="v7ms__prog"><i id="v7msProg"></i></div>' +
         '<span class="v7ms__cnt" id="v7msCnt">1/10</span>' +
-        '<button class="v7ms__snd' + (store.muted ? ' is-off' : '') + '" type="button" data-mact="snd" aria-label="소리 켜기/끄기">' + (store.muted ? '🔇' : '🔊') + '</button>' +
+        '<button class="v7ms__snd' + (store.muted ? ' is-off' : '') + '" type="button" data-mact="snd" aria-label="소리 켜기/끄기">' + PICO(store.muted ? 'mute' : 'speaker') + '</button>' +
       '</div>' +
       '<div class="v7ms__body" id="v7msBody"></div>' +
       '<div class="v7ms__dock" id="v7msDock"></div>';
@@ -8689,6 +9039,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     stopCd(); try { if (synth) synth.cancel(); } catch (e) {}
     v7Shell();
     var root = document.getElementById('v7ms');
+    root.setAttribute('data-m', String(n));
     root.classList.add('on');
     document.body.style.overflow = 'hidden';
     document.body.classList.add('is-mission');
@@ -8741,7 +9092,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
                        : '오늘 ' + st.items.length + '문제 · 미션 ' + doneN + '/5 완료<br>남은 미션도 이어서 해 봐요') +
         '</p>' +
         '<div style="display:flex;flex-direction:column;gap:8px;width:100%;max-width:300px;margin-top:16px">' +
-          (nxt ? '<button type="button" class="v7cta" data-mact="nextmis" data-n="' + nxt + '" style="--c:' + V7_M[nxt - 1].c + '">' + V7_M[nxt - 1].ico + ' ' + esc(V7_M[nxt - 1].name) + ' 이어서 →</button>' : '') +
+          (nxt ? '<button type="button" class="v7cta" data-mact="nextmis" data-n="' + nxt + '" style="--c:' + V7_M[nxt - 1].c + '">' + esc(V7_M[nxt - 1].name) + ' 이어서 →</button>' : '') +
           '<button type="button" class="v7cta" data-mact="home" style="--c:#7C5CE6;box-shadow:none;background:#F1ECFF;color:#5B3DBE">🏠 홈으로</button>' +
         '</div>' +
       '</div>';
@@ -8755,19 +9106,19 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     var hintLbl = hn ? ('힌트 ' + hn + '/3') : '힌트';
     return '<input class="v7in" id="v7in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="' + placeholder + '">' +
       '<div class="v7row" style="margin-top:8px;grid-template-columns:' + (withHint ? '1fr 1fr 1fr' : '1fr 1fr') + '">' +
-        (withHint ? '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="hint">💡 ' + hintLbl + '</button>' : '') +
-        '<button type="button" class="v7ch' + (live ? ' is-live' : '') + '" style="height:44px;font-size:12px" data-mact="mic">' + (live ? '⏹️ 정지' : '🎙️ 말로') + '</button>' +
+        (withHint ? '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="hint">' + PICO('bulb') + ' ' + hintLbl + '</button>' : '') +
+        '<button type="button" class="v7ch' + (live ? ' is-live' : '') + '" style="height:44px;font-size:12px" data-mact="mic">' + (live ? PICO('stop') + ' 정지' : PICO('mic') + ' 말로') + '</button>' +
         '<button type="button" class="v7ch" style="height:44px;font-size:12px" data-mact="submit">정답 확인</button>' +
       '</div>' +
       (live ? v7ListenBar() : '') +
-      (withHint ? '<button type="button" class="v7reveal" data-mact="reveal">👀 모르겠어요 · 정답 보기</button>' : '');
+      (withHint ? '<button type="button" class="v7reveal" data-mact="reveal">' + PICO('check') + ' 모르겠어요 · 정답 보기</button>' : '');
   }
   /* 듣는 중 표시 — 꿈틀꿈틀 파도 + 코랄·보라 링 (#7036) */
   function v7ListenBar() {
     return '<div class="v7listen" id="v7listenV7" role="status" aria-live="polite">' +
       '<span class="v7listen__dot" aria-hidden="true"></span>' +
       '<span class="v7wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' +
-      '<span class="v7listen__t">지금 듣고 있어요… <b>(누르면 ⏹️ 정지)</b></span>' +
+      '<span class="v7listen__t">지금 듣고 있어요… <b>(누르면 정지)</b></span>' +
     '</div>';
   }
   /* 힌트 글자 보기 — n=1 첫 글자, n=2 두 글자, 나머지는 ···로 가림 */
@@ -8812,14 +9163,85 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   function v7Dock12() {
     var st = v7ms;
     var hn = (st.n === 1 && !st.ok) ? Math.min(3, Math.max(0, Number(st.hint) || 0)) : 0;
-    return '<button class="v7dock__b" type="button" data-mact="hint"><em>❓</em>힌트' + (hn ? ' ' + hn + '/3' : ' 보기') + '</button>' +
-      '<button class="v7mic' + (st.listening ? ' is-live' : '') + (st.ok ? ' is-off' : '') + '" type="button" data-mact="mic"><em>' + (st.listening ? '⏹️' : '🎙️') + '</em>' + (st.listening ? '정지' : '마이크') + '</button>' +
-      '<button class="v7dock__b' + (st.mode === 'type' ? ' is-on' : '') + '" type="button" data-mact="keyboard"><em>⌨️</em>키보드 모드</button>';
+    return '<button class="v7dock__b" type="button" data-mact="hint"><em>' + PICO('bulb') + '</em>힌트' + (hn ? ' ' + hn + '/3' : ' 보기') + '</button>' +
+      '<button class="v7mic' + (st.listening ? ' is-live' : '') + (st.ok ? ' is-off' : '') + '" type="button" data-mact="mic"><em>' + (st.listening ? PICO('stop') : PICO('mic')) + '</em>' + (st.listening ? '정지' : '마이크') + '</button>' +
+      '<button class="v7dock__b' + (st.mode === 'type' ? ' is-on' : '') + '" type="button" data-mact="keyboard"><em>' + PICO('keyboard') + '</em>키보드 모드</button>';
   }
   function v7CountPaint() {
     var st = v7ms, pr = document.getElementById('v7msProg'), cnt = document.getElementById('v7msCnt');
     if (pr) pr.style.width = Math.round(st.i / st.items.length * 100) + '%';
     if (cnt) cnt.textContent = (st.i + 1) + '/' + st.items.length;
+  }
+
+  /* ---------- v9 공통: 파스텔 아이콘 · 칭찬 보이스 · 팡! 버스트 ---------- */
+  var V9_MICO = ['mic', 'head', 'puzzle', 'cup', 'movie'];
+  function PICO(name, cls) {
+    return '<svg class="pico' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#pi-' + name + '"/></svg>';
+  }
+  var v9FxTok = 0;
+  function v9Burst() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      /* 움직임 줄이기 설정에서도 짧게 한 번만 */
+    }
+    var host = document.getElementById('v9burst');
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'v9burst'; host.className = 'v9burst';
+      host.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(host);
+    }
+    var cols = ['#FFC2D9', '#CDB6FF', '#A8E6CF', '#FFE3A3', '#AFD8FF', '#FFB9E2', '#B8F1DE', '#FFD2B8'];
+    host.innerHTML = '';
+    for (var i = 0; i < 24; i++) {
+      var p = document.createElement('i');
+      if (i % 4 === 0) p.className = 'v9st';
+      var side = Math.random() < 0.5 ? -1 : 1;
+      var dx = side * (30 + Math.random() * 150);
+      var dy = -(70 + Math.random() * 160);
+      var size = (i % 4 === 0) ? (9 + Math.random() * 7) : (5 + Math.random() * 7);
+      p.style.cssText =
+        'left:' + (50 + (Math.random() * 18 - 9)).toFixed(1) + 'vw;' +
+        'top:' + (44 + (Math.random() * 10 - 5)).toFixed(1) + 'vh;' +
+        '--dx:' + dx.toFixed(0) + 'px;--dy:' + dy.toFixed(0) + 'px;--r:' + Math.round(Math.random() * 560 - 280) + 'deg;' +
+        'width:' + size.toFixed(1) + 'px;height:' + size.toFixed(1) + 'px;' +
+        'border-radius:' + (i % 4 === 0 ? '2px' : '50%') + ';' +
+        'background:' + cols[i % cols.length] + ';' +
+        'box-shadow:0 0 6px rgba(255,255,255,.65);' +
+        'animation-delay:' + Math.round(Math.random() * 80) + 'ms';
+      host.appendChild(p);
+    }
+    setTimeout(function () { var h = document.getElementById('v9burst'); if (h) h.innerHTML = ''; }, 1250);
+  }
+  /* 민정 님 칭찬 클립(goodjob/nice/fighting)을 깨끗하게 틀고, 끝난 뒤에 영어 문장을 읽어 준다 */
+  function v9Praise(after) {
+    var tok = ++v9FxTok;
+    try { if (synth) synth.cancel(); } catch (e) {}
+    var pool = ['goodjob', 'nice', 'fighting'];
+    var k = pool[Math.floor(Math.random() * pool.length)];
+    var played = false;
+    try { played = V7V.play(k); } catch (e) { played = false; }
+    var buf = V7V.bufs && V7V.bufs[k];
+    var wait = (played && buf && buf.duration) ? Math.round(buf.duration * 1000) + 320 : 0;
+    if (after) {
+      if (wait) setTimeout(function () { if (tok === v9FxTok) { try { after(); } catch (e) {} } }, wait);
+      else { try { after(); } catch (e) {} }
+    }
+    return played;
+  }
+  /* 한 문제 맞힐 때마다: 팡! 버스트 + 칭찬 클립 → (클립이 끝나면) 영어 문장 */
+  function v9CorrectFx(say) {
+    v9Burst();
+    if (store.muted) return;                       /* 🔊 꺼짐: 자동 소리 없음 — [다시 듣기]로 직접 들을 수 있어요 */
+    v9Praise(say ? function () { speak(say, 0.95); } : null);
+  }
+  function v9DockActions(label) {
+    return '<button class="v9act v9act--listen" type="button" data-mact="listen">' + PICO('speaker') + '<b>다시 듣기</b></button>' +
+      '<button class="v9act v9act--next" type="button" data-mact="next">' + PICO('play') + '<b>' + label + '</b></button>';
+  }
+  function v9NextLabel(st) { return st.i === st.items.length - 1 ? '미션 마치기' : '다음 문제'; }
+  function v9Dots(words, filled) {
+    return '<div class="v9dots">' + words.map(function (w, i) { return '<i class="' + (i < filled ? 'on' : '') + '"></i>'; }).join('') +
+      '<span>' + filled + ' / ' + words.length + '</span></div>';
   }
 
   /* ---------- 1 · 빈칸 채우기 ---------- */
@@ -8834,21 +9256,27 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       }
     }
     var body = document.getElementById('v7msBody'), dock = document.getElementById('v7msDock');
+    var mid;
+    if (st.ok) {
+      mid = '<div class="v9ok">' + PICO('check') + '<div><span>정답이에요</span><b>' + esc(v7FillEn(it)) + '</b></div></div>';
+    } else if (st.mode === 'type') {
+      mid = '<div class="v9inbox">' + v7InputRow('영어로 입력') + '</div>';
+    } else if (st.listening) {
+      mid = v7ListenBar();
+    } else {
+      mid = '<p class="v9prompt">' + PICO('mic') + ' 마이크를 눌러 말해 보세요</p>';
+    }
     body.innerHTML =
-      '<div class="v7qzone"><div class="v7card">' +
-        '<p class="v7ask">빈칸에 들어갈 말을 영어로 말해 보세요</p>' +
+      '<div class="v9wrap"><div class="v9sheet">' +
+        '<p class="v7ask">' + PICO('mic') + '<span>빈칸에 들어갈 말을 영어로</span></p>' +
         '<div class="v7ko">' + it.ko + '</div>' +
         '<p class="v7en">' + enHtml + '</p>' +
-        (st.hint && !st.ok ? v7HintBox(it.ans, '', st.hint, true) : '<p class="v7hintline"></p>') +
-        '<div class="v7mini"><button type="button" data-mact="listen">🔊 문장 듣기</button></div>' +
-      '</div></div>' +
-      (st.mode === 'type'
-        ? '<div style="margin-top:10px">' + v7InputRow('영어로 입력') + '</div>'
-        : (st.listening ? v7ListenBar() : '<p class="v7heard" style="text-align:center;margin:10px 0 0">' + (st.ok ? '' : '🎙️ 마이크를 누르고 말해 보세요') + '</p>')) +
-      (st.wrong && !st.ok ? '<div class="v7fb no">' + st.wrong + '</div>' : '') +
-      (st.ok ? '<div class="v7fb ok"><span class="t">정답이에요</span><b>' + esc(v7FillEn(it)) + '</b><div class="v7mini"><button type="button" data-mact="listen">🔊 다시 듣기</button><button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button></div></div>' : '') +
-      '<p class="v7foot">🎙️가 안 되면 ⌨️ 키보드 모드로 답해도 똑같아요</p>';
-    dock.innerHTML = v7Dock12();
+        (st.hint && !st.ok ? v7HintBox(it.ans, '', st.hint, true) : '') +
+        (st.wrong && !st.ok ? '<div class="v7fb no">' + st.wrong + '</div>' : '') +
+        mid +
+        (st.ok ? '' : '<div class="v9tools"><button type="button" data-mact="listen">' + PICO('speaker') + '문장 듣기</button></div>') +
+      '</div></div>';
+    dock.innerHTML = st.ok ? v9DockActions(v9NextLabel(st)) : v7Dock12();
     v7CountPaint();
     var inp = document.getElementById('v7in');
     if (inp) { inp.value = st.draft || ''; if (st.mode === 'type') setTimeout(function () { try { inp.focus(); } catch (e) {} }, 40); }
@@ -8864,22 +9292,32 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       return '<span style="color:#C7C0DA;letter-spacing:.06em">' + new Array(n + 1).join('＿') + '</span>';
     }).join(' ');
     var body = document.getElementById('v7msBody'), dock = document.getElementById('v7msDock');
+    /* 3번 다 들었으면(revealed) 막히지 않게 바로 [다시 듣기]·[다음 문제] (#7223) */
+    var canMove = st.ok || st.revealed;
+    var mid;
+    if (st.ok) {
+      mid = '<div class="v9ok">' + PICO('check') + '<div><span>잘 들었어요</span><b>' + esc(it.en) + '</b></div></div>';
+    } else if (st.revealed) {
+      mid = '<p class="v9prompt">' + PICO('head') + ' 이제 문장이 다 보여요 — 소리 내어 읽으며 적어 봐도 좋아요</p>' +
+        '<div class="v9inbox">' + v7InputRow('들은 문장을 영어로') + '</div>';
+    } else if (st.mode === 'type') {
+      mid = '<div class="v9inbox">' + v7InputRow('들은 문장을 영어로') + '</div>';
+    } else if (st.listening) {
+      mid = v7ListenBar();
+    } else {
+      mid = '<p class="v9prompt">' + PICO('head') + ' 마이크를 눌러 따라 말해 보세요</p>';
+    }
     body.innerHTML =
-      '<div class="v7qzone"><div class="v7card">' +
-        '<p class="v7ask">문장을 듣고 그대로 적어 보세요</p>' +
-        '<div class="v7ko"><small>뜻</small>' + esc(it.ko) + '</div>' +
-        '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px">' +
-          '<span style="font-size:11px;font-weight:900;color:#8C86A2">남은 기회 <b style="color:#E8730C">' + st.left + '/3</b></span>' +
-          '<button type="button" class="v7ch" style="width:auto;padding:0 14px;height:40px;font-size:12px" data-mact="listen">🔊 문장 듣기</button>' +
-        '</div>' +
-        '<p class="v7en" style="font-size:18px;line-height:2.1;letter-spacing:.02em;margin-top:12px">' + masked + '</p>' +
-      '</div></div>' +
-      (st.mode === 'type' ? '<div style="margin-top:10px">' + v7InputRow('들은 문장을 영어로') + '</div>'
-        : (st.listening ? v7ListenBar() : '<p class="v7heard" style="text-align:center;margin:10px 0 0">' + (st.ok ? '' : '🎙️ 마이크를 누르고 따라 말해 보세요') + '</p>')) +
-      (st.wrong && !st.ok ? '<div class="v7fb no">' + st.wrong + '</div>' : '') +
-      (st.ok ? '<div class="v7fb ok"><span class="t">잘 들었어요</span><b>' + esc(it.en) + '</b><div class="v7mini"><button type="button" data-mact="listen">🔊 다시 듣기</button><button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button></div></div>' : '') +
-      '<p class="v7foot">3번 다 들으면 문장이 다 보여요 — 그때까지 들은 단어는 초록으로 남아요</p>';
-    dock.innerHTML = v7Dock12();
+      '<div class="v9wrap"><div class="v9sheet">' +
+        '<p class="v7ask">' + PICO('head') + '<span>문장을 듣고 그대로 적어 보세요</span></p>' +
+        '<div class="v7ko" style="background:#F7F4FC;font-size:12.5px;padding:10px 12px"><small>뜻</small>' + esc(it.ko) + '</div>' +
+        '<p class="v9left">남은 기회 <b>' + st.left + '/3</b></p>' +
+        '<p class="v7en" style="font-size:19px;line-height:2;letter-spacing:.02em">' + masked + '</p>' +
+        (st.wrong && !st.ok ? '<div class="v7fb no">' + st.wrong + '</div>' : '') +
+        mid +
+        (canMove ? '' : '<div class="v9tools"><button type="button" data-mact="listen">' + PICO('speaker') + '문장 듣기</button></div>') +
+      '</div></div>';
+    dock.innerHTML = canMove ? v9DockActions(v9NextLabel(st)) : v7Dock12();
     v7CountPaint();
     var inp = document.getElementById('v7in');
     if (inp) { inp.value = st.draft || ''; if (st.mode === 'type') setTimeout(function () { try { inp.focus(); } catch (e) {} }, 40); }
@@ -8887,7 +9325,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 
   /* ---------- 3 · 문장 3지선다 조립 ---------- */
   function v7P3() {
-    var st = v7ms, it = st.items[st.i], m = V7_M[2];
+    var st = v7ms, it = st.items[st.i];
     var words = String(it.say).split(' ');
     var sent = words.map(function (w, i) {
       return '<span class="v7pillword"' + (i < st.filled.length ? '' : ' style="background:#F1EEF9;color:#BDB6CF"') + '>' +
@@ -8907,53 +9345,56 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         st.choices = v7Shuf(beat.w, Math.floor(Math.random() * 1e9));
         st.choicesPos = st.pos;
       }
-      choices = '<div class="v7stack"><div class="v7row">' + st.choices.map(function (w) {
-        return '<button type="button" class="v7ch" data-mact="choice" data-w="' + esc(w) + '">' + esc(w) + '</button>';
-      }).join('') + '</div></div>';
+      choices = '<div class="v9stack">' +
+        '<span class="v9stack__l v9stack__l3"></span>' +
+        '<span class="v9stack__l v9stack__l2"></span>' +
+        '<span class="v9stack__l v9stack__l1"></span>' +
+        '<div class="v7row">' + st.choices.map(function (w) {
+          return '<button type="button" class="v7ch" data-mact="choice" data-w="' + esc(w) + '">' + esc(w) + '</button>';
+        }).join('') + '</div></div>';
     }
     body.innerHTML =
-      '<div class="v7qzone" style="justify-content:flex-start;padding-top:1vh;flex:0 0 auto">' +
-      '<div style="background:#fff;border:1px solid #EDE9F7;border-radius:20px;padding:18px 15px;box-shadow:0 10px 26px rgba(38,28,80,.07);min-height:30vh;display:flex;flex-direction:column;justify-content:center">' +
-        '<p class="v7ask">' + m.ico + ' 단어를 골라 문장을 완성해요</p>' +
-        '<p class="v7en" style="font-size:19px;margin-top:10px">' + sent + '</p>' +
-        '<p class="v7ko" style="background:#F7F5FC;margin-top:12px;font-size:13px">' + ko + '</p>' +
-        (st.wrong ? '<div class="v7fb warn"><span class="t">💡 왜 아닐까요?</span>' + st.wrong + '</div>' : '') +
-        (done ? '<div class="v7done"><button type="button" data-mact="listen">🔊 다시 듣기</button><button type="button" class="pri" data-mact="next">▶ ' + (st.i === st.items.length - 1 ? '미션 마치기' : '다음 문제') + '</button></div>' : '') +
-      '</div></div>' +
-      '<div class="v7wprog" style="flex:1; margin-top:0">' + words.map(function (w, i) { return '<i class="' + (i < st.filled.length ? 'on' : '') + '"></i>'; }).join('') +
-        '<span>' + st.filled.length + ' / ' + words.length + ' 단어</span></div>' +
-      choices +
-      '<p class="v7foot">틀린 단어는 왜 아닌지 알려 줘요 · 다시 고르면 돼요</p>';
-    dock.innerHTML = '';
+      '<div class="v9wrap v9wrap--m3">' +
+        '<div class="v9sheet v9sheet--m3">' +
+          '<p class="v7ask">' + PICO('puzzle') + '<span>단어를 골라 문장을 완성해요</span></p>' +
+          '<p class="v7en">' + sent + '</p>' +
+          '<p class="v7ko">' + ko + '</p>' +
+          (st.wrong ? '<div class="v7fb warn"><span class="t">💡 왜 아닐까요?</span>' + st.wrong + '</div>' : '') +
+          v9Dots(words, st.filled.length) +
+        '</div>' +
+        choices +
+        (done ? '' : '<p class="v7foot">틀린 단어는 왜 아닌지 알려 줘요 · 다시 고르면 돼요</p>') +
+      '</div>';
+    dock.innerHTML = done ? v9DockActions(v9NextLabel(st)) : '';
     v7CountPaint();
   }
 
   /* ---------- 4 · 콩글리시 주관식 ---------- */
   function v7P4() {
     var st = v7ms, it = st.items[st.i];
-    var hint = '';
-    if (st.hint && !st.answered) hint = v7HintBox(it.right, '', st.hint, true);
+    var hint = (st.hint && !st.answered) ? v7HintBox(it.right, '', st.hint, true) : '';
     var body = document.getElementById('v7msBody'), dock = document.getElementById('v7msDock');
+    var res = '';
+    if (st.answered) {
+      res = '<div class="v9ans ' + (st.correct ? 'is-ok' : 'is-new') + '">' +
+          '<span class="v9ans__k">' + (st.correct ? PICO('check') + '정답이에요' : PICO('bulb') + '이렇게 말해요') + '</span>' +
+          '<b>' + esc(it.right) + '</b>' +
+          (st.correct ? '' : '<div class="v9ans__mine">내 답 · ' + esc(st.guess || '(못 적었어요)') + '</div>') +
+          '<p class="v9ans__why">' + it.why + '</p>' +
+        '</div>' +
+        '<div class="v7tip">⚠️ ' + (V7_TIP[it.id] || '직역한 표현은 원어민에게 잘 통하지 않아요 — 굳어진 표현을 통째로 익혀요.') + '</div>';
+    }
     body.innerHTML =
-      '<div class="v7qzone" style="justify-content:' + (st.answered ? 'flex-start' : 'center') + '">' +
-      '<p class="v7ask">🥤 콩글리시 → 진짜 영어</p>' +
-      '<div class="v7ko" style="background:#EAF5FD">한국에선 \'<b style="background:#D8EEFB;color:#166A96">' + esc(it.kong) + '</b>' +
-        (String(it.wrong).indexOf(' ') < 0 || String(it.wrong).split(' ').length <= 2 ? '(' + esc(it.wrong) + ')' : '') + '\'' + v7Josa(it.kong, '라고', '이라고') + ' 하는데…<br>원어민은 영어로 뭐라고 할까? 🤔' +
-        '<small>뜻: ' + esc(it.ko) + ' · 한국식: ' + esc(it.wrong) + '</small></div>' +
-      (st.answered ? '' : '<div style="margin-top:12px">' + v7InputRow('영어로 답해 보세요', true) + '</div>') +
-      hint + '</div>' +
-      (st.answered ? (
-        '<div class="v7fb ' + (st.correct ? 'ok' : 'warn') + '"><span class="t">' + (st.correct ? '정답이에요' : '이렇게 말해요') + '</span>' +
-          '<b style="font-size:16px;display:block;margin-bottom:4px">' + esc(it.right) + '</b>' +
-          (st.correct ? '' : '내 답: <b>' + esc(st.guess || '(못 적었어요)') + '</b><br>') +
-          it.why + '</div>' +
-        '<div class="v7tip">⚠️ ' + (V7_TIP[it.id] || '직역한 표현은 원어민에게 잘 통하지 않아요 — 굳어진 표현을 통째로 익혀요.') + '</div>' +
-        '<div class="v7mini">' +
-          '<button type="button" data-mact="say">🔊 예문 듣기</button>' +
-          '<button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button>' +
-        '</div>'
-      ) : '<p class="v7foot">몰라도 괜찮아요 — 💡 힌트로 한 단계씩, 👀 정답 보기로 답을 볼 수 있어요</p>');
-    dock.innerHTML = '';
+      '<div class="v9wrap"><div class="v9sheet">' +
+        '<p class="v7ask">' + PICO('cup') + '<span>콩글리시 → 진짜 영어</span></p>' +
+        '<div class="v9kong">한국에선 <b>' + esc(it.kong) + '</b>' +
+          (String(it.wrong).indexOf(' ') < 0 || String(it.wrong).split(' ').length <= 2 ? '(' + esc(it.wrong) + ')' : '') + ' ' + v7Josa(it.kong, '라고', '이라고') + ' 하는데…<br>원어민은 영어로 뭐라고 할까? 🤔' +
+          '<small>뜻: ' + esc(it.ko) + ' · 한국식: ' + esc(it.wrong) + '</small></div>' +
+        (st.answered ? '' : '<div class="v9inbox">' + v7InputRow('영어로 답해 보세요', true) + '</div>') +
+        hint + res +
+        (st.answered ? '' : '<p class="v7foot">몰라도 괜찮아요 — 💡 힌트로 한 단계씩, 👀 정답 보기로 답을 볼 수 있어요</p>') +
+      '</div></div>';
+    dock.innerHTML = st.answered ? v9DockActions(v9NextLabel(st)) : '';
     v7CountPaint();
     var inp = document.getElementById('v7in');
     if (inp) inp.value = st.draft || '';
@@ -8963,31 +9404,30 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   function v7P5() {
     var st = v7ms, it = st.items[st.i];
     var body = document.getElementById('v7msBody'), dock = document.getElementById('v7msDock');
-    body.innerHTML =
-      '<div class="v7qzone" style="justify-content:' + (st.answered ? 'flex-start' : 'center') + '">' +
-      '<p class="v7ask">' + esc(it.src) + '</p>' +
-      '<div class="v7ko" style="background:#FDF2F7"><small>한국어 뉘앙스</small>' + esc(it.ko) + '</div>' +
-      '<p class="v7en" style="font-size:15px;font-weight:800;color:#5B5470;margin-top:14px">이 장면의 영어를 그대로 말해 볼까요?</p>' +
-      (st.answered ? '' : '<div style="margin-top:12px">' + v7InputRow('기억나는 영어로', true) + '</div>') +
-      (st.answered || !st.hint ? '' : v7HintBox(it.en, it.tip, st.hint, true)) +
-      '</div>' +
-      (st.answered ? '' : '<p class="v7foot">몰라도 괜찮아요 — 💡 힌트나 👀 정답 보기로 먼저 볼 수 있어요</p>') +
-      (st.answered ?
-        '<div class="v7cmp">' +
+    var res = '';
+    if (st.answered) {
+      res = '<div class="v7cmp">' +
           '<div class="mine"><span class="k">내 답</span>' + esc(st.guess || '(못 적었어요)') + '</div>' +
           '<div class="real"><span class="k">실제' + (it.say ? ' · ' + esc(it.say) : '') + '</span><b>' + esc(it.en) + '</b></div>' +
         '</div>' +
-        '<div class="v7tip">⚠️ ' + (it.tip || '한국어를 그대로 옮기기보다, 통째로 쓰이는 표현을 익혀요.') + '</div>' +
-        '<div class="v7mini">' +
-          '<button type="button" data-mact="say">🔊 듣기</button>' +
-          '<button type="button" class="pri" data-mact="next">' + (st.i === st.items.length - 1 ? '미션 마치기 →' : '다음 문제 →') + '</button>' +
-        '</div>'
-        : '');
-    dock.innerHTML = '';
+        '<div class="v7tip">⚠️ ' + (it.tip || '한국어를 그대로 옮기기보다, 통째로 쓰이는 표현을 익혀요.') + '</div>';
+    }
+    body.innerHTML =
+      '<div class="v9wrap"><div class="v9sheet">' +
+        '<p class="v7ask">' + PICO('movie') + '<span>' + esc(it.src) + '</span></p>' +
+        '<div class="v7ko" style="background:#FDF2F7"><small>한국어 뉘앙스</small>' + esc(it.ko) + '</div>' +
+        '<p class="v9cue">이 장면의 영어를 그대로 말해 볼까요?</p>' +
+        (st.answered ? '' : '<div class="v9inbox">' + v7InputRow('기억나는 영어로', true) + '</div>') +
+        (st.answered || !st.hint ? '' : v7HintBox(it.en, it.tip, st.hint, true)) +
+        res +
+        (st.answered ? '' : '<p class="v7foot">몰라도 괜찮아요 — 💡 힌트나 👀 정답 보기로 먼저 볼 수 있어요</p>') +
+      '</div></div>';
+    dock.innerHTML = st.answered ? v9DockActions(v9NextLabel(st)) : '';
     v7CountPaint();
     var inp = document.getElementById('v7in');
     if (inp) inp.value = st.draft || '';
   }
+
   function v7MsPaint() {
     if (!v7ms) return;
     var n = v7ms.n;
@@ -9005,6 +9445,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
   }
   function v7MsListen() {
     var st = v7ms; if (!st) return;
+    v9FxTok++;                       /* 칭찬 클립 뒤로 예약된 자동 낭독 취소 — [다시 듣기]가 깨끗하게 */
     var it = st.items[st.i];
     if (st.n === 2) {
       if (st.left <= 0) { toast('3번 다 들었어요 — 이제 적어 봐요'); return; }
@@ -9071,7 +9512,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       if (crsHasAns(val, it.ans) || v7Match(val, v7FillEn(it))) {
         st.ok = true; st.solved++;
         v7Solved(1, it.en);
-        Snd.success(); speak(v7FillEn(it), 0.95);
+        Snd.success(); v9CorrectFx(v7FillEn(it));
         v7SetProg(1, st.solved);
         v7MsPaint();
       } else {
@@ -9093,7 +9534,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       if (all) {
         st.ok = true; st.solved++;
         v7Solved(2, it.en);
-        Snd.success(); speak(it.en, 0.9);
+        Snd.success(); v9CorrectFx(it.en);
         v7SetProg(2, st.solved);
       } else {
         st.wrong = '맞은 단어는 초록으로 남았어요. 남은 ' + (st.left ? '기회 ' + st.left + '번을 더 써 보세요.' : '부분을 다시 적어 보세요.');
@@ -9116,8 +9557,8 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     st.solved++;
     v7Solved(st.n, it.id || it.en);
     v7SetProg(st.n, st.solved);
-    if (st.correct) Snd.success(); else Snd.pop();
-    speak(st.n === 4 ? it.right : it.en, 0.92);
+    if (st.correct) { Snd.success(); v9CorrectFx(st.n === 4 ? it.right : it.en); }
+    else { Snd.pop(); speak(st.n === 4 ? it.right : it.en, 0.92); }
     v7MsPaint();
   }
 
@@ -9136,7 +9577,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
       if (act === 'home') { Snd.tap(); v7MsClose(); v7Go('home'); return; }
       if (act === 'snd') {
         store.muted = !store.muted; save();
-        b.textContent = store.muted ? '🔇' : '🔊';
+        b.innerHTML = PICO(store.muted ? 'mute' : 'speaker');
         b.classList.toggle('is-off', store.muted);
         try { renderMute(); } catch (e) {}
         return;
@@ -9172,12 +9613,13 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         if (!beat) return;
         if (w === beat.w[beat.ok]) {
           st.filled.push(w); st.pos++; st.wrong = ''; st.choices = null; st.choicesPos = -1;
-          Snd.pop(); speak(w, 0.98);
           if (st.pos >= it.beats.length) {
             st.solved++;
             v7Solved(3, it.say);
             v7SetProg(3, st.solved);
-            setTimeout(function () { if (v7ms && v7ms.n === 3 && v7ms.i === st.i) speak(it.say, 0.95); }, 620);
+            Snd.success(); v9CorrectFx(it.say);     /* 문장 완성 = 한 문제 맞힘 */
+          } else {
+            Snd.pop(); speak(w, 0.98);
           }
           v7MsPaint();
         } else {
