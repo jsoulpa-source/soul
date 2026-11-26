@@ -1606,6 +1606,7 @@ body{background:var(--v7bg)}
   font-size:19px; box-shadow:0 3px 9px rgba(38,28,80,.07);
 }
 .v7mis__tt{flex:1; min-width:0}
+.v7mis__o{font-style:normal; font-size:8.5px; font-weight:900; color:#9C93B8; background:#fff; border-radius:6px; padding:1px 5px; margin-right:5px; vertical-align:1px; letter-spacing:-.01em}
 .v7mis__k{font-size:12.5px; font-weight:900; color:var(--c); letter-spacing:-.02em; display:flex; align-items:center; gap:4px}
 .v7mis__s{font-size:10px; font-weight:800; color:#726B8A; margin-top:2px; line-height:1.4}
 .v7ring{width:44px; height:44px; flex:none; position:relative}
@@ -1758,7 +1759,7 @@ body.is-mission .v7nav{display:none !important}
 @keyframes v7pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,85,142,.42)}50%{box-shadow:0 0 0 16px rgba(232,85,142,0)}}
 .v7mic.is-off{opacity:.55}
 
-.v7card{background:#fff; border:1px solid #ECE8F7; border-radius:24px; padding:22px 18px; box-shadow:0 12px 30px rgba(38,28,80,.07); min-height:44vh; display:flex; flex-direction:column; justify-content:center}
+.v7card{background:#fff; border:1px solid #ECE8F7; border-radius:24px; padding:22px 18px; box-shadow:0 12px 30px rgba(38,28,80,.07); display:flex; flex-direction:column; justify-content:center}
 .v7foot{margin-top:auto; padding:12px 0 2px; text-align:center; font-size:10px; font-weight:800; color:#B3ADC2; line-height:1.5}
 .v7qzone{flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; padding-bottom:6vh}
 .v7ask{font-size:11px; font-weight:900; color:#8C86A2; letter-spacing:.01em}
@@ -1945,7 +1946,7 @@ body.is-mission .v7nav{display:none !important}
         <div class="v7mis" id="v7Mis" data-m="1">
           <span class="v7mis__ico" id="v7MisIco">🎙️</span>
           <span class="v7mis__tt">
-            <span class="v7mis__k" id="v7MisK">빈칸 채우기</span>
+            <span class="v7mis__k"><em class="v7mis__o">오늘 목표</em><span id="v7MisK">빈칸 채우기</span></span>
             <span class="v7mis__s" id="v7MisS">10문제 · 말하기/직접 입력</span>
           </span>
           <span class="v7ring" id="v7Ring"></span>
@@ -8252,8 +8253,8 @@ body.is-mission .v7nav{display:none !important}
       b = t.closest('[data-v7m]');
       if (b) {
         var n = Number(b.getAttribute('data-v7m')) || 1;
-        if (n === v7Sel) { Snd.tap(); v7MissionOpen(n); return; }
-        v7Sel = n; store.v7sel = n; save(); Snd.tap(); v7HomePaint();
+        Snd.tap();
+        if (n !== v7Sel) { v7Sel = n; store.v7sel = n; save(); v7HomePaint(); }
       }
     });
     var home = document.getElementById('tab-home');
@@ -8263,7 +8264,7 @@ body.is-mission .v7nav{display:none !important}
       if (!b) return;
       e.preventDefault();
       var n = Number(b.getAttribute('data-v7m')) || 1;
-      v7Sel = n; store.v7sel = n; save(); v7HomePaint();
+      if (n !== v7Sel) { v7Sel = n; store.v7sel = n; save(); v7HomePaint(); }
     });
   })();
 
