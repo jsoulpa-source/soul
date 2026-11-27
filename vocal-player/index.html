@@ -467,7 +467,8 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .abrow .btn{padding:6px 2px; font-size:11px}
 .abinfo{font-size:10px; margin-top:-2px}
 .seekrow span{font-size:10.5px; width:30px}
-.beatfoot{height:22px; min-height:22px}
+.beatfoot{display:flex; align-items:center; justify-content:space-between; gap:6px; height:22px; min-height:22px}
+.page2 .legend{min-width:0; overflow:hidden}
 .page2 .abinfo{flex:0 0 auto}
 .lrcbar{display:none}
 .lrcbar.nolyr{display:flex}
@@ -485,7 +486,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .rlab{flex:none; text-align:center; font-size:8.5px; font-weight:900; letter-spacing:.04em; color:#7c3aed}
 .rlab b{display:block; font-size:7px; letter-spacing:.06em; color:#a79dc2; font-weight:800}
 .rstack{flex:0 0 auto; min-height:0; display:flex; flex-direction:column; justify-content:center; gap:4px}
-.rstack button{flex:0 0 auto; height:clamp(30px,5.2dvh,44px); display:grid; place-items:center; border-radius:8px;
+.rstack button{flex:0 0 auto; height:clamp(28px,4.9dvh,40px); display:grid; place-items:center; border-radius:8px;
   border:1px solid var(--line); background:#fff; color:#6a6088;
   font-size:11px; font-weight:800; font-variant-numeric:tabular-nums; line-height:1; white-space:nowrap;
   transition:.14s}
@@ -547,12 +548,15 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   .rstack button{font-size:10.5px}
 }
 @media (max-width:360px){
-  .beatcanvas{height:104px}
+  .beatcanvas{height:clamp(104px,16dvh,132px)}
   .remote{width:62px}
   .rstack button{font-size:10px; min-height:19px}
   .page2 .stage{padding:8px 7px; gap:4px}
   .ll.active .llin{font-size:17px}
   .play{width:48px;height:48px}
+}
+@media (max-width:389px){
+  .legend span{display:none}
 }
 @media (max-height:720px){
   .beatcanvas{height:clamp(88px,13dvh,120px)}
