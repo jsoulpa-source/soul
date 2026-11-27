@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="독서불꽃">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="format-detection" content="telephone=no">
-<meta name="app-build" content="family-reading-v2-2026-11-28-capybara-splash">
+<meta name="app-build" content="family-reading-v3-2026-11-28-snacks">
 <style>
 /* ============ 기본 ============ */
 :root{
@@ -247,17 +247,27 @@ a{color:inherit}
 .mh-legend{display:flex;flex-wrap:wrap;gap:4px 10px;margin:9px 0 12px;font-size:10.5px;font-weight:800;color:#8A6A55}
 .mh-legend span{display:inline-flex;align-items:center;gap:4px}
 .mh-legend i{width:8px;height:8px;border-radius:50%;display:block}
-.mh-graph{display:flex;gap:5px;align-items:flex-end}
-.mh-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
-.mh-col .mh-bars{width:100%;max-width:38px;height:100px;display:flex;flex-direction:column-reverse;gap:3px;padding:3px;
-  border-radius:11px;background:#FBF4EC;border:1px solid #F5E8DA;transition:.2s}
-.mh-col.today .mh-bars{background:#FFF6EC;border-color:#FFD9B8;box-shadow:0 0 0 2.5px #FFF0DF}
-.mh-col .mh-bars i{display:block;height:14px;border-radius:5px;background:var(--bc);animation:blockPop .45s cubic-bezier(.2,1.5,.4,1) both}
-.mh-col .mh-bars i:nth-child(2){animation-delay:.04s}
-.mh-col .mh-bars i:nth-child(3){animation-delay:.08s}
-.mh-col .mh-bars i:nth-child(4){animation-delay:.12s}
-.mh-col .mh-bars i:nth-child(5){animation-delay:.16s}
-@keyframes blockPop{from{transform:scaleY(.2);opacity:0}to{transform:none;opacity:1}}
+.mh-graph{display:flex;gap:3px;align-items:flex-end;margin:2px auto 0;max-width:430px}
+.mh-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.mh-snack{position:relative;width:100%;max-width:46px;display:grid;place-items:center;padding:5px 0 3px;border-radius:15px;transition:background .25s,box-shadow .25s}
+.mh-col.today .mh-snack{background:linear-gradient(180deg,#FFF9F2,#FFF0DF);box-shadow:inset 0 0 0 1.5px #FFDFBE}
+.mh-snack svg{width:100%;height:auto;display:block;overflow:visible}
+.mh-snack .sk-off *{fill:#F4E7DA;stroke:#E2CEBB;stroke-width:1.15;stroke-linejoin:round}
+.mh-snack .sk-off [fill="none"]{fill:none}
+.mh-snack .sk-on.sk-anim{animation:skRise .8s cubic-bezier(.22,1.1,.36,1) both}
+@keyframes skRise{from{transform:translateY(12px);opacity:.25}to{transform:none;opacity:1}}
+.mh-col.full .mh-snack svg{animation:skBounce 2.6s ease-in-out .2s infinite}
+@keyframes skBounce{0%,70%,100%{transform:translateY(0) scale(1)}36%{transform:translateY(-3.5px) scale(1.05)}52%{transform:translateY(0) scale(1)}}
+.mh-snack .sk-star{position:absolute;color:#FFC75A;font-size:9px;line-height:1;text-shadow:0 1px 3px rgba(255,170,60,.35);animation:skTwinkle 1.9s ease-in-out infinite;pointer-events:none}
+.mh-snack .sk-star.s1{top:0;right:1px}
+.mh-snack .sk-star.s2{bottom:9px;left:-1px;color:#FF9EC4;font-size:7px;animation-delay:.55s}
+.mh-snack .sk-star.s3{top:34%;left:-3px;color:#8FD3F4;font-size:6px;animation-delay:1.05s}
+@keyframes skTwinkle{0%,100%{opacity:.2;transform:scale(.65) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(18deg)}}
+.mh-dots{display:flex;justify-content:center;gap:2.5px;margin-top:1px}
+.mh-dots i{width:5px;height:5px;border-radius:50%;background:#F5EBE0;box-shadow:inset 0 0 0 1px #EADCCB;display:block;transition:background .2s}
+.mh-dots i.on{background:var(--dc);box-shadow:0 1px 3px rgba(120,90,60,.20)}
+.mh-dots i.on.pop{animation:dotPop .5s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes dotPop{0%{transform:scale(.3)}58%{transform:scale(1.28)}100%{transform:scale(1)}}
 .mh-col em{font-style:normal;font-size:10.5px;font-weight:800;color:#A98B72}
 .mh-col.today em{color:#C4551F}
 .mh-week-foot{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:11px;font-size:11.5px;font-weight:800;color:#8A6A55;
@@ -283,7 +293,7 @@ a{color:inherit}
   .mh-tab{min-height:52px}
   .mh-tab .mt-emoji{font-size:15px}
   .mh-tab .mt-name{font-size:8.2px}
-  .mh-col .mh-bars{height:88px}
+  .mh-snack{max-width:42px}
 }
 
 /* ============ 꾸미기 옷장 ============ */
@@ -6204,20 +6214,162 @@ a{color:inherit}
       '<div class="mh-tabs">' + tabs + '</div>';
   }
 
+  /* ================= 이번 주 간식 실루엣 =================
+     월~일 7일을 아이들이 좋아하는 간식 7종 실루엣으로 그립니다(#9641 · #9650 · #9713).
+     그날 끝낸 미션 수(0~5)만큼 아래에서 위로 색이 차오르고, 5/5면 100% 색 + 콩콩 튀며 반짝여요.
+     · base:true — 비어 있을 때도 보이는 실루엣(연한 크림색 한 가지로 칠해집니다)
+     · def       — 도형을 자르는 clipPath (__ID__ 는 그날 번호로 바뀝니다) */
+  var SNACKS = [
+    { name: '딸기 쇼트케이크', emoji: '🍓', top: 16.9, bottom: 47.2,
+      def: '<clipPath id="__ID__-slice"><path d="M18.4 17h11.2c1.6 0 2.9 1 3.3 2.5l6.4 24.2c.5 1.9-.9 3.5-2.8 3.5H11.5c-1.9 0-3.3-1.6-2.8-3.5l6.4-24.2c.4-1.5 1.7-2.5 3.3-2.5Z"/></clipPath>',
+      parts: [
+        { base: true, html: '<path d="M18.4 17h11.2c1.6 0 2.9 1 3.3 2.5l6.4 24.2c.5 1.9-.9 3.5-2.8 3.5H11.5c-1.9 0-3.3-1.6-2.8-3.5l6.4-24.2c.4-1.5 1.7-2.5 3.3-2.5Z" fill="#FFF3DF" stroke="#E7C7A2" stroke-width="1.3"/>' },
+        { html: '<ellipse cx="24" cy="17" rx="6" ry="2.9" fill="#FFF7E4" stroke="#E9C9A6" stroke-width="1.1"/>' },
+        { base: true, html: '<path d="M13.6 41.5H34.4M15.4 36H32.6M17.6 30H30.4" stroke="#E7C7A2" stroke-width="1" opacity=".5" fill="none"/>' },
+        { html: '<g clip-path="url(#__ID__-slice)">' +
+            '<rect x="4" y="41.5" width="40" height="8" fill="#FFC078"/>' +
+            '<rect x="4" y="36" width="40" height="5.5" fill="#FFF3D6"/>' +
+            '<rect x="4" y="30" width="40" height="6" fill="#FFC078"/>' +
+            '<rect x="4" y="24" width="40" height="6" fill="#FFF3D6"/>' +
+            '<rect x="4" y="17" width="40" height="7" fill="#FFC078"/>' +
+          '</g>' +
+          '<path d="M18.4 17h11.2c1.6 0 2.9 1 3.3 2.5l6.4 24.2c.5 1.9-.9 3.5-2.8 3.5H11.5c-1.9 0-3.3-1.6-2.8-3.5l6.4-24.2c.4-1.5 1.7-2.5 3.3-2.5Z" fill="none" stroke="#E3BE93" stroke-width="1.3"/>' +
+          '<ellipse cx="24" cy="17" rx="6" ry="2.9" fill="#FFF7E4" stroke="#E9C9A6" stroke-width="1.1"/>' },
+        { html: '<path d="M24 3.6c3.3 0 6 2.3 6 5.3 0 3.5-3 6.2-6 8-3-1.8-6-4.5-6-8 0-3 2.7-5.3 6-5.3Z" fill="#FF7FA2" stroke="#EC6289" stroke-width="1"/>' +
+          '<path d="M19.8 6.7 24 3.4l4.2 3.3-2.1.8L24 5.8l-2.1 1.7Z" fill="#6FC58A"/>' +
+          '<circle cx="21.6" cy="9.2" r="1.1" fill="#fff" opacity=".8"/>' }
+      ] },
+    { name: '핑크 도넛', emoji: '🍩', top: 13, bottom: 47,
+      def: '<clipPath id="__ID__-ring"><path clip-rule="evenodd" d="M24 13a17 17 0 1 1 0 34 17 17 0 0 1 0-34Zm0 10.9a6.1 6.1 0 1 0 0 12.2 6.1 6.1 0 0 0 0-12.2Z"/></clipPath>',
+      parts: [
+        { base: true, html: '<path fill-rule="evenodd" d="M24 13a17 17 0 1 1 0 34 17 17 0 0 1 0-34Zm0 10.9a6.1 6.1 0 1 0 0 12.2 6.1 6.1 0 0 0 0-12.2Z" fill="#F5C08C" stroke="#E3A870" stroke-width="1.3"/>' },
+        { html: '<g clip-path="url(#__ID__-ring)">' +
+            '<path d="M7 30a17 17 0 0 1 34 0q-2.85 4.2 -5.7 0t-5.7 0t-5.7 0t-5.7 0t-5.7 0t-5.7 0Z" fill="#FF9EC2" stroke="#F584B0" stroke-width="1"/>' +
+            '<path d="M12.9 22.4c2.6-4.8 7.4-7.8 12.3-7.4" fill="none" stroke="#FFD2E2" stroke-width="1.7" stroke-linecap="round" opacity=".9"/>' +
+            '<rect x="14.2" y="19.2" width="4.6" height="1.8" rx=".9" fill="#FFE066" transform="rotate(-30 16.5 20.1)"/>' +
+            '<rect x="22" y="16.2" width="4.6" height="1.8" rx=".9" fill="#7FD9B0" transform="rotate(18 24.3 17.1)"/>' +
+            '<rect x="30.4" y="19.6" width="4.6" height="1.8" rx=".9" fill="#8FB8FF" transform="rotate(52 32.7 20.5)"/>' +
+            '<rect x="11.8" y="26" width="4.2" height="1.7" rx=".85" fill="#FFC2DF" transform="rotate(76 13.9 26.8)"/>' +
+            '<rect x="36.2" y="25.4" width="4" height="1.7" rx=".85" fill="#FFFFFF" transform="rotate(-64 38.2 26.2)"/>' +
+          '</g>' }
+      ] },
+    { name: '소프트 아이스크림', emoji: '🍦', top: 0.8, bottom: 52.6,
+      parts: [
+        { base: true, html: '<path d="M13.4 30.6h21.2l-9.1 22c-.5 1.2-2.5 1.2-3 0l-9.1-22Z" fill="#EBA968" stroke="#D08A45" stroke-width="1.2"/>' },
+        { base: true, html: '<path d="M17.4 33.4 24.8 40.2M30.6 33.4 23.2 40.2M19.8 30.8 27 37.4" stroke="#C07930" stroke-width="1" opacity=".4" fill="none"/>' },
+        { base: true, html: '<circle cx="24" cy="28.2" r="10.4" fill="#FFF6E2" stroke="#EDCFA8" stroke-width="1.2"/>' },
+        { base: true, html: '<circle cx="24" cy="20.4" r="8.2" fill="#FFF6E2" stroke="#EDCFA8" stroke-width="1.2"/>' },
+        { base: true, html: '<circle cx="24.1" cy="13.8" r="6" fill="#FFF6E2" stroke="#EDCFA8" stroke-width="1.2"/>' },
+        { base: true, html: '<circle cx="25.8" cy="7.8" r="3.4" fill="#FFF6E2" stroke="#EDCFA8" stroke-width="1.2"/>' },
+        { html: '<path d="M15.6 22.2q3.1 3 6.2 0t6.2 0t6.2 0" fill="none" stroke="#FF95BA" stroke-width="2.6" stroke-linecap="round"/>' +
+          '<path d="M17.8 14.4q2.7 2.4 5.4 0t5.4 0" fill="none" stroke="#FF95BA" stroke-width="2.2" stroke-linecap="round"/>' +
+          '<circle cx="24.2" cy="3.2" r="2.4" fill="#FF5C82" stroke="#E8456C" stroke-width=".9"/>' +
+          '<path d="M24.8 1.3c.4-1.1 1.2-1.7 2.2-1.8" fill="none" stroke="#6FC58A" stroke-width="1.1" stroke-linecap="round"/>' }
+      ] },
+    { name: '크림 컵케이크', emoji: '🧁', top: 6.6, bottom: 50.3,
+      parts: [
+        { base: true, html: '<path d="M11.8 34.2h24.4l-2.7 13.6c-.3 1.5-1.6 2.5-3.1 2.5H17.6c-1.5 0-2.8-1-3.1-2.5l-2.7-13.6Z" fill="#FFC078" stroke="#E39A52" stroke-width="1.2"/>' },
+        { base: true, html: '<path d="M17 34.4 19 50M21.8 34.4 22.6 50.3M26.2 34.4 26.4 50.3M31 34.4 30 50" stroke="#E39A52" stroke-width=".9" opacity=".7" fill="none"/>' },
+        { base: true, html: '<circle cx="24" cy="32.6" r="10.8" fill="#FFD9E7" stroke="#F5B3CD" stroke-width="1.2"/>' },
+        { base: true, html: '<circle cx="24" cy="24.6" r="8.4" fill="#FFD9E7" stroke="#F5B3CD" stroke-width="1.2"/>' },
+        { base: true, html: '<circle cx="24.2" cy="17.6" r="6.2" fill="#FFD9E7" stroke="#F5B3CD" stroke-width="1.2"/>' },
+        { html: '<path d="M15.4 29q3.2 3 6.4 0t6.4 0t6.4 0" fill="none" stroke="#FF9EC0" stroke-width="2.2" stroke-linecap="round" opacity=".95"/>' +
+          '<circle cx="24.2" cy="9.8" r="3.1" fill="#FF5C82" stroke="#E8456C" stroke-width=".9"/>' +
+          '<path d="M24.9 7.3c.4-1.8 1.8-2.8 3.4-2.8" fill="none" stroke="#6FC58A" stroke-width="1.1" stroke-linecap="round"/>' }
+      ] },
+    { name: '초코칩 쿠키', emoji: '🍪', top: 13.6, bottom: 46.4,
+      parts: [
+        { base: true, html: '<circle cx="24" cy="30" r="16.4" fill="#EFB87C" stroke="#D89A5E" stroke-width="1.3"/>' },
+        { base: true, html: '<ellipse cx="18.2" cy="22.6" rx="2.7" ry="2.2" fill="#6B3D22" transform="rotate(-18 18.2 22.6)"/>' +
+          '<ellipse cx="29.6" cy="21.4" rx="2.4" ry="2" fill="#6B3D22" transform="rotate(22 29.6 21.4)"/>' +
+          '<ellipse cx="24.2" cy="29.4" rx="2.8" ry="2.3" fill="#6B3D22" transform="rotate(8 24.2 29.4)"/>' +
+          '<ellipse cx="15.8" cy="32.6" rx="2.3" ry="1.9" fill="#6B3D22" transform="rotate(30 15.8 32.6)"/>' +
+          '<ellipse cx="32.4" cy="31.8" rx="2.5" ry="2" fill="#6B3D22" transform="rotate(-14 32.4 31.8)"/>' +
+          '<ellipse cx="22.4" cy="38.4" rx="2.4" ry="2" fill="#6B3D22" transform="rotate(-26 22.4 38.4)"/>' +
+          '<ellipse cx="30" cy="38.2" rx="2" ry="1.7" fill="#6B3D22" transform="rotate(40 30 38.2)"/>' },
+        { html: '<path d="M13.6 24.6c2-4.4 6-7.4 10.4-8" fill="none" stroke="#FFDCB4" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>' }
+      ] },
+    { name: '생크림 베리 와플', emoji: '🧇', top: 11.8, bottom: 50.2,
+      def: '<clipPath id="__ID__-waffle"><rect x="8.6" y="19.6" width="30.8" height="30.6" rx="7"/></clipPath>',
+      parts: [
+        { base: true, html: '<rect x="8.6" y="19.6" width="30.8" height="30.6" rx="7" fill="#F0B666" stroke="#D9974C" stroke-width="1.3"/>' },
+        { base: true, html: '<g clip-path="url(#__ID__-waffle)"><path d="M16.3 19.6V50.2M24 19.6V50.2M31.7 19.6V50.2M8.6 27.2H39.4M8.6 34.8H39.4M8.6 42.4H39.4" stroke="#CE8C3F" stroke-width="1.2" opacity=".7" fill="none"/></g>' },
+        { base: true, html: '<ellipse cx="16.8" cy="20.4" rx="5.6" ry="3.4" fill="#FFF6E0" stroke="#EDD2AE" stroke-width="1.1"/>' },
+        { base: true, html: '<ellipse cx="23.6" cy="18.8" rx="5.8" ry="3.6" fill="#FFF6E0" stroke="#EDD2AE" stroke-width="1.1"/>' },
+        { base: true, html: '<ellipse cx="30.4" cy="20.4" rx="5.2" ry="3.2" fill="#FFF6E0" stroke="#EDD2AE" stroke-width="1.1"/>' },
+        { base: true, html: '<ellipse cx="25.6" cy="14.4" rx="3.4" ry="2.6" fill="#FFF6E0" stroke="#EDD2AE" stroke-width="1.1"/>' },
+        { html: '<circle cx="13.6" cy="17" r="2.6" fill="#FF7FA2" stroke="#EC6289" stroke-width=".8"/>' +
+          '<circle cx="34.8" cy="18.6" r="2.4" fill="#FF7FA2" stroke="#EC6289" stroke-width=".8"/>' +
+          '<circle cx="31.6" cy="14.4" r="2" fill="#8E7BD6" stroke="#7A68C4" stroke-width=".8"/>' +
+          '<circle cx="14.4" cy="17.5" r=".9" fill="#fff" opacity=".75"/>' }
+      ] },
+    { name: '무지개 탕후루', emoji: '🍡', top: 1.6, bottom: 53,
+      parts: [
+        { base: true, html: '<rect x="22.9" y="26" width="2.4" height="27.4" rx="1.2" fill="#E0B27C" stroke="#C99A63" stroke-width="1"/>' },
+        { base: true, html: '<circle cx="24" cy="28.6" r="5.6" fill="#FF7FA2" stroke="#E9618C" stroke-width="1.1"/>' },
+        { base: true, html: '<circle cx="24" cy="20.6" r="5.4" fill="#FFC15E" stroke="#E7A23F" stroke-width="1.1"/>' },
+        { base: true, html: '<circle cx="24" cy="13.2" r="5.2" fill="#8FD6A8" stroke="#69BB86" stroke-width="1.1"/>' },
+        { base: true, html: '<circle cx="24.2" cy="6.2" r="4.6" fill="#9DBCFF" stroke="#7D9FE8" stroke-width="1.1"/>' },
+        { html: '<circle cx="21.8" cy="26.6" r="1.4" fill="#fff" opacity=".7"/><circle cx="21.8" cy="18.6" r="1.3" fill="#fff" opacity=".7"/>' +
+          '<circle cx="21.9" cy="11.4" r="1.2" fill="#fff" opacity=".7"/><circle cx="22.2" cy="4.6" r="1.1" fill="#fff" opacity=".7"/>' }
+      ] }
+  ];
+
+  var weekSigPrev = null;
+  function snackSVG(i, count, animate) {
+    var s = SNACKS[i % 7];
+    var c = Math.max(0, Math.min(5, Math.round(count || 0)));
+    var p = c / 5, full = c >= 5;
+    var id = 'sk-day' + i;
+    var base = '', on = '', def = String(s.def || '').replace(/__ID__/g, id);
+    s.parts.forEach(function (pt) {
+      var html = pt.html.replace(/__ID__/g, id);
+      if (pt.base) base += html;
+      on += html;
+    });
+    var y = s.bottom - (s.bottom - s.top) * p;
+    /* 차오르는 윗면은 살짝 물결 — 액체가 스르륵 올라온 느낌 */
+    var wave = 'M-6 62V' + y.toFixed(2) + 'q6 -2.4 12 0t12 0t12 0t12 0t12 0V62Z';
+    if (!full) {
+      def += '<clipPath id="' + id + '-fill"><path d="' + wave + '"/></clipPath>';
+    }
+    var level = (!full && c > 0)
+      ? '<rect x="0" y="' + (y + 2.3).toFixed(2) + '" width="48" height="1.5" rx=".75" fill="#FFFFFF" opacity=".55"/>'
+      : '';
+    return '<svg viewBox="0 0 48 56" aria-hidden="true" focusable="false">' +
+      '<defs>' + def + '</defs>' +
+      '<g class="sk-off">' + base + '</g>' +
+      '<g class="sk-on' + (animate ? ' sk-anim' : '') + '"' + (full ? '' : ' clip-path="url(#' + id + '-fill)"') + '>' + on + level + '</g>' +
+      '</svg>';
+  }
+
   function renderHomeWeek(pid) {
     var el = $('#mh-week');
     if (!el) return;
     var today = ymd(new Date());
     var total = 0, active = 0;
-    var cols = weekDays().map(function (d) {
+    var days = weekDays().map(function (d) {
       var ds = ymd(d), f = missionFlags(pid, ds), c = missionCount(f);
       total += c; if (c > 0) active++;
-      var bars = MISSION_DEFS.map(function (m) {
-        return f[m.key] ? '<i style="--bc:' + m.color + '" title="' + m.name + ' 완료"></i>' : '';
+      return { d: d, ds: ds, f: f, c: c };
+    });
+    var prev = weekSigPrev || [];
+    weekSigPrev = days.map(function (x) { return x.c; });
+    var cols = days.map(function (x, i) {
+      var ds = x.ds, f = x.f, c = x.c, full = c >= 5;
+      var animate = prev[i] !== c;   /* 그날 숫자가 바뀐 칸만 스르륵 차오릅니다 */
+      var dots = MISSION_DEFS.map(function (m) {
+        return '<i class="' + (f[m.key] ? 'on' + (animate ? ' pop' : '') : '') + '" style="--dc:' + m.color + '" title="' +
+          esc(m.name) + (f[m.key] ? ' 완료' : ' 아직') + '"></i>';
       }).join('');
-      return '<div class="mh-col' + (ds === today ? ' today' : '') + '" aria-label="' + korDate(ds) + ' ' + c + '개 완료">' +
-        '<div class="mh-bars">' + bars + '</div>' +
-        '<em>' + wdChar(d) + (ds === today ? '·오늘' : '') + '</em></div>';
+      var stars = full
+        ? '<span class="sk-star s1" aria-hidden="true">✦</span><span class="sk-star s2" aria-hidden="true">✦</span><span class="sk-star s3" aria-hidden="true">✦</span>'
+        : '';
+      return '<div class="mh-col snack-' + i + (ds === today ? ' today' : '') + (full ? ' full' : '') + '"' +
+          ' aria-label="' + korDate(ds) + ' · ' + esc(SNACKS[i % 7].name) + ' ' + c + '/5">' +
+        '<div class="mh-snack">' + snackSVG(i, c, animate) + stars + '</div>' +
+        '<div class="mh-dots" aria-hidden="true">' + dots + '</div>' +
+        '<em>' + wdChar(x.d) + (ds === today ? '·오늘' : '') + '</em></div>';
     }).join('');
     var legend = MISSION_DEFS.map(function (m) {
       return '<span><i style="background:' + m.color + '"></i>' + m.tab + '</span>';
