@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v13-2026-11-27-evie-mj">
+<meta name="app-build" content="lightup-english-v13-2026-11-27-ttsfix">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1049,6 +1049,26 @@ body.is-mapopen{overflow:hidden}
   background:#FFFFFF; color:var(--violet-d); border:1px solid #E9DCFC;
   box-shadow:0 6px 16px rgba(122,87,221,.08);
 }
+
+/* ============ 💬 인앱 브라우저(카톡) TTS 안내 배너 (#8948) ============ */
+.ktb{
+  position:fixed; left:0; right:0; top:0; z-index:210; display:flex; gap:9px; align-items:flex-start;
+  padding:calc(9px + env(safe-area-inset-top)) 12px 10px 14px;
+  background:linear-gradient(180deg,#FFFFFF 0%,#F8F3FF 100%);
+  border-bottom:1px solid #E4D9FB; box-shadow:0 8px 22px rgba(107,75,214,.16);
+  color:var(--ink); transform:translateY(-104%); visibility:hidden; pointer-events:none;
+  transition:transform .28s ease, visibility .28s ease;
+}
+body.ktb-on .ktb{transform:translateY(0); visibility:visible; pointer-events:auto}
+body.ktb-on .app{padding-top:calc(var(--ktb-h, 92px) + 10px)}
+.ktb__in{flex:1; min-width:0}
+.ktb__msg{font-size:12px; font-weight:700; line-height:1.52; letter-spacing:-.02em; color:var(--ink2); word-break:keep-all}
+.ktb__msg b{color:var(--violet-d); font-weight:900}
+.ktb__row{display:flex; gap:6px; margin-top:7px; flex-wrap:wrap}
+.ktb__btn{font-size:11px; font-weight:900; letter-spacing:-.02em; padding:7px 11px; border-radius:999px; border:1px solid #DCCEFB; background:#fff; color:var(--violet-d); box-shadow:0 2px 8px rgba(107,75,214,.10)}
+.ktb__btn:active{transform:scale(.97)}
+.ktb__x{flex:none; width:26px; height:26px; border-radius:9px; background:#fff; border:1px solid #E7DFF9; color:#9A90B5; font-size:12px; font-weight:900; line-height:1}
+@media (max-width:359px){ .ktb__msg{font-size:11px} .ktb__btn{font-size:10px; padding:6px 9px} }
 
 /* ============ toast ============ */
 .toast{
@@ -3605,6 +3625,19 @@ body.is-v13open{overflow:hidden}
 </nav>
 
 <div class="toast" id="toast"></div>
+
+<!-- ================= 💬 카톡 인앱 브라우저 TTS 안내 (#8948) ================= -->
+<div class="ktb" id="ktb" role="status" aria-live="polite">
+  <div class="ktb__in">
+    <p class="ktb__msg">💬 <b id="ktbApp">카톡</b> 화면에선 영어 발음 소리가 안 날 수 있어요!<br>오른쪽 위/아래 <b>⋮</b> → <b>다른 브라우저(크롬/사파리)</b>로 열어 주세요 🔊</p>
+    <div class="ktb__row">
+      <button class="ktb__btn" type="button" id="ktbCopy">링크 복사하기</button>
+      <button class="ktb__btn" type="button" id="ktbAgain">소리 다시 확인</button>
+    </div>
+  </div>
+  <button class="ktb__x" type="button" id="ktbX" aria-label="안내 닫기">✕</button>
+</div>
+
 <!-- ================= v8 · 전면 인터랙티브 50주 지도 ================= -->
 <div class="v8fs" id="v8fs" role="dialog" aria-modal="true" aria-label="미국 50주 지도 · 건물 짓기">
   <div class="v8fs__top">
@@ -4363,12 +4396,25 @@ body.is-v13open{overflow:hidden}
      사용자가 직접 누른 [듣기]·[다시 듣기]·[x0.5]·[x0.8] 버튼은 늘 소리가 나야 한다. */
   var ttsForce = false;
   var KAKAO_TTS_MSG = '카톡 브라우저에선 소리가 막힐 수 있어요 — 크롬/사파리로 열어 주세요 🔊';
+  var PLAIN_TTS_MSG = '이 기기에서 영어 음성이 막혀 있어요 — 폰 설정의 음성(TTS) 팩을 확인해 주세요 🔊';
+  /* 인앱 브라우저(카톡·인스타·페이스북·네이버·라인)는 Web Speech를 조용히 막는 경우가 많다. */
+  var IN_APP = (function () {
+    var ua = navigator.userAgent || '';
+    if (/KAKAOTALK/i.test(ua)) return '카톡';
+    if (/Instagram/i.test(ua)) return '인스타그램';
+    if (/FBAN|FBAV|FB_IAB/i.test(ua)) return '페이스북';
+    if (/NAVER\(inapp/i.test(ua)) return '네이버 앱';
+    if (/\bLine\//i.test(ua)) return '라인';
+    if (/DaumApps/i.test(ua)) return '다음 앱';
+    return '';
+  })();
+  window.__inApp = IN_APP || null;
   var ttsHintAt = 0;
   function ttsHintKakao() {
     var now = Date.now();
     if (now - ttsHintAt < 5000) return;
     ttsHintAt = now;
-    try { toast(KAKAO_TTS_MSG, true); } catch (e) {}
+    try { toast(IN_APP ? KAKAO_TTS_MSG : PLAIN_TTS_MSG, true); } catch (e) {}
   }
   function ttsVoiceCount() {
     if (!synth) return 0;
@@ -4380,20 +4426,83 @@ body.is-v13open{overflow:hidden}
     }
     return vs.length;
   }
+  /* ---------- 🔊 모바일 TTS 엔진 (#8945 · 소리 씹힘) ----------
+     안드로이드 크롬·삼성 인터넷·인앱 WebView는 cancel()을 부른 직후 같은 tick에서 speak()를 하면
+     방금 넣은 음성까지 같이 취소해 버린다(소리가 아예 안 남). 그래서
+       1) 말하고 있을 때만 cancel 한다 (멀쩡한 큐는 건드리지 않는다)
+       2) cancel 했으면 60ms 쉬었다 speak 한다
+       3) 그 사이에 또 누르면 마지막 요청만 읽는다 (세대 번호)
+       4) speak 직전에 paused 면 resume 한다 (안드로이드/iOS에서 멈춘 채 남는 경우)
+       5) onerror 로 실패를 잡아 안내를 띄운다 */
+  var TTS_GAP = 60;
+  var ttsGen = 0;
+  var ttsQuiet = 0;      /* cancel 을 부른 시각 — 이 뒤 TTS_GAP 동안은 다시 말하지 않고 기다란다 */
+  window.__ttsErrors = [];
+  function ttsLogError(e, text) {
+    try {
+      window.__ttsErrors.push({ error: String((e && e.error) || e || ''), text: String(text || '').slice(0, 80), at: Date.now() });
+    } catch (x) {}
+  }
+  function ttsSay(text, opts) {
+    opts = opts || {};
+    var hint = opts.hint !== false;
+    if (!synth) { if (hint) ttsHintKakao(); return false; }
+    var gen = ++ttsGen;
+    var u;
+    try { u = new SpeechSynthesisUtterance(String(text)); }
+    catch (e) { ttsLogError(e, text); if (hint) ttsHintKakao(); return false; }
+    u.lang = opts.lang || 'en-US';
+    u.rate = opts.rate || 1;
+    u.pitch = (opts.pitch == null) ? 1.02 : opts.pitch;
+    var v = opts.voice || voice;
+    try { if (v) u.voice = v; } catch (e) {}
+    u.onerror = function (ev) {
+      var kind = String((ev && ev.error) || '');
+      /* interrupted/canceled 는 우리가 일부러 끊은 것 — 안내하지 않는다 */
+      if (kind === 'interrupted' || kind === 'canceled') return;
+      ttsLogError(ev, text);
+      if (gen !== ttsGen) return;                 /* 이미 더 새 요청이 있음 */
+      if (opts.onError) { try { opts.onError(ev); } catch (e) {} return; }
+      if (hint) ttsHintKakao();
+    };
+    var busy = false;
+    try { busy = !!(synth.speaking || synth.pending); } catch (e) { busy = false; }
+    var now = Date.now();
+    var wait = 0;
+    if (busy) {
+      try { synth.cancel(); } catch (e) {}
+      ttsQuiet = now;
+      wait = TTS_GAP;
+    } else if (ttsQuiet && now - ttsQuiet < TTS_GAP) {
+      wait = TTS_GAP - (now - ttsQuiet);   /* 방금 끊은 직후 — 취소가 전파될 틈을 준다 */
+    }
+    var started = false;
+    u.onstart = function () { started = true; };
+    var fire = function () {
+      if (gen !== ttsGen) return;                 /* 그 사이 더 새 요청이 왔으면 이건 버린다 */
+      ttsQuiet = 0;
+      try {
+        if (synth.paused) synth.resume();         /* 멈춘 채 남은 상태 풀기 */
+        synth.speak(u);
+      } catch (e) { ttsLogError(e, text); if (hint) ttsHintKakao(); return; }
+      /* 오류 이벤트도 없이 조용히 죽는 기기가 있어(안드로이드 WebView) 2.5초 뒤 한 번 살핀다 */
+      setTimeout(function () {
+        if (gen !== ttsGen || started) return;
+        var sp = false;
+        try { sp = !!synth.speaking; } catch (e) { sp = false; }
+        if (sp) return;
+        try { window.__ttsSilent = (window.__ttsSilent || 0) + 1; } catch (e) {}
+        if (hint) ttsHintKakao();
+      }, 2500);
+    };
+    if (wait > 0) setTimeout(fire, wait); else fire();
+    return true;
+  }
+  window.__ttsSay = ttsSay;
   function speak(text, rate) {
     window.__ttsLog.push({ text: text, rate: rate || 1, forced: !!ttsForce, muted: !!store.muted });
     if (store.muted && !ttsForce) return false;      /* 자동 낭독만 음소거 */
-    if (!synth) { ttsHintKakao(); return false; }
-    try {
-      synth.cancel();
-      var u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-US';
-      u.rate = rate || 1;
-      u.pitch = 1.02;
-      if (voice) u.voice = voice;
-      synth.speak(u);
-      return true;
-    } catch (e) { ttsHintKakao(); return false; }
+    return ttsSay(text, { rate: rate || 1, pitch: 1.02 });
   }
   /* 직접 누른 듣기 버튼 전용 — 음소거와 상관없이 읽고, 음성이 막힌 브라우저는 안내한다 */
   function speakNow(text, rate) {
@@ -4405,7 +4514,68 @@ body.is-v13open{overflow:hidden}
       return speak(text, rate);
     } finally { ttsForce = prev; }
   }
-  window.__tts = { now: speakNow, auto: speak, voices: ttsVoiceCount, force: function (t) { return t; } };
+  window.__tts = { now: speakNow, auto: speak, say: ttsSay, voices: ttsVoiceCount, force: function (t) { return t; } };
+
+  /* ---------- 💬 인앱 브라우저 안내 배너 ----------
+     카톡·인스타 같은 인앱 브라우저로 열었을 때만 위 배너를 띄운다.
+     (정상 브라우저에서는 absolute로 아무것도 보이지 않는다) */
+  function ktbInit() {
+    var el = document.getElementById('ktb');
+    if (!el) return;
+    window.__ktb = { shown: false, app: IN_APP || null, hide: function () {} };
+    if (!IN_APP) return;
+    try { if (sessionStorage.getItem('se_ktb_hide') === '1') return; } catch (e) {}
+    var lab = document.getElementById('ktbApp');
+    if (lab) lab.textContent = IN_APP;
+    document.body.classList.add('ktb-on');
+    window.__ktb.shown = true;
+    var fit = function () {
+      try { document.documentElement.style.setProperty('--ktb-h', (el.offsetHeight || 0) + 'px'); } catch (e) {}
+    };
+    fit(); setTimeout(fit, 80); setTimeout(fit, 700);
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', fit);
+
+    var hide = function () {
+      document.body.classList.remove('ktb-on');
+      window.__ktb.shown = false;
+      try { sessionStorage.setItem('se_ktb_hide', '1'); } catch (e) {}
+    };
+    window.__ktb.hide = hide;
+    var x = document.getElementById('ktbX');
+    if (x) x.addEventListener('click', hide);
+
+    var copy = function () {
+      var url = location.href;
+      var done = function () { try { toast('링크를 복사했어요 — 크롬/사파리 주소창에 붙여넣어 주세요 🔊', true); } catch (e) {} };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done, function () { legacyCopy(url); done(); });
+          return;
+        }
+      } catch (e) {}
+      legacyCopy(url); done();
+    };
+    function legacyCopy(t) {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      } catch (e) {}
+    }
+    var cbtn = document.getElementById('ktbCopy');
+    if (cbtn) cbtn.addEventListener('click', copy);
+    var again = document.getElementById('ktbAgain');
+    if (again) again.addEventListener('click', function () {
+      try { if (synth) { synth.cancel(); if (synth.paused) synth.resume(); } } catch (e) {}
+      ttsHintAt = 0;
+      speakNow('Hello! Can you hear me? This is a sound check.');
+    });
+  }
+  try { ktbInit(); } catch (e) {}
 
   /* ============================================================
      공통
@@ -6304,15 +6474,7 @@ body.is-v13open{overflow:hidden}
       /* unknown — 목록을 못 받았을 뿐이라 기기 기본 음성으로 나라 코드를 그대로 넘긴다. */
       v = voice;
     }
-    try {
-      synth.cancel();
-      var u = new SpeechSynthesisUtterance(text);
-      u.lang = used;
-      u.rate = rate || 1;
-      u.pitch = 1;
-      try { if (v) u.voice = v; } catch (e) {}
-      synth.speak(u);
-    } catch (e) { ttsHintKakao(); return null; }
+    if (!ttsSay(text, { lang: used, rate: rate || 1, pitch: 1, voice: v })) return null;
     window.__ttsLog.push({ text: text, rate: rate || 1, lang: lang, used: used, fallback: fallback, state: st.state });
     return { lang: lang, used: used, fallback: fallback, state: st.state };
   }
@@ -8999,15 +9161,8 @@ body.is-v13open{overflow:hidden}
   function rgSpeakWord(word) {
     if (store.muted) return;
     if (!synth) return;
-    try {
-      synth.cancel();
-      var u = new SpeechSynthesisUtterance(String(word).replace(/\u2019/g, "'"));
-      u.lang = 'en-US';
-      u.rate = 1.15;
-      u.pitch = 1.04;
-      if (voice) u.voice = voice;
-      synth.speak(u);
-    } catch (e) {}
+    /* 단어를 칠 때마다 바로 — 세대 번호 덕분에 마지막 단어만 남는다 */
+    ttsSay(String(word).replace(/\u2019/g, "'"), { rate: 1.15, pitch: 1.04, hint: false });
   }
   function rgState() {
     var inFall = RGN.phase === 'fall';
