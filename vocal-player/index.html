@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>칼박 보컬 연습 플레이어</title>
-<meta name="build" content="vocal-player-v1-2026-11-27">
-<meta name="app-build" content="vocal-player-v1-2026-11-27">
-<meta name="theme-color" content="#120f1d">
+<meta name="build" content="vocal-player-v2-2026-11-27">
+<meta name="app-build" content="vocal-player-v2-2026-11-27">
+<meta name="theme-color" content="#f7f5fc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="칼박 보컬">
 <meta name="description" content="칼박 보컬 연습 플레이어 — 음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절">
 <link rel="manifest" href="manifest.webmanifest">
@@ -18,10 +18,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" onerror="this.remove()">
 <style>
 :root{
-  --bg:#0d0a16; --bg2:#120f1d; --card:#1b162b; --card2:#221a36; --line:#332754;
-  --ink:#f7f3ff; --muted:#a294c4; --dim:#695e85;
-  --lilac:#c084fc; --purple:#a855f7; --pink:#f472b6;
-  --kick:#fb7185; --snare:#c084fc; --hat:#fbbf24;
+  --bg:#f7f5fc; --bg2:#ffffff; --card:#ffffff; --card2:#fbf9ff; --line:#e9e2f8; --line2:#d7c9f2;
+  --ink:#1f1933; --muted:#6a6088; --dim:#9a92b5;
+  --lilac:#a855f7; --purple:#7c3aed; --pink:#db2777;
+  --kick:#f43f5e; --snare:#8b5cf6; --hat:#f59e0b;
   --r:20px;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -31,9 +31,9 @@ body{
   letter-spacing:-.012em;
   font-family:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',Roboto,'Segoe UI',sans-serif;
   background:
-    radial-gradient(760px 460px at 50% -12%, rgba(168,85,247,.20) 0%, rgba(168,85,247,0) 62%),
-    radial-gradient(560px 380px at 104% 8%, rgba(244,114,182,.13) 0%, rgba(244,114,182,0) 60%),
-    radial-gradient(700px 520px at -8% 88%, rgba(99,102,241,.14) 0%, rgba(99,102,241,0) 62%),
+    radial-gradient(760px 460px at 50% -12%, rgba(168,85,247,.13) 0%, rgba(168,85,247,0) 62%),
+    radial-gradient(560px 380px at 104% 8%, rgba(236,72,153,.09) 0%, rgba(236,72,153,0) 60%),
+    radial-gradient(700px 520px at -8% 88%, rgba(124,58,237,.09) 0%, rgba(124,58,237,0) 62%),
     var(--bg);
   background-attachment:fixed;
   -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
@@ -42,39 +42,40 @@ body{
 button{font-family:inherit; font-size:inherit; letter-spacing:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
 h1,h2,p{margin:0}
 .hide{display:none !important}
-::selection{background:rgba(192,132,252,.35)}
+::selection{background:rgba(168,85,247,.22)}
 
 .app{max-width:480px; margin:0 auto; padding:calc(8px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));
   display:flex; flex-direction:column; gap:10px}
 .side{display:contents}
-/* 폰: 음원 → 연습 화면 → A-B → 조절 순서 */
+/* 폰: 음원 → 연습 화면 → 조절(아래) */
 .loadcard{order:1} .stage{order:2} .ctrlcard{order:4} .top{order:0} .foot{order:5}
 
 /* ---------- header ---------- */
 .top{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:2px 4px 0}
 .brand{display:flex; align-items:center; gap:10px; min-width:0}
 .logo{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-size:19px;
-  background:linear-gradient(145deg,#3b1f63,#241638); border:1px solid rgba(192,132,252,.35);
-  box-shadow:0 6px 20px rgba(168,85,247,.28), inset 0 1px 0 rgba(255,255,255,.1)}
-.brand h1{font-size:16.5px; font-weight:800; letter-spacing:-.03em; line-height:1.15}
+  background:linear-gradient(145deg,#f2e7ff,#ffffff); border:1px solid #e2d5fa;
+  box-shadow:0 6px 18px -6px rgba(124,58,237,.35), inset 0 1px 0 #fff}
+.brand h1{font-size:16.5px; font-weight:800; letter-spacing:-.03em; line-height:1.15; color:var(--ink)}
 .brand p{font-size:10.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; font-weight:600}
-.buildtag{font-size:9.5px; color:#7a6d9d; letter-spacing:.02em; white-space:nowrap}
+.buildtag{font-size:9.5px; color:#a79dc2; letter-spacing:.02em; white-space:nowrap}
 
 /* ---------- cards ---------- */
-.card{background:linear-gradient(180deg,rgba(34,26,54,.92),rgba(27,22,43,.92));
+.card{background:var(--card);
   border:1px solid var(--line); border-radius:var(--r);
-  box-shadow:0 14px 34px -18px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.045);
+  box-shadow:0 12px 28px -20px rgba(64,32,130,.45), 0 1px 2px rgba(64,32,130,.05);
   padding:14px}
 .hint{font-size:11.5px; color:var(--muted); line-height:1.45}
-.btn{border:1px solid var(--line); background:rgba(255,255,255,.04); border-radius:12px;
-  padding:9px 13px; font-size:13px; font-weight:700; color:var(--ink); transition:.15s; white-space:nowrap}
-.btn:hover{background:rgba(255,255,255,.08)}
+.btn{border:1px solid var(--line); background:#fff; border-radius:12px;
+  padding:9px 13px; font-size:13px; font-weight:700; color:var(--ink); transition:.15s; white-space:nowrap;
+  box-shadow:0 1px 2px rgba(64,32,130,.05)}
+.btn:hover{background:#f8f3ff; border-color:var(--line2)}
 .btn:active{transform:scale(.97)}
-.btn.primary{background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#a855f7;
-  box-shadow:0 8px 20px -10px rgba(168,85,247,.9)}
-.btn.primary:hover{filter:brightness(1.08)}
-.btn.ghost{background:none; color:var(--muted)}
-.btn:disabled{opacity:.38; cursor:default}
+.btn.primary{background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b4ff0; color:#fff;
+  box-shadow:0 8px 18px -10px rgba(124,58,237,.85)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.ghost{background:none; box-shadow:none; color:var(--muted)}
+.btn:disabled{opacity:.4; cursor:default}
 .btn.wide{width:100%; justify-content:center}
 
 /* ---------- load card ---------- */
@@ -88,106 +89,157 @@ h1,h2,p{margin:0}
 .loadcard.collapsed .lcbody{display:none}
 .loadcard.collapsed .chev{transform:rotate(-90deg)}
 .lcbody{padding:0 14px 14px; display:flex; flex-direction:column; gap:10px}
-.dropzone{border:1.5px dashed #3d2f60; border-radius:15px; padding:14px 12px; text-align:center;
-  background:rgba(168,85,247,.05); transition:.18s}
-.dropzone.over{border-color:var(--lilac); background:rgba(168,85,247,.16)}
+.dropzone{border:1.5px dashed #cbb6ee; border-radius:15px; padding:14px 12px; text-align:center;
+  background:#faf7ff; transition:.18s}
+.dropzone.over{border-color:var(--lilac); background:#f1e6ff}
 .dzline{font-size:12.5px; color:var(--muted); margin-bottom:9px}
 .dzline b{color:var(--ink)}
 .btnrow{display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
 .btnrow .btn{font-size:12.5px; padding:9px 12px}
 .searchrow{display:flex; gap:8px}
-.searchrow input{flex:1; min-width:0; background:#140f22; border:1px solid var(--line); color:var(--ink);
+.searchrow input{flex:1; min-width:0; background:#fff; border:1px solid var(--line); color:var(--ink);
   border-radius:12px; padding:10px 12px; font-size:13px; font-family:inherit}
-.searchrow input::placeholder{color:#6a5f86}
-.searchrow input:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 3px rgba(168,85,247,.18)}
+.searchrow input::placeholder{color:#a89fc2}
+.searchrow input:focus{outline:none; border-color:var(--purple); box-shadow:0 0 0 3px rgba(168,85,247,.16)}
 .results{display:flex; flex-direction:column; gap:6px; max-height:210px; overflow:auto}
 .res{display:flex; align-items:center; gap:8px; text-align:left; padding:8px 10px; border-radius:11px;
-  border:1px solid var(--line); background:rgba(255,255,255,.03)}
-.res:hover{background:rgba(168,85,247,.14); border-color:rgba(192,132,252,.5)}
+  border:1px solid var(--line); background:#fff}
+.res:hover{background:#f7f1ff; border-color:#cdb2f3}
 .res .rt{flex:1; min-width:0}
 .res .rt b{display:block; font-size:12.5px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .res .rt span{font-size:11px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block}
 .res .tag{font-size:9.5px; font-weight:800; padding:3px 6px; border-radius:6px; white-space:nowrap;
-  background:rgba(255,255,255,.07); color:var(--muted)}
-.res .tag.enh{background:rgba(192,132,252,.2); color:#e9d5ff; border:1px solid rgba(192,132,252,.45)}
+  background:#f2edfb; color:#6b6288}
+.res .tag.enh{background:#f1e2ff; color:#6b21a8; border:1px solid #ddc6fb}
 .pastebox>summary{font-size:12px; color:var(--muted); cursor:pointer; padding:2px 0; list-style:none}
 .pastebox>summary::-webkit-details-marker{display:none}
 .pastebox>summary::before{content:'▸ '; font-size:10px}
 .pastebox[open]>summary::before{content:'▾ '}
-.pastebox textarea{width:100%; margin:8px 0; background:#140f22; color:var(--ink); border:1px solid var(--line);
+.pastebox textarea{width:100%; margin:8px 0; background:#fdfbff; color:var(--ink); border:1px solid var(--line);
   border-radius:12px; padding:10px; font-size:12px; line-height:1.5; font-family:ui-monospace,'SFMono-Regular',Menlo,monospace; resize:vertical}
-.pastebox textarea:focus{outline:none; border-color:var(--purple)}
-.btn.demo{background:linear-gradient(140deg,rgba(192,132,252,.22),rgba(244,114,182,.16));
-  border-color:rgba(192,132,252,.5); color:#f4eaff; font-size:13px; padding:11px}
+.pastebox textarea:focus{outline:none; border-color:var(--purple); background:#fff}
+.btn.demo{background:linear-gradient(140deg,#f3e8ff,#fdeef7);
+  border-color:#dcc4fb; color:#5b21b6; font-size:13px; padding:11px}
 
 /* ---------- stage ---------- */
 .stage{padding:12px 12px 12px; display:flex; flex-direction:column; gap:7px}
+.stage.pulse{animation:stagePulse .8s ease-out}
+@keyframes stagePulse{
+  0%{box-shadow:0 0 0 0 rgba(168,85,247,.55), 0 12px 28px -20px rgba(64,32,130,.45)}
+  55%{box-shadow:0 0 0 11px rgba(168,85,247,.07), 0 12px 28px -20px rgba(64,32,130,.45)}
+  100%{box-shadow:0 0 0 15px rgba(168,85,247,0), 0 12px 28px -20px rgba(64,32,130,.45)}}
 .trackrow{display:flex; align-items:center; gap:8px; min-height:30px}
 .trackinfo{flex:1; min-width:0}
-#trackTitle{font-size:14px; font-weight:800; letter-spacing:-.02em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+#trackTitle{font-size:15px; font-weight:800; letter-spacing:-.02em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 #trackSub{font-size:11px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .badge{font-size:9.5px; font-weight:800; letter-spacing:.02em; padding:4px 7px; border-radius:7px;
-  background:rgba(255,255,255,.06); color:var(--muted); white-space:nowrap; border:1px solid transparent}
-.badge.enh{background:rgba(192,132,252,.2); color:#f0d9ff; border-color:rgba(192,132,252,.5)}
-.badge.line{background:rgba(251,191,36,.14); color:#fde68a; border-color:rgba(251,191,36,.35)}
-.badge.demo{background:rgba(244,114,182,.18); color:#fbcfe8; border-color:rgba(244,114,182,.4)}
-.swapbtn{font-size:11px; font-weight:700; color:var(--muted); border:1px solid var(--line); border-radius:9px; padding:5px 8px}
+  background:#f3effb; color:#6a6088; white-space:nowrap; border:1px solid transparent}
+.badge.enh{background:#f3e4ff; color:#6b21a8; border-color:#ddc6fb}
+.badge.line{background:#fff6e3; color:#a16207; border-color:#f8dfa5}
+.badge.demo{background:#fdeaf4; color:#9d174d; border-color:#f8c6e2}
+.swapbtn{font-size:10.5px; font-weight:800; color:#6d28d9; border:1px solid #ded0f8; background:#faf7ff;
+  border-radius:9px; padding:5px 8px; white-space:nowrap}
+.swapbtn:hover{background:#f2e9ff}
 
 /* ---------- drum timeline ---------- */
 .beatwrap{display:flex; flex-direction:column; gap:6px}
-.beathead{display:flex; align-items:center; gap:8px}
-.beatbtn{font-size:11.5px; font-weight:800; color:#e6dcff; border:1px solid var(--line); border-radius:9px;
-  padding:4px 9px; background:rgba(255,255,255,.04)}
-.beatbtn b{color:var(--lilac); font-weight:800}
-.beatbtn.off{color:var(--dim)} .beatbtn.off b{color:var(--dim)}
-.beathint{font-size:10.5px; color:var(--dim); flex:1; text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.beatcanvas{position:relative; display:flex; height:80px; border-radius:13px; overflow:hidden;
-  background:linear-gradient(180deg,#161125,#120e1e); border:1px solid #2a2040}
+.beathead{display:flex; align-items:center; gap:6px; min-height:24px}
+.beatbtn{font-size:11.5px; font-weight:800; color:#5b21b6; border:1px solid #e3d6fa; border-radius:9px;
+  padding:4px 9px; background:#f8f3ff; white-space:nowrap}
+.beatbtn b{color:var(--purple); font-weight:800}
+.beatbtn.off{color:var(--dim); border-color:var(--line); background:#fbfaff} .beatbtn.off b{color:var(--dim)}
+.beathint{font-size:10px; color:var(--dim); flex:1; min-width:0; text-align:right;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.bpmctl{display:flex; align-items:center; gap:3px; flex:none; padding:2px 3px 2px 6px; border-radius:9px;
+  border:1px solid #e3d6fa; background:#faf7ff}
+.bpmctl .bpmk{font-size:8px; font-weight:900; letter-spacing:.05em; color:var(--dim)}
+.bpmctl b{font-size:11.5px; font-weight:900; color:#5b21b6; font-variant-numeric:tabular-nums; min-width:22px; text-align:center}
+.bpmctl button{width:20px; height:20px; border-radius:6px; display:grid; place-items:center;
+  font-size:13px; font-weight:900; color:#6d28d9; background:#f1e7ff; border:1px solid #e0d2fa; line-height:1}
+.bpmctl button:active{transform:scale(.93)}
+.bpmctl button:disabled{opacity:.35}
+.bpmctl.manual{border-color:#d8bffa; background:#f6ecff}
+
+.beatcanvas{position:relative; display:flex; height:148px; border-radius:14px; overflow:hidden;
+  background:linear-gradient(180deg,#ffffff,#faf7ff); border:1px solid #e7ddfa;
+  box-shadow:inset 0 1px 0 #fff, 0 2px 8px -6px rgba(64,32,130,.3)}
 .beatcanvas.off{display:none}
 .beatwrap.off .beatcanvas, .beatwrap.off .beatfoot{display:none}
-.lanes{position:relative; width:32px; flex:none; background:rgba(18,13,30,.92)}
-.lanes span{position:absolute; left:5px; font-size:7px; font-weight:800; letter-spacing:.02em}
-.lanes .k{top:calc(32% - 4px); color:var(--kick)}
-.lanes .s{top:calc(60% - 4px); color:var(--snare)}
-.lanes .h{top:calc(86% - 4px); color:var(--hat)}
+.lanes{position:relative; width:46px; flex:none; background:#f6f1fe; border-right:1px solid #ece4fb}
+.lanes span{position:absolute; left:6px; font-size:8px; font-weight:900; letter-spacing:.02em}
+.lanes .k{top:calc(32% - 5px); color:#e11d48}
+.lanes .s{top:calc(60% - 5px); color:#7c3aed}
+.lanes .h{top:calc(86% - 5px); color:#b45309}
 #beatCanvas{display:block; flex:1; min-width:0; height:100%}
 .beatfoot{display:flex; align-items:center; justify-content:space-between; gap:8px; height:22px; min-height:22px}
-.legend{display:flex; align-items:center; gap:9px; font-size:8.5px; font-weight:800; color:#7f73a3;
+.legend{display:flex; align-items:center; gap:8px; font-size:8.5px; font-weight:900; color:#8b82a8;
   letter-spacing:.02em; transition:opacity .2s}
 .legend span{display:flex; align-items:center; gap:3px}
-.legend i{width:6px; height:6px; border-radius:2px; display:inline-block; background:var(--c)}
-.beatfoot.cd .legend{opacity:.22}
-.countdown{position:relative; flex:0 0 auto; display:flex; align-items:center; gap:4px; font-size:10px; font-weight:700; color:#f4ebff;
-  padding:3px 8px 4px; border-radius:8px; background:rgba(168,85,247,.18); border:1px solid rgba(192,132,252,.5);
+.legend i{width:7px; height:7px; border-radius:2px; display:inline-block; background:var(--c)}
+.barnow{font-size:9px; font-weight:900; color:#6d28d9; font-variant-numeric:tabular-nums; letter-spacing:.01em}
+.beatfoot.cd .legend{opacity:.3}
+.beatfoot.cd .barnow{opacity:.3}
+.countdown{position:relative; flex:0 0 auto; display:flex; align-items:center; gap:4px; font-size:10px; font-weight:800;
+  color:#4c1d95; padding:3px 8px 4px; border-radius:8px; background:#f3e8ff; border:1px solid #dcc6fb;
   overflow:hidden; opacity:0; transform:translateY(2px); transition:.18s; pointer-events:none; white-space:nowrap}
 .countdown.on{opacity:1; transform:none}
-.countdown b{color:#fbbf24; font-weight:800; font-variant-numeric:tabular-nums}
+.countdown b{color:#b45309; font-weight:900; font-variant-numeric:tabular-nums}
 .countdown i{position:absolute; left:0; bottom:0; height:2px; width:0%;
-  background:linear-gradient(90deg,#a855f7,#f472b6); transition:width .08s linear}
+  background:linear-gradient(90deg,#a855f7,#db2777); transition:width .08s linear}
+
+/* ---------- 3·2·1 진입 카운트다운 ---------- */
+.lyricswrap{position:relative}
+.enterCd{position:absolute; left:50%; top:2px; transform:translate(-50%,-8px); z-index:4;
+  display:flex; align-items:baseline; gap:7px; padding:3px 15px 5px; border-radius:15px;
+  background:rgba(255,255,255,.96); border:1px solid #dcc6fb;
+  box-shadow:0 10px 24px -14px rgba(64,32,130,.55), 0 0 0 3px rgba(168,85,247,.07);
+  opacity:0; pointer-events:none; transition:opacity .16s ease, transform .16s ease}
+.enterCd.on{opacity:1; transform:translate(-50%,0)}
+.enterCd .ecK{font-size:8.5px; font-weight:900; letter-spacing:.06em; color:var(--dim)}
+.enterCd b{font-size:29px; font-weight:900; line-height:1; color:#5b21b6; font-variant-numeric:tabular-nums;
+  text-shadow:0 3px 12px rgba(168,85,247,.3)}
+.enterCd b.pop{animation:cdPop .3s cubic-bezier(.2,.8,.3,1)}
+@keyframes cdPop{0%{transform:scale(.5);opacity:.15}55%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+.enterCd.go{background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#7c3aed;
+  box-shadow:0 10px 26px -12px rgba(124,58,237,.85), 0 0 0 4px rgba(168,85,247,.12)}
+.enterCd.go .ecK{color:rgba(255,255,255,.82)}
+.enterCd.go b{color:#fff; font-size:21px; letter-spacing:-.02em; text-shadow:none}
 
 /* ---------- lyrics ---------- */
-.lyrics{position:relative; height:min(29dvh,190px); overflow:hidden;
-  mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%)}
-.lyricTrack{position:absolute; left:0; right:0; top:0; padding:78px 2px 96px; transition:transform .3s cubic-bezier(.22,.7,.3,1)}
+.lyrics{position:relative; height:min(26dvh,172px); overflow:hidden;
+  mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 84%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 84%,transparent 100%)}
+.lyricTrack{position:absolute; left:0; right:0; top:0; padding:70px 2px 96px; transition:transform .3s cubic-bezier(.22,.7,.3,1)}
+.lyricTrack.is-empty{padding:0; height:100%; display:flex; align-items:center; justify-content:center}
+.lyricTrack.is-empty .empty{padding:0 12px}
 .ll{padding:5px 6px; border-radius:10px; cursor:pointer; transition:padding .18s, background .18s}
-.ll .llin{font-size:14.5px; font-weight:600; line-height:1.45; color:#5d5380; transition:font-size .16s, color .16s;
+.ll .llin{font-size:14.5px; font-weight:600; line-height:1.45; color:#aaa0c4; transition:font-size .16s, color .16s;
   word-break:keep-all; overflow-wrap:anywhere}
-.ll.near .llin{color:#8a7db0}
-.ll.active .llin{font-size:23px; font-weight:800; letter-spacing:-.03em; line-height:1.35; color:#f7f3ff;
-  text-shadow:0 0 26px rgba(192,132,252,.45)}
-.ll.inst .llin{color:#7d6fa4; font-style:italic}
-.ll.active.inst .llin{color:#c4b5fd}
-.ll:active{background:rgba(168,85,247,.12)}
-.w{background:linear-gradient(90deg,#d9b3ff 0%,#f0abfc calc(var(--p,0)*100%),#6b6090 calc(var(--p,0)*100%),#6b6090 100%);
+.ll.near .llin{color:#8b81a8}
+.ll.active .llin{font-size:20px; font-weight:800; letter-spacing:-.03em; line-height:1.35; color:#2e1a55;
+  text-shadow:0 2px 16px rgba(168,85,247,.18)}
+.ll.inst .llin{color:#a79dc0; font-style:italic}
+.ll.active.inst .llin{color:#6d28d9}
+.ll:active{background:#f6f0ff}
+.w{background:linear-gradient(90deg,#7c3aed 0%,#db2777 calc(var(--p,0)*100%),#c6bed9 calc(var(--p,0)*100%),#c6bed9 100%);
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent}
-.ll.active .w{background-image:linear-gradient(90deg,#e8d5ff 0%,#fbcfe8 calc(var(--p,0)*100%),#6b6090 calc(var(--p,0)*100%),#6b6090 100%)}
-.ll.done .w,.ll.done .llin{color:#a68bd4; background:none; -webkit-text-fill-color:#a68bd4}
+.ll.active .w{background-image:linear-gradient(90deg,#6d28d9 0%,#db2777 calc(var(--p,0)*100%),#cbc2dd calc(var(--p,0)*100%),#cbc2dd 100%)}
+.ll.done .w,.ll.done .llin{color:#b6a2e2; background:none; -webkit-text-fill-color:#b6a2e2}
 .ll.active .llin .w{-webkit-text-fill-color:transparent; color:transparent}
 .empty{padding:26px 8px; text-align:center; color:var(--dim); font-size:12.5px; line-height:1.7}
-.energywrap{height:3px; border-radius:3px; background:rgba(255,255,255,.07); overflow:hidden}
-.energy{height:100%; width:0%; border-radius:3px; background:linear-gradient(90deg,#a855f7,#f472b6);
-  box-shadow:0 0 10px rgba(244,114,182,.7); transition:width .05s linear}
+.empty b{color:#6d28d9}
+.energywrap{height:4px; border-radius:4px; background:#efe9fa; overflow:hidden}
+.energy{height:100%; width:0%; border-radius:4px; background:linear-gradient(90deg,#a855f7,#db2777);
+  transition:width .05s linear}
+
+/* ---------- LRC 상시 바 ---------- */
+.lrcbar{display:flex; gap:6px; margin-top:1px}
+.lrcbtn{flex:1; min-width:0; font-size:11px; font-weight:800; color:#5b21b6;
+  border:1px solid #e6daf9; background:#fbf8ff; border-radius:10px; padding:8px 3px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:.15s}
+.lrcbtn:hover{background:#f2e9ff; border-color:#cdb2f3}
+.lrcbtn:active{transform:scale(.97)}
+.lrcbar.nolyr .lrcbtn{background:linear-gradient(140deg,#f6ecff,#fdf0f8); border-color:#d9c1fb; color:#5b21b6}
 
 /* ---------- seek ---------- */
 .seekrow{display:flex; align-items:center; gap:9px}
@@ -196,24 +248,26 @@ h1,h2,p{margin:0}
 input[type=range]{-webkit-appearance:none; appearance:none; width:100%; background:transparent; margin:0; height:22px}
 input[type=range]:focus{outline:none}
 input[type=range]::-webkit-slider-runnable-track{height:5px; border-radius:4px;
-  background:linear-gradient(90deg,var(--purple) var(--fill,0%),rgba(255,255,255,.1) var(--fill,0%))}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:14px; height:14px; margin-top:-4.5px;
-  border-radius:50%; background:#fff; box-shadow:0 0 0 3px rgba(168,85,247,.45), 0 2px 6px rgba(0,0,0,.6)}
-input[type=range]::-moz-range-track{height:5px; border-radius:4px; background:rgba(255,255,255,.1)}
+  background:linear-gradient(90deg,var(--purple) var(--fill,0%),#ece5f9 var(--fill,0%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:15px; height:15px; margin-top:-5px;
+  border-radius:50%; background:#fff; border:3px solid var(--purple);
+  box-shadow:0 2px 6px rgba(76,44,145,.35)}
+input[type=range]::-moz-range-track{height:5px; border-radius:4px; background:#ece5f9}
 input[type=range]::-moz-range-progress{height:5px; border-radius:4px; background:var(--purple)}
-input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:#fff}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(--purple);border-radius:50%;background:#fff}
 .abmark{position:absolute; top:3px; width:2px; height:16px; border-radius:2px; pointer-events:none}
-.abmark.a{background:var(--lilac); box-shadow:0 0 8px var(--lilac)}
-.abmark.b{background:var(--pink); box-shadow:0 0 8px var(--pink)}
+.abmark.a{background:var(--lilac); box-shadow:0 0 8px rgba(168,85,247,.7)}
+.abmark.b{background:var(--pink); box-shadow:0 0 8px rgba(219,39,119,.6)}
 
 /* ---------- transport ---------- */
 .transport{display:flex; align-items:center; justify-content:center; gap:22px}
-.tbtn{font-size:15px; color:var(--muted); width:42px; height:42px; border-radius:50%;
-  display:grid; place-items:center; border:1px solid var(--line); background:rgba(255,255,255,.03)}
-.tbtn:hover{color:var(--ink); border-color:var(--purple)}
+.tbtn{font-size:15px; color:#7c6ba8; width:42px; height:42px; border-radius:50%;
+  display:grid; place-items:center; border:1px solid var(--line); background:#fff;
+  box-shadow:0 1px 2px rgba(64,32,130,.05)}
+.tbtn:hover{color:#4c1d95; border-color:var(--line2); background:#faf6ff}
 .play{width:58px; height:58px; border-radius:50%; display:grid; place-items:center;
   background:linear-gradient(150deg,#c084fc,#7c3aed 62%,#6d28d9);
-  box-shadow:0 12px 30px -12px rgba(168,85,247,.95), inset 0 1px 0 rgba(255,255,255,.35)}
+  box-shadow:0 14px 26px -14px rgba(124,58,237,.9), inset 0 1px 0 rgba(255,255,255,.5)}
 .play svg{width:24px;height:24px;fill:#fff}
 .play:active{transform:scale(.95)}
 .play .ic-pause{display:none}
@@ -223,57 +277,70 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
 /* ---------- AB ---------- */
 .abrow{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; width:100%; max-width:560px; margin:0 auto}
 .abrow .btn{padding:7px 3px; font-size:11.5px; text-align:center; border-radius:10px}
-#abToggle.on{background:linear-gradient(140deg,rgba(244,114,182,.3),rgba(168,85,247,.24));
-  border-color:var(--pink); color:#fff; box-shadow:0 0 0 1px rgba(244,114,182,.3)}
-.abinfo{font-size:10.5px; color:#7f73a3; margin-top:-4px; text-align:center; font-variant-numeric:tabular-nums;
+#abToggle.on{background:linear-gradient(140deg,#fde8f4,#f1e7ff);
+  border-color:#e9a8cd; color:#9d174d; box-shadow:0 0 0 1px rgba(219,39,119,.14)}
+.abinfo{font-size:10.5px; color:#9a90b6; margin-top:-4px; text-align:center; font-variant-numeric:tabular-nums;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 
 /* ---------- controls ---------- */
 .ctrlcard{display:flex; flex-direction:column; gap:8px; padding:12px 14px}
+.ctrlhead{display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:1px 0}
+.ctrlhead .ct{font-size:12.5px; font-weight:800; color:var(--ink); white-space:nowrap}
+.ctrlhead .cs{flex:1; min-width:0; font-size:10.5px; font-weight:700; color:#6d28d9; text-align:right;
+  font-variant-numeric:tabular-nums; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.ctrlhead .chev{font-size:10px}
+.ctrlcard.collapsed .ctrlbody{display:none}
+.ctrlcard.collapsed .chev{transform:rotate(-90deg)}
+.ctrlbody{display:flex; flex-direction:column; gap:8px}
 .chips.mini button{flex:none; min-width:0; padding:4px 7px; font-size:10.5px; border-radius:7px}
 .chips.mini.wide button{flex:1; padding:5px 4px}
 .chips.mini{gap:4px}
 .lab{gap:8px}
 .lab .chips.mini{margin-left:auto}
-.row{gap:3px}
 .row{display:flex; flex-direction:column; gap:5px}
 .lab{display:flex; align-items:center; gap:8px}
 .lab span{flex:none}
 .lab b{min-width:46px; text-align:right; flex:none}
 .lab span{font-size:11.5px; font-weight:700; color:var(--muted); letter-spacing:.02em}
-.lab b{font-size:14px; font-weight:800; color:#f3e8ff; font-variant-numeric:tabular-nums}
+.lab b{font-size:14px; font-weight:800; color:#1f1933; font-variant-numeric:tabular-nums}
 .chips{display:flex; gap:6px; flex-wrap:wrap}
 .chips button{flex:1; min-width:44px; padding:7px 6px; font-size:11.5px; font-weight:700; color:var(--muted);
-  border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,.03)}
-.chips button.on{color:#fff; background:rgba(168,85,247,.26); border-color:rgba(192,132,252,.62);
-  box-shadow:0 0 12px -4px rgba(192,132,252,.8)}
-.chips button:hover{color:var(--ink)}
-.foot{text-align:center; font-size:10.5px; color:#5f5480; line-height:1.6; padding:2px 6px 6px}
+  border:1px solid var(--line); border-radius:9px; background:#fff}
+.chips button.on{color:#5b21b6; background:#f1e6ff; border-color:#cdb2f3;
+  box-shadow:0 0 10px -4px rgba(124,58,237,.5)}
+.chips button:hover{color:var(--ink); background:#faf6ff}
+.foot{text-align:center; font-size:10.5px; color:#a49bbc; line-height:1.6; padding:2px 6px 6px}
 .toast{position:fixed; left:50%; bottom:calc(18px + env(safe-area-inset-bottom)); transform:translate(-50%,20px);
-  background:rgba(28,20,46,.97); border:1px solid rgba(192,132,252,.45); color:var(--ink);
+  background:#fff; border:1px solid #ded2f6; color:var(--ink);
   padding:10px 15px; border-radius:13px; font-size:12.5px; max-width:88vw; text-align:center;
-  opacity:0; pointer-events:none; transition:.25s; z-index:90; box-shadow:0 16px 40px -16px #000}
+  opacity:0; pointer-events:none; transition:.25s; z-index:90;
+  box-shadow:0 18px 40px -18px rgba(64,32,130,.55), 0 2px 6px rgba(64,32,130,.08)}
 .toast.on{opacity:1; transform:translate(-50%,0)}
 
 @media (min-width:900px){
   .app{max-width:1160px; display:grid; grid-template-columns:minmax(0,1fr) 372px;
     grid-template-areas:"top top" "stage side" "foot foot"; gap:14px; padding:18px 24px 20px; align-items:start}
   .top{grid-area:top} .foot{grid-area:foot}
-  .stage{grid-area:stage; padding:14px 18px 16px; gap:8px}
+  .stage{grid-area:stage; padding:16px 18px 18px; gap:9px}
   .side{grid-area:side; display:flex; flex-direction:column; gap:12px}
   .loadcard.hidden{display:block}
-  .lyrics{height:250px}
-  .lyricTrack{padding-top:56px; padding-bottom:110px}
+  .beatcanvas{height:156px}
+  .lyrics{height:220px}
+  .lyricTrack{padding-top:58px; padding-bottom:104px}
   .ll .llin{font-size:15.5px}
-  .ll.active .llin{font-size:27px}
-  .beatcanvas{height:92px}
+  .ll.active .llin{font-size:25px}
   .transport{gap:26px}
   .searchrow input{font-size:13.5px}
   .foot{padding-top:0}
+  .lrcbtn{font-size:11.5px}
 }
 @media (max-width:360px){
-  .ll.active .llin{font-size:20px}
+  .beatcanvas{height:136px}
+  .lyrics{height:min(24dvh,156px)}
+  .ll.active .llin{font-size:18px}
   .abrow .btn{font-size:11px}
+  .lanes{width:42px}
+  .lrcbtn{font-size:10px; padding:8px 2px}
 }
 </style>
 </head>
@@ -288,7 +355,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
         <p>Vocal Practice Player</p>
       </div>
     </div>
-    <span class="buildtag" id="buildTag">v1</span>
+    <span class="buildtag" id="buildTag">v2</span>
   </header>
 
   <div class="side">
@@ -318,7 +385,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
         <div class="hint" id="searchNote"></div>
         <div class="results" id="results"></div>
 
-        <details class="pastebox">
+        <details class="pastebox" id="pasteBox">
           <summary>LRC 붙여넣기</summary>
           <textarea id="lrcText" rows="5" placeholder="[00:12.34]가사 첫 줄&#10;[00:15.00]&lt;00:15.00&gt;단어별 &lt;00:15.40&gt;칼박 싱크"></textarea>
           <button class="btn primary wide" id="pasteApply">이 가사 적용</button>
@@ -328,12 +395,19 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
       </div>
     </section>
 
-    <section class="card ctrlcard">
+    <section class="card ctrlcard" id="ctrlCard">
+      <button class="ctrlhead" id="ctrlToggle" aria-expanded="true">
+        <span class="ct">🎚 속도 · 키 · 가사 싱크</span>
+        <span class="cs" id="ctrlSummary">1.00x · 원키 · 0.0s</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="ctrlbody">
       <div class="row">
         <div class="lab"><span>속도</span>
           <div class="chips mini" id="speedChips">
+            <button data-v="0.5">0.5</button><button data-v="0.6">0.6</button>
             <button data-v="0.7">0.7</button><button data-v="0.85">0.85</button>
-            <button data-v="1" class="on">1.0</button><button data-v="1.15">1.15</button>
+            <button data-v="1" class="on">1.0</button>
           </div>
           <b id="speedVal">1.00x</b>
         </div>
@@ -356,42 +430,57 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
           <button data-v="0.5">+.5</button><button data-reset="1" id="offsetReset">리셋</button>
         </div>
       </div>
+      </div>
     </section>
 
   </div>
 
-  <section class="card stage">
+  <section class="card stage" id="stageCard">
     <div class="trackrow">
       <div class="trackinfo">
         <div id="trackTitle">아직 곡이 없어요</div>
         <div id="trackSub">음원을 열거나 데모로 시작해 보세요</div>
       </div>
       <span class="badge" id="modeBadge">대기</span>
-      <button class="swapbtn hide" id="swapBtn">곡 바꾸기</button>
+      <button class="swapbtn" id="swapBtn">LRC / 곡 변경</button>
     </div>
 
     <div class="beatwrap" id="beatWrap">
       <div class="beathead">
-        <button class="beatbtn" id="beatToggle" aria-pressed="true">🥁 드럼 패턴 <b>ON</b></button>
+        <button class="beatbtn" id="beatToggle" aria-pressed="true">🥁 드럼 <b>ON</b></button>
         <span class="beathint" id="beatStatus">음원을 열면 박자를 분석해요</span>
+        <span class="bpmctl" id="bpmCtl" title="마디 기준 BPM (직접 조정)">
+          <span class="bpmk">BPM</span><b id="bpmVal">—</b>
+          <button id="bpmMinus" aria-label="BPM 내리기">−</button>
+          <button id="bpmPlus" aria-label="BPM 올리기">+</button>
+        </span>
       </div>
       <div class="beatcanvas" id="beatCanvasWrap">
         <div class="lanes"><span class="k">KICK</span><span class="s">SNARE</span><span class="h">HAT</span></div>
         <canvas id="beatCanvas"></canvas>
       </div>
       <div class="beatfoot" id="beatFoot">
-        <div class="legend"><span style="--c:#fb7185"><i></i>KICK</span><span style="--c:#c084fc"><i></i>SNARE</span><span style="--c:#fbbf24"><i></i>HAT</span></div>
+        <div class="legend"><span style="--c:#f43f5e"><i></i>KICK</span><span style="--c:#8b5cf6"><i></i>SNARE</span><span style="--c:#f59e0b"><i></i>HAT</span><b class="barnow" id="barNow">—</b></div>
         <div class="countdown" id="countdown"><span>⏳ 다음 가사 진입까지</span><b id="cdSec">2.0초</b><i id="cdBar"></i></div>
       </div>
     </div>
 
-    <div class="lyrics" id="lyricsViewport">
-      <div class="lyricTrack" id="lyricsTrack">
-        <div class="empty">🎧 <b>데모로 바로 시작</b>을 누르면<br>드럼·가사 칼박 트래킹을 바로 볼 수 있어요</div>
+    <div class="lyricswrap" id="lyricWrap">
+      <div class="lyrics" id="lyricsViewport">
+        <div class="lyricTrack" id="lyricsTrack">
+          <div class="empty">🎧 <b>데모로 바로 시작</b>을 누르면<br>드럼·가사 칼박 트래킹을 바로 볼 수 있어요</div>
+        </div>
       </div>
+      <div class="enterCd" id="enterCd" aria-hidden="true"><span class="ecK">다음 가사</span><b id="enterCdNum">3</b></div>
     </div>
 
     <div class="energywrap"><div class="energy" id="energyBar"></div></div>
+
+    <div class="lrcbar" id="lrcBar">
+      <button class="lrcbtn" id="barLrc">📄 LRC 파일 열기</button>
+      <button class="lrcbtn" id="barSearch">🔍 노래 검색</button>
+      <button class="lrcbtn" id="barPaste">📋 붙여넣기</button>
+    </div>
 
     <div class="seekrow">
       <span id="timeNow">0:00</span>
@@ -421,6 +510,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radiu
       <button class="btn ghost" id="abReset" disabled>초기화</button>
     </div>
     <div class="abinfo" id="abInfo">A·B를 찍어 어려운 소절만 반복하세요</div>
+  </section>
   </section>
 
   <p class="foot">음원·가사는 이 기기 안에서만 처리돼요 · 서버로 올라가지 않아요<br>만든 이 · 이비</p>
@@ -1260,6 +1350,13 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     beatOn: true,
     onsets: null,
     analyzing: false,
+    bpm: null,        // 마디 격자 BPM (자동 추정 또는 직접)
+    grid: null,       // { bpm, beat, bar, anchor }
+    bpmManual: 0,     // 사용자가 직접 맞춘 BPM (0 = 자동)
+    pulseAt: 0,       // 가사 진입 번쩍 기준 시각(performance.now)
+    pulseLine: null,
+    goHoldT: 0,       // '입장!' 잔상이 남는 가사 시간(초)
+    demoMode: false,  // 데모 가사가 올라와 있는 상태
   };
 
   /* =====================================================================
@@ -1533,6 +1630,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     lyricsEl.innerHTML = '';
     lineEls = [];
     paintedLine = -1;
+    lyricsEl.classList.toggle('is-empty', !LRC.lines.length);
     if (!LRC.lines.length) {
       lyricsEl.innerHTML = '<div class="empty">🎧 <b>데모로 바로 시작</b>을 누르면<br>드럼·가사 칼박 트래킹을 바로 볼 수 있어요</div>';
       return;
@@ -1743,16 +1841,118 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         out[b.key] = pickOnsets(rendered.getChannelData(0), oc.sampleRate, b);
       }
       state.onsets = out;
+      BANDS.forEach(b => { (out[b.key] || []).forEach(o => { o.k = b.key; }); });
+      refreshGrid();
       const total = BANDS.reduce((n, b) => n + out[b.key].length, 0);
-      $('#beatStatus').textContent = total ? ('박자 ' + total + '개 찾음') : '박자를 찾지 못했어요';
+      $('#beatStatus').textContent = total
+        ? ('타격 ' + total + (state.bpm ? ' · BPM ' + state.bpm : ''))
+        : '박자를 찾지 못했어요';
       return out;
     } catch (e) {
       state.onsets = null;
+      state.grid = null;
+      state.bpm = null;
+      $('#bpmVal').textContent = '—';
       $('#beatStatus').textContent = '드럼 분석을 못 했어요';
       return null;
     } finally {
       state.analyzing = false;
     }
+  }
+
+  /* =====================================================================
+     5b. BPM 추정 · 마디 격자
+     ===================================================================== */
+  const SIG = 0.05;   // 온셋-격자 정렬 허용 오차(초)
+
+  function kickPhase(onsets, beat) {
+    const kicks = (onsets && onsets.kick) || [];
+    const ref = kicks.length >= 4 ? kicks : kicks.concat((onsets && onsets.snare) || []);
+    if (!ref.length) return 0;
+    let sx = 0, sy = 0;
+    for (const o of ref) {
+      const a = 2 * Math.PI * (o.t / beat);
+      sx += Math.cos(a); sy += Math.sin(a);
+    }
+    const ph = Math.atan2(sy, sx) / (2 * Math.PI) * beat;
+    return ((ph % beat) + beat) % beat;
+  }
+
+  function estimateBPM(onsets) {
+    if (!onsets) return null;
+    const all = (onsets.kick || []).concat(onsets.snare || []);
+    if (all.length < 8) return null;
+    const step = Math.max(1, Math.ceil(all.length / 400));
+    const sample = all.filter((_, i) => i % step === 0);
+    if (sample.length < 8) return null;
+    let best = { s: -1, bpm: 0 };
+    for (let bpm = 65; bpm <= 170; bpm++) {
+      const beat = 60 / bpm;
+      const ph = kickPhase(onsets, beat);
+      let sc = 0;
+      for (const o of sample) {
+        let x = (o.t - ph) % beat; if (x < 0) x += beat;
+        const d = Math.min(x, beat - x);
+        sc += Math.exp(-(d * d) / (2 * SIG * SIG));
+      }
+      sc /= sample.length;
+      sc += 0.06 * Math.exp(-Math.pow((bpm - 104) / 50, 2)); // 100~110 근처 살짝 선호
+      if (sc > best.s) best = { s: sc, bpm };
+    }
+    return best.bpm || null;
+  }
+
+  // 4박 중 어디가 '1마디' 시작인지 — 킥이 많이 떨어지는 자리
+  function anchorFor(bpm) {
+    const o = state.onsets;
+    if (!o) return 0;
+    const beat = 60 / bpm, bar = beat * 4;
+    const ph = kickPhase(o, beat);
+    const all = (o.kick || []).concat(o.snare || []);
+    let bestK = 0, bestS = -1;
+    for (let k = 0; k < 4; k++) {
+      const a0 = ph + k * beat;
+      let sc = 0;
+      for (const it of all) {
+        let x = (it.t - a0) % bar; if (x < 0) x += bar;
+        const d = Math.min(x, bar - x);
+        if (d < 0.08) sc += (it.k === 'kick' ? 1.6 : 1) * (it.s || 0.5);
+      }
+      if (sc > bestS) { bestS = sc; bestK = k; }
+    }
+    let a0 = ph + bestK * beat;
+    a0 -= Math.round(a0 / bar) * bar;   // 0초 근처 마디선으로 맞춤(음수 허용)
+    return a0;
+  }
+
+  function setGrid(bpm) {
+    bpm = clamp(Math.round(bpm), 50, 200);
+    state.bpm = bpm;
+    state.grid = { bpm, beat: 60 / bpm, bar: (60 / bpm) * 4, anchor: anchorFor(bpm) };
+    $('#bpmVal').textContent = String(bpm);
+    $('#bpmCtl').classList.toggle('manual', !!state.bpmManual);
+  }
+
+  function refreshGrid() {
+    if (!state.onsets) {
+      state.bpm = null; state.grid = null;
+      $('#bpmVal').textContent = '—';
+      $('#bpmCtl').classList.remove('manual');
+      return;
+    }
+    if (state.bpmManual) { setGrid(state.bpmManual); return; }
+    const bpm = estimateBPM(state.onsets);
+    if (bpm) setGrid(bpm);
+    else { state.bpm = null; state.grid = null; $('#bpmVal').textContent = '—'; }
+  }
+
+  function setBpm(delta) {
+    if (!state.onsets) { toast('음원을 먼저 열어 주세요'); return; }
+    if (!state.bpm) refreshGrid();
+    const base = state.bpm || 96;
+    state.bpmManual = clamp(Math.round(base + delta), 50, 200);
+    setGrid(state.bpmManual);
+    toast('마디 기준 BPM ' + state.bpmManual);
   }
 
   /* =====================================================================
@@ -1783,42 +1983,73 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     const phX = (PAST / span) * W;
 
     cctx.clearRect(0, 0, W, H);
-    // 배경 그라데이션
     const bg = cctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0, '#171127'); bg.addColorStop(1, '#110d1d');
+    bg.addColorStop(0, '#ffffff');
+    bg.addColorStop(1, '#faf7ff');
     cctx.fillStyle = bg;
     cctx.fillRect(0, 0, W, H);
 
     const lanes = [
-      { key: 'kick', y: H * 0.32, c: '#fb7185' },
-      { key: 'snare', y: H * 0.60, c: '#c084fc' },
-      { key: 'hat', y: H * 0.86, c: '#fbbf24' },
+      { key: 'kick', y: H * 0.32, c: '#f43f5e' },
+      { key: 'snare', y: H * 0.60, c: '#8b5cf6' },
+      { key: 'hat', y: H * 0.86, c: '#f59e0b' },
     ];
-    // 레인 가이드
-    for (const ln of lanes) {
-      cctx.fillStyle = 'rgba(255,255,255,.045)';
-      cctx.fillRect(0, ln.y - 0.5, W, 1);
+
+    // ── 마디·박 격자 (맨 아래층)
+    const grid = state.grid;
+    if (grid) {
+      const beat = grid.beat, bar = grid.bar, anchor = grid.anchor;
+      const n0 = Math.floor((now - PAST - anchor) / beat) - 1;
+      const n1 = Math.ceil((now + FUT - anchor) / beat) + 1;
+      cctx.textAlign = 'left';
+      cctx.textBaseline = 'alphabetic';
+      for (let n = n0; n <= n1; n++) {
+        const x = Math.round(xOf(anchor + n * beat)) + 0.5;
+        if (x < -50 || x > W + 50) continue;
+        if (((n % 4) + 4) % 4 === 0) {
+          cctx.strokeStyle = 'rgba(124,58,237,.45)';
+          cctx.lineWidth = 1.6;
+          cctx.beginPath(); cctx.moveTo(x, 0); cctx.lineTo(x, H); cctx.stroke();
+          const mi = Math.floor(n / 4) + 1;
+          if (mi >= 1 && x > 40 && x < W - 2) {
+            cctx.textAlign = 'right';
+            cctx.font = '800 9.5px system-ui,-apple-system,sans-serif';
+            cctx.fillStyle = 'rgba(91,33,182,.8)';
+            cctx.fillText(mi + '마디', x - 3, 10.5);
+            cctx.textAlign = 'left';
+          }
+        } else {
+          cctx.strokeStyle = 'rgba(124,58,237,.18)';
+          cctx.lineWidth = 1;
+          cctx.setLineDash([2, 4]);
+          cctx.beginPath(); cctx.moveTo(x, H * 0.10); cctx.lineTo(x, H); cctx.stroke();
+          cctx.setLineDash([]);
+        }
+      }
     }
 
-    // 가사 진입 마커
+    // 레인 가이드
+    for (const ln of lanes) {
+      cctx.fillStyle = 'rgba(124,58,237,.10)';
+      cctx.fillRect(0, ln.y - 0.5, W, 1);
+    }
+    cctx.textAlign = 'center';
+
+    // 가사 진입 마커 🎤
     if (LRC.lines.length) {
       for (const l of LRC.lines) {
         if (l.time == null) continue;
         const x = xOf(l.time);
         if (x < -30 || x > W + 30) continue;
         const passed = now >= l.time;
-        cctx.strokeStyle = passed ? 'rgba(192,132,252,.18)' : 'rgba(232,213,255,.42)';
-        cctx.lineWidth = 1;
-        cctx.setLineDash([2, 3]);
-        cctx.beginPath();
-        cctx.moveTo(x + 0.5, 13);
-        cctx.lineTo(x + 0.5, H - 5);
-        cctx.stroke();
+        cctx.strokeStyle = passed ? 'rgba(168,85,247,.20)' : 'rgba(124,58,237,.55)';
+        cctx.lineWidth = passed ? 1 : 1.4;
+        cctx.setLineDash([3, 3]);
+        cctx.beginPath(); cctx.moveTo(x + 0.5, 27); cctx.lineTo(x + 0.5, H - 4); cctx.stroke();
         cctx.setLineDash([]);
-        cctx.font = '9px system-ui, -apple-system, sans-serif';
-        cctx.textAlign = 'center';
-        cctx.fillStyle = passed ? 'rgba(192,132,252,.45)' : 'rgba(245,235,255,.95)';
-        cctx.fillText('🎤', x, 11);
+        cctx.font = '10.5px system-ui, -apple-system, sans-serif';
+        cctx.fillStyle = passed ? 'rgba(124,58,237,.4)' : 'rgba(76,29,149,.95)';
+        cctx.fillText('🎤', x, 25);
       }
     }
 
@@ -1833,13 +2064,13 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
           if (o.t < now - PAST - 0.1) continue;
           if (o.t > now + FUT + 0.1) break;
           const x = xOf(o.t);
-          const pulse = Math.max(0, 1 - Math.abs(o.t - now) / 0.11);
-          const h = 7 + o.s * 8;
-          const w = 6 + o.s * 5 + pulse * 3;
-          const a = 0.35 + o.s * 0.55 + pulse * 0.4;
+          const pulse = Math.max(0, 1 - Math.abs(o.t - now) / 0.12);
+          const h = 11 + o.s * 10 + pulse * 2;
+          const w = 9 + o.s * 8 + pulse * 4;
+          const a = 0.5 + o.s * 0.45 + pulse * 0.3;
           cctx.globalAlpha = Math.min(1, a);
           cctx.shadowColor = ln.c;
-          cctx.shadowBlur = pulse > 0 ? 18 : 7;
+          cctx.shadowBlur = pulse > 0 ? 16 : 5;
           cctx.fillStyle = ln.c;
           const rr = Math.min(h / 2, w / 2);
           cctx.beginPath();
@@ -1847,11 +2078,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
           else cctx.rect(x - w / 2, ln.y - h / 2, w, h);
           cctx.fill();
           if (pulse > 0.2) {
-            cctx.globalAlpha = pulse * 0.75;
+            cctx.globalAlpha = pulse * 0.7;
             cctx.beginPath();
-            cctx.arc(x, ln.y, 9 + pulse * 7, 0, Math.PI * 2);
+            cctx.arc(x, ln.y, 10 + pulse * 8, 0, Math.PI * 2);
             cctx.strokeStyle = ln.c;
-            cctx.lineWidth = 1.4;
+            cctx.lineWidth = 1.6;
             cctx.stroke();
           }
         }
@@ -1859,26 +2090,55 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       }
     } else {
       cctx.globalAlpha = 1;
-      cctx.fillStyle = 'rgba(255,255,255,.28)';
-      cctx.font = '10px system-ui, -apple-system, sans-serif';
+      cctx.fillStyle = 'rgba(109,40,217,.45)';
+      cctx.font = '11px system-ui, -apple-system, sans-serif';
       cctx.textAlign = 'center';
       cctx.fillText(state.analyzing ? '드럼 박자를 분석하는 중…' : '음원을 열면 여기에 박자가 그려져요', W / 2, H / 2 + 4);
     }
 
-    // 플레이헤드
-    const g = cctx.createLinearGradient(phX, 0, phX, H);
-    g.addColorStop(0, 'rgba(255,255,255,.05)');
-    g.addColorStop(0.5, 'rgba(255,255,255,.85)');
-    g.addColorStop(1, 'rgba(255,255,255,.05)');
-    cctx.fillStyle = g;
-    cctx.fillRect(phX - 0.75, 0, 1.5, H);
-    cctx.shadowColor = '#e9d5ff'; cctx.shadowBlur = 12;
-    cctx.fillStyle = '#fff';
+    // ── 플레이헤드
+    const pg = cctx.createLinearGradient(phX, 0, phX, H);
+    pg.addColorStop(0, 'rgba(124,58,237,.08)');
+    pg.addColorStop(0.5, 'rgba(76,29,149,.85)');
+    pg.addColorStop(1, 'rgba(124,58,237,.08)');
+    cctx.fillStyle = pg;
+    cctx.fillRect(phX - 1, 0, 2, H);
+    cctx.fillStyle = '#5b21b6';
     cctx.beginPath();
-    cctx.moveTo(phX - 3.5, 0); cctx.lineTo(phX + 3.5, 0); cctx.lineTo(phX, 5);
+    cctx.moveTo(phX - 4.5, 0); cctx.lineTo(phX + 4.5, 0); cctx.lineTo(phX, 6);
     cctx.closePath(); cctx.fill();
-    cctx.shadowBlur = 0;
 
+    // ── 가사 진입 번쩍 (플레이헤드 + 퍼지는 링)
+    if (state.pulseAt) {
+      const age = (performance.now() - state.pulseAt) / 1000;
+      if (age >= 0 && age < 1.1) {
+        const k = Math.max(0, 1 - age / 1.1);
+        cctx.save();
+        const fg = cctx.createLinearGradient(phX - 26, 0, phX + 26, 0);
+        fg.addColorStop(0, 'rgba(168,85,247,0)');
+        fg.addColorStop(0.5, 'rgba(168,85,247,' + (0.5 * k).toFixed(3) + ')');
+        fg.addColorStop(1, 'rgba(168,85,247,0)');
+        cctx.fillStyle = fg;
+        cctx.fillRect(phX - 26, 0, 52, H);
+        for (let r = 0; r < 3; r++) {
+          const a2 = age - r * 0.1;
+          if (a2 < 0 || a2 > 0.95) continue;
+          const kk = 1 - a2 / 0.95;
+          cctx.globalAlpha = kk * 0.9;
+          cctx.strokeStyle = r === 1 ? '#f59e0b' : '#a855f7';
+          cctx.lineWidth = 2.5 + kk * 2;
+          cctx.beginPath();
+          cctx.arc(phX, H * 0.5, 10 + a2 * 150, 0, Math.PI * 2);
+          cctx.stroke();
+        }
+        cctx.globalAlpha = k;
+        cctx.fillStyle = '#7c3aed';
+        cctx.beginPath();
+        cctx.arc(phX, H * 0.5, 5 + k * 12, 0, Math.PI * 2);
+        cctx.fill();
+        cctx.restore();
+      }
+    }
   }
 
   /* =====================================================================
@@ -1956,8 +2216,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
     const lyricPos = heardRaw + state.offset;
     paintKaraoke(lyricPos);
+    checkEntrance(lyricPos, engine.playing);
     setPosUI();
     updateCountdown(lyricPos);
+    updateEnterCd(lyricPos);
+    updateBarNow(heardRaw);
     drawTimeline(heardRaw);
     requestAnimationFrame(frame);
   }
@@ -2010,15 +2273,24 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     $('#timeTotal').textContent = fmtTime(state.duration);
     $('#seek').disabled = false;
     $('#loadCard').classList.add('collapsed');
-    $('#loadCard').classList.add('hidden');
+    $('#loadCard').classList.remove('hidden');
     $('#loadToggle').setAttribute('aria-expanded', 'false');
     $('#swapBtn').classList.remove('hide');
-    $('#loadSummary').textContent = name || '음원 준비됨';
+    $('#loadSummary').textContent = (name || '음원 준비됨') + (LRC.lines.length ? '' : ' · LRC 필요');
     setTrack(name || '음원', fmtTime(buf.duration) + ' · ' + Math.round(buf.sampleRate / 1000) + 'kHz', state.mode === 'none' ? '음원만' : undefined, '');
     updateModeBadge();
     // 드럼 분석은 비동기로 (재생 막지 않음)
     state.onsets = null;
+    state.bpm = null;
+    state.grid = null;
+    state.bpmManual = 0;
+    state.pulseAt = 0;
+    state.goHoldT = 0;
+    $('#bpmVal').textContent = '—';
+    $('#bpmCtl').classList.remove('manual');
     sizeCanvas();
+    if (!LRC.lines.length) showNoLyrics();
+    updateLrcBar();
     analyzeDrums(buf);
   }
 
@@ -2044,6 +2316,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         n + '줄' + (enh ? ' · 단어별 ' + enh + '줄' : (parsed.plain ? ' · 시간 정보 없음' : ' · 줄 단위'));
       if (parsed.plain) toast('시간 정보가 없는 가사예요 — 화면에만 표시돼요');
       else toast(enh ? '단어별 칼박 가사 ' + n + '줄을 불러왔어요' : '가사 ' + n + '줄을 불러왔어요 (줄 단위 스윕)');
+      $('#loadSummary').textContent = (audioFileName || '가사') + ' · LRC ' + n + '줄';
+      updateLrcBar();
       saveSettings();
     }
     return true;
@@ -2057,6 +2331,13 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     }
     const sizeMb = (file.size / 1048576).toFixed(1);
     $('#loadSummary').textContent = file.name + ' 여는 중…';
+    // 데모 가사가 남아 있으면 새 곡에 붙지 않게 비운다 (직접 넣은 LRC는 그대로 둔다)
+    if (state.demoMode) {
+      state.demoMode = false;
+      LRC = { lines: [], plain: false };
+      renderLyrics();
+      updateLrcBar();
+    }
     try {
       const ab = await file.arrayBuffer();
       const buf = await engine.decode(ab);
@@ -2275,6 +2556,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       await loadAudioBuffer(buf, '칼박 데모 · 96 BPM');
       setTrack('칼박 데모 · 96 BPM', '드럼 + 가이드 멜로디 · 12마디', '단어별 칼박', 'enh');
       state.mode = 'enhanced';
+      state.demoMode = true;
       engine.seek(0);
       engine.play();
       setPlayingUI(true);
@@ -2393,6 +2675,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     $('#speedRange').value = String(v);
     $('#speedRange').style.setProperty('--fill', ((v - 0.5) / 1.0) * 100 + '%');
     $$('#speedChips button').forEach(b => b.classList.toggle('on', Math.abs(parseFloat(b.dataset.v) - v) < 0.001));
+    updateCtrlSummary();
     saveSettings();
     if (!silent) toast('속도 ' + v.toFixed(2) + 'x (음정 유지)');
   }
@@ -2409,6 +2692,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     $('#keyRange').value = String(k);
     $('#keyRange').style.setProperty('--fill', ((k + 6) / 12) * 100 + '%');
     $$('#keyChips button[data-v]').forEach(b => b.classList.toggle('on', parseInt(b.dataset.v, 10) === k));
+    updateCtrlSummary();
     saveSettings();
     if (!silent) toast(keyName(k) + ' (템포 유지)');
   }
@@ -2417,6 +2701,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     state.offset = v;
     $('#offsetVal').textContent = (v > 0 ? '+' : '') + v.toFixed(1) + 's';
     $$('#syncChips button[data-v]').forEach(b => b.classList.toggle('on', Math.abs(parseFloat(b.dataset.v) - v) < 0.001));
+    updateCtrlSummary();
     saveSettings();
     if (!silent) toast('가사 싱크 ' + (v > 0 ? '+' : '') + v.toFixed(1) + '초');
   }
@@ -2445,6 +2730,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     } catch (e) {
       setSpeed(1, true); setKey(0, true); setOffset(0, true);
     }
+    updateCtrlSummary();
+    updateLrcBar();
   }
 
   function setBeatOn(on, silent) {
@@ -2457,6 +2744,133 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     if (on) { sizeCanvas(); }
     saveSettings();
     if (!silent) toast(on ? '드럼 패턴 표시 ON' : '드럼 패턴 표시 OFF');
+  }
+
+  /* =====================================================================
+     12b. 진입 카운트다운 · 번쩍 · LRC 상시 접근 · 조절 요약
+     ===================================================================== */
+  function updateLrcBar() {
+    const need = !LRC.lines.length;
+    $('#lrcBar').classList.toggle('nolyr', need);
+  }
+
+  function showNoLyrics() {
+    if (LRC.lines.length) return;
+    lyricsEl.classList.add('is-empty');
+    lyricsEl.innerHTML = '<div class="empty"><b>가사가 아직 없어요</b><br>아래 <b>📄 LRC 파일 열기</b> 로 가사를 넣어 보세요</div>';
+  }
+
+  function openLoadCard(scroll) {
+    const c = $('#loadCard');
+    c.classList.remove('hidden');
+    c.classList.remove('collapsed');
+    $('#loadToggle').setAttribute('aria-expanded', 'true');
+    if (scroll !== false) {
+      try { c.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) { /* noop */ }
+    }
+  }
+
+  function updateCtrlSummary() {
+    const el = $('#ctrlSummary');
+    if (!el) return;
+    el.textContent = state.speed.toFixed(2) + 'x · ' + keyName(state.key) + ' · ' +
+      (state.offset > 0 ? '+' : '') + state.offset.toFixed(1) + 's';
+  }
+
+  /* 진입 번쩍 */
+  let lastLyricPos = 0;
+  function pulseEntrance(line) {
+    state.pulseAt = performance.now();
+    state.pulseLine = line ? line.time : null;
+    const card = $('#stageCard');
+    if (card) { card.classList.remove('pulse'); void card.offsetWidth; card.classList.add('pulse'); }
+  }
+  function checkEntrance(now, playing) {
+    const d = now - lastLyricPos;
+    if (playing && d > 0 && d < 0.7 && LRC.lines.length) {
+      for (let i = 0; i < LRC.lines.length; i++) {
+        const l = LRC.lines[i];
+        if (l.time == null || l.inst) continue;
+        if (l.time > lastLyricPos && l.time <= now) {
+          pulseEntrance(l);
+          state.goHoldT = now + 0.6;
+          break;
+        }
+      }
+    }
+    lastLyricPos = now;
+  }
+
+  /* 3 · 2 · 1 */
+  let ecN = 0;
+  function hideEnterCd() {
+    const box = $('#enterCd');
+    box.classList.remove('on'); box.classList.remove('go');
+    box.setAttribute('aria-hidden', 'true');
+    ecN = 0;
+  }
+  function updateEnterCd(now) {
+    const box = $('#enterCd');
+    const numEl = $('#enterCdNum');
+    if (state.goHoldT && now < state.goHoldT) {
+      if (numEl.textContent !== '입장!') numEl.textContent = '입장!';
+      box.classList.add('go');
+      box.classList.add('on');
+      box.setAttribute('aria-hidden', 'false');
+      return;
+    }
+    if (!state.beatOn || !LRC.lines.length) { hideEnterCd(); return; }
+    const idx = state.lineIndex;
+    let next = null;
+    for (let i = idx + 1; i < LRC.lines.length; i++) {
+      if (!LRC.lines[i].inst) { next = LRC.lines[i]; break; }
+    }
+    if (!next && idx < 0) {
+      for (let i = 0; i < LRC.lines.length; i++) {
+        if (!LRC.lines[i].inst) { next = LRC.lines[i]; break; }
+      }
+    }
+    if (!next) { hideEnterCd(); return; }
+    const cur = idx >= 0 ? LRC.lines[idx] : null;
+    const gapStart = cur ? (cur.sungEnd || cur.end) : 0;
+    const remain = next.time - now;
+    const totalGap = Math.max(0.4, next.time - gapStart);
+    if (remain <= 0.14 && remain > -0.7 && totalGap >= 1.0) {
+      state.goHoldT = now + 0.6;
+      numEl.textContent = '입장!';
+      box.classList.add('go');
+      box.classList.add('on');
+      box.setAttribute('aria-hidden', 'false');
+      return;
+    }
+    if (remain > 3.25 || remain <= 0 || totalGap < 1.0 || now < gapStart - 0.35) { hideEnterCd(); return; }
+    const n = clamp(Math.ceil(remain), 1, 3);
+    if (n !== ecN) {
+      ecN = n;
+      numEl.textContent = String(n);
+      numEl.classList.remove('pop');
+      void numEl.offsetWidth;
+      numEl.classList.add('pop');
+    }
+    box.classList.remove('go');
+    box.classList.add('on');
+    box.setAttribute('aria-hidden', 'false');
+  }
+
+  /* 현재 마디 */
+  let lastBarNo = -99;
+  function updateBarNow(now) {
+    const el = $('#barNow');
+    const g = state.grid;
+    if (!g) {
+      if (lastBarNo !== 0) { lastBarNo = 0; el.textContent = '—'; }
+      return;
+    }
+    const n = Math.floor((now - g.anchor) / g.bar) + 1;
+    if (n !== lastBarNo) {
+      lastBarNo = n;
+      el.textContent = n > 0 ? n + '마디' : '—';
+    }
   }
 
   /* =====================================================================
@@ -2501,10 +2915,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     $('#loadToggle').setAttribute('aria-expanded', c.classList.contains('collapsed') ? 'false' : 'true');
   });
   $('#swapBtn').addEventListener('click', () => {
-    $('#loadCard').classList.remove('hidden');
-    $('#loadCard').classList.remove('collapsed');
-    $('#loadToggle').setAttribute('aria-expanded', 'true');
-    $('#searchInput').focus();
+    openLoadCard();
+    setTimeout(() => { try { $('#searchInput').focus({ preventScroll: true }); } catch (e) { /* noop */ } }, 320);
   });
 
   // 검색
@@ -2520,6 +2932,35 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   // 데모
   $('#demoBtn').addEventListener('click', startDemo);
+
+  // LRC 상시 바 — 곡을 넣은 뒤에도 늘 보인다
+  $('#barLrc').addEventListener('click', () => {
+    openLoadCard();
+    $('#lrcInput').click();
+  });
+  $('#barSearch').addEventListener('click', () => {
+    openLoadCard();
+    try { $('#searchInput').scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { /* noop */ }
+    $('#searchInput').focus({ preventScroll: true });
+  });
+  $('#barPaste').addEventListener('click', () => {
+    openLoadCard();
+    const d = $('#pasteBox');
+    if (d) d.open = true;
+    try { $('#lrcText').scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { /* noop */ }
+    $('#lrcText').focus({ preventScroll: true });
+  });
+
+  // BPM 미세 조정
+  $('#bpmMinus').addEventListener('click', () => setBpm(-1));
+  $('#bpmPlus').addEventListener('click', () => setBpm(1));
+
+  // 조절 카드 접기
+  $('#ctrlToggle').addEventListener('click', () => {
+    const c = $('#ctrlCard');
+    c.classList.toggle('collapsed');
+    $('#ctrlToggle').setAttribute('aria-expanded', c.classList.contains('collapsed') ? 'false' : 'true');
+  });
 
   // 재생
   $('#playBtn').addEventListener('click', togglePlay);
@@ -2632,7 +3073,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     setSpeed, setKey, setOffset, setAB, setBeatOn, doSearch,
     seek: t => { engine.seek(t); setPosUI(); },
     analyzeDrums, pickOnsets,
-    version: 'vocal-player-v1-2026-11-27',
+    setBpm, refreshGrid, estimateBPM,
+    grid: () => state.grid, bpm: () => state.bpm,
+    pulse: () => ({ at: state.pulseAt, line: state.pulseLine }),
+    PAST, FUT,
+    version: 'vocal-player-v2-2026-11-27',
   };
 })();
 </script>
