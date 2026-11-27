@@ -1,0 +1,32 @@
+{
+  "name": "독서불꽃 · 우리 가족 독후감",
+  "short_name": "독서불꽃",
+  "description": "우리 가족이 함께 읽고 쓰는 독후감·퀴즈·토론·장보기. 가족 기기끼리 실시간으로 이어져요.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#FF6B35",
+  "background_color": "#FFF9F2",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
