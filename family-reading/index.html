@@ -4666,7 +4666,17 @@ a{color:inherit}
       if (ev === 'auth_revoked') { setStatus('error', errText('AUTH')); return; }
       var payload;
       try { payload = JSON.parse(dataLines.join('\n')); } catch (e) { return; }
-      if (ev === 'put') applyFrame(payload && payload.path != null ? payload.path : '/', payload ? payload.data : null);
+      var basePath = (payload && payload.path != null) ? payload.path : '/';
+      if (ev === 'put') {
+        applyFrame(basePath, payload ? payload.data : null);
+      } else if (ev === 'patch') {
+        /* Firebase는 여러 곳을 한 번에 바꾼 PATCH를 'patch' 이벤트로 보냅니다.
+           data의 키가 기준 경로에서부터의 상대 경로예요. (예: {"shopping/items": [...]}) */
+        var map = (payload && payload.data && typeof payload.data === 'object') ? payload.data : {};
+        Object.keys(map).forEach(function (rel) {
+          applyFrame(basePath.replace(/\/+$/, '') + '/' + rel, map[rel]);
+        });
+      }
     }
     function startStream() {
       stopPoll();
