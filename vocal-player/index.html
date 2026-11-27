@@ -3770,7 +3770,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     if (!ctx) return;
     try {
       const t = ctx.currentTime;
-      const OUT = 0.85;
+      const OUT = 0.55;   // 앰프 앞에서 더 크게 들리지 않게 (피크 0.55 — 찢어짐 없음)
       const master = ctx.createGain();
       master.gain.setValueAtTime(0.0001, t);
       master.gain.exponentialRampToValueAtTime(OUT, t + 0.018);
