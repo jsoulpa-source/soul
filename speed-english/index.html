@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v12-2026-11-27-living-map">
+<meta name="app-build" content="lightup-english-v12-2026-11-27-cheer3x">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2881,17 +2881,22 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 .v11half{display:block; overflow:hidden; background:transparent}
 .v12half__in{
   position:absolute; left:50%; bottom:calc(104px + env(safe-area-inset-bottom)); width:100%;
-  display:flex; flex-direction:column; align-items:center; gap:4px; padding:0 18px;
+  display:flex; flex-direction:column; align-items:center; gap:22px; padding:0 14px;
   animation:v12halfRise 1.46s cubic-bezier(.26,1.2,.4,1) both;
 }
+/* 무대 한가운데 치어리더 민정이 — 절반 응원에서 화면을 가득 채우는 주인공 (#8136) */
 .v12half__in .v11half__m{
-  height:152px; max-width:60vw; object-fit:contain; transform-origin:50% 100%;
+  height:clamp(280px,46vh,380px); width:auto; max-width:min(88vw,330px); object-fit:contain; transform-origin:50% 100%;
   animation:v12landSquash 1.46s cubic-bezier(.3,1.35,.45,1) both;
+  filter:drop-shadow(0 16px 26px rgba(90,60,180,.32));
 }
 .v12half__in .v11half__b{
   background:linear-gradient(160deg,#fff,#F7F1FF); border:1.5px solid #E7DDFF; border-radius:999px;
-  padding:8px 17px; font-size:13.5px; font-weight:900; color:#5B3DBE; letter-spacing:-.02em;
+  padding:9px 19px; font-size:15px; font-weight:900; color:#5B3DBE; letter-spacing:-.02em;
   white-space:nowrap; box-shadow:0 12px 26px rgba(90,60,180,.20);
+}
+@media (max-height:560px){
+  .v12half__in .v11half__m{height:clamp(150px,38vh,260px)}
 }
 .v12pop{
   position:absolute; display:block; opacity:0; transform:translate(-50%,-50%);
@@ -2915,10 +2920,10 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 /* 발끝이 구겨졌다 늘어나며 착지 + 좌우 살랑 */
 @keyframes v12landSquash{
   0%  {transform:scale(.72,.86) rotate(-6deg)}
-  12% {transform:scale(1.12,.9) rotate(5deg)}
-  20% {transform:scale(.9,1.14) rotate(-3deg)}
-  28% {transform:scale(1.06,.96) rotate(3deg)}
-  36% {transform:scale(.97,1.03) rotate(-2deg)}
+  12% {transform:scale(1.12,.94) rotate(5deg)}
+  20% {transform:scale(.9,1.05) rotate(-3deg)}
+  28% {transform:scale(1.06,.98) rotate(3deg)}
+  36% {transform:scale(.97,1.02) rotate(-2deg)}
   44% {transform:scale(1,1) rotate(2.4deg)}
   54% {transform:scale(1.01,.99) rotate(-2.4deg)}
   64% {transform:scale(1,1) rotate(2deg)}
@@ -4121,6 +4126,34 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     fail: function () {
       this.bubble(392, 0.14, 0.08, 0, 1.1);
       this.bubble(311, 0.16, 0.06, 0.09, 1.05);
+    },
+    /* 뽀로롱~ — 위로 톡톡 튀는 종소리 아르페지오 (#8141) */
+    sparkle: function () {
+      var ctx = this.ensure();
+      if (!ctx) return;
+      try {
+        var notes = [523.25, 659.25, 783.99, 987.77, 1046.50, 1318.51];
+        var t0 = ctx.currentTime + 0.02, step = 0.058;
+        notes.forEach(function (f, i) {
+          var t = t0 + i * step, last = i === notes.length - 1;
+          var dur = last ? 0.54 : 0.30, v = last ? 0.095 : 0.115;
+          var o = ctx.createOscillator(), o2 = ctx.createOscillator();
+          var g = ctx.createGain(), g2 = ctx.createGain();
+          o.type = 'sine'; o.frequency.setValueAtTime(f, t);
+          o.frequency.exponentialRampToValueAtTime(f * 1.008, t + dur);
+          o2.type = 'triangle'; o2.frequency.setValueAtTime(f * 2, t);
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(v, t + 0.012);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+          g2.gain.setValueAtTime(0.0001, t);
+          g2.gain.exponentialRampToValueAtTime(v * 0.17, t + 0.008);
+          g2.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.42);
+          o.connect(g); g.connect(ctx.destination);
+          o2.connect(g2); g2.connect(ctx.destination);
+          o.start(t); o.stop(t + dur + 0.03);
+          o2.start(t); o2.stop(t + dur + 0.03);
+        });
+      } catch (e) {}
     }
   };
 
@@ -10261,12 +10294,12 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
     var c0 = pool[0] || '', c1 = pool[1] || pool[0] || '';
     /* 무대 위로 캐릭터들이 뿅뿅 — 치어리딩 민정이·이비 + 미니 라일락 ㅇ 이비 */
     var cast = [
-      { img: c0, left: 12, top: 34, h: 74, d: 30 },
-      { img: c1, left: 87, top: 31, h: 70, d: 110 },
-      { eve: 1, left: 19, top: 62, h: 50, d: 190 },
-      { eve: 1, left: 81, top: 59, h: 46, d: 70 },
-      { eve: 1, left: 50, top: 14, h: 34, d: 240 },
-      { eve: 1, left: 33, top: 23, h: 30, d: 150 }
+      { img: c0, left: 9, top: 33, h: 74, d: 30 },
+      { img: c1, left: 91, top: 30, h: 70, d: 110 },
+      { eve: 1, left: 12, top: 66, h: 50, d: 190 },
+      { eve: 1, left: 88, top: 63, h: 46, d: 70 },
+      { eve: 1, left: 50, top: 12, h: 34, d: 240 },
+      { eve: 1, left: 30, top: 21, h: 30, d: 150 }
     ];
     var pops = cast.map(function (c) {
       var inner = c.eve ? V12_EVE_SVG
@@ -10281,6 +10314,7 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
         (c1 ? '<img class="v11half__m" src="' + c1 + '" alt="">' : '') +
       '</div>';
     root.appendChild(d);
+    try { Snd.sparkle(); } catch (e) {}       /* 뽀로롱~ ✨ (🔊 꺼져 있으면 조용히 지나감) */
     /* 응원단이 내려가기 시작할 때 문제 카드가 다시 올라온다 */
     setTimeout(function () { if (tok === v11halfTok) root.classList.remove('v12half-on'); }, 1160);
     setTimeout(function () { if (tok === v11halfTok && d.parentNode) d.parentNode.removeChild(d); }, 1500);
