@@ -3752,7 +3752,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     if (i === 1) {
       requestAnimationFrame(() => { sizeCanvas(); syncLyricsHeight(); });
     }
-    if (changed && !o.silent) {
+    if (changed && !o.silent && o.fx !== false) {
       if (state.sfxOn) playCrunch();
       showTiger();
     }
@@ -3891,8 +3891,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     pagesEl.classList.remove('dragging');
     if (!wasX) return;
     const w = pagesEl.clientWidth || window.innerWidth;
-    if (swDx < -w * 0.2) setPage(1);
-    else if (swDx > w * 0.2) setPage(0);
+    if (swDx < -w * 0.2) setPage(1, { fx: false });
+    else if (swDx > w * 0.2) setPage(0, { fx: false });
     else setPage(pageIdx);
     swDx = 0;
   }
@@ -3937,7 +3937,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   // 상단 2페이지 탭 · ▶ 연습 시작 · 곡 변경
   tabEls.forEach((t, idx) => {
     if (!t) return;
-    t.addEventListener('click', () => setPage(idx));
+    t.addEventListener('click', () => setPage(idx, { fx: false }));
   });
   $('#startCta').addEventListener('click', () => {
     if (!engine.buffer) {
