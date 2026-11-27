@@ -9055,6 +9055,7 @@ a{color:inherit}
           '<button class="cloud-dice" id="cloud-dice" type="button" aria-label="추측하기 어려운 방 코드 만들기" title="추측하기 어려운 코드">🎲</button>' +
         '</div>' +
         '<p class="cloud-hint">엄마·아빠 폰에도 <b>같은 주소 · 같은 방 코드</b>를 넣으면 독후감·댓글·살 것이 모든 기기에 함께 보여요.</p>' +
+        '<p class="cloud-hint">방 코드를 바꾸면 Firebase 규칙의 방 이름도 같이 바꿔 주세요. (지금 규칙은 <code>family_reading_soul-eden-family</code> 하나만 열려 있어요)</p>' +
         '<div class="cloud-actions">' +
           '<button class="btn primary" id="cloud-connect" type="button">🔗 연결하고 지금 동기화하기</button>' +
           '<button class="btn ghost" id="cloud-refresh" type="button">🔄 지금 새로고침</button>' +
@@ -9069,7 +9070,7 @@ a{color:inherit}
         '<summary>무료 Firebase 준비하기 (3단계)</summary>' +
         '<div class="cloud-step"><span class="cs-n">1</span><div class="cs-body"><strong>프로젝트 만들기</strong><span>console.firebase.google.com 에서 프로젝트를 하나 만들고 <b>Realtime Database</b>를 켜요. 무료 요금제로 충분해요.</span></div></div>' +
         '<div class="cloud-step"><span class="cs-n">2</span><div class="cs-body"><strong>주소 복사</strong><span>Realtime Database 화면 위쪽의 <code>https://…firebasedatabase.app</code> 주소를 복사해 위 칸에 붙여 넣어요.</span></div></div>' +
-        '<div class="cloud-step"><span class="cs-n">3</span><div class="cs-body"><strong>권한 열기</strong><span>Realtime Database → 규칙에서 <code>.read</code>·<code>.write</code>를 <code>true</code>로 바꿔 저장해요. 주소와 방 코드를 아는 가족만 들어올 수 있으니, 방 코드는 🎲로 한 번 바꿔 두면 더 안전해요.</span></div></div>' +
+        '<div class="cloud-step"><span class="cs-n">3</span><div class="cs-body"><strong>권한 열기</strong><span>Realtime Database → 규칙에서 우리 방(<code>family_reading_soul-eden-family</code>)만 <code>.read</code>·<code>.write</code>를 <code>true</code>로 열어 저장해요. 주소와 방 코드를 아는 가족만 들어올 수 있어요.</span></div></div>' +
       '</details>' +
       '<p class="cloud-note">※ 연결하지 않아도 앱의 모든 기능은 그대로 동작해요. 연결 전에 기기에 있던 기록은 연결할 때 함께 올라가요.</p>' +
       '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">' +
