@@ -3040,14 +3040,6 @@ body.v8sh-on .toast.show{transform:translate(-50%,0)}
 }
 .v13pick__lb{white-space:nowrap}
 .v13pick__cv{font-style:normal; font-size:8px; color:#A79FBD; margin-left:-1px}
-@media (max-width:339px){
-  .v13grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
-  .v13opt__ph{height:76px}
-  .v13opt__ph img{height:76px}
-  .v13opt b{font-size:11.5px}
-  .v13opt small{font-size:8.5px}
-}
-
 @media (max-width:374px){ .v13pick__lb{display:none} .v13pick{padding:0 6px 0 3px} }
 
 /* ---------- ② 홈: 동물 한 마리가 지도판을 받칠 때 ---------- */
@@ -3081,6 +3073,16 @@ body.is-v13open{overflow:hidden}
 }
 .v13opt.is-on .v13opt__ck{display:grid}
 .v13sheet__foot{margin-top:10px; text-align:center; font-size:10px; font-weight:800; color:#A79FBD; letter-spacing:-.02em}
+
+/* 아주 좁은 화면(≤339px)에서는 두 칸으로 — 이름이 뭉개지지 않게 */
+@media (max-width:339px){
+  .v13grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+  .v13opt__ph{height:76px}
+  .v13opt__ph img{height:76px}
+  .v13opt b{font-size:11.5px}
+  .v13opt small{font-size:8.5px}
+}
+
 
 @media (max-width:374px){
   .app{padding-left:12px; padding-right:12px}
