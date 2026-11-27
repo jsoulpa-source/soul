@@ -10041,7 +10041,7 @@ body.is-v13open{overflow:hidden}
     var host = document.getElementById('v7SplashMap');
     v7BuildMap(host, 'v7spLit'); v7PaintMap(host);
     var note = document.getElementById('v7SplashNote');
-    if (note && store.muted) note.textContent = '🔇 소리 꺼짐 — 오른쪽 위 🔊로 켤 수 있어요';
+    if (note && store.muted) note.textContent = '🔇 효과음 꺼짐 — [듣기] 버튼 소리는 그대로 나요 (켜려면 오른쪽 위 🔊)';
     var go = document.getElementById('v7SplashGo');
     if (go) go.addEventListener('click', function () {
       Snd.tap();
