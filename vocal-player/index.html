@@ -2820,7 +2820,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       box.setAttribute('aria-hidden', 'false');
       return;
     }
-    if (!state.beatOn || !LRC.lines.length) { hideEnterCd(); return; }
+    if (!LRC.lines.length) { hideEnterCd(); return; }
     const idx = state.lineIndex;
     let next = null;
     for (let i = idx + 1; i < LRC.lines.length; i++) {
