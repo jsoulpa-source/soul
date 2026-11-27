@@ -1449,16 +1449,19 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
       let parsedWords = null;
       if (hadTag && words.length) {
-        // <t> 앞에 붙은 글자는 그 단어 시작 시간으로
-        let pending = '';
+        // <t> 뒤에 오는 글자가 그 시간의 단어 → 앞 태그에 붙인다
         const clean = [];
+        let pending = '';
         for (const w of words) {
-          if (w.t == null) { pending += w.s; }
-          else { clean.push({ t: w.t, s: (pending + w.s) }); pending = ''; }
+          if (w.t == null) {
+            if (clean.length) clean[clean.length - 1].s += w.s;
+            else pending += w.s;
+          } else {
+            clean.push({ t: w.t, s: pending + w.s });
+            pending = '';
+          }
         }
         if (pending && clean.length) clean[clean.length - 1].s += pending;
-        else if (pending) clean.unshift({ t: times[0], s: pending });
-        // 공백만 있는 단어 정리
         const words2 = clean
           .map(w => ({ t: w.t, s: w.s }))
           .filter(w => w.s.trim().length || w.s === ' ');
