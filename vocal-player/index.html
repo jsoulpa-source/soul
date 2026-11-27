@@ -2787,6 +2787,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   }
   function checkEntrance(now, playing) {
     const d = now - lastLyricPos;
+    // 되감기·건너뛰기에서는 번쩍·'입장!' 잔상 지우기
+    if (d <= 0 || d > 0.7) { state.goHoldT = 0; state.pulseAt = 0; }
     if (playing && d > 0 && d < 0.7 && LRC.lines.length) {
       for (let i = 0; i < LRC.lines.length; i++) {
         const l = LRC.lines[i];
