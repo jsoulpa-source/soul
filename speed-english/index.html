@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v14-2026-11-28-mgmrip2">
+<meta name="app-build" content="lightup-english-v14-2026-11-28-tigerdef">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10516,9 +10516,11 @@ body.is-v13open{overflow:hidden}
     if (c < 0xAC00 || c > 0xD7A3) return '가';
     return ((c - 0xAC00) % 28) ? '이' : '가';
   }
+  var V13_DEF = 'tiger';   /* 새 방문자 기본 동반 캐릭터 — 🐯 아기 호랑이 (2026-11-28) */
   function v13Get() {
-    var id = store.comp, i;
+    var id = store.comp || V13_DEF, i;
     for (i = 0; i < V13_COMP.length; i++) if (V13_COMP[i].id === id) return V13_COMP[i];
+    for (i = 0; i < V13_COMP.length; i++) if (V13_COMP[i].id === V13_DEF) return V13_COMP[i];
     return V13_COMP[0];
   }
   function v13Set(id) {
