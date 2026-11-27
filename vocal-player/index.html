@@ -1643,7 +1643,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
      5. 드럼 박자 분석 (킥·스네어·하이햇)
      ===================================================================== */
   const BANDS = [
-    { key: 'kick', label: 'KICK', color: '#fb7185', gap: 0.075, hp: 45, lp: 125, q: 0.9 },
+    { key: 'kick', label: 'KICK', color: '#fb7185', gap: 0.075, hp: 42, lp: 115, q: 0.9, cascade: true },
     { key: 'snare', label: 'SNARE', color: '#c084fc', gap: 0.065, hp: 190, lp: 2600, q: 0.7 },
     { key: 'hat', label: 'HAT', color: '#fbbf24', gap: 0.045, hp: 5200, lp: 0, q: 0.7 },
   ];
@@ -1731,6 +1731,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
           const lp = oc.createBiquadFilter();
           lp.type = 'lowpass'; lp.frequency.value = b.lp; lp.Q.value = b.q;
           node.connect(lp); node = lp;
+          if (b.cascade) { // 24dB/oct — 하이햇·스네어 클릭이 킥 레인에 새는 것 줄이기
+            const lp2 = oc.createBiquadFilter();
+            lp2.type = 'lowpass'; lp2.frequency.value = b.lp; lp2.Q.value = b.q;
+            node.connect(lp2); node = lp2;
+          }
         }
         node.connect(oc.destination);
         src.start(0);
