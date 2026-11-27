@@ -2384,6 +2384,20 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     state.pos = state.duration;
   };
 
+  /* 화면이 꺼져 rAF가 멈춰도 A-B 반복은 계속 돌아야 한다 → 250ms 감시
+     (소리 나는 페이지는 크롬의 타이머 제한에서 빠져 250ms 간격이 유지된다) */
+  function abCheck() {
+    const ab = state.ab;
+    if (!engine.playing || !ab.on || ab.a == null || ab.b == null) return false;
+    if (engine.pos >= ab.b) {
+      engine.seek(ab.a);
+      state.rawPos = engine.pos;
+      return true;
+    }
+    return false;
+  }
+  setInterval(abCheck, 250);
+
   /* =====================================================================
      9. 곡 로드
      ===================================================================== */
@@ -3723,6 +3737,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     setSpeed, setKey, setOffset, setAB, setBeatOn, doSearch,
     setVibOn, setSfxOn, playPop, daeng,
     saveSongNow, openSaved, deleteSaved, refreshRecent, recent: () => recentSongs.slice(),
+    abCheck,
     dbAll, dbDel, DB_NAME, DB_STORE,
     updateEnterCd, firstLyricIndex,
     scroll: () => ({ top: viewportEl.scrollTop, auto: autoTop, manualUntil: manualScrollUntil, max: maxScroll() }),
