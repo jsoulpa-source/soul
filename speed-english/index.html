@@ -1061,6 +1061,8 @@ body.is-mapopen{overflow:hidden}
 }
 body.ktb-on .ktb{transform:translateY(0); visibility:visible; pointer-events:auto}
 body.ktb-on .app{padding-top:calc(var(--ktb-h, 92px) + 10px)}
+/* 전면 지도·시트처럼 화면을 다 덮는 화면에선 배너가 위쪽 버튼을 가리지 않게 잠시 숨긴다 */
+body.v8fs-on .ktb, body.v8sh-on .ktb, body.v12half-on .ktb{transform:translateY(-104%); visibility:hidden; pointer-events:none}
 .ktb__in{flex:1; min-width:0}
 .ktb__msg{font-size:12px; font-weight:700; line-height:1.52; letter-spacing:-.02em; color:var(--ink2); word-break:keep-all}
 .ktb__msg b{color:var(--violet-d); font-weight:900}
