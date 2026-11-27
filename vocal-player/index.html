@@ -157,7 +157,7 @@ h1,h2,p{margin:0}
 .legend span{display:flex; align-items:center; gap:3px}
 .legend i{width:6px; height:6px; border-radius:2px; display:inline-block; background:var(--c)}
 .beatfoot.cd .legend{opacity:.22}
-.countdown{position:relative; display:flex; align-items:center; gap:4px; font-size:10px; font-weight:700; color:#f4ebff;
+.countdown{position:relative; flex:0 0 auto; display:flex; align-items:center; gap:4px; font-size:10px; font-weight:700; color:#f4ebff;
   padding:3px 8px 4px; border-radius:8px; background:rgba(168,85,247,.18); border:1px solid rgba(192,132,252,.5);
   overflow:hidden; opacity:0; transform:translateY(2px); transition:.18s; pointer-events:none; white-space:nowrap}
 .countdown.on{opacity:1; transform:none}
@@ -1352,7 +1352,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       let guard = 0;
       while (this.pN < n && guard++ < 60) {
         const got = this.filter.extract(this.tmp, BUFSIZE);
-        if (!got || got <= 0) { this.srcEnded = true; break; }
+        if (!got || got <= 0) {
+          // 0프레임이 곧 곡 끝은 아니다 — 소스 위치가 실제로 끝에 닿았을 때만 종료
+          if (this.buffer && this.filter.sourcePosition >= this.buffer.length - BUFSIZE * 4) this.srcEnded = true;
+          break;
+        }
         if (this.pN + got > this.pL.length) { // 아주 드문 경우: 자리 만들기
           const need = this.pN + got;
           const nL = new Float32Array(Math.max(need, this.pL.length * 2));
