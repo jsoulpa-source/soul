@@ -6,7 +6,7 @@
 <title>라이트업 잉글리시 · 5초 회화 챌린지</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="app-build" content="lightup-english-v14-2026-11-27-mgmrip">
+<meta name="app-build" content="lightup-english-v14-2026-11-28-mgmrip2">
 <meta name="theme-color" content="#F7F4FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -3138,12 +3138,12 @@ body.is-v13open{overflow:hidden}
   background:linear-gradient(90deg,#FFFFFF 0%,#FFF9EF 60%,#FDF1E2 100%)}
 .v14rip__hero{position:absolute; left:50%; top:51%; width:min(56vw,212px); height:min(56vw,212px); z-index:1;
   display:flex; align-items:center; justify-content:center; opacity:0;
-  transform:translate(-50%,-50%) scale(.25); filter:drop-shadow(0 18px 24px rgba(8,4,24,.5))}
+  transform:translate(-50%,-50%) scale(.22); filter:drop-shadow(0 18px 24px rgba(8,4,24,.5))}
 .v14rip__hi{max-width:100%; max-height:100%; display:block}
 .v14rip__hero--duo .v14rip__hi{width:68%; max-height:86%}
 .v14rip__hero--duo .v14rip__hi--b{margin-left:-20%; transform:translateY(7%) scale(.92)}
 .v14rip__fx{position:absolute; inset:0; z-index:3; pointer-events:none}
-.v14rip__badge{position:absolute; left:50%; top:calc(51% - min(36vw,140px)); opacity:0;
+.v14rip__badge{position:absolute; left:50%; top:calc(51% - min(40.6vw,153.7px) - 28px); opacity:0;
   transform:translate(-50%,-50%) scale(.35); padding:9px 17px 10px; border-radius:999px;
   background:linear-gradient(165deg,#FFFFFF 0%,#F7F1FF 100%); border:2px solid #F1CE72;
   color:#5A3CA8; font-size:16px; font-weight:900; letter-spacing:-.03em; white-space:nowrap;
@@ -4393,7 +4393,7 @@ body.is-v13open{overflow:hidden}
       var ctx = this.ensure();
       if (!ctx) return;
       try {
-        var t0 = ctx.currentTime + 0.01, dur = 0.44;
+        var t0 = ctx.currentTime + 0.01, dur = 0.65;
         var len = Math.floor(ctx.sampleRate * dur);
         var buf = ctx.createBuffer(1, len, ctx.sampleRate);
         var d = buf.getChannelData(0), i, t, env, crack;
@@ -10332,7 +10332,7 @@ body.is-v13open{overflow:hidden}
       c = i % 3 === 0 ? '#F7CB63' : (i % 3 === 1 ? '#C9ACFF' : '#FFF4D2');
       ch = (i % 4 === 0 || i % 4 === 3) ? '✦' : (i % 4 === 1 ? '✧' : '✨');
       out += '<i class="v14rip__sp" style="--a:' + a.toFixed(1) + 'deg;--d:' + d.toFixed(1) + ';--c:' + c +
-        ';animation-delay:' + (0.26 + Math.random() * 0.1).toFixed(2) + 's">' + ch + '</i>';
+        ';animation-delay:' + (0.4 + Math.random() * 0.12).toFixed(2) + 's">' + ch + '</i>';
     }
     return out;
   }
@@ -10387,7 +10387,7 @@ body.is-v13open{overflow:hidden}
     wR.querySelector('.v14rip__fib').style.clipPath = v14RipBand(pts, -1);
 
     /* 종이 그림자는 찢기 시작할 때부터 — 멈춰 있을 때는 스플래시와 똑같이 보이게 */
-    setTimeout(function () { wL.classList.add('is-lift'); wR.classList.add('is-lift'); }, 70);
+    setTimeout(function () { wL.classList.add('is-lift'); wR.classList.add('is-lift'); }, 90);
 
     Array.prototype.forEach.call(box.querySelectorAll('[data-ripmap]'), function (h) {
       var gid = h.getAttribute('data-ripmap'), on, i;
@@ -10401,33 +10401,35 @@ body.is-v13open{overflow:hidden}
     var badgeEl = box.querySelector('.v14rip__badge');
     function anim(el, kf, o) { if (!el || reduced) return null; try { return el.animate(kf, o); } catch (e) { return null; } }
     if (!reduced) {
-      anim(wL, [{ transform: 'translate3d(0,0,0) rotate(0deg)' }, { transform: 'translate3d(-120%,0,0) rotate(-2.4deg)' }],
-        { duration: 580, delay: 80, easing: 'cubic-bezier(.46,.02,.76,.4)', fill: 'both' });
-      anim(wR, [{ transform: 'translate3d(0,0,0) rotate(0deg)' }, { transform: 'translate3d(120%,0,0) rotate(2.4deg)' }],
-        { duration: 580, delay: 80, easing: 'cubic-bezier(.46,.02,.76,.4)', fill: 'both' });
+      anim(wL, [{ transform: 'translate3d(0,0,0) rotate(0deg)' }, { transform: 'translate3d(-124%,0,0) rotate(-3deg)' }],
+        { duration: 1000, delay: 90, easing: 'cubic-bezier(.42,.02,.72,.36)', fill: 'both' });
+      anim(wR, [{ transform: 'translate3d(0,0,0) rotate(0deg)' }, { transform: 'translate3d(124%,0,0) rotate(3deg)' }],
+        { duration: 1000, delay: 90, easing: 'cubic-bezier(.42,.02,.72,.36)', fill: 'both' });
+      /* 지금 고른 동반 캐릭터가 종이 틈에서 앞으로 크게 다가온다 — scale(.22) → scale(1.45) */
       anim(heroEl, [
-        { transform: 'translate(-50%,-50%) scale(.25) rotate(-10deg)', opacity: 0 },
-        { transform: 'translate(-50%,-50%) scale(1.16) rotate(3.5deg)', opacity: 1, offset: .55 },
-        { transform: 'translate(-50%,-50%) scale(.95) rotate(-1.6deg)', opacity: 1, offset: .8 },
-        { transform: 'translate(-50%,-50%) scale(1) rotate(0deg)', opacity: 1 }
-      ], { duration: 540, delay: 70, easing: 'cubic-bezier(.16,.86,.26,1)', fill: 'both' });
+        { transform: 'translate(-50%,-50%) scale(.22) rotate(-10deg)', opacity: 0 },
+        { transform: 'translate(-50%,-50%) scale(.42) rotate(-5deg)', opacity: 1, offset: .16 },
+        { transform: 'translate(-50%,-50%) scale(.86) rotate(2.5deg)', opacity: 1, offset: .52 },
+        { transform: 'translate(-50%,-50%) scale(1.18) rotate(-1.4deg)', opacity: 1, offset: .78 },
+        { transform: 'translate(-50%,-50%) scale(1.45) rotate(0deg)', opacity: 1 }
+      ], { duration: 1000, delay: 120, easing: 'cubic-bezier(.3,.06,.3,1)', fill: 'both' });
       anim(glowEl, [
         { transform: 'translate(-50%,-50%) scale(.34)', opacity: 0 },
-        { transform: 'translate(-50%,-50%) scale(1.24)', opacity: .95, offset: .52 },
-        { transform: 'translate(-50%,-50%) scale(1.04)', opacity: .6 }
-      ], { duration: 620, delay: 60, easing: 'ease-out', fill: 'both' });
+        { transform: 'translate(-50%,-50%) scale(1.32)', opacity: .95, offset: .55 },
+        { transform: 'translate(-50%,-50%) scale(1.5)', opacity: .8 }
+      ], { duration: 980, delay: 80, easing: 'ease-out', fill: 'both' });
       anim(badgeEl, [
         { transform: 'translate(-50%,-50%) scale(.35) rotate(-11deg)', opacity: 0 },
         { transform: 'translate(-50%,-50%) scale(1.12) rotate(2deg)', opacity: 1, offset: .6 },
         { transform: 'translate(-50%,-50%) scale(1) rotate(-1deg)', opacity: 1 }
-      ], { duration: 320, delay: 258, easing: 'cubic-bezier(.2,1.15,.3,1)', fill: 'both' });
+      ], { duration: 360, delay: 520, easing: 'cubic-bezier(.2,1.15,.3,1)', fill: 'both' });
     }
     anim(box, [{ opacity: 1 }, { opacity: 0 }],
-      { duration: reduced ? 170 : 175, delay: reduced ? 60 : 800, easing: 'ease-out', fill: 'both' });
+      { duration: reduced ? 170 : 200, delay: reduced ? 60 : 1400, easing: 'ease-out', fill: 'both' });
 
     try { Snd.rip(); } catch (e) {}
-    setTimeout(function () { try { Snd.pop(); } catch (e) {} }, 250);
-    setTimeout(function () { sp.style.display = 'none'; }, 340);
+    setTimeout(function () { try { Snd.pop(); } catch (e) {} }, 330);
+    setTimeout(function () { sp.style.display = 'none'; }, 380);
     if (holdMs) {
       /* 검사용 — 찢기는 중간 프레임을 멈춰 세워 둔다 */
       setTimeout(function () {
@@ -10442,7 +10444,7 @@ body.is-v13open{overflow:hidden}
     setTimeout(function () {
       try { if (box.parentNode) box.parentNode.removeChild(box); } catch (e) {}
       v14ripOn = false;
-    }, reduced ? 330 : 1000);
+    }, reduced ? 330 : 1650);
     return true;
   }
   window.__v14rip = { play: v14RipGo, on: function () { return v14ripOn; } };
@@ -10462,7 +10464,7 @@ body.is-v13open{overflow:hidden}
       v14RipGo(sp);
       V7V.ctxGet();
       V7V.play('came');
-      if (!userLevel() && !store.levelAsked) setTimeout(function () { try { openLevelTest(); } catch (e) {} }, 880);
+      if (!userLevel() && !store.levelAsked) setTimeout(function () { try { openLevelTest(); } catch (e) {} }, 1550);
     });
   })();
 
