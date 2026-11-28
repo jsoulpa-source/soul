@@ -3069,6 +3069,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       setTrack('칼박 데모 · 96 BPM', '드럼 + 가이드 멜로디 · 12마디', '단어별 칼박', 'enh');
       state.mode = 'enhanced';
       state.demoMode = true;
+      updateLrcBar();
       engine.seek(0);
       engine.play();
       setPlayingUI(true);
@@ -3583,7 +3584,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     }
   }
 
-  function canPairSave() { return !!(engine.buffer && LRC.lines.length); }
+  function canPairSave() { return !!(engine.buffer && LRC.lines.length && !state.demoMode); }
 
   function updateSaveUI() {
     const can = canPairSave();
