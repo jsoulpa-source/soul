@@ -1,7 +1,7 @@
 {
-  "name": "칼박 보컬 연습 플레이어",
-  "short_name": "칼박 보컬",
-  "description": "음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절이 되는 보컬 연습 플레이어",
+  "name": "박정이 — 박자의 정석은 이거지",
+  "short_name": "박정이",
+  "description": "박정이 — 박자의 정석은 이거지. 박자 플레이어(음원·LRC 단어별 칼박 트래킹, 드럼 타임라인, A-B 반복) + 왕초보 드럼 입문·장르별 리듬 연습 3단계",
   "lang": "ko",
   "start_url": "./",
   "scope": "./",
@@ -10,8 +10,23 @@
   "theme_color": "#f7f5fc",
   "background_color": "#fbfaff",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
