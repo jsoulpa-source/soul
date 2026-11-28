@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>박정이 · 박자의 정석은 이거지</title>
 <meta name="build" content="vocal-player-v3.1-2026-11-28-vocalcut">
-<meta name="app-build" content="vocal-player-v3.0-2026-11-28-bakjeongi">
+<meta name="app-build" content="vocal-player-v3.1-2026-11-28-vocalcut">
 <meta name="theme-color" content="#f7f5fc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -545,7 +545,12 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .page2 #trackSub{font-size:9.5px; line-height:1.15}
 .page2 .badge{font-size:9px; padding:3px 5px}
 .page2 .swapbtn{font-size:10px; padding:4px 6px}
-.page2 .beathead{min-height:22px; gap:4px}
+.page2 .beathead{min-height:22px; gap:4px; flex-wrap:wrap}
+/* 
+   390px 에서 드림·진동·보컬·BPM 네 버튼이 한 줄에 다 들어가고, 상태 문구는 아래 줄로 */
+.page2 .beathead .beathint{order:4; flex:1 1 auto; text-align:left; margin-top:1px}
+.page2 .beathead .beathint:empty{display:none}
+.page2 .beathead .bpmctl{margin-left:auto; order:5}
 .page2 .beatbtn,.page2 .vibbtn{font-size:10.5px; padding:3px 7px}
 .page2 .bpmctl{padding:1px 2px 1px 5px}
 .beatcanvas{height:clamp(108px,17.5dvh,176px)}
@@ -981,8 +986,10 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .fbtn.on{color:#fff; background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b5cf6;
   box-shadow:0 8px 16px -10px rgba(124,58,237,.95)}
 .page2.tools-hidden #srcRows,
-.page2.tools-hidden .beathead,
 .page2.tools-hidden .abinfo{display:none !important}
+/* 집중 모드에서도 🎤 보컬 줄이기 단추는 연습 중 1탭으로 쓸 수 있게 남긴다 */
+.page2.tools-hidden .beathead{display:flex !important; justify-content:flex-end; min-height:0}
+.page2.tools-hidden .beathead > *:not(#vocalBtn){display:none !important}
 .page2.tools-hidden .lyricswrap{min-height:188px}
 .page2.tools-hidden .lyrics{--lyrH:min(42dvh,320px)}
 .page2.tools-hidden .lyrics.grow{animation:lyrGrow .34s ease-out}
@@ -1000,7 +1007,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   box-shadow:0 8px 16px -12px rgba(190,24,93,1)}
 .vcutbtn.on b{color:#fff}
 .vcutbtn:active{transform:scale(.95)}
-.page2 .vcutbtn{font-size:10.5px; padding:3px 7px}
+.page2 .vcutbtn{font-size:10.5px; padding:3px 6px}
 
 /* 넓은 화면에서도 가사가 더 크게 — 드럼 타임라인을 조금 줄여 자리를 만든다 */
 @media (max-width:360px){
@@ -1066,6 +1073,16 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .nb-spot.struck .nb-pill{animation:nbHitPulse .38s cubic-bezier(.22,.9,.28,1.35);
   box-shadow:0 0 0 5px rgba(244,114,182,.28), 0 12px 26px -12px rgba(124,58,237,.95)}
 @media (prefers-reduced-motion:reduce){ .nb-spot.struck .nb-pill{animation:none} }
+
+/* 🐢 기초 2·3 — 속도 고르기 (기본 0.7배) */
+.nb-speed{display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin:2px 0 7px}
+.nbs-l{font-size:10px; font-weight:900; color:#6d28d9; letter-spacing:-.02em}
+.nb-spd{padding:6px 10px; border-radius:10px; border:1.5px solid #e6d8fb; background:#fff;
+  font-size:10.5px; font-weight:900; color:#5b3a86; font-variant-numeric:tabular-nums; transition:.15s}
+.nb-spd:active{transform:scale(.95)}
+.nb-spd.on{color:#fff; background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b5cf6;
+  box-shadow:0 8px 16px -12px rgba(124,58,237,1)}
+.nbs-hint{font-size:9.5px; font-weight:800; color:#a79dc2}
 
 /* 🤝 기초 1 — 동시 타격 귀 열기 */
 .nb-sim{margin-top:9px; padding:10px; border-radius:14px; border:1px dashed #d8c6f7;
@@ -1465,6 +1482,13 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
         <div class="nb-step" id="nbS2">
           <div class="nb-sh"><span class="nb-num">2</span><b>🧱 리듬의 기둥 세우기</b><em>하이햇 + 스네어</em></div>
           <div class="nb-kdesc">하이햇은 <b>계속 쪼개서</b> 치고, 스네어는 <b>2·4박에 짝!</b> 이 두 개만 세워도 노래가 굴러가요.</div>
+          <div class="nb-speed" id="nbSpeed2" role="group" aria-label="기초 2 속도">
+            <span class="nbs-l">🐢 속도</span>
+            <button class="nb-spd" type="button" data-spd="0.5" data-nopop>0.5x</button>
+            <button class="nb-spd on" type="button" data-spd="0.7" data-nopop>0.7x</button>
+            <button class="nb-spd" type="button" data-spd="1" data-nopop>1.0x</button>
+            <span class="nbs-hint">처음엔 0.7배로 천천히!</span>
+          </div>
           <div class="nb-grid" id="nbPillar"></div>
           <div class="nb-beats" id="nbPillarBeats"></div>
           <div class="nb-row">
@@ -1477,6 +1501,13 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
         <div class="nb-step" id="nbS3">
           <div class="nb-sh"><span class="nb-num">3</span><b>🦶 킥 위치로 장르 바꾸기</b><em>하이햇·스네어는 그대로</em></div>
           <div class="nb-kdesc">기둥은 고정! <b>킥만 어디에 놓느냐</b>로 팝 · 힙합 · 하우스가 갈라져요.</div>
+          <div class="nb-speed" id="nbSpeed3" role="group" aria-label="기초 3 속도">
+            <span class="nbs-l">🐢 속도</span>
+            <button class="nb-spd" type="button" data-spd="0.5" data-nopop>0.5x</button>
+            <button class="nb-spd on" type="button" data-spd="0.7" data-nopop>0.7x</button>
+            <button class="nb-spd" type="button" data-spd="1" data-nopop>1.0x</button>
+            <span class="nbs-hint">하우스도 0.7배면 편해요</span>
+          </div>
           <div class="nb-chips" id="nbKickChips">
             <button class="nb-chip on" type="button" data-kick="pop">🎵 팝</button>
             <button class="nb-chip" type="button" data-kick="boom">🎧 힙합</button>
@@ -6824,10 +6855,40 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       if (fb) { fb.className = 'nb-fb no'; fb.innerHTML = '거의 다 왔어요! 노란 칸은 놓친 자리, 빨간 칸은 더 찍은 자리예요.'; }
     }
   }
+  /* --- 🐢 기초 2·3 속도 (기본 0.7배) --- */
+  const NBSPD = { speed: 0.7 };
+  function nbSpeedUI() {
+    $$('.nb-spd').forEach(b => {
+      const on = Math.abs(parseFloat(b.dataset.spd) - NBSPD.speed) < 0.001;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function nbSpeedSay(v) {
+    const msg = v === 1 ? '🐇 원래 속도로!' : '🐢 ' + v + '배 — 천천히';
+    $$('.nb-speed .nbs-hint').forEach(h => {
+      if (!h.dataset.def) h.dataset.def = h.textContent;
+      h.textContent = msg;
+      clearTimeout(h._t);
+      h._t = setTimeout(() => { h.textContent = h.dataset.def; }, 2300);
+    });
+  }
+  function nbSpeedSet(v, silent) {
+    const nv = (v === 0.5 || v === 1) ? v : 0.7;
+    NBSPD.speed = nv;
+    nbSpeedUI();
+    const was = NB.name;
+    if (NB.playing) {
+      if (was === 'pillar') { nbStop(); nbPillarPlay(); }
+      else if (was === 'kick') { nbStop(); nbKickPlay(); }
+    }
+    if (!silent) nbSpeedSay(nv);
+  }
+
   function nbPillarPlay() {
     if (NB.playing && NB.name === 'pillar') { nbStop(); return; }
     nbStart({ hat: PILLAR_HAT, snare: PILLAR_SNARE, steps: 8, per: 2 }, {
-      bpm: 84, loops: 4, name: 'pillar',
+      bpm: 84 * NBSPD.speed, loops: 4, name: 'pillar',
       draw: i => {
         $$('#nbPillar .nb-gcell').forEach(b => b.classList.toggle('play', +b.dataset.i === i));
       }
@@ -6876,7 +6937,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     nbStart({
       hat: [0, 2, 4, 6, 8, 10, 12, 14], snare: [4, 12], kick: k.kick, steps: 16, per: 4
     }, {
-      bpm: k.bpm, loops: 2, name: 'kick',
+      bpm: k.bpm * NBSPD.speed, loops: 2, name: 'kick',
       draw: i => { $$('#nbKickGrid .nb-kcell').forEach(c => c.classList.toggle('now', +c.dataset.i === i)); }
     });
   }
@@ -6916,6 +6977,10 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       b.addEventListener('click', () => nbQuizAnswer(b.dataset.ans, b));
     });
     on('#nbPillarPlay', 'click', nbPillarPlay);
+    $$('.nb-spd').forEach(b => {
+      b.addEventListener('click', () => nbSpeedSet(parseFloat(b.dataset.spd)));
+    });
+    nbSpeedUI();
     on('#nbPillarCheck', 'click', nbPillarCheck);
     const g = $('#nbPillar');
     if (g) {
@@ -7134,6 +7199,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
           open: !$('#nbBody').hidden, quiz: NBQ.target, right: NBQ.right, total: NBQ.total,
           pillar: NBP.user.slice(), kick: NBKS.cur, mini: { playing: NB.playing, name: NB.name },
           say: $('#nbSay') ? $('#nbSay').innerText : '',
+          speed: NBSPD.speed, effBpm: NB.bpm || 0,
         }),
         sim: () => ({ target: NBS.target, solo: NBS.solo, right: NBS.right, total: NBS.total }),
         audio: () => ({ state: A.ctx ? A.ctx.state : 'none', master: A.master ? A.master.gain.value : 0,
