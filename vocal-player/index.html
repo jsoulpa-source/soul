@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>칼박 보컬 연습 플레이어</title>
-<meta name="build" content="vocal-player-v2.2-2026-11-27">
-<meta name="app-build" content="vocal-player-v2.2-2026-11-27">
+<meta name="build" content="vocal-player-v2.3-2026-11-28-lrc-ux">
+<meta name="app-build" content="vocal-player-v2.3-2026-11-28-lrc-ux">
 <meta name="theme-color" content="#f7f5fc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,6 +42,7 @@ body{
 button{font-family:inherit; font-size:inherit; letter-spacing:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
 h1,h2,p{margin:0}
 .hide{display:none !important}
+[hidden]{display:none !important}
 ::selection{background:rgba(168,85,247,.22)}
 
 .app{max-width:480px; margin:0 auto; padding:calc(11px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));
@@ -271,14 +272,34 @@ h1,h2,p{margin:0}
 .energy{height:100%; width:0%; border-radius:4px; background:linear-gradient(90deg,#a855f7,#db2777);
   transition:width .05s linear}
 
-/* ---------- LRC 상시 바 ---------- */
-.lrcbar{display:flex; gap:6px; margin-top:1px}
-.lrcbtn{flex:1; min-width:0; font-size:11px; font-weight:800; color:#5b21b6;
-  border:1px solid #e6daf9; background:#fbf8ff; border-radius:10px; padding:8px 3px;
+/* v2.3 음원·가사 소스 바 (연습 화면 안에서 바로 넣기·바꾸기·비우기) */
+.srcrows{display:flex; flex-direction:column; gap:4px; margin-top:1px}
+.p1srcrow{margin-bottom:1px}
+.p1srcrow .srcbtn{padding:9px 6px; font-size:12.5px}
+.srcbtn.strong{color:#fff; border-color:#8b5cf6; background:linear-gradient(140deg,#c084fc,#7c3aed)}
+.page1 .dropzone{padding:9px 10px}
+.page1 .dropzone .dzline{margin-bottom:3px; font-size:11.5px}
+.srcrow{display:flex; align-items:center; justify-content:center; gap:4px; min-height:0}
+.srcbtn{flex:1 1 auto; min-width:0; max-width:230px; display:flex; align-items:center; justify-content:center; gap:3px;
+  font-size:11px; font-weight:800; color:#5b21b6;
+  border:1px solid #e6daf9; background:#fbf8ff; border-radius:10px; padding:7px 4px;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:.15s}
-.lrcbtn:hover{background:#f2e9ff; border-color:#cdb2f3}
-.lrcbtn:active{transform:scale(.97)}
-.lrcbar.nolyr .lrcbtn{background:linear-gradient(140deg,#f6ecff,#fdf0f8); border-color:#d9c1fb; color:#5b21b6}
+.srcbtn:hover{background:#f2e9ff; border-color:#cdb2f3}
+.srcbtn:active{transform:scale(.97)}
+.srcbtn.sm{flex:0 0 auto; padding:7px 7px; font-size:10.5px; color:#6a6088}
+.srcbtn.ask{background:linear-gradient(140deg,#f3e6ff,#fdeef8); border-color:#c9a6f7; color:#5b21b6;
+  animation:askPulse 1.7s ease-in-out infinite}
+.srcbtn.save{flex:0 0 auto; color:#fff; border-color:#8b5cf6;
+  background:linear-gradient(140deg,#c084fc,#7c3aed)}
+.srcbtn.save.unsaved{animation:savePulse 1.5s ease-in-out infinite}
+.srcbtn.save.saved{background:#ecfdf5; border-color:#a7f3d0; color:#047857; animation:none}
+@keyframes askPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,0), 0 0 0 1px rgba(168,85,247,0) inset}
+  50%{box-shadow:0 0 0 3px rgba(168,85,247,.14), 0 0 0 1px rgba(168,85,247,.35) inset}}
+@keyframes savePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,.40)}
+  50%{box-shadow:0 0 0 3px rgba(124,58,237,.16), 0 0 16px -1px rgba(124,58,237,.65)}}
+@media (prefers-reduced-motion:reduce){ .srcbtn.ask,.srcbtn.save.unsaved{animation:none} }
 
 /* ---------- seek ---------- */
 .seekrow{display:flex; align-items:center; gap:9px}
@@ -383,7 +404,6 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   .transport{gap:26px}
   .searchrow input{font-size:13.5px}
   .foot{padding-top:0}
-  .lrcbtn{font-size:11.5px}
 }
 @media (max-width:360px){
   .beatcanvas{height:136px}
@@ -391,7 +411,6 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   .ll.active .llin{font-size:18px}
   .abrow .btn{font-size:11px}
   .lanes{width:42px}
-  .lrcbtn{font-size:10px; padding:8px 2px}
 }
 
 /* =====================================================================
@@ -427,10 +446,33 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .page1 .lcbody{padding:0; gap:9px}
 .page1 .loadcard.collapsed .lcbody{display:flex}
 .p1cta{order:1}
+.p1act{order:1; display:flex; flex-direction:column; gap:6px; padding:0 1px; flex:0 0 auto}
+.p1actrow{display:flex; gap:6px; align-items:stretch}
+.p1actrow .cta{flex:1 1 auto; width:auto; padding:12px 10px; font-size:14.5px; border-radius:14px}
+.savepair{width:100%; display:flex; align-items:center; justify-content:center; gap:5px;
+  padding:11px 10px; font-size:13px; font-weight:800; border-radius:14px;
+  background:linear-gradient(140deg,#f4e9ff,#efe7ff); border-color:#c9a6f7; color:#5b21b6}
+.savepair.unsaved{animation:savePulse 1.6s ease-in-out infinite}
+.savepair.saved{background:#ecfdf5; border-color:#a7f3d0; color:#047857; animation:none}
+.savepair .dot{font-size:9px; letter-spacing:.02em; opacity:.9}
+.resetbtn{flex:0 0 auto; font-size:12.5px; font-weight:800; padding:0 11px; border-radius:14px;
+  color:#9d174d; border-color:#f6dbea; background:#fdf3f8}
+.resetbtn:hover{background:#fce7f1; border-color:#eeb8d3}
+.resetbtn.armed{background:#db2777; border-color:#db2777; color:#fff}
+.recentcard{order:2; display:flex; flex-direction:column; gap:6px; padding:10px 11px 9px; border-radius:16px;
+  flex:0 0 auto}
+.recentcard[hidden]{display:none}
+.recentcard .rlist{max-height:min(34dvh,250px); overflow:auto}
+.lrcask{display:none; margin-top:-1px; padding:7px 9px; border-radius:11px; font-size:11.5px; line-height:1.45;
+  color:#5b21b6; background:linear-gradient(140deg,#f6ecff,#fdeef8); border:1px dashed #c9a6f7}
+.lrcask b{font-weight:800}
+.page1.need-lrc .lrcask{display:block; animation:askPulse 1.9s ease-in-out infinite}
+.page1.need-lrc #lrcPick{animation:askPulse 1.7s ease-in-out infinite; border-color:#b98ef5; background:#f4e7ff}
+.page1.need-lrc .searchrow{animation:askPulse 1.9s ease-in-out infinite; border-radius:14px}
 .rlist{max-height:min(38dvh,260px); overflow:auto}
 .page1.has-recent .loadcard{flex:0 0 auto}
 .rencempty{padding:6px 3px}
-.p1guide{display:none; flex-direction:column; gap:5px; padding:10px 12px;
+.p1guide{display:none; flex-direction:column; gap:5px; padding:10px 12px; order:3;
   border:1px solid #e7ddfa; border-radius:14px; background:linear-gradient(180deg,#fbf8ff,#fff)}
 .page1:not(.has-recent) .p1guide{display:flex}
 .gdline{display:flex; align-items:center; justify-content:center; gap:5px; flex-wrap:wrap;
@@ -470,9 +512,9 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .beatfoot{display:flex; align-items:center; justify-content:space-between; gap:6px; height:22px; min-height:22px}
 .page2 .legend{min-width:0; overflow:hidden}
 .page2 .abinfo{flex:0 0 auto}
-.lrcbar{display:none}
-.lrcbar.nolyr{display:flex}
-.lrcbtn{padding:7px 3px; font-size:10.5px}
+.srcrows{gap:3px}
+.srcbtn{padding:6px 4px; font-size:10.5px}
+.srcbtn.sm{padding:6px 6px; font-size:10px}
 
 /* 우측 슬림 세로 리모컨 */
 .remote{flex:none; order:1; width:70px; display:flex; flex-direction:column; justify-content:flex-start;
@@ -498,7 +540,26 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .rstack button.rval.on{background:#f1e6ff}
 .rstack.speed button{font-size:11px}
 
+/* 넓은 화면에서는 소스 바가 너무 늘어나지 않게 */
+@media (min-width:600px){
+  .srcrows{width:100%; max-width:560px; margin-left:auto; margin-right:auto}
+}
+
 /* 락스타 호랑이 팝인 */
+.sheetwrap{position:fixed; inset:0; z-index:110; display:none}
+.sheetwrap.on{display:block}
+.sheetmask{position:absolute; inset:0; background:rgba(31,25,51,.34)}
+.sheetcard{position:absolute; left:0; right:0; bottom:0; max-height:78dvh; overflow:auto;
+  background:#fff; border-radius:20px 20px 0 0; padding:14px 14px calc(14px + env(safe-area-inset-bottom));
+  display:flex; flex-direction:column; gap:9px; box-shadow:0 -18px 40px -22px rgba(64,32,130,.6);
+  animation:sheetUp .22s cubic-bezier(.3,.9,.3,1)}
+@keyframes sheetUp{0%{transform:translateY(22px); opacity:.4}100%{transform:none; opacity:1}}
+.sheethd{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.sheethd b{font-size:13.5px; font-weight:800; color:var(--ink)}
+.sheetx{flex:none; width:28px; height:28px; border-radius:9px; display:grid; place-items:center;
+  border:1px solid var(--line); background:#fbf8ff; color:#6a6088; font-size:12px}
+.sheetwrap .results{max-height:44dvh}
+
 .tigerpop{position:fixed; inset:0; z-index:120; display:grid; place-items:center;
   pointer-events:none; visibility:hidden}
 .tigerpop.on{visibility:visible}
@@ -513,32 +574,32 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   font-size:13px; font-weight:900; letter-spacing:-.02em; color:#4c1d95; white-space:nowrap;
   background:linear-gradient(140deg,#fde68a,#fbcfe8 52%,#d8b4fe); border:1px solid #fff;
   box-shadow:0 10px 20px -12px rgba(76,29,149,.85)}
-.tigerpop.on .tigercard{animation:tigerCard .86s cubic-bezier(.2,.9,.25,1) forwards}
-.tigerpop.on .tigercard img{animation:tigerImg .86s cubic-bezier(.2,.9,.25,1) forwards}
-.tigerpop.on .tigerbadge{animation:tigerBadge .86s cubic-bezier(.2,.9,.25,1) forwards}
+.tigerpop.on .tigercard{animation:tigerCard 1.18s cubic-bezier(.2,.9,.25,1) forwards}
+.tigerpop.on .tigercard img{animation:tigerImg 1.18s cubic-bezier(.2,.9,.25,1) forwards}
+.tigerpop.on .tigerbadge{animation:tigerBadge 1.18s cubic-bezier(.2,.9,.25,1) forwards}
 @keyframes tigerCard{
   0%{opacity:0; transform:scale(.82)}
-  16%{opacity:1; transform:scale(1.03)}
-  34%{transform:scale(1)}
-  76%{opacity:1; transform:scale(1)}
-  100%{opacity:0; transform:scale(1.03)}}
+  10%{opacity:1; transform:scale(1.04)}
+  20%{opacity:1; transform:scale(1)}
+  78%{opacity:1; transform:scale(1)}
+  100%{opacity:0; transform:scale(1.02)}}
 @keyframes tigerImg{
   0%{opacity:0; transform:scale(.3) rotate(-10deg)}
-  26%{opacity:1; transform:scale(1.12) rotate(4deg)}
-  46%{opacity:1; transform:scale(.97) rotate(-2deg)}
-  64%{opacity:1; transform:scale(1.03) rotate(0deg)}
-  80%{opacity:1; transform:scale(1.04) rotate(0deg)}
-  100%{opacity:0; transform:scale(1.06) rotate(0deg)}}
+  16%{opacity:1; transform:scale(1.12) rotate(4deg)}
+  30%{opacity:1; transform:scale(1) rotate(-1deg)}
+  46%{opacity:1; transform:scale(1.03) rotate(0deg)}
+  78%{opacity:1; transform:scale(1.03) rotate(0deg)}
+  100%{opacity:0; transform:scale(1.05) rotate(0deg)}}
 @keyframes tigerBadge{
   0%{opacity:0; transform:translateY(10px) scale(.8)}
-  30%{opacity:1; transform:translateY(0) scale(1.06)}
-  50%{transform:scale(1)}
-  80%{opacity:1}
-  100%{opacity:0}}
+  18%{opacity:1; transform:translateY(0) scale(1.06)}
+  34%{opacity:1; transform:translateY(0) scale(1)}
+  78%{opacity:1; transform:translateY(0) scale(1)}
+  100%{opacity:0; transform:translateY(0) scale(1)}}
 @media (prefers-reduced-motion:reduce){
   .page{transition:opacity .2s ease}
-  .tigerpop.on .tigercard,.tigerpop.on .tigercard img,.tigerpop.on .tigerbadge{animation:tigerFadeOnly .86s ease forwards}
-  @keyframes tigerFadeOnly{0%{opacity:0}18%{opacity:1}72%{opacity:1}100%{opacity:0}}
+  .tigerpop.on .tigercard,.tigerpop.on .tigercard img,.tigerpop.on .tigerbadge{animation:tigerFadeOnly 1.18s ease forwards}
+  @keyframes tigerFadeOnly{0%{opacity:0}12%{opacity:1}78%{opacity:1}100%{opacity:0}}
 }
 
 /* 좁은 화면 */
@@ -550,6 +611,8 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 @media (max-width:360px){
   .beatcanvas{height:clamp(104px,16dvh,132px)}
   .remote{width:62px}
+  .srcbtn{font-size:10px; padding:5px 3px}
+  .srcbtn.sm{font-size:9.5px; padding:5px 4px}
   .rstack button{font-size:10px; min-height:19px}
   .page2 .stage{padding:8px 7px; gap:4px}
   .ll.active .llin{font-size:17px}
@@ -564,6 +627,9 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   .page2 .stage{padding:8px; gap:4px}
   .abinfo{display:none}
   .page1 #loadSummary{display:none}
+  .srcrows{gap:2px}
+  .srcbtn{padding:5px 4px; font-size:10px}
+  .srcbtn.sm{padding:5px 5px; font-size:9.5px}
   .rstack button{height:28px}
   .rstack{gap:3px}
   .rlab{font-size:8px}
@@ -617,7 +683,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
     </div>
     <div class="topctl">
       <button class="minitog" id="sfxBtn" aria-pressed="true" title="버튼 효과음 켜기/끄기">🔔 <b>ON</b></button>
-      <span class="buildtag" id="buildTag">v2.2</span>
+      <span class="buildtag" id="buildTag">v2.3</span>
     </div>
   </header>
 
@@ -633,20 +699,15 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 
     <section class="card loadcard" id="loadCard">
       <div class="lcbody">
-        <div class="recent" id="recentBlock" hidden>
-          <div class="rhead"><span>📚 최근 연습한 곡</span><span class="rcount" id="recentCount"></span></div>
-          <div class="rlist" id="recentList"></div>
+        <div class="srcrow p1srcrow" id="p1SrcRow">
+          <button class="srcbtn strong" id="audioPick">🎵 MR(음원) 넣기</button>
+          <button class="srcbtn" id="lrcPick">📄 LRC 넣기</button>
         </div>
         <div class="dropzone" id="dropZone">
-          <div class="dzline"><b>음원 파일</b>을 끌어다 놓거나</div>
-          <div class="btnrow">
-            <button class="btn primary" id="audioPick">음원 파일 열기</button>
-            <button class="btn" id="lrcPick">LRC 파일 열기</button>
-          </div>
-          <div class="hint" style="margin-top:8px">MP3 · WAV · M4A · OGG · FLAC · 가사는 .lrc / .txt</div>
+          <div class="dzline">파일을 이 화면에 <b>끌어다 놓아도</b> 열려요</div>
+          <div class="hint">MP3 · WAV · M4A · OGG · FLAC · 가사는 .lrc / .txt</div>
         </div>
-        <input type="file" id="audioInput" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.aac" class="hide">
-        <input type="file" id="lrcInput" accept=".lrc,.txt,text/plain" class="hide">
+        <div class="lrcask" id="p1LrcAsk">🎵 음원은 열렸어요! <b>📄 LRC 파일 열기</b>로 가사를 넣고<br><b>▶ 연습 시작하기</b>를 누르면 칼박 연습이 시작돼요</div>
 
         <div class="searchrow">
           <input id="searchInput" type="search" placeholder="노래 검색 (예: Loopy OTL)" autocomplete="off" enterkeyhint="search">
@@ -666,13 +727,25 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
       </div>
     </section>
 
+    <div class="p1act" id="p1Act">
+      <button class="btn savepair unsaved" id="savePair" hidden>💾 <span id="savePairLabel">이 음악 + LRC 세팅 저장하기</span><span class="dot" id="savePairDot">● 저장 안 됨</span></button>
+      <div class="p1actrow">
+        <button class="btn primary cta" id="startCta">▶ 연습 시작하기</button>
+        <button class="btn resetbtn" id="resetAll" title="음원과 가사를 모두 비우고 처음 상태로">🗑 초기화</button>
+      </div>
+    </div>
+
+    <section class="card recentcard" id="recentBlock" hidden>
+      <div class="rhead"><span>📚 최근 연습한 곡</span><span class="rcount" id="recentCount"></span></div>
+      <div class="rlist" id="recentList"></div>
+    </section>
+
     <div class="p1guide" id="p1Guide">
-      <div class="gdline"><span class="gdnum">1</span>음원 열기<i>→</i><span class="gdnum">2</span>가사 넣기<i>→</i><span class="gdnum">3</span>연습 시작</div>
+      <div class="gdline"><span class="gdnum">1</span>음원 넣기<i>→</i><span class="gdnum">2</span>가사 넣기<i>→</i><span class="gdnum">3</span>연습 시작</div>
       <div class="gdsub">속도·키·싱크는 연습 화면 오른쪽 리모컨에서</div>
     </div>
 
     </div>
-    <div class="p1cta"><button class="btn primary cta" id="startCta">▶ 연습 시작하기</button></div>
    </section>
 
    <section class="page page2" id="page2" role="tabpanel" aria-label="연습">
@@ -721,9 +794,18 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 
     <div class="energywrap"><div class="energy" id="energyBar"></div></div>
 
-    <div class="lrcbar" id="lrcBar">
-      <button class="lrcbtn" id="barLrc">📄 LRC 파일 열기</button>
-      <button class="lrcbtn" id="barSearch">🔍 노래 검색</button>
+    <div class="srcrows" id="srcRows">
+      <div class="srcrow" id="rowAudio">
+        <button class="srcbtn" id="srcAudioPick">🎵 음원(MR) 넣기</button>
+        <button class="srcbtn sm" id="srcAudioClear" title="곡 초기화 — 가사는 그대로 둡니다" hidden>🗑 곡 초기화</button>
+        <button class="srcbtn sm save" id="srcSave" title="이 음악 + LRC 세팅 저장하기" hidden>💾 저장</button>
+      </div>
+      <div class="srcrow" id="rowLrc">
+        <button class="srcbtn" id="srcLrcPick">📄 LRC 넣기</button>
+        <button class="srcbtn sm" id="srcLrcSearch">🔍 검색</button>
+        <button class="srcbtn sm" id="srcLrcClear" title="가사 초기화 — 음원은 그대로 둡니다" hidden>🗑 가사 초기화</button>
+        <button class="srcbtn sm" id="srcLrcUndo" title="방금 비운 가사를 되돌립니다" hidden>↩ 되돌리기</button>
+      </div>
     </div>
 
     <div class="seekrow">
@@ -789,7 +871,24 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
    </section>
   </div>
 
+  <!-- 두 페이지 어디서든 바로 쓸 수 있게 페이지 밖에 둔다 (inert 영향 없음) -->
+  <input type="file" id="audioInput" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.aac" class="hide">
+  <input type="file" id="lrcInput" accept=".lrc,.txt,text/plain" class="hide">
+
   <p class="foot">음원·가사는 이 기기 안에서만 처리돼요 · 서버로 올라가지 않아요<br>만든 이 · 이비</p>
+</div>
+
+<div class="sheetwrap" id="searchSheet" aria-hidden="true">
+  <div class="sheetmask" id="sheetMask"></div>
+  <div class="sheetcard" role="dialog" aria-modal="true" aria-label="가사 검색">
+    <div class="sheethd"><b>🔍 가사 검색</b><button class="sheetx" id="sheetClose" aria-label="닫기">✕</button></div>
+    <div class="searchrow">
+      <input id="sheetInput" type="search" placeholder="노래 검색 (예: QWER 고민중독)" autocomplete="off" enterkeyhint="search">
+      <button class="btn" id="sheetBtn">찾기</button>
+    </div>
+    <div class="hint" id="sheetNote">지금 곡의 가사만 바꿔요 · 음원은 그대로 남아요</div>
+    <div class="results" id="sheetResults"></div>
+  </div>
 </div>
 
 <div class="tigerpop" id="tigerPop" aria-hidden="true">
@@ -1646,6 +1745,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     vibOn: false,     // 정박 진동
     songId: '',       // IndexedDB 히스토리 키
     lrcText: '',      // 지금 올라와 있는 LRC 원문
+    lrcBackup: '',    // 방금 비운 가사 (↩ 되돌리기)
     audioFile: null,  // 열었던 음원 File (히스토리 저장용)
     audioMime: '',
   };
@@ -1923,7 +2023,9 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     paintedLine = -1;
     lyricsEl.classList.toggle('is-empty', !LRC.lines.length);
     if (!LRC.lines.length) {
-      lyricsEl.innerHTML = '<div class="empty">🎧 <b>데모로 바로 시작</b>을 누르면<br>드럼·가사 칼박 트래킹을 바로 볼 수 있어요</div>';
+      lyricsEl.innerHTML = engine.buffer
+        ? '<div class="empty"><b>가사가 아직 없어요</b><br>위 <b>📄 LRC 넣기</b> · <b>🔍 검색</b> 누르면 바로 넣을 수 있어요</div>'
+        : '<div class="empty">🎧 <b>데모로 바로 시작</b>을 누르면<br>드럼·가사 칼박 트래킹을 바로 볼 수 있어요</div>';
       viewportEl.scrollTop = 0;
       autoTop = 0;
       updateGoActive();
@@ -2645,7 +2747,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     $('#timeTotal').textContent = fmtTime(state.duration);
     $('#seek').disabled = false;
     $('#swapBtn').classList.remove('hide');
-    $('#loadSummary').textContent = (name || '음원 준비됨') + (LRC.lines.length ? '' : ' · LRC 필요');
+    $('#loadSummary').textContent = (name || '음원 준비됨') +
+      (LRC.lines.length ? ' · LRC ' + LRC.lines.length + '줄' : ' · LRC 필요');
     setTrack(name || '음원', fmtTime(buf.duration) + ' · ' + Math.round(buf.sampleRate / 1000) + 'kHz', state.mode === 'none' ? '음원만' : undefined, '');
     updateModeBadge();
     // 드럼 분석은 비동기로 (재생 막지 않음)
@@ -2663,13 +2766,15 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     if (!LRC.lines.length) showNoLyrics();
     updateLrcBar();
     analyzeDrums(buf);
-    setPage(1);   // 음원을 열면 바로 연습 화면으로
+    // v2.3 — 음원만 열었을 땐 곡 고르기 페이지에 머문다.
+    //        가사까지 넣고 ▶ 연습 시작하기 를 직접 눌러야 연습 화면으로 간다.
   }
 
   function updateModeBadge() {
     const b = $('#modeBadge');
     if (LRC.plain) { b.className = 'badge line'; b.textContent = '가사(시간없음)'; return; }
     if (!LRC.lines.length) { b.className = 'badge'; b.textContent = audioFileName ? '음원만' : '대기'; return; }
+    if (!engine.buffer) { b.className = 'badge line'; b.textContent = '가사만'; return; }
     const enh = LRC.lines.some(l => l.words && l.words.length);
     if (enh) { b.className = 'badge enh'; b.textContent = '단어별 칼박'; }
     else { b.className = 'badge line'; b.textContent = '줄 단위 스윕'; }
@@ -2694,14 +2799,16 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       $('#loadSummary').textContent = (audioFileName || '가사') + ' · LRC ' + n + '줄';
       updateLrcBar();
       saveSettings();
-      // 음원이 있으면 가사를 넣자마자 연습 화면으로
-      if (engine.buffer) setPage(1);
+      // v2.3 — 가사를 넣어도 화면은 그대로 둔다.
+      //        연습 화면은 ▶ 연습 시작하기 / 📚 최근 곡 / 🎧 데모 로만 들어간다.
       // 음원 없이 가사만 열었을 때도 히스토리에 남긴다
       if (!state.songId) state.songId = 'l:' + hashText(state.lrcText);
       if (!state.title) {
         const firstLine = parsed.lines.find(l => !l.inst && l.text);
         state.title = firstLine ? firstLine.text.slice(0, 28) : '가사만 저장';
       }
+      state.lrcBackup = '';
+      autoSaveHold = false;
       queueSaveSong();
     }
     return true;
@@ -2734,7 +2841,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       await loadAudioBuffer(buf, nice);
       setTrack(nice, fmtTime(buf.duration) + ' · ' + sizeMb + 'MB', null, '');
       updateModeBadge();
-      toast('음원을 열었어요 · ' + fmtTime(buf.duration));
+      autoSaveHold = false;
+      updateLrcBar();
+      toast(LRC.lines.length
+        ? '🎵 음원을 열었어요 · ' + fmtTime(buf.duration) + ' — ▶ 연습 시작하기 로 연습해요'
+        : '🎵 음원을 열었어요 · 이제 📄 LRC 넣기 로 가사를 넣어 주세요');
       if (prevId && prevId !== state.songId && prevId.indexOf('l:') === 0) await dbDel(prevId);
       queueSaveSong();
     } catch (e) {
@@ -2967,12 +3078,19 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
      ===================================================================== */
   let searchAbort = null;
 
-  async function doSearch() {
-    const q = $('#searchInput').value.trim();
+  function searchScope(scope) {
+    return scope === 'sheet'
+      ? { q: $('#sheetInput'), res: $('#sheetResults'), note: $('#sheetNote') }
+      : { q: $('#searchInput'), res: $('#results'), note: $('#searchNote') };
+  }
+
+  async function doSearch(scope) {
+    const sc = searchScope(scope);
+    const q = sc.q.value.trim();
     if (!q) { toast('곡 이름이나 가수 이름을 입력해 주세요'); return; }
-    const res = $('#results');
+    const res = sc.res;
     res.innerHTML = '<div class="hint" style="padding:4px 2px">찾는 중…</div>';
-    $('#searchNote').textContent = '';
+    sc.note.textContent = '';
     if (searchAbort) searchAbort.abort();
     searchAbort = new AbortController();
     const timer = setTimeout(() => searchAbort && searchAbort.abort(), 9000);
@@ -2985,7 +3103,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       const list = (Array.isArray(data) ? data : []).filter(x => x.syncedLyrics || x.plainLyrics).slice(0, 8);
       if (!list.length) {
         res.innerHTML = '';
-        $('#searchNote').textContent = '결과가 없어요. 영어 아티스트·곡명으로도 검색해 보세요 (예: Loopy OTL).';
+        sc.note.textContent = '결과가 없어요. 영어 아티스트·곡명으로도 검색해 보세요 (예: QWER 고민중독).';
         return;
       }
       res.innerHTML = '';
@@ -3006,19 +3124,37 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
             setTrack(item.trackName || '가사 불러옴', (item.artistName || '') + ' · 음원을 열어 주세요', '가사만', 'line');
           }
           res.innerHTML = '';
-          $('#searchNote').textContent = '가사를 넣었어요. 이제 음원 파일을 열어 주세요.';
+          sc.note.textContent = engine.buffer
+            ? '가사를 넣었어요. ▶ 연습 시작하기 로 연습해 보세요.'
+            : '가사를 넣었어요. 이제 🎵 음원(MR)을 넣어 주세요.';
+          if (scope === 'sheet') setTimeout(closeSearchSheet, 420);
         });
         res.appendChild(b);
       });
     } catch (e) {
       clearTimeout(timer);
       if (e && e.name === 'AbortError') {
-        $('#searchNote').textContent = '검색이 오래 걸려 멈췄어요. 잠시 뒤 다시 시도해 주세요.';
+        sc.note.textContent = '검색이 오래 걸려 멈췄어요. 잠시 뒤 다시 시도해 주세요.';
       } else {
-        $('#searchNote').textContent = '검색에 실패했어요(네트워크). LRC 파일을 직접 열거나 붙여넣어도 돼요.';
+        sc.note.textContent = '검색에 실패했어요(네트워크). LRC 파일을 직접 열거나 붙여넣어도 돼요.';
       }
       res.innerHTML = '';
     }
+  }
+
+  /* 연습 화면 안에서 바로 쓰는 가사 검색 시트 */
+  function openSearchSheet() {
+    const w = $('#searchSheet');
+    if (!w) return;
+    w.classList.add('on');
+    w.setAttribute('aria-hidden', 'false');
+    setTimeout(() => { try { $('#sheetInput').focus({ preventScroll: true }); } catch (e) { /* noop */ } }, 70);
+  }
+  function closeSearchSheet() {
+    const w = $('#searchSheet');
+    if (!w) return;
+    w.classList.remove('on');
+    w.setAttribute('aria-hidden', 'true');
   }
 
   /* =====================================================================
@@ -3148,14 +3284,40 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
      12b. 진입 카운트다운 · 번쩍 · LRC 상시 접근 · 조절 요약
      ===================================================================== */
   function updateLrcBar() {
-    const need = !LRC.lines.length;
-    $('#lrcBar').classList.toggle('nolyr', need);
+    const hasA = !!engine.buffer;
+    const hasL = LRC.lines.length > 0 || LRC.plain;
+    const p1 = $('#page1');
+    if (p1) p1.classList.toggle('need-lrc', hasA && !hasL);
+
+    // 곡 줄 — 없으면 🎵 음원(MR) 넣기 가 깜박인다
+    const ap = $('#srcAudioPick'), ac = $('#srcAudioClear');
+    if (ap) {
+      ap.textContent = hasA ? '🎵 곡 바꾸기' : '🎵 음원(MR) 넣기';
+      ap.classList.toggle('ask', !hasA);
+    }
+    if (ac) ac.hidden = !hasA;
+
+    // 가사 줄 — 없으면 📄 LRC 넣기 · 🔍 검색 이 깜박인다
+    const lp = $('#srcLrcPick'), lc = $('#srcLrcClear'), lu = $('#srcLrcUndo'), ls = $('#srcLrcSearch');
+    if (lp) {
+      lp.textContent = hasL ? '📄 LRC 바꾸기' : '📄 LRC 넣기';
+      lp.classList.toggle('ask', !hasL);
+    }
+    if (ls) ls.classList.toggle('ask', !hasL);
+    if (lc) lc.hidden = !hasL;
+    if (lu) lu.hidden = !(!hasL && !!state.lrcBackup);
+
+    // 곡 고르기 페이지의 LRC 안내 강조
+    const pl = $('#lrcPick');
+    if (pl) pl.classList.toggle('ask', hasA && !hasL);
+
+    updateSaveUI();
   }
 
   function showNoLyrics() {
     if (LRC.lines.length) return;
     lyricsEl.classList.add('is-empty');
-    lyricsEl.innerHTML = '<div class="empty"><b>가사가 아직 없어요</b><br>아래 <b>📄 LRC 파일 열기</b> 로 가사를 넣어 보세요</div>';
+    lyricsEl.innerHTML = '<div class="empty"><b>가사가 아직 없어요</b><br>위 <b>📄 LRC 넣기</b> · <b>🔍 검색</b> 으로 가사를 넣어 보세요</div>';
   }
 
   function openLoadCard(scroll) {
@@ -3335,25 +3497,51 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   let saveTimer = 0;
   let saveWarned = false;
-  function queueSaveSong() {
-    if (restoring) return;
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveSongNow, 650);
+  const AUTO_SAVE_MS = 3500;    // 자동 저장은 안전망 — 직접 저장 버튼이 먼저다
+  let saveState = 'idle';       // idle | unsaved | saved
+  let autoSaveHold = false;     // 가사/곡을 비운 직후엔 저장 기록을 덮어쓰지 않는다
+
+  function hasSomethingToSave() {
+    return !!(state.songId && (state.lrcText || engine.buffer));
   }
 
-  async function saveSongNow() {
-    if (restoring || !state.songId || state.demoMode) return;
+  function markSaveState(s) {
+    if (saveState !== s) { saveState = s; }
+    updateSaveUI();
+  }
+
+  function queueSaveSong() {
+    if (restoring) return;
+    if (!hasSomethingToSave()) { updateSaveUI(); return; }
+    markSaveState('unsaved');
+    clearTimeout(saveTimer);
+    if (autoSaveHold) return;
+    saveTimer = setTimeout(() => saveSongNow(false), AUTO_SAVE_MS);
+  }
+
+  async function saveSongNow(explicit) {
+    clearTimeout(saveTimer);
+    if (restoring || state.demoMode || !state.songId) {
+      if (explicit) toast('저장할 음원이나 가사가 없어요');
+      return false;
+    }
     try {
       let audio = null;
       if (state.audioFile) {
-        if (state.audioFile.size > 60 * 1048576) return;   // 너무 큰 파일은 저장 안 함
+        if (state.audioFile.size > 60 * 1048576) {   // 너무 큰 파일은 저장 안 함
+          if (explicit) toast('60MB가 넘는 음원은 저장 대신 이번 세션에서만 써요');
+          return false;
+        }
         audio = await state.audioFile.arrayBuffer();
       } else {
         // 히스토리에서 연 곡: 저장된 음원을 지우지 않고 그대로 이어 쓴다
         const old = await dbGet(state.songId);
         if (old && old.audio) audio = old.audio;
       }
-      if (!audio && !state.lrcText) return;
+      if (!audio && !state.lrcText) {
+        if (explicit) toast('저장할 음원이나 가사가 없어요');
+        return false;
+      }
       const rec = {
         id: state.songId,
         title: state.title || audioFileName || '제목 없음',
@@ -3371,12 +3559,209 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       await dbPut(rec);
       await pruneDB();
       await refreshRecent();
+      autoSaveHold = false;
+      markSaveState('saved');
+      if (explicit) {
+        toast('✅ 저장됐어요! (곡 + LRC)' +
+          (rec.lrcLines ? ' · LRC ' + rec.lrcLines + '줄' : '') +
+          (audio ? ' · 음원 포함' : ' · 가사만'));
+        showTiger();
+      }
+      return true;
     } catch (e) {
       if (!saveWarned) {
         saveWarned = true;
         toast('📚 저장 공간이 부족해 이 곡은 히스토리에 남기지 못했어요');
       }
+      markSaveState('unsaved');
+      return false;
     }
+  }
+
+  function canPairSave() { return !!(engine.buffer && LRC.lines.length); }
+
+  function updateSaveUI() {
+    const can = canPairSave();
+    const saved = saveState === 'saved';
+    const pair = $('#savePair');
+    if (pair) {
+      pair.hidden = !can;
+      pair.classList.toggle('saved', saved);
+      pair.classList.toggle('unsaved', !saved);
+      const lab = $('#savePairLabel'), dot = $('#savePairDot');
+      if (lab) lab.textContent = saved ? '이 음악 + LRC 세팅' : '이 음악 + LRC 세팅 저장하기';
+      if (dot) dot.textContent = saved ? '✅ 저장됨' : '● 저장 안 됨';
+    }
+    const chip = $('#srcSave');
+    if (chip) {
+      chip.hidden = !can;
+      chip.classList.toggle('saved', saved);
+      chip.classList.toggle('unsaved', !saved);
+      chip.textContent = saved ? '✅ 저장됨' : '💾 저장';
+      chip.setAttribute('aria-label', saved ? '저장됨 — 다시 저장' : '이 음악 + LRC 세팅 저장하기');
+    }
+  }
+
+  /* =====================================================================
+     12c-2. 🗑 비우기 · 초기화 (제로 세팅) — 곡과 가사를 따로
+     ===================================================================== */
+  function stopAndUnloadAudio() {
+    clearTimeout(saveTimer);
+    try { engine.pause(); } catch (e) { /* noop */ }
+    engine.buffer = null; engine.st = null; engine.source = null; engine.filter = null;
+    engine.pos = 0; engine.pN = 0; engine.srcEnded = false;
+    state.duration = 0; state.pos = 0; state.rawPos = 0;
+    state.onsets = null; state.bpm = null; state.grid = null; state.bpmManual = 0;
+    state.ab = { a: null, b: null, on: false };
+    state.lineIndex = -1; state.pulseAt = 0; state.goHoldT = 0; state.lines = null;
+    state.audioFile = null; state.audioMime = '';
+    audioFileName = '';
+    setPlayingUI(false);
+    updateABUI();
+    seekEl.disabled = true;
+    seekEl.value = '0';
+    seekEl.style.setProperty('--fill', '0%');
+    seekFillLast = -1;
+    $('#timeNow').textContent = '0:00';
+    $('#timeTotal').textContent = '0:00';
+    $('#energyBar').style.width = '0%';
+    $('#bpmVal').textContent = '—';
+    $('#bpmCtl').classList.remove('manual');
+    $('#barNow').textContent = '—';
+    lastBarNo = -99;
+    hideEnterCd();
+    $('#countdown').classList.remove('on');
+    $('#beatFoot').classList.remove('cd');
+    $('#swapBtn').classList.add('hide');
+  }
+
+  /* 🗑 곡 초기화 — 음원만 비우고 가사는 남긴다 */
+  function clearAudio(opts) {
+    const o = opts || {};
+    if (!engine.buffer) {
+      if (!o.silent) toast('이미 곡이 비어 있어요 — 🎵 음원(MR) 넣기 로 곡을 넣어 주세요');
+      return false;
+    }
+    const wasRest = restoring;
+    restoring = true;
+    stopAndUnloadAudio();
+    state.demoMode = false;
+    state.songId = state.lrcText ? ('l:' + hashText(state.lrcText)) : '';
+    state.title = LRC.lines.length ? '음원 없이 가사만' : '';
+    if (LRC.lines.length) {
+      setTrack('음원 없이 가사만', '🎵 음원(MR)을 넣으면 칼박 연습이 시작돼요', '가사만', 'line');
+      $('#loadSummary').textContent = '가사만 있어요 · 🎵 음원(MR) 넣기';
+    } else {
+      setTrack('아직 곡이 없어요', '음원을 열거나 데모로 시작해 보세요', '대기', '');
+      $('#loadSummary').textContent = '음원을 열거나 🎧 데모로 시작';
+    }
+    updateModeBadge();
+    autoSaveHold = true;          // 곡이 빠진 상태로 저장 기록을 덮지 않는다
+    saveState = 'unsaved';
+    updateLrcBar();
+    renderRecent();
+    restoring = wasRest;
+    if (!o.silent) toast('🗑 곡을 비웠어요 · 가사는 그대로 있어요');
+    return true;
+  }
+
+  /* 🗑 가사 초기화 — 가사만 비우고 음원은 남긴다 (↩ 되돌리기 가능) */
+  function clearLyrics(opts) {
+    const o = opts || {};
+    if (!LRC.lines.length && !LRC.plain) {
+      if (!o.silent) toast('비울 가사가 없어요 — 📄 LRC 넣기 로 가사를 넣어 주세요');
+      return false;
+    }
+    const wasRest = restoring;
+    restoring = true;
+    clearTimeout(saveTimer);
+    state.lrcBackup = state.lrcText || '';
+    state.lrcText = '';
+    LRC = { lines: [], plain: false };
+    renderLyrics();
+    hideEnterCd();
+    state.lineIndex = -1;
+    $('#countdown').classList.remove('on');
+    $('#beatFoot').classList.remove('cd');
+    updateModeBadge();
+    if (engine.buffer) {
+      setTrack(state.title || audioFileName || '음원',
+        fmtTime(state.duration) + ' · 가사를 넣어 주세요', '음원만', '');
+      $('#loadSummary').textContent = (audioFileName || '음원') + ' · LRC 필요';
+    }
+    autoSaveHold = true;          // 저장된 가사를 허무는 자동 저장은 막는다
+    saveState = 'unsaved';
+    updateLrcBar();
+    restoring = wasRest;
+    if (!o.silent) toast('🗑 가사를 비웠어요 — 📄 LRC 넣기 로 다시 넣어 주세요');
+    return true;
+  }
+
+  function restoreLyrics() {
+    const txt = state.lrcBackup;
+    if (!txt) { toast('되돌릴 가사가 없어요'); return false; }
+    const wasRest = restoring;
+    restoring = false;
+    applyLyrics(txt, { silent: true });
+    restoring = wasRest;
+    state.lrcBackup = '';
+    autoSaveHold = false;
+    if (engine.buffer) {
+      setTrack(state.title || audioFileName, fmtTime(state.duration) + ' · 가사 되돌림', null, '');
+    }
+    updateModeBadge();
+    updateLrcBar();
+    queueSaveSong();
+    toast('↩ 방금 비운 가사를 되돌렸어요');
+    return true;
+  }
+
+  /* 🗑 처음부터 다시 — 음원 + 가사 모두 제로 세팅 */
+  function resetAll() {
+    const had = !!(engine.buffer || LRC.lines.length || state.lrcText);
+    const wasRest = restoring;
+    restoring = true;
+    stopAndUnloadAudio();
+    state.lrcBackup = '';
+    state.lrcText = '';
+    state.songId = '';
+    state.title = '';
+    state.demoMode = false;
+    LRC = { lines: [], plain: false };
+    renderLyrics();
+    setTrack('아직 곡이 없어요', '음원을 열거나 데모로 시작해 보세요', '대기', '');
+    $('#loadSummary').textContent = '음원을 열거나 🎧 데모로 시작';
+    setSpeed(1, true); setKey(0, true); setOffset(0, true);
+    autoSaveHold = false;
+    saveState = 'idle';
+    updateModeBadge();
+    updateABUI();
+    updateLrcBar();
+    renderRecent();
+    restoring = wasRest;
+    setPage(0, { silent: true });
+    toast(had ? '🗑 처음부터 다시 — 음원과 가사를 모두 비웠어요' : '이미 처음 상태예요');
+  }
+
+  /* 두 번 눌러 확인 (지우기 버튼) */
+  function armConfirm(btn, idleLabel, fn) {
+    if (!btn) return false;
+    if (btn.classList.contains('armed')) {
+      clearTimeout(btn._t);
+      btn.classList.remove('armed');
+      btn.textContent = idleLabel;
+      fn();
+      return true;
+    }
+    btn.classList.add('armed');
+    btn.textContent = '정말 비울까요?';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => {
+      if (!btn.isConnected) return;
+      btn.classList.remove('armed');
+      btn.textContent = idleLabel;
+    }, 3000);
+    return false;
   }
 
   async function pruneDB() {
@@ -3409,9 +3794,9 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     const p1 = $('#page1');
     if (p1) p1.classList.toggle('has-recent', recentSongs.length > 0);
     if (!recentSongs.length) {
-      block.hidden = false;
+      block.hidden = true;
       if (cnt) cnt.textContent = '';
-      list.innerHTML = '<div class="rencempty">음원을 열거나 🎧 데모로 시작하면 여기에 차곡차곡 쌓여요</div>';
+      list.innerHTML = '';
       return;
     }
     block.hidden = false;
@@ -3498,6 +3883,9 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       }
       updateABUI();
       if (LRC.lines.length) updateMediaMeta();
+      autoSaveHold = false;
+      saveState = 'saved';
+      updateLrcBar();
       setPage(1);
       toast('📚 ' + (rec.title || '저장한 곡') + ' 불러왔어요');
     } catch (e) {
@@ -3848,7 +4236,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     tigerT = setTimeout(() => {
       box.classList.remove('on');
       box.setAttribute('aria-hidden', 'true');
-    }, 920);
+    }, 1200);
   }
 
   /* 좌우 스와이프로 페이지 전환 (세로 스크롤·가사 넘김과 충돌하지 않게) */
@@ -3902,9 +4290,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   /* =====================================================================
      13. 이벤트 연결
      ===================================================================== */
-  // 파일
-  $('#audioPick').addEventListener('click', () => $('#audioInput').click());
-  $('#lrcPick').addEventListener('click', () => $('#lrcInput').click());
+  // 파일 — 페이지 1 로더 · 연습 화면 인플레이스 · 페이지 1 상단 버튼이 같은 입력을 쓴다
+  const pickAudio = () => $('#audioInput').click();
+  const pickLrc = () => $('#lrcInput').click();
+  $('#audioPick').addEventListener('click', pickAudio);
+  $('#lrcPick').addEventListener('click', pickLrc);
   $('#audioInput').addEventListener('change', e => {
     const f = e.target.files && e.target.files[0];
     if (f) handleAudioFile(f);
@@ -3914,6 +4304,23 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     const f = e.target.files && e.target.files[0];
     if (f) handleLrcFile(f);
     e.target.value = '';
+  });
+
+  // 연습 화면 소스 바 — 페이지를 옮기지 않고 바로 넣기 · 바꾸기 · 비우기
+  $('#srcAudioPick').addEventListener('click', pickAudio);
+  $('#srcLrcPick').addEventListener('click', pickLrc);
+  $('#srcLrcSearch').addEventListener('click', openSearchSheet);
+  $('#srcSave').addEventListener('click', () => saveSongNow(true));
+  $('#srcAudioClear').addEventListener('click', e => {
+    armConfirm(e.currentTarget, '🗑 곡 초기화', () => clearAudio());
+  });
+  $('#srcLrcClear').addEventListener('click', () => clearLyrics());
+  $('#srcLrcUndo').addEventListener('click', restoreLyrics);
+
+  // 곡 고르기 페이지 — 저장 · 초기화
+  $('#savePair').addEventListener('click', () => saveSongNow(true));
+  $('#resetAll').addEventListener('click', e => {
+    armConfirm(e.currentTarget, '🗑 초기화', resetAll);
   });
 
   // 드래그 앤 드롭
@@ -3941,8 +4348,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   });
   $('#startCta').addEventListener('click', () => {
     if (!engine.buffer) {
-      toast('먼저 곡을 고르거나 🎧 데모로 시작해 보세요');
-      try { $('#dropZone').scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { /* noop */ }
+      toast('먼저 🎵 MR(음원)을 넣거나 🎧 데모로 시작해 보세요');
+      try { pageEls[0].scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { /* noop */ }
       return;
     }
     setPage(1);
@@ -3957,9 +4364,15 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     setTimeout(() => { try { $('#searchInput').focus({ preventScroll: true }); } catch (e) { /* noop */ } }, 340);
   });
 
-  // 검색
-  $('#searchBtn').addEventListener('click', doSearch);
-  $('#searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  // 검색 (곡 고르기 페이지)
+  $('#searchBtn').addEventListener('click', () => doSearch('page1'));
+  $('#searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch('page1'); });
+
+  // 검색 시트 (연습 화면)
+  $('#sheetBtn').addEventListener('click', () => doSearch('sheet'));
+  $('#sheetInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch('sheet'); });
+  $('#sheetClose').addEventListener('click', closeSearchSheet);
+  $('#sheetMask').addEventListener('click', closeSearchSheet);
 
   // 붙여넣기
   $('#pasteApply').addEventListener('click', () => {
@@ -3970,18 +4383,6 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   // 데모
   $('#demoBtn').addEventListener('click', startDemo);
-
-  // LRC 상시 바 — 연습 화면에서 바로 가사 넣기
-  $('#barLrc').addEventListener('click', () => {
-    setPage(0, { silent: true });
-    $('#lrcInput').click();
-  });
-  $('#barSearch').addEventListener('click', () => {
-    openLoadCard();
-    setTimeout(() => {
-      try { $('#searchInput').focus({ preventScroll: true }); } catch (e) { /* noop */ }
-    }, 340);
-  });
 
   // BPM 미세 조정
   $('#bpmMinus').addEventListener('click', () => setBpm(-1));
@@ -4084,6 +4485,9 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   // 키보드
   document.addEventListener('keydown', e => {
+    const sheetOn = $('#searchSheet').classList.contains('on');
+    if (e.key === 'Escape' && sheetOn) { closeSearchSheet(); return; }
+    if (sheetOn) return;
     const tag = (e.target && e.target.tagName) || '';
     if (/INPUT|TEXTAREA/.test(tag)) return;
     if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
@@ -4182,8 +4586,15 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     setBpm, refreshGrid, estimateBPM,
     grid: () => state.grid, bpm: () => state.bpm,
     pulse: () => ({ at: state.pulseAt, line: state.pulseLine }),
+    // v2.3 — 저장 · 비우기 · 초기화
+    clearAudio, clearLyrics, restoreLyrics, resetAll, updateLrcBar, updateSaveUI,
+    save: () => saveSongNow(true),
+    saveState: () => saveState,
+    canPairSave,
+    openSearchSheet, closeSearchSheet, doSearch,
+    backup: () => state.lrcBackup,
     PAST, FUT,
-    version: 'vocal-player-v2.2-2026-11-27',
+    version: 'vocal-player-v2.3-2026-11-28-lrc-ux',
   };
 })();
 </script>
