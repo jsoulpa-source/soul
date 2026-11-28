@@ -504,8 +504,9 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   padding:11px 12px; border-radius:16px; border:1.5px solid #d5b8fa;
   background:linear-gradient(135deg,#f7ecff 0%,#ffffff 52%,#fff1f8 100%);
   box-shadow:0 14px 30px -22px rgba(124,58,237,.9), inset 0 1px 0 #fff;
-  font-size:12.5px; font-weight:800; line-height:1.45; color:#4c1d95; letter-spacing:-.02em;
-  animation:stepBob 2.4s ease-in-out infinite}
+  font-size:12.5px; font-weight:800; line-height:1.45; color:#4c1d95; letter-spacing:-.02em}
+/* 뽀용뽀용 — 화면에 나타날 때·단계가 바뀔 때만 3번 살짝 통통(계속 움직이지 않게) */
+.p1step.bob{animation:stepBob 2.4s ease-in-out 3}
 .p1step[hidden]{display:none !important}
 .p1step::after{content:''; position:absolute; left:22px; bottom:-6px; width:11px; height:11px;
   background:#fff1f8; border-right:1.5px solid #d5b8fa; border-bottom:1.5px solid #d5b8fa;
@@ -528,7 +529,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .stepGlow{animation:stepGlow 1.7s ease-in-out infinite}
 @keyframes stepGlow{0%,100%{outline:2px solid rgba(192,132,252,.3); outline-offset:2px}
   50%{outline:3px solid rgba(147,51,234,.8); outline-offset:3px}}
-@media (prefers-reduced-motion:reduce){ .p1step{animation:none} .stepGlow{animation:none; outline:2px solid rgba(147,51,234,.55); outline-offset:2px} }
+@media (prefers-reduced-motion:reduce){ .p1step.bob{animation:none} .stepGlow{animation:none; outline:2px solid rgba(147,51,234,.55); outline-offset:2px} }
 .p1cta{position:relative; z-index:3; margin-top:auto; padding:9px 0 3px}
 .cta{width:100%; padding:14px 12px; font-size:15px; border-radius:15px; letter-spacing:-.02em;
   box-shadow:0 16px 28px -16px rgba(124,58,237,.95)}
@@ -5032,6 +5033,10 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     $('#p1StepNum').textContent = STEP_MARK[n];
     $('#p1StepTx').textContent = STEP_MSG[n];
     applyStepGlow();
+    /* 뽀용뽀용 다시 시작 */
+    box.classList.remove('bob');
+    void box.offsetWidth;
+    box.classList.add('bob');
     if (stepMuted !== n) {
       /* 바뀔 때마다 새로 튀어나오는 애니메이션 */
       ['#p1StepNum', '#p1StepTx'].forEach(sel => {
