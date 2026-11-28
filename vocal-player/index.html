@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>박정이 · 박자의 정석은 이거지</title>
-<meta name="build" content="vocal-player-v3.0-2026-11-28-bakjeongi">
+<meta name="build" content="vocal-player-v3.1-2026-11-28-vocalcut">
 <meta name="app-build" content="vocal-player-v3.0-2026-11-28-bakjeongi">
 <meta name="theme-color" content="#f7f5fc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="박정이">
-<meta name="description" content="박정이 — 박자의 정석은 이거지. 2페이지(곡 고르기·연습) + 우측 슬림 리모컨, 음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절 + 🥁 왕초보 드럼 입문 & 장르별 리듬 연습 3단계">
+<meta name="description" content="박정이 — 박자의 정석은 이거지. 2페이지(곡 고르기·연습) + 우측 슬림 리모컨, 음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절, 🎤 가이드 보컬 줄이기(원곡→반만→반주 위주) + 🥁 왕초보 드럼 입문 & 장르별 리듬 연습 3단계">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -537,7 +537,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 /* 연습 페이지 — 한 화면에 꽉 */
 .page2{overflow:hidden}
 .practice{flex:1 1 auto; min-height:0; display:flex; align-items:stretch; gap:7px}
-.page2 .stage{flex:1 1 0%; width:auto; order:0; min-width:0; min-height:0; padding:9px; gap:5px; overflow:hidden}
+.page2 .stage{flex:1 1 0%; width:auto; order:0; min-width:0; min-height:0; padding:8px; gap:4px; overflow:hidden}
 .page2 .stage > *{flex:0 0 auto}
 .page2 .lyricswrap{flex:1 1 auto}
 .page2 .trackrow{min-height:24px; gap:6px}
@@ -548,7 +548,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .page2 .beathead{min-height:22px; gap:4px}
 .page2 .beatbtn,.page2 .vibbtn{font-size:10.5px; padding:3px 7px}
 .page2 .bpmctl{padding:1px 2px 1px 5px}
-.beatcanvas{height:clamp(116px,20dvh,190px)}
+.beatcanvas{height:clamp(108px,17.5dvh,176px)}
 .lyricswrap{flex:1 1 auto; min-height:96px}
 .lyrics{height:100%; --lyrH:170px}
 .transport{gap:20px}
@@ -991,6 +991,34 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .page2.tools-hidden .stage{padding-top:7px}
 
 /* =====================================================================
+   v3.1 — 🎤 가이드 보컬 줄이기 (원곡 100% → 반만 50% → 반주 위주 10%)
+   ===================================================================== */
+.vcutbtn{font-size:10.5px; font-weight:800; color:#9d174d; border:1px solid #f6cfe2; border-radius:9px;
+  padding:4px 8px; background:#fff7fb; white-space:nowrap; line-height:1.35; transition:.16s}
+.vcutbtn b{font-weight:900; color:#be185d}
+.vcutbtn.on{color:#fff; background:linear-gradient(140deg,#f472b6,#be185d); border-color:#db2777;
+  box-shadow:0 8px 16px -12px rgba(190,24,93,1)}
+.vcutbtn.on b{color:#fff}
+.vcutbtn:active{transform:scale(.95)}
+.page2 .vcutbtn{font-size:10.5px; padding:3px 7px}
+
+/* 넓은 화면에서도 가사가 더 크게 — 드럼 타임라인을 조금 줄여 자리를 만든다 */
+@media (max-width:360px){
+  .page2 .beatcanvas{height:clamp(96px,14dvh,124px)}
+}
+@media (max-height:720px){
+  .page2 .lyricswrap{min-height:80px}
+  .page2.tools-hidden .lyricswrap{min-height:118px}
+  .page2.tools-hidden .lyrics{--lyrH:min(30dvh,200px)}
+  .page2 .beatcanvas{height:clamp(88px,13dvh,120px)}
+}
+@media (min-width:900px){
+  .page2 .stage{padding:11px 14px 12px; gap:5px}
+  .page2 .beatcanvas{height:150px}
+  .page2 .lyricswrap{min-height:132px}
+}
+
+/* =====================================================================
    v3.0 — 🥁 왕초보 드럼 입문 (기초 1·2·3)
    ===================================================================== */
 .rt-newbie{margin-top:10px; border-radius:22px; border:1.5px solid #f4d9ea;
@@ -1011,20 +1039,52 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .nb-kit{position:relative; width:100%; max-width:540px; margin:0 auto; border-radius:18px; overflow:hidden;
   border:1px solid #efe3fb; background:linear-gradient(180deg,#efe6ff 0%,#fdf4f1 100%)}
 .nb-kit img{display:block; width:100%; height:auto; pointer-events:none; user-select:none}
-.nb-spot{position:absolute; transform:translate(-50%,0); display:flex; align-items:center; gap:3px;
-  line-height:1; padding:4px 7px 4px; border-radius:999px;
-  background:rgba(255,255,255,.95); border:1.5px solid #eadcfb;
+/* v3.1 — 손가락이 닿는 넓은 타격 영역: 킥 드럼통 · 스네어 드럼통 · 하이햇 심벌 전체를 덮는다 */
+.nb-spot{position:absolute; transform:translate(-50%,-100%); padding:0; background:none; border:0;
+  box-shadow:none; display:flex; align-items:flex-end; justify-content:center; border-radius:16px;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition:.16s}
+.nb-spot .nb-pill{display:inline-flex; align-items:center; gap:4px; line-height:1;
+  padding:5px 9px; border-radius:999px;
+  background:rgba(255,255,255,.96); border:1.5px solid #eadcfb;
   box-shadow:0 8px 18px -10px rgba(76,29,149,.55), 0 0 0 3px rgba(255,255,255,.45);
-  font-size:9.5px; font-weight:900; color:#3b2a63; white-space:nowrap; transition:.16s}
-.nb-spot i{font-style:normal; font-size:8.5px; font-weight:800; color:#8b7dab}
+  font-size:11px; font-weight:900; color:#3b2a63; white-space:nowrap; transition:.16s}
+.nb-spot i{font-style:normal; font-size:9.5px; font-weight:800; color:#8b7dab}
 .nb-spot i::before{content:'· '; color:#cdbcf0}
-.nb-spot:hover{border-color:#cbb0f5}
-.nb-spot.on{color:#fff; background:linear-gradient(140deg,#f472b6,#a855f7); border-color:#fff;
+.nb-spot:hover .nb-pill{border-color:#cbb0f5}
+.nb-spot.on .nb-pill{color:#fff; background:linear-gradient(140deg,#f472b6,#a855f7); border-color:#fff;
   box-shadow:0 10px 22px -10px rgba(124,58,237,.95), 0 0 0 4px rgba(244,114,182,.22)}
 .nb-spot.on i{color:rgba(255,255,255,.9)}
-.nb-spot.hat{left:25%; top:52%}
-.nb-spot.snare{left:77.5%; top:73%}
-.nb-spot.kick{left:50%; top:88.5%}
+/* v3.1 — 콕 칠 때마다 라벨이 톡 튀며 흔들린다 (드럼을 직접 치는 느낌) */
+@keyframes nbHitPulse{
+  0%{transform:scale(1) rotate(0)}
+  22%{transform:scale(1.18) rotate(-4deg)}
+  46%{transform:scale(.97) rotate(3deg)}
+  70%{transform:scale(1.06) rotate(-1.5deg)}
+  100%{transform:scale(1) rotate(0)}}
+.nb-spot.struck{background:radial-gradient(circle at 50% 62%, rgba(244,114,182,.20), rgba(244,114,182,0) 72%)
+  ; box-shadow:inset 0 0 0 2px rgba(244,114,182,.22)}
+.nb-spot.struck .nb-pill{animation:nbHitPulse .38s cubic-bezier(.22,.9,.28,1.35);
+  box-shadow:0 0 0 5px rgba(244,114,182,.28), 0 12px 26px -12px rgba(124,58,237,.95)}
+@media (prefers-reduced-motion:reduce){ .nb-spot.struck .nb-pill{animation:none} }
+
+/* 🤝 기초 1 — 동시 타격 귀 열기 */
+.nb-sim{margin-top:9px; padding:10px; border-radius:14px; border:1px dashed #d8c6f7;
+  background:linear-gradient(150deg,#fbf7ff,#fff); display:flex; flex-direction:column; gap:7px}
+.nb-sim-h{display:flex; align-items:center; gap:7px}
+.nb-sim-h .em{font-size:18px; line-height:1}
+.nb-sim-h div{flex:1; min-width:0}
+.nb-sim-h b{display:block; font-size:12.5px; font-weight:900; color:#4c1d95; letter-spacing:-.02em}
+.nb-sim-h span{display:block; font-size:10px; font-weight:700; color:#8b7dab}
+.nb-simrow{display:flex; gap:5px; flex-wrap:wrap}
+.nb-simpill{flex:1 1 30%; min-width:0; padding:8px 5px; border-radius:11px; border:1.5px solid #e6d8fb;
+  background:#fff; font-size:10.5px; font-weight:900; color:#4c1d95; white-space:nowrap; transition:.15s}
+.nb-simpill:active{transform:scale(.95)}
+.nb-simpill.on{color:#fff; background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b5cf6}
+.nb-simpill.right{color:#fff; background:#10b981; border-color:#059669}
+.nb-simpill.wrong{color:#fff; background:#f59e0b; border-color:#d97706}
+.nb-spot.hat{left:25%; top:57%; width:30%; height:17%}
+.nb-spot.snare{left:80%; top:78%; width:32%; height:26%}
+.nb-spot.kick{left:48%; top:92%; width:34%; height:40%}
 .nb-say{display:flex; align-items:center; gap:7px; padding:8px 10px; border-radius:13px;
   border:1px solid #efe3fb; background:#fff; font-size:10.5px; font-weight:800; color:#4c1d95; line-height:1.5}
 .nb-say b{font-weight:900; color:#831843}
@@ -1112,7 +1172,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
     <div class="topctl">
       <button class="minitog" id="homeBtn" type="button" title="모드 선택으로">🏠 <b>홈</b></button>
       <button class="minitog" id="sfxBtn" aria-pressed="true" title="버튼 효과음 켜기/끄기">🔔 <b>ON</b></button>
-      <span class="buildtag" id="buildTag">v3.0</span>
+      <span class="buildtag" id="buildTag">v3.1</span>
     </div>
   </header>
 
@@ -1202,6 +1262,8 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
       <div class="beathead">
         <button class="beatbtn" id="beatToggle" aria-pressed="true">🥁 드럼 <b>ON</b></button>
         <button class="vibbtn off" id="vibBtn" aria-pressed="false" title="정박 진동 켜기/끄기">📳 <b>OFF</b></button>
+        <button class="vcutbtn" id="vocalBtn" type="button" data-mode="full" aria-pressed="false"
+          title="가이드 보컬 줄이기 — 원곡 100% → 보컬 반만 50% → 반주 위주 10% (킥·베이스는 그대로)">🎤 <b>원곡</b></button>
         <span class="beathint" id="beatStatus">음원을 열면 박자를 분석해요</span>
         <span class="bpmctl" id="bpmCtl" title="마디 기준 BPM (직접 조정)">
           <span class="bpmk">BPM</span><b id="bpmVal">—</b>
@@ -1339,7 +1401,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
         <span class="go">열기 →</span>
       </button>
     </div>
-    <div class="hm-foot">v3.0 · 🎸 징-징-지이잉 리프 + 🥁 왕초보 드럼 입문</div>
+    <div class="hm-foot">v3.1 · 🎤 가이드 보컬 줄이기 (원곡 → 반만 → 반주 위주)</div>
   </div>
 </section>
 
@@ -1362,22 +1424,42 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 
         <div class="nb-kit" id="nbKit">
           <img src="data:image/webp;base64,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" alt="아기호랑이가 앉아 있는 3피스 드럼 세트 — 왼쪽 하이햇, 오른쪽 스네어, 가운데 킥" draggable="false">
-          <button class="nb-spot hat" type="button" data-drum="hat" aria-label="하이햇 — 오른손, 소리 듣기"><span>🟡 하이햇</span><i>오른손</i></button>
-          <button class="nb-spot snare" type="button" data-drum="snare" aria-label="스네어 — 왼손, 소리 듣기"><span>🟣 스네어</span><i>왼손</i></button>
-          <button class="nb-spot kick" type="button" data-drum="kick" aria-label="킥 — 오른발, 소리 듣기"><span>🔴 킥</span><i>오른발</i></button>
+          <button class="nb-spot hat" type="button" data-drum="hat" data-nopop aria-label="하이햇 — 오른손, 소리 듣기"><span class="nb-pill"><span>🟡 하이햇</span><i>오른손</i></span></button>
+          <button class="nb-spot snare" type="button" data-drum="snare" data-nopop aria-label="스네어 — 왼손, 소리 듣기"><span class="nb-pill"><span>🟣 스네어</span><i>왼손</i></span></button>
+          <button class="nb-spot kick" type="button" data-drum="kick" data-nopop aria-label="킥 — 오른발, 소리 듣기"><span class="nb-pill"><span>🔴 킥</span><i>오른발</i></span></button>
         </div>
         <div class="nb-say" id="nbSay"><span class="nbs-i">👆</span><span>드럼 그림의 <b>킥 · 스네어 · 하이햇</b>을 콕 눌러 보세요. 어디를 어떻게 치는지 소리로 알려 줄게요!</span></div>
 
         <div class="nb-step" id="nbS1">
           <div class="nb-sh"><span class="nb-num">1</span><b>👂 소리 & 자세 구분하기</b><span class="nb-score" id="nbQuizScore">0 / 0</span></div>
-          <button class="nb-btn primary" id="nbQuizPlay" type="button">🔊 소리 듣기</button>
+          <button class="nb-btn primary" id="nbQuizPlay" type="button" data-nopop>🔊 소리 듣기</button>
           <div class="nb-q" id="nbQuizQ">방금 들린 소리는 뭘까요?</div>
           <div class="nb-choices" id="nbChoices">
-            <button class="nb-choice" type="button" data-ans="kick">🔴 킥<em>오른발</em></button>
-            <button class="nb-choice" type="button" data-ans="snare">🟣 스네어<em>왼손</em></button>
-            <button class="nb-choice" type="button" data-ans="hat">🟠 하이햇<em>오른손</em></button>
+            <button class="nb-choice" type="button" data-ans="kick" data-nopop>🔴 킥<em>오른발</em></button>
+            <button class="nb-choice" type="button" data-ans="snare" data-nopop>🟣 스네어<em>왼손</em></button>
+            <button class="nb-choice" type="button" data-ans="hat" data-nopop>🟠 하이햇<em>오른손</em></button>
           </div>
           <div class="nb-fb" id="nbQuizFb"></div>
+
+          <!-- v3.1 — 🤝 동시 타격 귀 열기 (단독 vs 킥+하이햇 vs 스네어+하이햇) -->
+          <div class="nb-sim" id="nbSim">
+            <div class="nb-sim-h">
+              <span class="em">🤝</span>
+              <div><b>동시 타격 귀 열기</b><span>단독 · 킥+하이햇 · 스네어+하이햇</span></div>
+              <span class="nb-score" id="nbSimScore">0 / 0</span>
+            </div>
+            <div class="nb-simrow" id="nbSimPick">
+              <button class="nb-simpill" type="button" data-sim="solo" data-nopop>🔴 단독</button>
+              <button class="nb-simpill" type="button" data-sim="kickhat" data-nopop>🔴🟡 킥+하이햇</button>
+              <button class="nb-simpill" type="button" data-sim="snarehat" data-nopop>🟣🟡 스네어+하이햇</button>
+            </div>
+            <div class="nb-simrow">
+              <button class="nb-btn primary" id="nbSimPlay" type="button" data-nopop>🔊 문제 듣기</button>
+              <button class="nb-btn" id="nbSimAgain" type="button" data-nopop>🔁 다시 듣기</button>
+            </div>
+            <div class="nb-q" id="nbSimQ">버튼을 누르면 두 소리가 겹친 소리를 들려줘요</div>
+            <div class="nb-fb" id="nbSimFb"></div>
+          </div>
         </div>
 
         <div class="nb-step" id="nbS2">
@@ -1386,7 +1468,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
           <div class="nb-grid" id="nbPillar"></div>
           <div class="nb-beats" id="nbPillarBeats"></div>
           <div class="nb-row">
-            <button class="nb-btn" id="nbPillarPlay" type="button">▶ 기둥 듣기</button>
+            <button class="nb-btn" id="nbPillarPlay" type="button" data-nopop>▶ 기둥 듣기</button>
             <button class="nb-btn primary" id="nbPillarCheck" type="button">✅ 확인하기</button>
           </div>
           <div class="nb-fb" id="nbPillarFb">스네어 자리(2·4박)를 톡톡 찍고 확인해 보세요</div>
@@ -1402,7 +1484,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
           </div>
           <div class="nb-kgrid" id="nbKickGrid"></div>
           <div class="nb-kdesc" id="nbKickDesc"></div>
-          <button class="nb-btn primary" id="nbKickPlay" type="button">▶ 들어 보기</button>
+          <button class="nb-btn primary" id="nbKickPlay" type="button" data-nopop>▶ 들어 보기</button>
         </div>
 
         <p class="rt-note" style="margin:0">여기서 몸에 익히면 아래 6장르 코스가 훨씬 쉬워져요 🐯🎶</p>
@@ -1454,7 +1536,7 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
       </div>
 
       <div class="rt-ctl" id="rtCtl1">
-        <button class="rt-btn primary wide" id="rtPlay" type="button">▶ 루프로 듣기</button>
+        <button class="rt-btn primary wide" id="rtPlay" type="button" data-nopop>▶ 루프로 듣기</button>
         <button class="rt-btn" id="rtEdit" type="button">✏️ 자유 비트 찍기</button>
       </div>
       <div class="rt-ctl" id="rtMuteRow">
@@ -1473,12 +1555,12 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
       <div class="rt-levels" id="rtLevels" hidden></div>
 
       <div class="rt-ctl" id="rtCtl2">
-        <button class="rt-btn" id="rtGuide" type="button">▶ 가이드 듣기</button>
+        <button class="rt-btn" id="rtGuide" type="button" data-nopop>▶ 가이드 듣기</button>
         <button class="rt-btn" id="rtClear2" type="button">🧽 지우기</button>
         <button class="rt-btn primary wide" id="rtCheck2" type="button">✅ 확인하기</button>
       </div>
       <div class="rt-ctl" id="rtCtl3">
-        <button class="rt-btn" id="rtListen3" type="button">🔊 다시 듣기</button>
+        <button class="rt-btn" id="rtListen3" type="button" data-nopop>🔊 다시 듣기</button>
         <button class="rt-btn" id="rtHint3" type="button">💡 동시 타격 힌트</button>
         <button class="rt-btn" id="rtClear3" type="button">🧽 지우기</button>
         <button class="rt-btn primary wide" id="rtCheck3" type="button">✅ 정답 확인!</button>
@@ -2372,6 +2454,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     demoMode: false,  // 데모 가사가 올라와 있는 상태
     sfxOn: true,      // 버튼 뾱 효과음
     vibOn: false,     // 정박 진동
+    vocalMode: 'full', // v3.1 — 🎤 가이드 보컬 줄이기 (full | half | min)
     songId: '',       // IndexedDB 히스토리 키
     lrcText: '',      // 지금 올라와 있는 LRC 원문
     lrcBackup: '',    // 방금 비운 가사 (↩ 되돌리기)
@@ -2385,12 +2468,133 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   const ST = window.ST || {};
   const BUFSIZE = 1024;
 
+  /* =====================================================================
+     2a. 🎤 가이드 보컬 줄이기 (v3.1) — 저음은 살리고 가운데 목소리만 줄인다
+     ---------------------------------------------------------------------
+     모드 : 'full' 원곡 100% · 'half' 보컬 반만 50% · 'min' 반주 위주 10%
+     ① 저음 통로  : lowpass 200Hz — 킥·베이스는 손대지 않고 L/R 그대로 통과(100%)
+     ② 중·고음 통로: highpass 200Hz → L - k·R / R - k·L 로 좌우에 똑같이 있는
+       가운데(보컬)만 상쇄. 위쪽은 lowpass 10kHz 로 살짝 다듬어 치찰음이 남지 않게.
+       k = 0.5(half) / 0.95(min)
+     ③ 마른 소리 : 'min' 에는 원음 0.08 을 섞어 모노 음원이 완전히 죽지 않게
+     ④ 모노(좌우가 동일) 음원: 상쇄하면 전부 사라지므로 상쇄 대신 고음역만 줄인다.
+     ※ 저음+고음 합은 master gain 으로 들어가고, 모드가 바뀔 때는 짧게 램프해
+       볼륨이 톡 튀지 않는다.
+     ===================================================================== */
+  const VC_MODES = {
+    full: { dry: 1, low: 0, cut: 0, k: 0.5, comp: 1 },
+    half: { dry: 0, low: 1, cut: 1, k: 0.5, comp: 1.12 },
+    min: { dry: 0.08, low: 1, cut: 1, k: 0.95, comp: 1.2 },
+  };
+  const VC_MODES_MONO = {
+    full: { dry: 1, low: 0, cut: 0, k: 0, comp: 1 },
+    half: { dry: 0, low: 1, cut: 0.55, k: 0, comp: 1.12 },
+    min: { dry: 0.08, low: 1, cut: 0.12, k: 0, comp: 1.2 },
+  };
+
+  function makeVocalCut(ctx) {
+    const input = ctx.createGain();
+    const output = ctx.createGain();
+    const splitter = ctx.createChannelSplitter(2);
+    input.connect(splitter);
+
+    // ① 저음 통로 (≤200Hz)
+    const lowL = ctx.createBiquadFilter(), lowR = ctx.createBiquadFilter();
+    lowL.type = 'lowpass'; lowR.type = 'lowpass';
+    lowL.frequency.value = 200; lowR.frequency.value = 200;
+    lowL.Q.value = 0.7071068; lowR.Q.value = 0.7071068;
+    const lowGainL = ctx.createGain(), lowGainR = ctx.createGain();
+    lowGainL.gain.value = 0; lowGainR.gain.value = 0;
+    splitter.connect(lowL, 0); lowL.connect(lowGainL);
+    splitter.connect(lowR, 1); lowR.connect(lowGainR);
+
+    // ② 중·고음 통로 (≥200Hz) — 좌우를 섞어 가운데만 상쇄
+    const highL = ctx.createBiquadFilter(), highR = ctx.createBiquadFilter();
+    highL.type = 'highpass'; highR.type = 'highpass';
+    highL.frequency.value = 200; highR.frequency.value = 200;
+    highL.Q.value = 0.7071068; highR.Q.value = 0.7071068;
+    splitter.connect(highL, 0); splitter.connect(highR, 1);
+
+    const sameL = ctx.createGain(), sameR = ctx.createGain();      // L→L · R→R
+    sameL.gain.value = 1; sameR.gain.value = 1;
+    const crossL = ctx.createGain(), crossR = ctx.createGain();    // R→L · L→R (부호 뒤집어 더하기)
+    crossL.gain.value = -0.5; crossR.gain.value = -0.5;
+    const sumL = ctx.createGain(), sumR = ctx.createGain();
+    highL.connect(sameL); sameL.connect(sumL); highR.connect(crossL); crossL.connect(sumL);
+    highR.connect(sameR); sameR.connect(sumR); highL.connect(crossR); crossR.connect(sumR);
+
+    const tiltL = ctx.createBiquadFilter(), tiltR = ctx.createBiquadFilter();   // 10kHz 위 정리
+    tiltL.type = 'lowpass'; tiltR.type = 'lowpass';
+    tiltL.frequency.value = 10000; tiltR.frequency.value = 10000;
+    tiltL.Q.value = 0.7071068; tiltR.Q.value = 0.7071068;
+    sumL.connect(tiltL); sumR.connect(tiltR);
+    const cutGainL = ctx.createGain(), cutGainR = ctx.createGain();
+    cutGainL.gain.value = 0; cutGainR.gain.value = 0;
+    tiltL.connect(cutGainL); tiltR.connect(cutGainR);
+
+    // ③ 마른 소리 (모노 음원이 완전히 사라지지 않게)
+    const dryL = ctx.createGain(), dryR = ctx.createGain();
+    dryL.gain.value = 1; dryR.gain.value = 1;
+    splitter.connect(dryL, 0); splitter.connect(dryR, 1);
+
+    // ④ 합쳐서 master gain 으로
+    const merger = ctx.createChannelMerger(2);
+    lowGainL.connect(merger, 0, 0); cutGainL.connect(merger, 0, 0); dryL.connect(merger, 0, 0);
+    lowGainR.connect(merger, 0, 1); cutGainR.connect(merger, 0, 1); dryR.connect(merger, 0, 1);
+    merger.connect(output);
+
+    const vc = {
+      input, output, splitter, lowL, lowR, highL, highR, crossL, crossR, sameL, sameR,
+      sumL, sumR, tiltL, tiltR, lowGainL, lowGainR, cutGainL, cutGainR, dryL, dryR, merger,
+      mode: 'full', monoLike: false,
+      setMode(mode, monoLike, ramp) {
+        if (monoLike !== undefined) vc.monoLike = !!monoLike;
+        const table = vc.monoLike ? VC_MODES_MONO : VC_MODES;
+        vc.mode = table[mode] ? mode : 'full';
+        const cfg = table[vc.mode];
+        const t = ctx.currentTime;
+        const rampTo = (p, v) => {
+          if (ramp && ramp > 0) {
+            try { p.cancelScheduledValues(t); } catch (e) { /* noop */ }
+            p.setTargetAtTime(v, t, ramp);
+          } else {
+            p.value = v;
+          }
+        };
+        rampTo(dryL.gain, cfg.dry); rampTo(dryR.gain, cfg.dry);
+        rampTo(lowGainL.gain, cfg.low); rampTo(lowGainR.gain, cfg.low);
+        rampTo(cutGainL.gain, cfg.cut * cfg.comp); rampTo(cutGainR.gain, cfg.cut * cfg.comp);
+        rampTo(crossL.gain, -cfg.k); rampTo(crossR.gain, -cfg.k);
+        return cfg;
+      },
+    };
+    return vc;
+  }
+
+  /* 좌우가 사실상 같은(모노 · 듀얼 모노) 음원인지 — 상쇄 경로를 켜면 통째로 사라지기 때문 */
+  function detectMonoLike(buf) {
+    if (!buf) return false;
+    if (buf.numberOfChannels < 2) return true;
+    const L = buf.getChannelData(0), R = buf.getChannelData(1);
+    const step = Math.max(1, Math.floor(L.length / 12000));
+    let n = 0, sll = 0, srr = 0, slr = 0;
+    for (let i = 0; i < L.length; i += step) {
+      const a = L[i], b = R[i];
+      sll += a * a; srr += b * b; slr += a * b; n++;
+    }
+    if (!n || sll < 1e-9 || srr < 1e-9) return true;   // 무음/거의 무음
+    return (slr / Math.sqrt(sll * srr)) > 0.998;
+  }
+
   const engine = {
     ctx: null, node: null, gain: null, buffer: null,
     source: null, st: null, filter: null,
     playing: false, pos: 0, speed: 1, key: 0,
     pL: null, pR: null, pN: 0, tmp: null, srcEnded: false,
     onEnd: null,
+    vc: null,                // v3.1 — 🎤 보컬 줄이기 그래프
+    vocalMode: 'full',       // 'full' | 'half' | 'min'
+    monoLike: false,         // 좌우가 같은 음원이면 상쇄 대신 고음역 감쇠
 
     ensureCtx() {
       if (this.ctx) return this.ctx;
@@ -2401,7 +2605,11 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       this.gain.connect(this.ctx.destination);
       this.node = this.ctx.createScriptProcessor(BUFSIZE, 2, 2);
       this.node.onaudioprocess = e => this._process(e);
-      this.node.connect(this.gain);
+      // ScriptProcessor → 🎤 보컬 줄이기 → master gain
+      this.vc = makeVocalCut(this.ctx);
+      this.node.connect(this.vc.input);
+      this.vc.output.connect(this.gain);
+      this.vc.setMode(this.vocalMode, this.monoLike, 0);
       this.pL = new Float32Array(BUFSIZE * 8);
       this.pR = new Float32Array(BUFSIZE * 8);
       this.tmp = new Float32Array(BUFSIZE * 2);
@@ -2416,10 +2624,19 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       });
     },
 
+    setVocalMode(mode, monoLike, ramp) {
+      this.vocalMode = (mode === 'half' || mode === 'min') ? mode : 'full';
+      if (monoLike !== undefined) this.monoLike = !!monoLike;
+      if (this.vc) this.vc.setMode(this.vocalMode, this.monoLike, ramp === undefined ? 0.035 : ramp);
+      return this.vocalMode;
+    },
+
     load(buffer) {
       this.ensureCtx();
       this.stop();
       this.buffer = buffer;
+      this.monoLike = detectMonoLike(buffer);
+      this.setVocalMode(this.vocalMode, this.monoLike, 0);
       this.st = new ST.SoundTouch();
       this.source = new ST.WebAudioBufferSource(buffer);
       this.filter = new ST.SimpleFilter(this.source, this.st);
@@ -3887,7 +4104,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
         speed: state.speed, key: state.key, offset: state.offset, beatOn: state.beatOn,
-        sfx: state.sfxOn, vib: state.vibOn, focus: focusPref,
+        sfx: state.sfxOn, vib: state.vibOn, focus: focusPref, vocal: state.vocalMode,
       }));
     } catch (e) { /* noop */ }
   }
@@ -3903,6 +4120,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       if (typeof s.beatOn === 'boolean') setBeatOn(s.beatOn, true);
       if (typeof s.sfx === 'boolean') setSfxOn(s.sfx, true); else setSfxOn(true, true);
       if (typeof s.vib === 'boolean') setVibOn(s.vib, true); else setVibOn(false, true);
+      setVocalMode(s.vocal === 'half' || s.vocal === 'min' ? s.vocal : 'full', true);
       focusPref = (s.focus === true || s.focus === false) ? s.focus : null;
     } catch (e) {
       setSpeed(1, true); setKey(0, true); setOffset(0, true);
@@ -3921,6 +4139,51 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     if (on) { sizeCanvas(); }
     saveSettings();
     if (!silent) toast(on ? '드럼 패턴 표시 ON' : '드럼 패턴 표시 OFF');
+  }
+
+  /* =====================================================================
+     12a-2. 🎤 가이드 보컬 줄이기 (v3.1) — 원곡 → 반만 → 반주 위주
+     ===================================================================== */
+  const VOCAL_SEQ = ['full', 'half', 'min'];
+  function vocalLabel(mode) {
+    if (mode === 'half') return '🎤 <b>반만</b> 50%';
+    if (mode === 'min') return '🎤 <b>반주</b> 위주';
+    return '🎤 <b>원곡</b>';
+  }
+  function updateVocalUI() {
+    const b = $('#vocalBtn');
+    if (!b) return;
+    const m = state.vocalMode || 'full';
+    b.innerHTML = vocalLabel(m);
+    b.dataset.mode = m;
+    b.classList.toggle('on', m !== 'full');
+    b.setAttribute('aria-pressed', m !== 'full' ? 'true' : 'false');
+    const name = m === 'half' ? '보컬 반만 50%' : m === 'min' ? '반주 위주 10%' : '원곡 100%';
+    b.setAttribute('aria-label', '가이드 보컬 ' + name + ' — 누르면 다음 단계로');
+    b.title = '가이드 보컬 줄이기 — 원곡 100% → 보컬 반만 50% → 반주 위주 10% (킥·베이스는 그대로)';
+  }
+  function setVocalMode(mode, silent) {
+    mode = VOCAL_SEQ.indexOf(mode) >= 0 ? mode : 'full';
+    state.vocalMode = mode;
+    engine.setVocalMode(mode);
+    updateVocalUI();
+    saveSettings();
+    queueSaveSong();
+    if (!silent) {
+      const base = mode === 'half'
+        ? '🎤 보컬 반만 50% — 킥·베이스는 그대로, 가운데 목소리만 반으로'
+        : mode === 'min'
+          ? '🎤 반주 위주 10% — 이제 혼자 불러 볼 차례!'
+          : '🎤 원곡 100% — 가이드 보컬 그대로';
+      const monoNote = (mode !== 'full' && engine.monoLike)
+        ? ' (이 음원은 좌우가 같아 전체를 부드럽게 줄였어요)' : '';
+      const noAudio = engine.buffer ? '' : ' · 음원을 넣으면 적용돼요';
+      toast(base + monoNote + noAudio);
+    }
+  }
+  function cycleVocalMode() {
+    const i = VOCAL_SEQ.indexOf(state.vocalMode || 'full');
+    setVocalMode(VOCAL_SEQ[(i + 1) % VOCAL_SEQ.length]);
   }
 
   /* =====================================================================
@@ -4212,6 +4475,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         bpmShown: state.bpm || 0,
         abA: state.ab.a, abB: state.ab.b,
         speed: state.speed, pitch: state.key,
+        vocalMode: state.vocalMode || 'full',
         duration: state.duration || 0,
         updatedAt: Date.now(),
       };
@@ -4529,6 +4793,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       setSpeed(typeof rec.speed === 'number' ? rec.speed : 1, true);
       setKey(typeof rec.pitch === 'number' ? rec.pitch : 0, true);
       setOffset(typeof rec.syncOffset === 'number' ? rec.syncOffset : 0, true);
+      setVocalMode(rec.vocalMode === 'half' || rec.vocalMode === 'min' ? rec.vocalMode : 'full', true);
       state.ab = {
         a: (rec.abA == null ? null : rec.abA),
         b: (rec.abB == null ? null : rec.abB),
@@ -4725,6 +4990,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   function playPop() {
     if (!state.sfxOn) return;
+    playPop.calls = (playPop.calls || 0) + 1;   // 테스트용 계수기
     const ctx = sfxAudio();
     if (!ctx) return;
     try {
@@ -5185,6 +5451,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   // 드럼 토글
   $('#beatToggle').addEventListener('click', () => setBeatOn(!state.beatOn));
+  $('#vocalBtn').addEventListener('click', cycleVocalMode);
 
   // 📳 진동 · 🔔 효과음
   $('#vibBtn').addEventListener('click', () => setVibOn(!state.vibOn));
@@ -5236,10 +5503,16 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   });
 
   // 댕용~ 바운스 + 뾱 효과음 (버튼·아이콘 누를 때)
+  // v3.1 — 🥁 드럼 소리를 내는 버튼은 '뾱' 없이 드럼 소리만 나게 한다
+  const NO_POP_SEL = '[data-nopop], .nb-spot, .nb-choice, .nb-gcell, .rt-cell';
+  function isDrumTrigger(t) {
+    return !!(t && t.closest && t.closest(NO_POP_SEL));
+  }
   document.addEventListener('pointerdown', e => {
     const el = e.target.closest('button, .ritem, .res');
     if (!el || el.disabled) return;
-    daeng(el);
+    if (!el.classList.contains('nb-spot')) daeng(el);   // 드럼 그림은 자체 '톡' 애니메이션
+    if (isDrumTrigger(e.target)) return;                // 🥁 드럼 소리 버튼은 '뾱' 없이
     playPop();
   }, { passive: true });
   document.addEventListener('animationend', e => {
@@ -5361,6 +5634,8 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   window.VP = {
     state, engine, LRC: () => LRC, parseLRC, applyLyrics, startDemo, demoLRC,
     setSpeed, setKey, setOffset, setAB, setBeatOn, doSearch,
+    setVocalMode, cycleVocalMode, vocalCut: makeVocalCut, makeVocalCut, detectMonoLike,
+    vocal: () => state.vocalMode,
     setVibOn, setSfxOn, playPop, daeng,
     speed: () => state.speed, key: () => state.key, offset: () => state.offset,
     saveSongNow, openSaved, deleteSaved, refreshRecent, recent: () => recentSongs.slice(),
@@ -5408,7 +5683,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     openSearchSheet, closeSearchSheet, doSearch,
     backup: () => state.lrcBackup,
     PAST, FUT,
-    version: 'vocal-player-v2.4.1-2026-11-28-fold-fix',
+    version: 'vocal-player-v3.1-2026-11-28-vocalcut',
   };
 })();
 </script>
@@ -5532,7 +5807,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   /* ---------------- 오디오 엔진 (WebAudio + 룩어헤드 스케줄러) ---------------- */
   const A = {
-    ctx: null, master: null, noise: null,
+    ctx: null, master: null, comp: null, noise: null,
     timer: 0, playing: false, nextT: 0, idx: 0, startT: 0,
     stepDur: 0.125, steps: 16, loops: 0, loopCount: 0,
     last: -1, lastBeat: -1, ending: false
@@ -5551,17 +5826,50 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       if (!AC) return null;
       A.ctx = new AC();
       A.master = A.ctx.createGain();
-      A.master.gain.value = 0.72;
-      A.master.connect(A.ctx.destination);
+      A.master.gain.value = 0.8;
+      /* v3.1 — 휴대폰 스피커에서도 킥·스네어·하이햇이 또렷하게: 살짝 눌러 주는 컴프레서 */
+      if (A.ctx.createDynamicsCompressor) {
+        A.comp = A.ctx.createDynamicsCompressor();
+        A.comp.threshold.value = -8; A.comp.knee.value = 6; A.comp.ratio.value = 3.2;
+        A.comp.attack.value = 0.004; A.comp.release.value = 0.18;
+        A.master.connect(A.comp); A.comp.connect(A.ctx.destination);
+      } else {
+        A.master.connect(A.ctx.destination);
+      }
       A.noise = noiseBuffer(A.ctx);
     }
     if (A.ctx.state === 'suspended') { try { A.ctx.resume(); } catch (e) { /* noop */ } }
     return A.ctx;
   }
 
+  /* v3.1 — 탭이 무음이 되지 않게: AudioContext 가 잠들어 있으면 깨운 '다음'에 소리를 예약한다 */
+  function ctxReady(fn) {
+    const ctx = ensureCtx();
+    if (!ctx) return false;
+    if (ctx.state !== 'running') {
+      try {
+        ctx.resume().then(fn).catch(() => { try { fn(); } catch (e) { /* noop */ } });
+      } catch (e) { try { fn(); } catch (e2) { /* noop */ } }
+      return true;
+    }
+    fn();
+    return true;
+  }
+  /* 한 번 톡 — 드럼 그림·퀴즈·패드 공통 */
+  function tapHit(track, vel) {
+    return ctxReady(() => hit(track, null, vel));
+  }
+  /* 🤝 두 소리를 정말 '동시에' — 같은 시각에 예약한다 */
+  function tapCombo(items) {
+    return ctxReady(() => {
+      const t = A.ctx.currentTime + 0.01;
+      items.forEach(pair => hit(pair[0], t, pair[1]));
+    });
+  }
+
   function hitKick(t, vel) {
     if (!A.ctx) return;
-    const c = A.ctx, v = 0.95 * (vel || 1);
+    const c = A.ctx, v = 1.0 * (vel || 1);
     const o = c.createOscillator(), g = c.createGain();
     o.type = 'sine';
     o.frequency.setValueAtTime(155, t);
@@ -5582,7 +5890,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   }
   function hitSnare(t, vel) {
     if (!A.ctx) return;
-    const c = A.ctx, v = 0.62 * (vel || 1);
+    const c = A.ctx, v = 0.70 * (vel || 1);
     const s = c.createBufferSource(); s.buffer = A.noise;
     const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1950; bp.Q.value = 0.9;
     const g = c.createGain();
@@ -5601,7 +5909,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   }
   function hitHat(t, vel) {
     if (!A.ctx) return;
-    const c = A.ctx, v = 0.2 * (vel || 1), dur = 0.05;
+    const c = A.ctx, v = 0.28 * (vel || 1), dur = 0.05;
     const s = c.createBufferSource(); s.buffer = A.noise;
     const hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 8200;
     const g = c.createGain();
@@ -5612,6 +5920,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     s.start(t); s.stop(t + dur + 0.02);
   }
   function hit(track, when, vel) {
+    if (!A.ctx) return;
     const t = when || (A.ctx ? A.ctx.currentTime : 0);
     if (track === 'kick') hitKick(t, vel);
     else if (track === 'snare') hitSnare(t, vel);
@@ -5669,7 +5978,10 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   function startAudio(loops) {
     if (!S.pack) return;
-    if (!ensureCtx()) return;
+    ctxReady(() => startAudioNow(loops));
+  }
+  function startAudioNow(loops) {
+    if (!S.pack || !A.ctx) return;
     stopAudio();
     A.steps = S.pack.steps;
     A.stepDur = stepDurNow();
@@ -6325,7 +6637,9 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   }
   function nbStart(pat, opts) {
     const o = opts || {};
-    if (!ensureCtx()) return;
+    ctxReady(() => nbStartNow(pat, o));
+  }
+  function nbStartNow(pat, o) {
     nbStop();
     NB.steps = pat.steps || 16;
     NB.per = pat.per || (NB.steps === 12 ? 3 : 4);
@@ -6352,7 +6666,15 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     }
     $$('#nbKit .nb-spot').forEach(b => b.classList.toggle('on', b.dataset.drum === id));
     ensureCtx();
-    hit(id, null, 1);
+    tapHit(id, 1.3);
+    const spot = $('#nbKit .nb-spot[data-drum="' + id + '"]');
+    if (spot) {
+      spot.classList.remove('struck');
+      void spot.offsetWidth;
+      spot.classList.add('struck');
+      clearTimeout(spot._hitT);
+      spot._hitT = setTimeout(() => spot.classList.remove('struck'), 420);
+    }
     clearTimeout(nbSayDrum.t);
     nbSayDrum.t = setTimeout(() => { $$('#nbKit .nb-spot').forEach(b => b.classList.remove('on')); }, 700);
   }
@@ -6374,8 +6696,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   }
   function nbQuizPlay() {
     if (!NBQ.target) nbQuizNew();
-    ensureCtx();
-    hit(NBQ.target, null, 1);
+    tapHit(NBQ.target, 1.3);
   }
   function nbQuizAnswer(ans, btn) {
     if (!NBQ.target || NBQ.locked) return;
@@ -6392,6 +6713,68 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       setTimeout(() => btn.classList.remove('wrong'), 700);
       thud();
       if (fb) { fb.className = 'nb-fb no'; fb.innerHTML = '앗, 그건 <b>' + NBK[ans].ko + '</b> 소리예요. 한 번 더 들어 볼까요?'; }
+    }
+  }
+
+  /* --- 기초 1-2: 🤝 동시 타격 귀 열기 (단독 vs 킥+하이햇 vs 스네어+하이햇) --- */
+  const NBS = { target: '', solo: 'kick', total: 0, right: 0, locked: false, armed: false };
+  const SIM_COMBO = {
+    kickhat: [['kick', 1.15], ['hat', 1.1]],
+    snarehat: [['snare', 1.1], ['hat', 1.1]],
+  };
+  const SIM_NAME = { solo: '단독', kickhat: '킥+하이햇', snarehat: '스네어+하이햇' };
+  const SIM_DESC = {
+    solo: '한 악기만! 소리가 하나라 얇고 또렷하게 들리지요.',
+    kickhat: '킥+하이햇! 낮은 울림 위에 쨍한 소리가 겹쳐서 더 두껍게 들려요.',
+    snarehat: '스네어+하이햇! 짝! 하는 소리와 쨍한 소리가 나란히 들려요.',
+  };
+  function nbSimScore() {
+    const e = $('#nbSimScore'); if (e) e.textContent = NBS.right + ' / ' + NBS.total;
+  }
+  function nbSimSound(which, soloId) {
+    if (which === 'kickhat' || which === 'snarehat') return tapCombo(SIM_COMBO[which]);
+    return tapHit(soloId || NBS.solo, 1.3);
+  }
+  function nbSimNew() {
+    const pool = ['solo', 'kickhat', 'snarehat'];
+    let t = pool[Math.floor(Math.random() * pool.length)];
+    if (NBS.armed && t === NBS.target) t = pool[(pool.indexOf(t) + 1) % pool.length];
+    if (t === 'solo') {
+      const ids = ['kick', 'snare', 'hat'];
+      let s = ids[Math.floor(Math.random() * ids.length)];
+      if (NBS.armed && NBS.target === 'solo' && s === NBS.solo) s = ids[(ids.indexOf(s) + 1) % 3];
+      NBS.solo = s;
+    }
+    NBS.target = t;
+    NBS.armed = true;
+    NBS.locked = false;
+    $$('#nbSimPick .nb-simpill').forEach(b => { b.classList.remove('right', 'wrong'); b.classList.remove('on'); });
+    const fb = $('#nbSimFb'); if (fb) { fb.className = 'nb-fb'; fb.innerHTML = ''; }
+    const q = $('#nbSimQ'); if (q) q.textContent = '방금 들린 건 뭘까요? 위 버튼으로 골라 보세요';
+  }
+  function nbSimListen(isNew) {
+    if (isNew || !NBS.target) nbSimNew();
+    nbSimSound(NBS.target, NBS.solo);
+  }
+  function nbSimAnswer(ans, btn) {
+    /* 고른 소리를 먼저 들려준다 — 귀로 바로 비교 */
+    nbSimSound(ans, ans === 'solo' ? (NBS.target === 'solo' ? NBS.solo : 'snare') : null);
+    if (ans !== 'solo') btn.classList.add('on');
+    setTimeout(() => btn.classList.remove('on'), 500);
+    if (!NBS.target || NBS.locked) return;
+    const fb = $('#nbSimFb');
+    if (ans === NBS.target) {
+      NBS.locked = true; NBS.right += 1; NBS.total += 1; nbSimScore();
+      btn.classList.add('right');
+      chime();
+      if (fb) { fb.className = 'nb-fb ok'; fb.innerHTML = '딩동댕! <b>' + SIM_NAME[ans] + '</b> — ' + SIM_DESC[ans]; }
+      setTimeout(() => { if ($('#nbS1') && !$('#rhythmRoot').hidden) nbSimNew(); }, 1500);
+    } else {
+      NBS.total += 1; nbSimScore();
+      btn.classList.add('wrong');
+      setTimeout(() => btn.classList.remove('wrong'), 700);
+      thud();
+      if (fb) { fb.className = 'nb-fb no'; fb.innerHTML = '앗, 그건 <b>' + SIM_NAME[ans] + '</b> 소리예요. 🔁 다시 듣고 골라 볼까요?'; }
     }
   }
 
@@ -6523,6 +6906,12 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     });
     on('#nbToggle', 'click', () => nbToggle());
     on('#nbQuizPlay', 'click', nbQuizPlay);
+    on('#nbSimPlay', 'click', () => nbSimListen(true));
+    on('#nbSimAgain', 'click', () => nbSimListen(false));
+    $$('#nbSimPick .nb-simpill').forEach(b => {
+      b.addEventListener('click', () => nbSimAnswer(b.dataset.sim, b));
+    });
+    nbSimScore();
     $$('#nbChoices .nb-choice').forEach(b => {
       b.addEventListener('click', () => nbQuizAnswer(b.dataset.ans, b));
     });
@@ -6537,8 +6926,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         NBP.user[i] = !NBP.user[i];
         b.classList.remove('ok', 'miss', 'bad');
         b.classList.toggle('mine', NBP.user[i]);
-        ensureCtx();
-        if (NBP.user[i]) hit('snare', null, 0.9);
+        if (NBP.user[i]) tapHit('snare', 1.15);
       });
     }
     on('#nbKickPlay', 'click', nbKickPlay);
@@ -6702,16 +7090,14 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         if (S.step === 1) {
           if (!S.editing) return;
           S.pat[id][i] = !S.pat[id][i];
-          ensureCtx();
-          if (S.pat[id][i]) hit(id, null, 0.8);
+          if (S.pat[id][i]) tapHit(id, 1.1);
           paintGrid();
         } else {
           const lv = curLevel();
           if (!lv || lv.tracks.indexOf(id) < 0) return;
           S.user[id][i] = !S.user[id][i];
           S.checked = false;
-          ensureCtx();
-          if (S.user[id][i]) hit(id, null, 0.8);
+          if (S.user[id][i]) tapHit(id, 1.1);
           paintGrid();
         }
       });
@@ -6746,8 +7132,14 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         reset: () => { PG = {}; persist(); renderHub(); },
         newbie: () => ({
           open: !$('#nbBody').hidden, quiz: NBQ.target, right: NBQ.right, total: NBQ.total,
-          pillar: NBP.user.slice(), kick: NBKS.cur, mini: { playing: NB.playing, name: NB.name }
+          pillar: NBP.user.slice(), kick: NBKS.cur, mini: { playing: NB.playing, name: NB.name },
+          say: $('#nbSay') ? $('#nbSay').innerText : '',
         }),
+        sim: () => ({ target: NBS.target, solo: NBS.solo, right: NBS.right, total: NBS.total }),
+        audio: () => ({ state: A.ctx ? A.ctx.state : 'none', master: A.master ? A.master.gain.value : 0,
+          comp: !!A.comp, rate: A.ctx ? A.ctx.sampleRate : 0 }),
+        engine: () => A,
+        tapHit, tapCombo,
         hint: () => { const h = $('#rtHint'); return { shown: h && !h.hidden, text: h ? h.innerText : '' }; }
       };
     }
