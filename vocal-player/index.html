@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>칼박 보컬 연습 플레이어</title>
-<meta name="build" content="vocal-player-v2.3-2026-11-28-lrc-ux">
-<meta name="app-build" content="vocal-player-v2.3-2026-11-28-lrc-ux">
+<meta name="build" content="vocal-player-v2.4-2026-11-28-rhythm">
+<meta name="app-build" content="vocal-player-v2.4-2026-11-28-rhythm">
 <meta name="theme-color" content="#f7f5fc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="칼박 보컬">
-<meta name="description" content="칼박 보컬 연습 플레이어 — 2페이지(곡 고르기·연습) + 우측 슬림 리모컨, 음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절">
+<meta name="description" content="칼박 보컬 연습 플레이어 — 2페이지(곡 고르기·연습) + 우측 슬림 리모컨, 음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절 + 🥁 장르별 리듬 연습 3단계 코스">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -674,6 +674,246 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   .pager{max-width:460px; margin:0 auto; width:100%}
   .top{max-width:1080px; width:100%; margin:0 auto}
 }
+
+/* =====================================================================
+   v2.4 · 🏠 모드 선택 홈 + 🥁 리듬 연습
+   ===================================================================== */
+.home{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
+  padding:calc(20px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+  overflow:auto; overscroll-behavior:contain;
+  background:
+    radial-gradient(680px 420px at 50% -10%, rgba(168,85,247,.20), rgba(168,85,247,0) 62%),
+    radial-gradient(520px 360px at 108% 12%, rgba(236,72,153,.14), rgba(236,72,153,0) 60%),
+    radial-gradient(560px 420px at -6% 92%, rgba(124,58,237,.14), rgba(124,58,237,0) 62%),
+    #f7f5fc}
+.home[hidden]{display:none !important}
+.hm-in{width:100%; max-width:520px; display:flex; flex-direction:column; gap:13px}
+.hm-brand{display:flex; align-items:center; gap:12px; padding:2px 4px}
+.hm-logo{width:54px; height:54px; flex:none; border-radius:19px; display:grid; place-items:center; font-size:27px;
+  background:linear-gradient(150deg,#f3e8ff,#fff); border:1px solid #e6d8fb;
+  box-shadow:0 12px 26px -16px rgba(124,58,237,.8), inset 0 1px 0 #fff}
+.hm-brand h1{font-size:19px; font-weight:900; letter-spacing:-.04em; line-height:1.2}
+.hm-brand p{font-size:11.5px; color:var(--muted); font-weight:600; margin-top:2px}
+.hm-tiles{display:grid; gap:12px}
+@media (min-width:720px){ .hm-tiles{grid-template-columns:1fr 1fr} .hm-in{max-width:820px} }
+.hm-tile{display:flex; align-items:center; gap:13px; text-align:left; padding:17px 15px; width:100%;
+  border-radius:24px; border:1px solid #e7dcfa; background:linear-gradient(150deg,#fff,#faf6ff);
+  box-shadow:0 18px 40px -30px rgba(64,32,130,.7), inset 0 1px 0 #fff; transition:transform .16s, box-shadow .16s}
+.hm-tile:hover{transform:translateY(-2px); box-shadow:0 24px 46px -28px rgba(124,58,237,.6)}
+.hm-tile:active{transform:scale(.985)}
+.hm-tile .ti{width:58px; height:58px; flex:none; border-radius:20px; display:grid; place-items:center; font-size:30px;
+  background:radial-gradient(circle at 32% 26%, #fff, #f0e4ff 72%); border:1px solid #e9ddfb;
+  box-shadow:inset 0 2px 6px #fff, 0 8px 18px -13px rgba(124,58,237,.9)}
+.hm-tile.rh{background:linear-gradient(150deg,#fff,#fff6fb); border-color:#f6dcea}
+.hm-tile.rh .ti{background:radial-gradient(circle at 32% 26%, #fff, #ffe7f2 72%); border-color:#fbd9e8}
+.hm-tile .tx{flex:1; min-width:0}
+.hm-tile .tx b{display:block; font-size:16.5px; font-weight:900; letter-spacing:-.03em}
+.hm-tile .tx .d{display:block; font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.45}
+.hm-tile .go{flex:none; font-size:10.5px; font-weight:900; color:#7c3aed; background:#f3e8ff;
+  border:1px solid #e3d2fa; border-radius:999px; padding:6px 10px}
+.hm-tile.rh .go{color:#be185d; background:#fde7f1; border-color:#f8cfe0}
+.hm-foot{text-align:center; font-size:10.5px; color:#a79dc2; padding-top:1px}
+
+/* ---------- 리듬 연습 루트 ---------- */
+.rt{position:fixed; inset:0; z-index:280; height:100dvh; max-height:100dvh; display:flex; flex-direction:column;
+  overflow:hidden; overscroll-behavior:contain;
+  background:
+    radial-gradient(620px 400px at 50% -8%, rgba(168,85,247,.17), rgba(168,85,247,0) 62%),
+    radial-gradient(460px 320px at 106% 6%, rgba(236,72,153,.10), rgba(236,72,153,0) 60%),
+    #f8f6fd}
+.rt[hidden]{display:none !important}
+.rt-top{flex:none; display:flex; align-items:center; gap:8px; padding:calc(9px + env(safe-area-inset-top)) 12px 7px;
+  max-width:784px; width:100%; margin:0 auto}
+.rt-pill{flex:none; font-size:11px; font-weight:800; color:#6d28d9; background:#fff; border:1px solid #e6d9f9;
+  border-radius:999px; padding:6px 10px; box-shadow:0 1px 2px rgba(64,32,130,.06)}
+.rt-pill:active{transform:scale(.97)}
+.rt-ttl{flex:1; min-width:0; text-align:center; line-height:1.15}
+.rt-ttl b{display:block; font-size:14px; font-weight:900; letter-spacing:-.03em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rt-ttl span{font-size:9.5px; color:#8b81a8; font-weight:700}
+
+/* ---------- 허브 ---------- */
+.rt-hub{flex:1; min-height:0; overflow:auto; -webkit-overflow-scrolling:touch;
+  padding:2px 12px calc(16px + env(safe-area-inset-bottom)); max-width:760px; width:100%; margin:0 auto}
+.rt-lead{display:flex; align-items:center; gap:10px; padding:11px 13px; border-radius:18px;
+  background:linear-gradient(150deg,#fff,#f6f0ff); border:1px solid #eadffb;
+  box-shadow:0 14px 30px -28px rgba(64,32,130,.8)}
+.rt-lead-ico{font-size:24px; line-height:1}
+.rt-lead b{display:block; font-size:13px; font-weight:900; letter-spacing:-.02em}
+.rt-lead span{font-size:10.5px; color:#7e739c; font-weight:600}
+.rt-cards{display:grid; gap:10px; margin-top:10px}
+@media (min-width:700px){ .rt-cards{grid-template-columns:1fr 1fr} }
+.gcard{border-radius:20px; border:1px solid #e8dcfa; background:linear-gradient(150deg,#fff,#fbf7ff);
+  box-shadow:0 16px 34px -30px rgba(64,32,130,.75); padding:12px 12px 10px;
+  display:flex; flex-direction:column; gap:8px}
+.gcard-hd{display:flex; align-items:center; gap:10px; text-align:left; width:100%}
+.gcard-em{width:44px; height:44px; flex:none; border-radius:15px; display:grid; place-items:center; font-size:23px;
+  background:radial-gradient(circle at 32% 26%, #fff, #f3e8ff 74%); border:1px solid #ece0fd}
+.gcard-tx{flex:1; min-width:0}
+.gcard-tx b{display:block; font-size:14.5px; font-weight:900; letter-spacing:-.03em}
+.gcard-tx span{display:block; font-size:10.5px; color:#7e739c; font-weight:600; margin-top:1px}
+.gcard-stars{flex:none; font-size:9.5px; font-weight:900; color:#7c3aed; background:#f4ecff;
+  border-radius:999px; padding:4px 8px; white-space:nowrap}
+.gsongs{display:flex; flex-direction:column; gap:4px}
+.gsong{display:flex; align-items:center; gap:4px; font-size:11px; color:#4a4166; text-decoration:none;
+  background:#faf7ff; border:1px solid #f0e8fb; border-radius:10px; padding:5px 8px; min-width:0}
+.gsong:hover{background:#f3e9ff; border-color:#ddc9f8}
+.gsong .gs-a{font-weight:800; color:#5b21b6; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38%}
+.gsong .yt{margin-left:auto; flex:none; font-size:9px; font-weight:900; color:#dc2626}
+.gsteps{display:flex; gap:5px}
+.gstep{flex:1; font-size:10.5px; font-weight:800; padding:8px 3px; border-radius:11px;
+  border:1px solid #e6d9f9; background:#fff; color:#6d28d9; white-space:nowrap}
+.gstep:hover{background:#f6efff}
+.gstep:active{transform:scale(.97)}
+.gstep.done{background:#f0fdf4; border-color:#bbf7d0; color:#15803d}
+.rt-note{text-align:center; font-size:10px; color:#a79dc2; margin-top:10px; line-height:1.5}
+
+/* ---------- 레슨 (100dvh 풀스크린) ---------- */
+.rt-lesson{position:absolute; inset:0; z-index:2; height:100dvh; max-height:100dvh;
+  display:flex; flex-direction:column; overflow:hidden;
+  background:
+    radial-gradient(560px 360px at 50% -10%, rgba(168,85,247,.18), rgba(168,85,247,0) 60%),
+    #f8f6fd}
+.rt-lesson[hidden]{display:none !important}
+.rt-ltop{flex:none; display:flex; align-items:center; gap:8px; padding:calc(8px + env(safe-area-inset-top)) 10px 5px;
+  max-width:740px; width:100%; margin:0 auto}
+.rt-back{flex:none; font-size:11px; font-weight:800; color:#6d28d9; background:#fff; border:1px solid #e6d9f9;
+  border-radius:999px; padding:6px 10px}
+.rt-lname{flex:1; min-width:0; text-align:center; line-height:1.15}
+.rt-lname b{display:block; font-size:13.5px; font-weight:900; letter-spacing:-.03em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.rt-lname span{display:block; font-size:9.5px; color:#8b81a8; font-weight:700; margin-top:1px}
+.rt-lbody{flex:1; min-height:0; overflow:auto; -webkit-overflow-scrolling:touch;
+  padding:0 10px calc(12px + env(safe-area-inset-bottom));
+  display:flex; flex-direction:column; gap:8px; max-width:660px; width:100%; margin:0 auto}
+
+.rt-tabs{flex:none; display:flex; gap:4px; padding:3px; border-radius:14px; background:#efe8fb}
+.rt-tab{flex:1; font-size:10.5px; font-weight:800; color:#6a6088; padding:8px 2px; border-radius:11px; white-space:nowrap}
+.rt-tab.on{background:#fff; color:#5b21b6; box-shadow:0 5px 12px -9px rgba(124,58,237,.9)}
+
+.rt-speed{flex:none; display:flex; align-items:center; gap:4px; flex-wrap:wrap;
+  background:#fff; border:1px solid #ece1fb; border-radius:14px; padding:6px 7px}
+.rt-slabel{font-size:9.5px; font-weight:900; color:#9a92b5; letter-spacing:.04em; margin-right:1px}
+.rt-sp{font-size:10.5px; font-weight:800; color:#5b21b6; background:#f7f2ff; border:1px solid #e9ddfb;
+  border-radius:9px; padding:5px 8px}
+.rt-sp.on{background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b4ff0; color:#fff;
+  box-shadow:0 6px 14px -10px rgba(124,58,237,.95)}
+.rt-bpm{display:flex; align-items:center; gap:3px; margin-left:auto; font-size:10px; font-weight:900; color:#5b21b6}
+.rt-bpm b{min-width:26px; text-align:center; font-variant-numeric:tabular-nums}
+.rt-bpm button{width:23px; height:23px; border-radius:8px; border:1px solid #e6d9f9; background:#faf7ff;
+  font-weight:900; font-size:13px; line-height:1; color:#5b21b6}
+.rt-bpm button:active{transform:scale(.94)}
+
+.rt-gridcard{flex:0 0 auto; display:flex; flex-direction:column;
+  background:#fff; border:1px solid #ece1fb; border-radius:18px; padding:8px 7px 8px;
+  box-shadow:0 14px 28px -30px rgba(64,32,130,.9)}
+.rt-bars{display:flex; align-items:center; gap:7px; padding:0 2px 6px}
+.rt-beatico{font-size:20px; line-height:1; display:inline-block; transform-origin:50% 60%}
+.rt-beatico.beat{animation:rtbop .17s ease-out}
+@keyframes rtbop{0%{transform:scale(1)}45%{transform:scale(1.26) rotate(-7deg)}100%{transform:scale(1)}}
+.rt-barinfo{flex:1; min-width:0; line-height:1.2}
+.rt-barinfo b{display:block; font-size:11.5px; font-weight:900; color:#4a4166}
+.rt-barinfo span{display:block; font-size:9px; color:#9a92b5; font-weight:700}
+.rt-bpmtag{flex:none; font-size:9px; font-weight:900; color:#7c3aed; background:#f5edff;
+  border-radius:999px; padding:3px 7px; font-variant-numeric:tabular-nums}
+.rt-grid{display:flex; flex-direction:column; gap:5px}
+.rt-row{flex:0 0 66px; display:flex; align-items:stretch; gap:5px}
+.rt-row.off{flex:0 0 22px; opacity:.4}
+.rt-ruler{flex:0 0 auto; min-height:11px; opacity:.85}
+.rt-rlab{width:33px; flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  font-size:7px; font-weight:900; color:#8b7fa8; letter-spacing:-.02em; line-height:1}
+.rt-rlab i{font-style:normal; font-size:9px; line-height:1}
+.rt-ruler .rt-rlab{height:10px}
+.rt-cells{flex:1; min-width:0; display:grid; gap:2px; grid-auto-rows:1fr}
+.rt-num{font-size:7.5px; font-weight:900; color:#b3a9c9; text-align:center; height:9px; line-height:9px}
+.rt-cell{height:100%; min-height:20px; min-width:0; border-radius:5px; background:#f5f2fa; border:1px solid #ece6f8;
+  transition:background .1s, box-shadow .12s, transform .07s; padding:0}
+.rt-cell:active{transform:scale(.94)}
+.rt-cell.on{background:var(--c); border-color:transparent; box-shadow:inset 0 -2px 0 rgba(0,0,0,.14)}
+.rt-cell.ghost{background:repeating-linear-gradient(45deg,#fff,#fff 3px,#efe7fd 3px,#efe7fd 6px);
+  border:1.5px dashed #c3a9ef}
+.rt-cell.mine{background:#cfc0f2; border-color:#ae8eea; box-shadow:inset 0 -2px 0 rgba(124,58,237,.35)}
+.rt-cell.hit{background:#34d399; border-color:#10b981}
+.rt-cell.miss{background:#fde68a; border-color:#f59e0b; box-shadow:inset 0 0 0 1px #f59e0b}
+.rt-cell.extra{background:#fca5a5; border-color:#ef4444}
+.rt-cell.play{box-shadow:0 0 0 2px #7c3aed, 0 0 10px 2px rgba(168,85,247,.45); position:relative; z-index:2}
+
+.rt-ctl{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+.rt-ctl[hidden]{display:none !important}
+.rt-btn{font-size:11.5px; font-weight:800; padding:9px 12px; border-radius:12px; border:1px solid #e6d9f9;
+  background:#fff; color:#4a4166; white-space:nowrap}
+.rt-btn:active{transform:scale(.97)}
+.rt-btn.on{background:#f3e8ff; border-color:#d5bcf7; color:#6d28d9}
+.rt-btn.primary{background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b4ff0; color:#fff;
+  box-shadow:0 8px 18px -13px rgba(124,58,237,.95)}
+.rt-btn.wide{flex:1; text-align:center; justify-content:center}
+.rt-tt{display:flex; align-items:center; gap:4px; font-size:10.5px; font-weight:800; padding:6px 8px;
+  border-radius:10px; border:1px solid #e9e0f8; background:#fff; color:#4a4166}
+.rt-tt b{font-size:9px; font-weight:900; color:#7c3aed}
+.rt-tt.muted{opacity:.45; text-decoration:line-through}
+.rt-tt.muted b{color:#9a92b5}
+.rt-tt.solo{background:#fff7ed; border-color:#fed7aa; color:#c2410c}
+.rt-tt.sm{padding:5px 8px; font-size:10px}
+.rt-mini{font-size:9.5px; font-weight:900; color:#9a92b5; letter-spacing:.02em}
+
+.rt-levels{display:flex; gap:5px; flex-wrap:wrap}
+.rt-levels[hidden]{display:none !important}
+.rt-lv{font-size:10px; font-weight:800; padding:6px 9px; border-radius:999px; border:1px solid #e6d9f9;
+  background:#fff; color:#6a6088; white-space:nowrap}
+.rt-lv.on{background:#ede9fe; border-color:#c4b5fd; color:#5b21b6}
+.rt-lv.lock{opacity:.5}
+
+.rt-fb{display:none; font-size:11.5px; font-weight:700; line-height:1.5; color:#4a4166;
+  background:#fff; border:1px solid #ece1fb; border-radius:14px; padding:9px 11px}
+.rt-fb.show{display:block}
+.rt-fb .fbk{font-weight:600; font-size:10.5px; color:#8b81a8}
+.rt-fb.ok{background:#f0fdf4; border-color:#bbf7d0; color:#166534}
+.rt-fb.ok .fbk{color:#15803d}
+.rt-fb.miss{background:#fffbeb; border-color:#fde68a; color:#92400e}
+.rt-fb.miss .fbk{color:#a16207}
+
+.rt-coach{display:flex; align-items:flex-start; gap:9px; padding:10px 12px; border-radius:15px;
+  background:linear-gradient(150deg,#fdf7ff,#fff); border:1px dashed #e3d2fa}
+.rt-coach .ci{font-size:22px; line-height:1.1; flex:none}
+.rt-coach .ct > b{display:block; font-size:10.5px; font-weight:900; color:#6d28d9; letter-spacing:-.01em}
+.rt-coach .ct > span{display:block; font-size:10px; color:#7e739c; line-height:1.65; margin-top:2px; font-weight:600}
+.rt-coach .ct span b{display:inline; font-weight:900; color:#6d28d9}
+.rt-songs{display:flex; flex-direction:column; gap:6px;
+  padding:10px 11px; background:#fff; border:1px solid #efe7fb; border-radius:15px;
+  box-shadow:0 12px 26px -30px rgba(64,32,130,.9)}
+.rt-songs .sh{font-size:9.5px; font-weight:900; color:#9a92b5; letter-spacing:.02em}
+.rt-songrow{display:flex; flex-direction:column; gap:5px}
+.rt-song{display:flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:#4a4166;
+  text-decoration:none; background:#faf7ff; border:1px solid #f0e8fb; border-radius:11px; padding:8px 10px; min-width:0}
+.rt-song:hover{background:#f7f0ff; border-color:#ddd0f6}
+.rt-song b{font-weight:900; color:#5b21b6; white-space:nowrap}
+.rt-song .yt{margin-left:auto; font-size:9px; font-weight:900; color:#dc2626; white-space:nowrap}
+.rt-nextrow{display:flex; gap:6px; flex:none}
+.rt-lvup{position:fixed; inset:0; z-index:420; display:grid; place-items:center; pointer-events:none; padding:20px}
+.rt-lvup[hidden]{display:none !important}
+.rt-lvcard{pointer-events:auto; text-align:center; padding:22px 26px 18px; border-radius:26px;
+  background:linear-gradient(150deg,#fff,#fdf2ff); border:2px solid #e9d5ff;
+  box-shadow:0 30px 60px -30px rgba(124,58,237,.85); animation:rtpop .38s cubic-bezier(.2,1.4,.4,1)}
+@keyframes rtpop{from{transform:scale(.7); opacity:0} to{transform:scale(1); opacity:1}}
+.rt-lvcard .em{font-size:38px; line-height:1}
+.rt-lvcard b{display:block; font-size:19px; font-weight:900; letter-spacing:-.04em; margin-top:6px; color:#4c1d95}
+.rt-lvcard span{display:block; font-size:11.5px; color:#6a6088; font-weight:700; margin-top:4px; max-width:220px}
+.rt-lvcard button{margin-top:14px; width:100%; font-size:12.5px; font-weight:900; color:#fff; padding:10px 16px;
+  border-radius:13px; background:linear-gradient(140deg,#a855f7,#7c3aed); box-shadow:0 10px 22px -14px rgba(124,58,237,1)}
+.rt-confetti{position:fixed; inset:0; z-index:410; pointer-events:none; overflow:hidden}
+.rt-confetti i{position:absolute; top:-16px; width:8px; height:14px; border-radius:3px; animation:rtfall linear forwards}
+@keyframes rtfall{from{transform:translateY(-10px) rotate(0)} to{transform:translateY(104dvh) rotate(680deg)}}
+
+@media (max-width:360px){
+  .rt-row{flex-basis:52px}
+  .rt-rlab{width:28px}
+  .hm-tile .ti{width:50px; height:50px; font-size:26px}
+}
+@media (min-width:900px){
+  .rt-hub{max-width:900px; padding-bottom:22px}
+  .rt-lbody{max-width:720px; gap:9px}
+  .rt-row{flex-basis:58px}
+  .rt-lvcard b{font-size:22px}
+}
+
 </style>
 </head>
 <body>
@@ -688,8 +928,9 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
       </div>
     </div>
     <div class="topctl">
+      <button class="minitog" id="homeBtn" type="button" title="모드 선택으로">🏠 <b>홈</b></button>
       <button class="minitog" id="sfxBtn" aria-pressed="true" title="버튼 효과음 켜기/끄기">🔔 <b>ON</b></button>
-      <span class="buildtag" id="buildTag">v2.3</span>
+      <span class="buildtag" id="buildTag">v2.4</span>
     </div>
   </header>
 
@@ -882,6 +1123,139 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   <input type="file" id="lrcInput" accept=".lrc,.txt,text/plain" class="hide">
 
   <p class="foot">음원·가사는 이 기기 안에서만 처리돼요 · 서버로 올라가지 않아요<br>만든 이 · 이비</p>
+</div>
+
+
+<!-- ===================== v2.4 · 🏠 모드 선택 홈 ===================== -->
+<section class="home" id="homeScreen" aria-label="모드 선택">
+  <div class="hm-in">
+    <div class="hm-brand">
+      <span class="hm-logo">🎤</span>
+      <div>
+        <h1>현호 님의 보컬 스튜디오</h1>
+        <p>오늘은 어느 쪽으로 연습할까요?</p>
+      </div>
+    </div>
+    <div class="hm-tiles">
+      <button class="hm-tile vc" id="modeVocal" type="button">
+        <span class="ti">🎤</span>
+        <span class="tx"><b>보컬 플레이어</b><span class="d">내 MR·가사로 칼박 연습<br>속도·키·A-B 반복</span></span>
+        <span class="go">열기 →</span>
+      </button>
+      <button class="hm-tile rh" id="modeRhythm" type="button">
+        <span class="ti">🥁</span>
+        <span class="tx"><b>리듬 연습</b><span class="d">장르별 리듬 3단계<br>듣고 · 따라 찍고 · 귀로</span></span>
+        <span class="go">열기 →</span>
+      </button>
+    </div>
+    <div class="hm-foot">v2.4 · 🥁 장르별 리듬 연습 새로 추가</div>
+  </div>
+</section>
+
+<!-- ===================== v2.4 · 🥁 장르별 리듬 연습 ===================== -->
+<section class="rt" id="rhythmRoot" hidden aria-label="리듬 연습">
+  <div class="rt-top">
+    <button class="rt-pill" id="rtHomeBtn" type="button">🏠 홈</button>
+    <div class="rt-ttl"><b>🥁 리듬 연습</b><span>장르별 3단계 코스</span></div>
+    <button class="rt-pill" id="rtVocalBtn" type="button">🎤 플레이어</button>
+  </div>
+
+  <div class="rt-hub" id="rtHub">
+    <div class="rt-lead">
+      <span class="rt-lead-ico">🐯</span>
+      <div><b>장르를 골라 3단계로!</b><span>① 샘플 듣기 → ② 보고 따라 찍기 → ③ 귀로 듣고 찍기</span></div>
+    </div>
+    <div class="rt-cards" id="rtCards"></div>
+    <p class="rt-note">🔊 소리는 이 기기에서 직접 만들어요 · 진행은 이 기기에 저장돼요<br>예시 곡의 ▶ 유튜브는 새 탭에서 열려요</p>
+  </div>
+
+  <div class="rt-lesson" id="rtLesson" hidden>
+    <div class="rt-ltop">
+      <button class="rt-back" id="rtBack" type="button">← 목록</button>
+      <div class="rt-lname"><b id="rtLessonTitle">팝 · 발라드</b><span id="rtLessonStep">1단계 · 👀 샘플 듣기</span></div>
+      <button class="rt-pill" id="rtLHome" type="button">🏠</button>
+    </div>
+
+    <div class="rt-lbody">
+      <div class="rt-tabs" id="rtTabs" role="tablist" aria-label="단계">
+        <button class="rt-tab on" type="button" data-step="1" role="tab">1 · 👀 듣기</button>
+        <button class="rt-tab" type="button" data-step="2" role="tab">2 · ✍️ 따라 찍기</button>
+        <button class="rt-tab" type="button" data-step="3" role="tab">3 · 👂 귀로 찍기</button>
+      </div>
+
+      <div class="rt-speed" id="rtSpeed">
+        <span class="rt-slabel">속도</span>
+        <button class="rt-sp" type="button" data-sp="0.5">0.5x</button>
+        <button class="rt-sp" type="button" data-sp="0.6">0.6x</button>
+        <button class="rt-sp" type="button" data-sp="0.7">0.7x</button>
+        <button class="rt-sp on" type="button" data-sp="0.85">0.85x</button>
+        <button class="rt-sp" type="button" data-sp="1">1.0x</button>
+        <span class="rt-bpm" title="BPM 직접 조절">
+          <button id="rtBpmMinus" type="button" aria-label="BPM 내리기">−</button>
+          <b id="rtBpmVal">84</b>
+          <button id="rtBpmPlus" type="button" aria-label="BPM 올리기">+</button>
+        </span>
+      </div>
+
+      <div class="rt-gridcard">
+        <div class="rt-bars">
+          <span class="rt-beatico" id="rtBeatIco">🥁</span>
+          <div class="rt-barinfo"><b id="rtBarName">8비트 기본</b><span id="rtBarHint">16칸 · 4/4 한 마디</span></div>
+          <span class="rt-bpmtag" id="rtBpmTag">BPM 84</span>
+        </div>
+        <div class="rt-grid" id="rtGrid"></div>
+      </div>
+
+      <div class="rt-ctl" id="rtCtl1">
+        <button class="rt-btn primary wide" id="rtPlay" type="button">▶ 루프로 듣기</button>
+        <button class="rt-btn" id="rtEdit" type="button">✏️ 자유 비트 찍기</button>
+      </div>
+      <div class="rt-ctl" id="rtMuteRow">
+        <button class="rt-tt" type="button" data-mute="kick">🔴 KICK <b>ON</b></button>
+        <button class="rt-tt" type="button" data-mute="snare">🟣 SNARE <b>ON</b></button>
+        <button class="rt-tt" type="button" data-mute="hat">🟠 HAT <b>ON</b></button>
+      </div>
+      <div class="rt-ctl" id="rtSoloRow">
+        <span class="rt-mini">🎧 하나만 듣기</span>
+        <button class="rt-tt sm" type="button" data-solo="kick">킥</button>
+        <button class="rt-tt sm" type="button" data-solo="snare">스네어</button>
+        <button class="rt-tt sm" type="button" data-solo="hat">하이햇</button>
+        <button class="rt-tt sm" id="rtResetPat" type="button">↺ 원래 패턴</button>
+      </div>
+
+      <div class="rt-levels" id="rtLevels" hidden></div>
+
+      <div class="rt-ctl" id="rtCtl2">
+        <button class="rt-btn" id="rtGuide" type="button">▶ 가이드 듣기</button>
+        <button class="rt-btn" id="rtClear2" type="button">🧽 지우기</button>
+        <button class="rt-btn primary wide" id="rtCheck2" type="button">✅ 확인하기</button>
+      </div>
+      <div class="rt-ctl" id="rtCtl3">
+        <button class="rt-btn" id="rtListen3" type="button">🔊 다시 듣기</button>
+        <button class="rt-btn" id="rtClear3" type="button">🧽 지우기</button>
+        <button class="rt-btn primary wide" id="rtCheck3" type="button">✅ 정답 확인!</button>
+      </div>
+
+      <div class="rt-fb" id="rtFb"></div>
+      <div class="rt-ctl" id="rtFbExtra" hidden></div>
+      <div class="rt-coach" id="rtCoach">
+        <span class="ci">🐯</span>
+        <div class="ct"><b>이렇게 연습해요</b><span id="rtCoachTxt"></span></div>
+      </div>
+      <div class="rt-songs" id="rtSongs"></div>
+      <div class="rt-nextrow"><button class="rt-btn wide" id="rtNextStep" type="button">✍️ 2단계 — 보고 따라 찍기 →</button></div>
+    </div>
+  </div>
+</section>
+
+<div class="rt-confetti" id="rtConfetti"></div>
+<div class="rt-lvup" id="rtLevelUp" hidden>
+  <div class="rt-lvcard">
+    <span class="em">🐯✨</span>
+    <b id="rtLvTitle">레벨업!</b>
+    <span id="rtLvSub">다음 레벨 잠금 해제</span>
+    <button id="rtLvGo" type="button">계속하기</button>
+  </div>
 </div>
 
 <div class="sheetwrap" id="searchSheet" aria-hidden="true">
@@ -4600,9 +4974,1004 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     openSearchSheet, closeSearchSheet, doSearch,
     backup: () => state.lrcBackup,
     PAST, FUT,
-    version: 'vocal-player-v2.3-2026-11-28-lrc-ux',
+    version: 'vocal-player-v2.4-2026-11-28-rhythm',
   };
 })();
+</script>
+<script>
+/* =====================================================================
+   v2.4 · 🏠 모드 선택 홈 + 🥁 장르별 리듬 연습 (3단계 코스)
+   — 보컬 플레이어(v2.3)는 그대로 두고, 위에 얹는 새 모드.
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  /* ---------------- 트랙 · 장르 패턴 ---------------- */
+  const TRACKS = [
+    { id: 'kick',  ko: '킥',     en: 'KICK',  ico: '🔴', color: '#f43f5e' },
+    { id: 'snare', ko: '스네어', en: 'SNARE', ico: '🟣', color: '#8b5cf6' },
+    { id: 'hat',   ko: '하이햇', en: 'HAT',   ico: '🟠', color: '#f59e0b' }
+  ];
+
+  const PACKS = [
+    {
+      id: 'pop', emoji: '🎵', name: '팝 · 발라드', tag: '8비트 기본', steps: 16, bpm: 84,
+      tip: '쿵—짝—쿵—짝, 발라드의 심장 박동이에요. 하이햇은 여덟 번 고르게.',
+      pat: { kick: [0, 8], snare: [4, 12], hat: [0, 2, 4, 6, 8, 10, 12, 14] },
+      songs: [{ a: '아이유', t: '밤편지' }, { a: '폴킴', t: '모든 날, 모든 순간' }]
+    },
+    {
+      id: 'rock', emoji: '🎸', name: '록 · 밴드', tag: '업템포 드라이브', steps: 16, bpm: 152,
+      tip: '앞으로 달려가는 8비트! 킥이 중간중간 앞으로 튀어나가요.',
+      pat: { kick: [0, 6, 8, 14], snare: [4, 12], hat: [0, 2, 4, 6, 8, 10, 12, 14] },
+      songs: [{ a: 'QWER', t: '고민중독' }, { a: 'DAY6', t: '한 페이지가 될 수 있게' }]
+    },
+    {
+      id: 'boom', emoji: '🎧', name: '힙합 · 붐뱁', tag: '엇박 킥', steps: 16, bpm: 90,
+      tip: '킥이 살짝 늦게 툭! 엇박의 맛이에요.',
+      pat: { kick: [0, 3, 7, 10], snare: [4, 12], hat: [0, 2, 4, 6, 8, 10, 12, 14] },
+      songs: [{ a: '루피', t: 'OTL' }, { a: '다이나믹듀오', t: '고백' }]
+    },
+    {
+      id: 'funk', emoji: '🕺', name: 'R&B · 펑크', tag: '16비트 그루브', steps: 16, bpm: 104,
+      tip: '하이햇이 16번 쪼개져요. 촘촘한 그루브의 시작!',
+      pat: { kick: [0, 7, 10], snare: [4, 12], hat: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
+      songs: [{ a: 'Bruno Mars', t: 'Treasure' }, { a: 'NewJeans', t: 'Supernatural' }]
+    },
+    {
+      id: 'shuffle', emoji: '🎷', name: '셔플 · 스윙', tag: '3연음 바운스', steps: 12, bpm: 100,
+      tip: '딴—따 딴—따, 3연음으로 흔들리는 바운스예요. (12칸)',
+      pat: { kick: [0, 6], snare: [3, 9], hat: [0, 2, 3, 5, 6, 8, 9, 11] },
+      songs: [{ a: 'AKMU', t: '오랜 날 오랜 밤' }, { a: '아이유', t: '분홍신' }]
+    },
+    {
+      id: 'house', emoji: '💃', name: '댄스 · 하우스', tag: '정박 4연타 킥', steps: 16, bpm: 124,
+      tip: '쿵-쿵-쿵-쿵! 네 번씩 꽂히는 킥이 클럽의 심장이에요.',
+      pat: { kick: [0, 4, 8, 12], snare: [4, 12], hat: [2, 6, 10, 14] },
+      songs: [{ a: 'Dua Lipa', t: "Don't Start Now" }, { a: 'aespa', t: 'Supernova' }]
+    }
+  ];
+
+  const LEVELS2 = [
+    { lv: 1, name: '킥만',            tracks: ['kick'],                  mul: 1 },
+    { lv: 2, name: '킥+스네어',        tracks: ['kick', 'snare'],         mul: 1 },
+    { lv: 3, name: '전체 3트랙',       tracks: ['kick', 'snare', 'hat'],  mul: 1 },
+    { lv: 4, name: '전체 · 빠르게',    tracks: ['kick', 'snare', 'hat'],  mul: 1.12 }
+  ];
+  const LEVELS3 = [
+    { lv: 1, name: '킥만',            tracks: ['kick'],                  mul: 1 },
+    { lv: 2, name: '킥+스네어',        tracks: ['kick', 'snare'],         mul: 1 },
+    { lv: 3, name: '전체 3트랙',       tracks: ['kick', 'snare', 'hat'],  mul: 1 },
+    { lv: 4, name: '전체 · 빠르게',    tracks: ['kick', 'snare', 'hat'],  mul: 1.08 },
+    { lv: 5, name: '전체 · 더 빠르게', tracks: ['kick', 'snare', 'hat'],  mul: 1.16 }
+  ];
+  const STEP_NAME = {
+    1: '1단계 · 👀 샘플 듣기',
+    2: '2단계 · ✍️ 보고 따라 찍기',
+    3: '3단계 · 👂 귀로 듣고 찍기'
+  };
+  const SPEEDS = [0.5, 0.6, 0.7, 0.85, 1.0];
+
+  /* ---------------- 진행 저장 ---------------- */
+  const LS = 'vpRhythmV24';
+  let PG = {};
+  try { PG = JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (e) { PG = {}; }
+  const prog = id => (PG[id] || (PG[id] = { s1: 0, s2: 0, s3: 0 }));
+  const persist = () => { try { localStorage.setItem(LS, JSON.stringify(PG)); } catch (e) { /* noop */ } };
+  const badgeText = pr => '⭐ ' + ((pr.s1 ? 1 : 0) + pr.s2 + pr.s3) + '/10';
+
+  /* ---------------- 상태 ---------------- */
+  const S = {
+    pack: null, step: 1, lv2: 1, lv3: 1,
+    speed: 0.85, bpmAdd: 0,
+    pat: null, target: null, user: null,
+    checked: false, editing: false,
+    muted: { kick: false, snare: false, hat: false }, solo: null
+  };
+
+  function emptyPat(steps) {
+    const p = {};
+    TRACKS.forEach(t => { p[t.id] = new Array(steps).fill(false); });
+    return p;
+  }
+  function packPattern(pack) {
+    const p = emptyPat(pack.steps);
+    TRACKS.forEach(t => { (pack.pat[t.id] || []).forEach(i => { if (i < pack.steps) p[t.id][i] = true; }); });
+    return p;
+  }
+  const curLevel = () => {
+    if (!S.pack) return null;
+    if (S.step === 2) return LEVELS2[S.lv2 - 1] || LEVELS2[0];
+    if (S.step === 3) return LEVELS3[S.lv3 - 1] || LEVELS3[0];
+    return null;
+  };
+  const maxUnlocked = step => {
+    const pr = prog(S.pack.id);
+    return step === 2
+      ? Math.min(LEVELS2.length, pr.s2 + 1)
+      : Math.min(LEVELS3.length, pr.s3 + 1);
+  };
+
+  /* ---------------- 오디오 엔진 (WebAudio + 룩어헤드 스케줄러) ---------------- */
+  const A = {
+    ctx: null, master: null, noise: null,
+    timer: 0, playing: false, nextT: 0, idx: 0, startT: 0,
+    stepDur: 0.125, steps: 16, loops: 0, loopCount: 0,
+    last: -1, lastBeat: -1, ending: false
+  };
+
+  function noiseBuffer(ctx) {
+    const len = Math.floor(ctx.sampleRate * 0.4);
+    const b = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = b.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    return b;
+  }
+  function ensureCtx() {
+    if (!A.ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      A.ctx = new AC();
+      A.master = A.ctx.createGain();
+      A.master.gain.value = 0.72;
+      A.master.connect(A.ctx.destination);
+      A.noise = noiseBuffer(A.ctx);
+    }
+    if (A.ctx.state === 'suspended') { try { A.ctx.resume(); } catch (e) { /* noop */ } }
+    return A.ctx;
+  }
+
+  function hitKick(t, vel) {
+    if (!A.ctx) return;
+    const c = A.ctx, v = 0.95 * (vel || 1);
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(155, t);
+    o.frequency.exponentialRampToValueAtTime(46, t + 0.11);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + 0.004);
+    g.gain.setValueAtTime(v, t + 0.022);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.33);
+    o.connect(g); g.connect(A.master);
+    o.start(t); o.stop(t + 0.35);
+    const s = c.createBufferSource(); s.buffer = A.noise;
+    const f = c.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 1700;
+    const ng = c.createGain();
+    ng.gain.setValueAtTime(0.15 * (vel || 1), t);
+    ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+    s.connect(f); f.connect(ng); ng.connect(A.master);
+    s.start(t); s.stop(t + 0.04);
+  }
+  function hitSnare(t, vel) {
+    if (!A.ctx) return;
+    const c = A.ctx, v = 0.62 * (vel || 1);
+    const s = c.createBufferSource(); s.buffer = A.noise;
+    const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1950; bp.Q.value = 0.9;
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.19);
+    s.connect(bp); bp.connect(g); g.connect(A.master);
+    s.start(t); s.stop(t + 0.2);
+    const o = c.createOscillator(), og = c.createGain();
+    o.type = 'triangle'; o.frequency.setValueAtTime(192, t);
+    og.gain.setValueAtTime(0.0001, t);
+    og.gain.exponentialRampToValueAtTime(v * 0.55, t + 0.005);
+    og.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+    o.connect(og); og.connect(A.master);
+    o.start(t); o.stop(t + 0.12);
+  }
+  function hitHat(t, vel) {
+    if (!A.ctx) return;
+    const c = A.ctx, v = 0.2 * (vel || 1), dur = 0.05;
+    const s = c.createBufferSource(); s.buffer = A.noise;
+    const hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 8200;
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(hp); hp.connect(g); g.connect(A.master);
+    s.start(t); s.stop(t + dur + 0.02);
+  }
+  function hit(track, when, vel) {
+    const t = when || (A.ctx ? A.ctx.currentTime : 0);
+    if (track === 'kick') hitKick(t, vel);
+    else if (track === 'snare') hitSnare(t, vel);
+    else hitHat(t, vel);
+  }
+
+  function effBpm() {
+    if (!S.pack) return 90;
+    const lv = S.step === 1 ? null : curLevel();
+    const mul = lv ? lv.mul : 1;
+    return Math.max(35, Math.round((S.pack.bpm + S.bpmAdd) * S.speed * mul));
+  }
+  function stepDurNow() {
+    if (!S.pack) return 0.13;
+    return (60 / effBpm()) / (S.pack.steps === 12 ? 3 : 4);
+  }
+
+  const playPat = () => (S.step === 1 ? S.pat : S.target);
+  function audibleTracks() {
+    if (S.step !== 1) {
+      const lv = curLevel();
+      return lv ? lv.tracks.slice() : TRACKS.map(t => t.id);
+    }
+    if (S.solo) return [S.solo];
+    return TRACKS.filter(t => !S.muted[t.id]).map(t => t.id);
+  }
+
+  function emitStep(i, t) {
+    const pat = playPat();
+    if (!pat) return;
+    const allow = audibleTracks();
+    for (let k = 0; k < allow.length; k++) {
+      const id = allow[k];
+      if (pat[id] && pat[id][i]) hit(id, t, 1);
+    }
+  }
+
+  function sched() {
+    if (!A.playing || !A.ctx) return;
+    const c = A.ctx;
+    while (A.nextT < c.currentTime + 0.16) {
+      if (A.loops && A.loopCount >= A.loops) { finishSoon(); return; }
+      emitStep(A.idx, A.nextT);
+      A.nextT += A.stepDur;
+      A.idx += 1;
+      if (A.idx >= A.steps) { A.idx = 0; A.loopCount += 1; }
+    }
+  }
+  function finishSoon() {
+    if (A.ending) return;
+    A.ending = true;
+    const ms = Math.max(0, (A.nextT - A.ctx.currentTime) * 1000) + 70;
+    setTimeout(() => { if (A.playing) stopAudio(); }, ms);
+  }
+
+  function startAudio(loops) {
+    if (!S.pack) return;
+    if (!ensureCtx()) return;
+    stopAudio();
+    A.steps = S.pack.steps;
+    A.stepDur = stepDurNow();
+    A.loops = loops || 0;
+    A.loopCount = 0;
+    A.idx = 0;
+    A.ending = false;
+    A.nextT = A.ctx.currentTime + 0.14;
+    A.startT = A.nextT;
+    A.last = -1;
+    A.lastBeat = -1;
+    A.playing = true;
+    A.timer = setInterval(sched, 25);
+    sched();
+    requestAnimationFrame(frame);
+    updatePlayUI();
+  }
+  function stopAudio() {
+    if (A.timer) { clearInterval(A.timer); A.timer = 0; }
+    A.playing = false;
+    A.ending = false;
+    paintPlayhead(-1);
+    updatePlayUI();
+  }
+  function restartAudio(loops) {
+    if (!A.playing) return;
+    startAudio(loops === undefined ? A.loops : loops);
+  }
+
+  function frame() {
+    if (!A.playing || !A.ctx) return;
+    const pos = (A.ctx.currentTime - A.startT) / A.stepDur;
+    if (pos >= 0) {
+      const idx = ((Math.floor(pos) % A.steps) + A.steps) % A.steps;
+      if (idx !== A.last) {
+        paintPlayhead(idx);
+        const per = A.steps === 12 ? 3 : 4;
+        const b = Math.floor(idx / per);
+        if (b !== A.lastBeat) { A.lastBeat = b; pulseBeat(); }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function pulseBeat() {
+    const el = $('#rtBeatIco');
+    if (!el) return;
+    el.classList.remove('beat');
+    void el.offsetWidth;
+    el.classList.add('beat');
+  }
+
+  /* ---------------- 그리드 ---------------- */
+  let cellEls = {};
+  let rowEls = {};
+
+  function buildGrid() {
+    const g = $('#rtGrid');
+    if (!g || !S.pack) return;
+    g.innerHTML = '';
+    cellEls = {};
+    rowEls = {};
+    const steps = S.pack.steps;
+    const per = steps === 12 ? 3 : 4;
+
+    const ruler = document.createElement('div');
+    ruler.className = 'rt-row rt-ruler';
+    const rl = document.createElement('span');
+    rl.className = 'rt-rlab';
+    ruler.appendChild(rl);
+    const rc = document.createElement('div');
+    rc.className = 'rt-cells';
+    rc.style.gridTemplateColumns = 'repeat(' + steps + ', minmax(0,1fr))';
+    for (let i = 0; i < steps; i++) {
+      const n = document.createElement('span');
+      n.className = 'rt-num';
+      n.textContent = (i % per === 0) ? String(i / per + 1) : '';
+      rc.appendChild(n);
+    }
+    ruler.appendChild(rc);
+    g.appendChild(ruler);
+
+    TRACKS.forEach(tr => {
+      const row = document.createElement('div');
+      row.className = 'rt-row';
+      row.dataset.trk = tr.id;
+      const lab = document.createElement('span');
+      lab.className = 'rt-rlab';
+      lab.innerHTML = '<i>' + tr.ico + '</i><b>' + tr.en + '</b>';
+      const cells = document.createElement('div');
+      cells.className = 'rt-cells';
+      cells.style.gridTemplateColumns = 'repeat(' + steps + ', minmax(0,1fr))';
+      const arr = [];
+      for (let i = 0; i < steps; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'rt-cell';
+        b.dataset.trk = tr.id;
+        b.dataset.i = String(i);
+        b.style.setProperty('--c', tr.color);
+        b.setAttribute('aria-label', tr.ko + ' ' + (i + 1) + '번째 칸');
+        cells.appendChild(b);
+        arr.push(b);
+      }
+      cellEls[tr.id] = arr;
+      rowEls[tr.id] = row;
+      row.appendChild(lab);
+      row.appendChild(cells);
+      g.appendChild(row);
+    });
+  }
+
+  function paintPlayhead(idx) {
+    if (!cellEls.kick) return;
+    TRACKS.forEach(tr => {
+      const arr = cellEls[tr.id] || [];
+      const off = rowEls[tr.id] && rowEls[tr.id].classList.contains('off');
+      for (let i = 0; i < arr.length; i++) arr[i].classList.toggle('play', !off && i === idx);
+    });
+    A.last = idx;
+  }
+
+  function paintGrid() {
+    if (!S.pack || !cellEls.kick) return;
+    const steps = S.pack.steps;
+    const lv = S.step === 1 ? null : curLevel();
+    const active = lv ? lv.tracks : TRACKS.map(t => t.id);
+    const wasPlaying = A.playing;
+    const last = A.last;
+
+    TRACKS.forEach(tr => {
+      const arr = cellEls[tr.id] || [];
+      const on = active.indexOf(tr.id) >= 0;
+      if (rowEls[tr.id]) rowEls[tr.id].classList.toggle('off', !on);
+      for (let i = 0; i < steps; i++) {
+        const c = arr[i];
+        if (!c) continue;
+        let cls = 'rt-cell';
+        c.style.opacity = on ? '1' : '.26';
+        if (S.step === 1) {
+          if (S.pat[tr.id][i]) cls += ' on';
+        } else if (S.checked) {
+          const isT = !!(S.target[tr.id][i] && on);
+          const isU = !!(S.user[tr.id][i] && on);
+          if (isT && isU) cls += ' hit';
+          else if (isT && !isU) cls += ' miss';
+          else if (!isT && isU) cls += ' extra';
+        } else {
+          if (S.step === 2 && on && S.target[tr.id][i]) cls += ' ghost';
+          if (on && S.user[tr.id][i]) cls += ' mine';
+        }
+        c.className = cls;
+      }
+    });
+    if (wasPlaying) paintPlayhead(last);
+  }
+
+  /* ---------------- 화면: 허브 ---------------- */
+  function ytUrl(song) {
+    return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(song.a + ' ' + song.t);
+  }
+
+  function renderHub() {
+    const host = $('#rtCards');
+    if (!host) return;
+    host.innerHTML = '';
+    PACKS.forEach(p => {
+      const pr = prog(p.id);
+      const card = document.createElement('div');
+      card.className = 'gcard';
+      card.dataset.pack = p.id;
+
+      const head = document.createElement('button');
+      head.type = 'button';
+      head.className = 'gcard-hd';
+      head.dataset.open = '1';
+      head.innerHTML =
+        '<span class="gcard-em">' + p.emoji + '</span>' +
+        '<span class="gcard-tx"><b>' + p.name + '</b><span>' + p.tag + ' · ' + p.bpm + ' BPM</span></span>' +
+        '<span class="gcard-stars">' + badgeText(pr) + '</span>';
+      card.appendChild(head);
+
+      const songs = document.createElement('div');
+      songs.className = 'gsongs';
+      p.songs.forEach(s => {
+        const a = document.createElement('a');
+        a.className = 'gsong';
+        a.href = ytUrl(s);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.innerHTML = '<span class="gs-a">' + s.a + '</span> 〈' + s.t + '〉<span class="yt">▶ 유튜브</span>';
+        songs.appendChild(a);
+      });
+      card.appendChild(songs);
+
+      const stepsEl = document.createElement('div');
+      stepsEl.className = 'gsteps';
+      [1, 2, 3].forEach(n => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'gstep';
+        b.dataset.step = String(n);
+        b.textContent = n === 1 ? '1 · 👀 듣기' : n === 2 ? '2 · ✍️ 따라 찍기' : '3 · 👂 귀로';
+        if (n === 1 && pr.s1) b.classList.add('done');
+        if (n === 2 && pr.s2 >= LEVELS2.length) b.classList.add('done');
+        if (n === 3 && pr.s3 >= LEVELS3.length) b.classList.add('done');
+        stepsEl.appendChild(b);
+      });
+      card.appendChild(stepsEl);
+      host.appendChild(card);
+    });
+  }
+
+  function updateCardBadge() {
+    if (!S.pack) return;
+    const card = $('.gcard[data-pack="' + S.pack.id + '"]');
+    if (!card) return;
+    const pr = prog(S.pack.id);
+    const st = $('.gcard-stars', card);
+    if (st) st.textContent = badgeText(pr);
+    $$('.gstep', card).forEach(b => {
+      const n = +b.dataset.step;
+      b.classList.toggle('done', (n === 1 && !!pr.s1) || (n === 2 && pr.s2 >= LEVELS2.length) || (n === 3 && pr.s3 >= LEVELS3.length));
+    });
+  }
+
+  /* ---------------- 화면: 레슨 ---------------- */
+  function renderLessonSongs(p) {
+    const host = $('#rtSongs');
+    if (!host) return;
+    host.innerHTML = '<div class="sh">🎵 이 리듬이 쓰인 곡</div>';
+    const row = document.createElement('div');
+    row.className = 'rt-songrow';
+    p.songs.forEach(sg => {
+      const a = document.createElement('a');
+      a.className = 'rt-song';
+      a.href = ytUrl(sg);
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.innerHTML = '<b>' + sg.a + '</b> 〈' + sg.t + '〉<span class="yt">▶</span>';
+      row.appendChild(a);
+    });
+    host.appendChild(row);
+  }
+
+  function renderSpeed() {
+    $$('#rtSpeed .rt-sp').forEach(b => b.classList.toggle('on', Math.abs(parseFloat(b.dataset.sp) - S.speed) < 0.001));
+    const v = $('#rtBpmVal');
+    if (v) v.textContent = String(effBpm());
+    const tag = $('#rtBpmTag');
+    if (tag) tag.textContent = 'BPM ' + effBpm() + (Math.abs(S.speed - 1) > 0.001 ? ' · ' + S.speed + 'x' : '');
+  }
+
+  function renderLevels() {
+    const host = $('#rtLevels');
+    if (!host) return;
+    host.innerHTML = '';
+    if (S.step === 1) return;
+    const list = S.step === 2 ? LEVELS2 : LEVELS3;
+    const cur = S.step === 2 ? S.lv2 : S.lv3;
+    const max = maxUnlocked(S.step);
+    list.forEach(l => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'rt-lv';
+      b.dataset.lv = String(l.lv);
+      const locked = l.lv > max;
+      if (l.lv === cur) b.classList.add('on');
+      if (locked) b.classList.add('lock');
+      b.textContent = (locked ? '🔒 ' : '') + 'Lv.' + l.lv + ' ' + l.name;
+      host.appendChild(b);
+    });
+  }
+
+  function renderStepUI() {
+    $$('#rtTabs .rt-tab').forEach(b => b.classList.toggle('on', +b.dataset.step === S.step));
+    const stepEl = $('#rtLessonStep');
+    if (stepEl) stepEl.textContent = STEP_NAME[S.step];
+    const show = {
+      rtCtl1: S.step === 1,
+      rtMuteRow: S.step === 1,
+      rtSoloRow: S.step === 1,
+      rtCtl2: S.step === 2,
+      rtCtl3: S.step === 3,
+      rtLevels: S.step !== 1
+    };
+    Object.keys(show).forEach(id => { const el = $('#' + id); if (el) el.hidden = !show[id]; });
+    renderLevels();
+    renderSpeed();
+    paintMuteUI();
+    const coach = $('#rtCoachTxt');
+    if (coach) {
+      coach.innerHTML = S.step === 1
+        ? '① 속도를 <b>0.7x</b>로 낮춰 천천히 들어요 · ② KICK / SNARE / HAT을 하나씩 꺼 보며 소리를 구분해요 · ③ 칸을 눌러 내 비트로 바꿔 봐요'
+        : S.step === 2
+        ? '① 점선 칸이 <b>정답 자리</b>예요 · ② 칸을 톡톡 찍어 똑같이 채워요 · ③ <b>✅ 확인하기</b>로 맞혀 보고 다음 레벨로!'
+        : '① <b>🔊 다시 듣기</b>로 귀를 열어요 · ② 방금 들은 소리를 기억해 똑같이 찍어요 · ③ <b>✅ 정답 확인</b> → 레벨업!';
+    }
+    const nx = $('#rtNextStep');
+    if (nx) {
+      nx.textContent = S.step === 1 ? '✍️ 2단계 — 보고 따라 찍기 →'
+        : S.step === 2 ? '👂 3단계 — 귀로 듣고 찍기 →'
+        : '🎵 다른 장르 고르기';
+    }
+  }
+
+  function paintMuteUI() {
+    $$('#rtMuteRow .rt-tt').forEach(b => {
+      const id = b.dataset.mute;
+      const off = !!S.muted[id];
+      b.classList.toggle('muted', off);
+      const k = $('b', b);
+      if (k) k.textContent = off ? 'OFF' : 'ON';
+    });
+    $$('#rtSoloRow .rt-tt[data-solo]').forEach(b => {
+      b.classList.toggle('solo', S.solo === b.dataset.solo);
+    });
+    const ed = $('#rtEdit');
+    if (ed) {
+      ed.classList.toggle('on', S.editing);
+      ed.textContent = S.editing ? '✏️ 찍는 중 — 칸을 눌러요' : '✏️ 자유 비트 찍기';
+    }
+  }
+
+  function fb(html, kind) {
+    const el = $('#rtFb');
+    if (!el) return;
+    el.className = 'rt-fb show' + (kind ? ' ' + kind : '');
+    el.innerHTML = html;
+  }
+  function clearFb() {
+    const el = $('#rtFb');
+    if (el) { el.className = 'rt-fb'; el.innerHTML = ''; }
+    const x = $('#rtFbExtra');
+    if (x) { x.innerHTML = ''; x.hidden = true; }
+  }
+  function fbAction(label, fn) {
+    const x = $('#rtFbExtra');
+    if (!x) return;
+    x.hidden = false;
+    x.innerHTML = '';
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rt-btn primary wide';
+    b.textContent = label;
+    b.addEventListener('click', fn);
+    x.appendChild(b);
+  }
+
+  function openLesson(id, step) {
+    const p = PACKS.filter(x => x.id === id)[0];
+    if (!p) return;
+    S.pack = p;
+    S.bpmAdd = 0;
+    S.solo = null;
+    S.muted = { kick: false, snare: false, hat: false };
+    S.pat = packPattern(p);
+    S.target = packPattern(p);
+    S.user = emptyPat(p.steps);
+    S.lv2 = 1;
+    S.lv3 = 1;
+    S.step = step || 1;
+    $('#rtHub').hidden = true;
+    $('#rtLesson').hidden = false;
+    $('#rtLessonTitle').textContent = p.emoji + ' ' + p.name;
+    $('#rtBarName').textContent = p.tag;
+    $('#rtBarHint').textContent = p.steps === 12 ? '12칸 · 3연음 셔플' : '16칸 · 4/4 한 마디';
+    renderLessonSongs(p);
+    buildGrid();
+    renderStepUI();
+    setStep(S.step);
+  }
+
+  function backToHub() {
+    stopAudio();
+    const l = $('#rtLesson');
+    if (l) l.hidden = true;
+    const h = $('#rtHub');
+    if (h) h.hidden = false;
+    renderHub();
+  }
+
+  function setStep(n) {
+    if (!S.pack) return;
+    stopAudio();
+    S.step = n;
+    S.checked = false;
+    S.editing = false;
+    S.user = emptyPat(S.pack.steps);
+    S.target = packPattern(S.pack);
+    clearFb();
+    renderStepUI();
+    paintGrid();
+    if (n === 1) {
+      fb('👀 ' + S.pack.tip + '<br><span class="fbk">칸을 직접 눌러 나만의 비트로 바꿔 들을 수도 있어요 (✏️ 자유 비트 찍기)</span>');
+    } else if (n === 2) {
+      fb('연한 점선이 정답 자리예요. 칸을 톡톡 찍어 똑같이 채우고 <b>✅ 확인하기</b>!');
+    } else {
+      fb('👂 귀를 열고 들어보세요… 가이드 없이 똑같이 찍으면 레벨업!');
+      setTimeout(() => { if (S.step === 3 && S.pack) startAudio(2); }, 320);
+    }
+  }
+
+  function setLevel(n, opts) {
+    const o = opts || {};
+    if (S.step === 2) S.lv2 = n; else S.lv3 = n;
+    S.checked = false;
+    S.user = emptyPat(S.pack.steps);
+    clearFb();
+    renderLevels();
+    paintGrid();
+    if (!o.silent) {
+      fb(S.step === 3 ? '👂 Lv.' + n + ' 다시 들어보세요…' : '🎧 Lv.' + n + ' 가이드를 들려줄게요…');
+      startAudio(2);
+    }
+  }
+
+  function compare(lv) {
+    const steps = S.pack.steps;
+    let hitN = 0, miss = 0, extra = 0;
+    lv.tracks.forEach(id => {
+      for (let i = 0; i < steps; i++) {
+        const t = !!S.target[id][i];
+        const u = !!S.user[id][i];
+        if (t && u) hitN++;
+        else if (t && !u) miss++;
+        else if (!t && u) extra++;
+      }
+    });
+    return { ok: miss === 0 && extra === 0, hit: hitN, miss: miss, extra: extra, total: hitN + miss };
+  }
+
+  function doCheck() {
+    const lv = curLevel();
+    if (!lv) return;
+    const res = compare(lv);
+    S.checked = true;
+    paintGrid();
+    if (res.ok) onPass(lv, res); else onMiss(lv, res);
+  }
+
+  function onPass(lv, res) {
+    const pr = prog(S.pack.id);
+    if (S.step === 2) {
+      pr.s2 = Math.max(pr.s2, lv.lv);
+      persist();
+      renderLevels();
+      updateCardBadge();
+      chime();
+      fb('✅ <b>완벽해요!</b> ' + res.total + '칸을 정확히 찍었어요. 이 장르의 ' + (res.total ? '' : '') + 'Lv.' + lv.lv + ' 통과! 🎉', 'ok');
+      const nx = LEVELS2[lv.lv];
+      if (nx) fbAction('▶ 다음 레벨: Lv.' + nx.lv + ' ' + nx.name, () => setLevel(nx.lv));
+      else fbAction('👂 3단계 — 귀로만 듣고 찍어 보기', () => setStep(3));
+    } else {
+      pr.s3 = Math.max(pr.s3, lv.lv);
+      persist();
+      renderLevels();
+      updateCardBadge();
+      const nx = LEVELS3[lv.lv];
+      const last = !nx;
+      showLevelUp(last ? '🏆 리듬 마스터!' : '🐯✨ 레벨업!',
+        last ? S.pack.name + ' 3단계 완주! 이제 실제 곡에서 들어 보세요 🎵' : '3단계 Lv.' + lv.lv + ' 통과 — Lv.' + nx.lv + ' ' + nx.name + ' 잠금 해제!',
+        () => { if (nx) setLevel(nx.lv); else backToHub(); });
+      fb('✅ <b>귀가 열렸어요!</b> ' + res.total + '칸을 소리만 듣고 맞혔어요.', 'ok');
+    }
+  }
+
+  function onMiss(lv, res) {
+    thud();
+    const bits = [];
+    if (res.miss) bits.push('놓친 칸 <b>' + res.miss + '개</b>');
+    if (res.extra) bits.push('더 찍은 칸 <b>' + res.extra + '개</b>');
+    fb('아쉬워요! ' + bits.join(' · ') + '<br><span class="fbk">🟡 놓친 칸 · 🔴 더 찍은 칸 — 색을 보고 다시 찍어 보세요</span>', 'miss');
+    fbAction('🔊 다시 듣고 고치기', () => { S.checked = false; paintGrid(); startAudio(2); });
+  }
+
+  /* ---------------- 레벨업 배너 ---------------- */
+  function showLevelUp(title, sub, onGo) {
+    const box = $('#rtLevelUp');
+    if (!box) return;
+    $('#rtLvTitle').textContent = title;
+    $('#rtLvSub').textContent = sub;
+    box.hidden = false;
+    confetti(30);
+    chime(true);
+    const go = $('#rtLvGo');
+    go.onclick = () => {
+      box.hidden = true;
+      try { onGo(); } catch (e) { /* noop */ }
+    };
+  }
+
+  function confetti(n) {
+    const host = $('#rtConfetti');
+    if (!host) return;
+    const colors = ['#a855f7', '#f472b6', '#fbbf24', '#34d399', '#60a5fa', '#fb7185'];
+    host.innerHTML = '';
+    for (let i = 0; i < (n || 26); i++) {
+      const s = document.createElement('i');
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.background = colors[i % colors.length];
+      s.style.animationDelay = (Math.random() * 0.35) + 's';
+      s.style.animationDuration = (1.1 + Math.random() * 0.9) + 's';
+      host.appendChild(s);
+    }
+    setTimeout(() => { host.innerHTML = ''; }, 2800);
+  }
+
+  /* ---------------- 작은 소리 ---------------- */
+  function chime(big) {
+    if (!ensureCtx()) return;
+    const c = A.ctx, t0 = c.currentTime + 0.02;
+    const notes = big ? [523.25, 659.25, 783.99, 1046.5] : [659.25, 987.77];
+    notes.forEach((f, i) => {
+      const o = c.createOscillator(), g = c.createGain();
+      o.type = 'triangle';
+      o.frequency.value = f;
+      const t = t0 + i * (big ? 0.1 : 0.12);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.34);
+      o.connect(g); g.connect(A.master);
+      o.start(t); o.stop(t + 0.36);
+    });
+  }
+  function thud() {
+    if (!ensureCtx()) return;
+    const c = A.ctx, t = c.currentTime + 0.01;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(220, t);
+    o.frequency.exponentialRampToValueAtTime(120, t + 0.18);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.12, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    o.connect(g); g.connect(A.master);
+    o.start(t); o.stop(t + 0.24);
+  }
+
+  /* ---------------- 재생 UI ---------------- */
+  function updatePlayUI() {
+    const b = $('#rtPlay');
+    if (b) {
+      b.classList.toggle('on', A.playing);
+      b.textContent = A.playing ? '⏸ 멈추기' : '▶ 루프로 듣기';
+    }
+  }
+
+  /* ---------------- 홈 · 모드 전환 ---------------- */
+  function pauseVocal() {
+    try {
+      if (window.VP && VP.engine && VP.engine.playing) {
+        const b = $('#playBtn');
+        if (b) b.click();
+      }
+    } catch (e) { /* noop */ }
+  }
+  function showHome() {
+    stopAudio();
+    hideLevelUp();
+    pauseVocal();
+    const h = $('#homeScreen'); if (h) h.hidden = false;
+    const r = $('#rhythmRoot'); if (r) r.hidden = true;
+  }
+  function showRhythm() {
+    stopAudio();
+    hideLevelUp();
+    pauseVocal();
+    const h = $('#homeScreen'); if (h) h.hidden = true;
+    const r = $('#rhythmRoot'); if (r) r.hidden = false;
+    const hub = $('#rtHub'); if (hub) hub.hidden = false;
+    const les = $('#rtLesson'); if (les) les.hidden = true;
+    renderHub();
+  }
+  function showVocal() {
+    stopAudio();
+    hideLevelUp();
+    const h = $('#homeScreen'); if (h) h.hidden = true;
+    const r = $('#rhythmRoot'); if (r) r.hidden = true;
+    window.dispatchEvent(new Event('resize'));
+  }
+  function hideLevelUp() {
+    const b = $('#rtLevelUp');
+    if (b) b.hidden = true;
+    const c = $('#rtConfetti');
+    if (c) c.innerHTML = '';
+  }
+
+  /* ---------------- 이벤트 ---------------- */
+  function wire() {
+    const on = (sel, ev, fn) => { const el = $(sel); if (el) el.addEventListener(ev, fn); };
+
+    on('#modeVocal', 'click', showVocal);
+    on('#modeRhythm', 'click', showRhythm);
+    on('#homeBtn', 'click', showHome);
+    on('#rtHomeBtn', 'click', showHome);
+    on('#rtLHome', 'click', showHome);
+    on('#rtVocalBtn', 'click', showVocal);
+    on('#rtBack', 'click', backToHub);
+    on('#rtNextStep', 'click', () => {
+      if (S.step === 1) setStep(2);
+      else if (S.step === 2) setStep(3);
+      else backToHub();
+    });
+
+    const cards = $('#rtCards');
+    if (cards) {
+      cards.addEventListener('click', e => {
+        const a = e.target.closest('a.gsong');
+        if (a) return; // 유튜브 링크는 그대로 새 탭
+        const card = e.target.closest('.gcard');
+        if (!card) return;
+        const stepBtn = e.target.closest('.gstep');
+        const step = stepBtn ? +stepBtn.dataset.step : 1;
+        if (stepBtn || e.target.closest('[data-open]')) openLesson(card.dataset.pack, step);
+      });
+    }
+
+    $$('#rtTabs .rt-tab').forEach(b => {
+      b.addEventListener('click', () => { if (+b.dataset.step !== S.step) setStep(+b.dataset.step); });
+    });
+
+    $$('#rtSpeed .rt-sp').forEach(b => {
+      b.addEventListener('click', () => {
+        S.speed = parseFloat(b.dataset.sp);
+        renderSpeed();
+        if (A.playing) restartAudio();
+      });
+    });
+    on('#rtBpmMinus', 'click', () => { S.bpmAdd -= 2; renderSpeed(); if (A.playing) restartAudio(); });
+    on('#rtBpmPlus', 'click', () => { S.bpmAdd += 2; renderSpeed(); if (A.playing) restartAudio(); });
+
+    on('#rtPlay', 'click', () => {
+      if (A.playing) { stopAudio(); return; }
+      ensureCtx();
+      const pr = prog(S.pack.id);
+      if (!pr.s1) { pr.s1 = 1; persist(); updateCardBadge(); }
+      startAudio(0);
+    });
+    on('#rtEdit', 'click', () => { S.editing = !S.editing; paintMuteUI(); });
+    on('#rtGuide', 'click', () => { ensureCtx(); startAudio(2); });
+    on('#rtListen3', 'click', () => { ensureCtx(); startAudio(2); });
+    on('#rtClear2', 'click', () => { S.user = emptyPat(S.pack.steps); S.checked = false; paintGrid(); });
+    on('#rtClear3', 'click', () => { S.user = emptyPat(S.pack.steps); S.checked = false; paintGrid(); });
+    on('#rtCheck2', 'click', doCheck);
+    on('#rtCheck3', 'click', doCheck);
+    on('#rtResetPat', 'click', () => {
+      if (!S.pack) return;
+      S.pat = packPattern(S.pack);
+      paintGrid();
+    });
+
+    $$('#rtMuteRow .rt-tt').forEach(b => {
+      b.addEventListener('click', () => {
+        const id = b.dataset.mute;
+        S.muted[id] = !S.muted[id];
+        if (!S.muted[id] && S.solo === id) S.solo = null;
+        paintMuteUI();
+      });
+    });
+    $$('#rtSoloRow .rt-tt[data-solo]').forEach(b => {
+      b.addEventListener('click', () => {
+        const id = b.dataset.solo;
+        S.solo = (S.solo === id) ? null : id;
+        if (S.solo) S.muted[S.solo] = false;
+        paintMuteUI();
+      });
+    });
+
+    on('#rtLevels', 'click', e => {
+      const b = e.target.closest('.rt-lv');
+      if (!b) return;
+      const n = +b.dataset.lv;
+      const max = maxUnlocked(S.step);
+      if (n > max) {
+        fb('🔒 Lv.' + n + '은 Lv.' + (n - 1) + '을 통과하면 열려요!', 'miss');
+        return;
+      }
+      setLevel(n);
+    });
+
+    const grid = $('#rtGrid');
+    if (grid) {
+      grid.addEventListener('click', e => {
+        const c = e.target.closest('.rt-cell');
+        if (!c || !S.pack) return;
+        const id = c.dataset.trk;
+        const i = +c.dataset.i;
+        if (S.step === 1) {
+          if (!S.editing) return;
+          S.pat[id][i] = !S.pat[id][i];
+          ensureCtx();
+          if (S.pat[id][i]) hit(id, null, 0.8);
+          paintGrid();
+        } else {
+          const lv = curLevel();
+          if (!lv || lv.tracks.indexOf(id) < 0) return;
+          S.user[id][i] = !S.user[id][i];
+          S.checked = false;
+          ensureCtx();
+          if (S.user[id][i]) hit(id, null, 0.8);
+          paintGrid();
+        }
+      });
+    }
+
+    // 탭 전환·화면 복귀 시 오디오 정리
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAudio();
+    });
+  }
+
+  /* ---------------- 시작 ---------------- */
+  function init() {
+    wire();
+    renderHub();
+    if (window.VP) {
+      VP.rhythm = {
+        packs: PACKS,
+        open: openLesson, back: backToHub, step: setStep, level: n => setLevel(n, { silent: true }),
+        play: () => startAudio(0), stop: stopAudio,
+        check: doCheck,
+        mode: () => ($('#rhythmRoot').hidden ? ($('#homeScreen').hidden ? 'vocal' : 'home') : 'rhythm'),
+        home: showHome, vocal: showVocal,
+        state: () => ({ pack: S.pack && S.pack.id, step: S.step, lv2: S.lv2, lv3: S.lv3, speed: S.speed, bpm: effBpm(), playing: A.playing, checked: S.checked }),
+        grid: () => ({ steps: S.pack ? S.pack.steps : 0, cells: cellEls.kick ? cellEls.kick.length : 0 }),
+        tap: (t, i) => { S.user[t][i] = !S.user[t][i]; paintGrid(); },
+        progress: () => PG,
+        reset: () => { PG = {}; persist(); renderHub(); }
+      };
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
 </script>
 </body>
 </html>
