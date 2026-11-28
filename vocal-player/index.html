@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>박정이 · 박자의 정석은 이거지</title>
-<meta name="build" content="vocal-player-v3.2-2026-11-28-korean-beat">
-<meta name="app-build" content="vocal-player-v3.2-2026-11-28-korean-beat">
+<title>연호 스튜디오 · 박자 · 리듬 · 화음 · 발성 올인원</title>
+<meta name="build" content="vocal-player-v4.0-2026-11-28-harmony">
+<meta name="app-build" content="vocal-player-v4.0-2026-11-28-harmony">
 <meta name="theme-color" content="#f7f5fc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="박정이">
-<meta name="description" content="박정이 — 박자의 정석은 이거지. 2페이지(곡 고르기·연습) + 우측 슬림 리모컨, 음원·LRC 단어별 칼박 트래킹, 드럼 박자 타임라인, A-B 반복, 속도·키 독립 조절, 🎤 가이드 보컬 줄이기(원곡→반만→반주 위주) + 🥁 왕초보 드럼 입문 & 장르별 리듬 연습 3단계">
+<meta name="apple-mobile-web-app-title" content="연호 스튜디오">
+<meta name="description" content="연호 스튜디오 — 박자 · 리듬 · 화음 · 발성 올인원. 뮤직 플레이어(음원·LRC 칼박 트래킹·A-B 반복·속도·키·가이드 보컬 줄이기) + 🥁 왕초보 드럼·장르별 리듬 3단계 + 🎶 4단계 화음 쌓기(실시간 마이크 음정·3도·5도·7th·9th·녹음) + 🎛️ 모이시스 MR 분리 바로가기">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -1236,6 +1236,269 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
 .nb-warm{display:flex; flex-direction:column; gap:7px; padding:9px; border-radius:15px;
   border:1px solid #cdeedd; background:linear-gradient(150deg,#f3fdf8,#fff)}
 .nb-warm .nb-sh em{color:#15803d}
+
+
+/* =====================================================================
+   v4.0 · 연호 스튜디오 — 홈 엠블럼(아기호랑이 + 곡선 아치 제목) · 2×2 타일
+           🎶 화음 쌓기 스튜디오 · 모이시스 링크
+   ===================================================================== */
+.a11y{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap; border:0}
+
+/* ---------- 홈 엠블럼 ---------- */
+.home .hm-in{width:100%; max-width:430px; display:flex; flex-direction:column; align-items:center;
+  gap:9px; padding:0}
+@media (min-width:720px){ .home .hm-in{max-width:470px} }
+
+.home .hm-emblem{position:relative; width:100%; display:flex; flex-direction:column; align-items:center;
+  min-width:0}
+.home .hm-arch-h1{margin:0; width:100%; display:flex; justify-content:center; line-height:0}
+.home .hm-arch{position:relative; z-index:3; width:100%; max-width:min(404px, 95vw); height:auto;
+  display:block; margin-bottom:-80px; overflow:visible; pointer-events:none}
+.hm-archtx{font-family:inherit; font-size:30px; font-weight:900; letter-spacing:-.01em;
+  fill:#4c2a6b; paint-order:stroke fill; stroke:#fffafd; stroke-width:6; stroke-linejoin:round;
+  stroke-linecap:round}
+@media (min-width:720px){ .hm-archtx{font-size:31px} }
+.home .hm-mascot{position:relative; z-index:2; display:block; width:clamp(134px, 44vw, 176px); height:auto;
+  filter:drop-shadow(0 16px 26px rgba(124,58,237,.30)); animation:hmFloat 4.8s ease-in-out infinite;
+  -webkit-user-drag:none; user-select:none}
+@keyframes hmFloat{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-6px) rotate(1.1deg)}}
+@media (prefers-reduced-motion:reduce){ .home .hm-mascot{animation:none} }
+
+.home .hm-gold{font-size:11px; font-weight:800; letter-spacing:.36em; text-indent:.36em;
+  color:#c9a55a; text-transform:uppercase; line-height:1.2;
+  text-shadow:0 1px 0 #fffdf5, 0 6px 14px rgba(201,165,90,.20)}
+.home .hm-tag{font-size:10.5px; font-weight:800; color:#a79dc2; letter-spacing:-.01em; margin-top:-4px}
+
+/* ---------- 2×2 둥근 사각 타일 ---------- */
+.home .hm-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; width:100%;
+  max-width:430px; margin-top:3px}
+@media (min-width:720px){ .home .hm-grid{max-width:470px} }
+.home .hm-sq{position:relative; aspect-ratio:1 / 1; min-width:0; border-radius:22px; padding:10px 8px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; text-align:center;
+  border:1px solid #e7dcfa; background:linear-gradient(155deg,#fff,#faf6ff);
+  box-shadow:0 18px 36px -28px rgba(64,32,130,.75), inset 0 1px 0 #fff;
+  transition:transform .16s, box-shadow .16s; overflow:hidden}
+.home .hm-sq:hover{transform:translateY(-2px); box-shadow:0 24px 44px -26px rgba(124,58,237,.6)}
+.home .hm-sq:active{transform:scale(.975)}
+.home .hm-sq .sq-i{font-size:33px; line-height:1; margin-bottom:2px;
+  filter:drop-shadow(0 6px 10px rgba(124,58,237,.18))}
+.home .hm-sq .sq-t{font-size:13.5px; font-weight:900; letter-spacing:-.04em; color:#3b2a63; line-height:1.2}
+.home .hm-sq .sq-d{font-size:9px; font-weight:800; color:#a79dc2; line-height:1.38; letter-spacing:-.03em;
+  padding:0 2px; word-break:keep-all}
+.home .hm-sq .sq-go{margin-top:2px; font-size:9px; font-weight:900; color:#7c3aed}
+.home .hm-sq .sq-b{position:absolute; top:7px; right:7px; font-size:8px; font-weight:900; color:#b45309;
+  background:#fff7e8; border:1px solid #fde3b6; border-radius:999px; padding:2.5px 6px; white-space:nowrap}
+/* 타일별 파스텔 톤 */
+.home .hm-sq.vc{background:linear-gradient(155deg,#fff,#f7f2ff)}
+.home .hm-sq.vc .sq-go{color:#7c3aed}
+.home .hm-sq.rh{background:linear-gradient(155deg,#fff,#fff5fb); border-color:#f6dcea}
+.home .hm-sq.rh .sq-go{color:#be185d}
+.home .hm-sq.ha{background:linear-gradient(155deg,#fff,#f9f3ff); border-color:#e7dcfa}
+.home .hm-sq.ha .sq-go{color:#7c3aed}
+.home .hm-sq.vo{background:linear-gradient(155deg,#fff,#f8fbff); border-color:#dbe8fa; border-style:dashed}
+.home .hm-sq.vo .sq-t{color:#44536b}
+.home .hm-sq.vo .sq-d{color:#9fb0c6}
+
+.home .hm-foot{text-align:center; font-size:9.5px; color:#a79dc2; padding-top:1px}
+
+@media (max-height:820px){
+  .home .hm-in{gap:7px}
+  .home .hm-arch{margin-bottom:-62px; max-width:min(346px, 90vw)}
+  .hm-archtx{font-size:25px}
+  .home .hm-mascot{width:clamp(112px, 34vw, 140px)}
+  .home .hm-grid{max-width:min(360px, 92vw); gap:9px}
+  .home .hm-sq .sq-i{font-size:26px}
+  .home .hm-sq .sq-t{font-size:12.5px}
+}
+@media (max-height:700px){
+  .home .hm-arch{margin-bottom:-46px; max-width:min(320px, 88vw)}
+  .home .hm-mascot{width:110px}
+  .home .hm-sq .sq-d{display:none}
+}
+.hx-note.idle{color:#cfc3e4; font-size:21px}
+
+/* 홈 두 블록 */
+.home .hm-id{display:flex; flex-direction:column; align-items:center; gap:8px; width:100%; min-width:0}
+.home .hm-tiles-wrap{display:flex; flex-direction:column; align-items:center; gap:7px; width:100%; min-width:0}
+/* 가로가 넓고 세로가 낮은 화면(노트북)은 좌우 2단으로 */
+@media (min-width:900px) and (max-height:1000px){
+  .home .hm-in{flex-direction:row; align-items:center; justify-content:center; gap:40px; max-width:960px}
+  .home .hm-id{flex:1 1 45%; max-width:440px}
+  .home .hm-tiles-wrap{flex:1 1 55%; max-width:470px}
+  .home .hm-arch{max-width:min(452px, 100%)}
+  .hm-archtx{font-size:29px}
+  .home .hm-mascot{width:272px}
+  .home .hm-grid{max-width:470px; gap:14px}
+  .home .hm-sq .sq-i{font-size:38px}
+  .home .hm-sq .sq-t{font-size:15px}
+  .home .hm-sq .sq-d{font-size:10.5px}
+  .home .hm-sq .sq-go{font-size:10px}
+}
+
+/* ---------- 모이시스 안내 카드 (곡 고르기 페이지 · 최근 연습한 곡 아래) ---------- */
+.mois-card{display:flex; align-items:center; gap:10px; padding:11px 12px; border-radius:16px;
+  border:1px dashed #d9c7f5; background:linear-gradient(150deg,#fbf7ff,#fff); text-decoration:none;
+  color:inherit; order:2; min-width:0; box-shadow:inset 0 1px 0 #fff}
+.mois-card:active{transform:scale(.99)}
+.mois-card .mc-i{font-size:19px; flex:none; line-height:1}
+.mois-card .mc-tx{flex:1; min-width:0}
+.mois-card b{display:block; font-size:11.5px; font-weight:900; color:#4c1d95; letter-spacing:-.02em}
+.mois-card span.d{display:block; font-size:9.5px; font-weight:800; color:#a79dc2; margin-top:2px}
+.mois-card .mc-go{flex:none; font-size:9.5px; font-weight:900; color:#7c3aed; white-space:nowrap}
+
+/* ---------- v4.0 · 🎶 화음 쌓기 루트 ---------- */
+#harmonyRoot{position:fixed; inset:0; z-index:290; height:100dvh; max-height:100dvh;
+  display:flex; flex-direction:column; overflow:hidden; overscroll-behavior:contain;
+  background:
+    radial-gradient(620px 420px at 50% -10%, rgba(168,85,247,.18), rgba(168,85,247,0) 62%),
+    radial-gradient(470px 330px at 104% 8%, rgba(236,72,153,.13), rgba(236,72,153,0) 60%),
+    radial-gradient(520px 380px at -8% 96%, rgba(124,58,237,.12), rgba(124,58,237,0) 62%),
+    #f8f5fd}
+#harmonyRoot[hidden]{display:none !important}
+.hx-top{flex:none; display:flex; align-items:center; gap:8px; padding:calc(9px + env(safe-area-inset-top)) 12px 6px;
+  max-width:784px; width:100%; margin:0 auto}
+.hx-moi{color:#be185d; border-color:#f6cfe2; background:#fff7fb; text-decoration:none; white-space:nowrap}
+.hx-tabs{flex:none; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px;
+  padding:0 12px 7px; max-width:784px; width:100%; margin:0 auto}
+.hx-tab{min-width:0; padding:8px 2px; border-radius:13px; border:1.5px solid #e9ddf8; background:#fff;
+  font-size:10.5px; font-weight:900; color:#6d28d9; letter-spacing:-.04em; line-height:1.15;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:transform .15s, background .15s}
+.hx-tab.on{color:#fff; background:linear-gradient(140deg,#c084fc,#a855f7 58%,#f472b6); border-color:#c084fc;
+  box-shadow:0 10px 22px -14px rgba(168,85,247,1)}
+.hx-tab:active{transform:scale(.97)}
+.hx-body{flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch;
+  padding:2px 12px calc(16px + env(safe-area-inset-bottom)); max-width:784px; width:100%; margin:0 auto;
+  display:flex; flex-direction:column; gap:9px}
+
+/* 실시간 음정 미터 */
+.hx-meter{padding:11px 12px 12px; border-radius:20px; border:1px solid #e9dcfb;
+  background:linear-gradient(160deg,#fff,#fbf6ff);
+  box-shadow:0 16px 34px -30px rgba(64,32,130,.8), inset 0 1px 0 #fff;
+  transition:border-color .2s, box-shadow .2s}
+.hx-meter.ok{border-color:#86efac; box-shadow:0 0 0 3px rgba(34,197,94,.14), 0 16px 30px -26px rgba(22,163,74,.9)}
+.hx-mrow{display:flex; align-items:center; gap:6px; min-width:0}
+.hx-mic{font-size:9.5px; font-weight:900; color:#8b81a8; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hx-meter.ok .hx-mic{color:#15803d}
+.hx-mbtn{margin-left:auto; flex:none; font-size:10px; font-weight:900; color:#6d28d9; background:#f5ecff;
+  border:1px solid #e3d2fa; border-radius:999px; padding:5px 10px; white-space:nowrap}
+.hx-mbtn[aria-pressed="true"]{color:#fff; background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b5cf6}
+.hx-nrow{display:flex; align-items:baseline; gap:6px; margin-top:5px; min-width:0}
+.hx-note{font-size:23px; font-weight:900; letter-spacing:-.045em; color:#3b2a63; line-height:1.05; white-space:nowrap; flex:none}
+.hx-meter.ok .hx-note{color:#15803d}
+.hx-nsub{font-size:9.5px; font-weight:800; color:#a79dc2; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hx-lock{flex:none; margin-left:auto; font-size:9px; font-weight:900; color:#15803d; background:#e8fbef;
+  border:1px solid #bbeccd; border-radius:999px; padding:3px 7px; white-space:nowrap; opacity:0; transition:opacity .16s}
+.hx-meter.ok .hx-lock{opacity:1}
+.hx-cbar{position:relative; height:15px; margin-top:8px; border-radius:999px; background:#f4eefb;
+  overflow:hidden; border:1px solid #ece2fa}
+.hx-czone{position:absolute; top:0; bottom:0; left:25%; width:50%; background:rgba(34,197,94,.14);
+  border-left:1px solid #b9f0cd; border-right:1px solid #b9f0cd}
+.hx-cmid{position:absolute; top:0; bottom:0; left:50%; width:1px; background:#cdbce9}
+.hx-cfill{position:absolute; top:0; bottom:0; left:50%; width:0;
+  background:linear-gradient(90deg,#f9a8d4,#c084fc); transition:width .07s linear, left .07s linear}
+.hx-meter.ok .hx-cfill{background:linear-gradient(90deg,#4ade80,#22c55e)}
+.hx-crow{display:flex; align-items:center; justify-content:space-between; margin-top:4px;
+  font-size:9px; font-weight:800; color:#b0a3c4}
+.hx-ctarget{margin-top:6px; font-size:10.5px; font-weight:900; color:#5b21b6; line-height:1.4}
+
+/* 패널 공통 */
+.hx-panel{display:flex; flex-direction:column; gap:8px; min-width:0}
+.hx-panel[hidden]{display:none !important}
+.hx-h{display:flex; align-items:center; gap:6px; padding:2px 2px 0; font-size:12.5px; font-weight:900;
+  letter-spacing:-.03em; color:#4c1d95; min-width:0}
+.hx-h em{font-style:normal; font-size:9.5px; font-weight:800; color:#a79dc2; margin-left:auto; white-space:nowrap; flex:none}
+.hx-sub{font-size:10px; font-weight:800; color:#8b81a8; line-height:1.5; padding:0 2px}
+.hx-sub b{color:#6d28d9}
+.hx-btn{display:flex; align-items:center; justify-content:center; gap:5px; padding:11px 8px; border-radius:14px;
+  border:1.5px solid #e7dbfa; background:#fff; font-size:11.5px; font-weight:900; color:#5b21b6;
+  letter-spacing:-.03em; line-height:1.2; min-width:0; transition:.14s; text-align:center}
+.hx-btn:active{transform:scale(.98)}
+.hx-btn.primary{color:#fff; background:linear-gradient(140deg,#a855f7,#7c3aed); border-color:#8b5cf6;
+  box-shadow:0 12px 22px -16px rgba(124,58,237,1)}
+.hx-btn.pink{color:#fff; background:linear-gradient(140deg,#f472b6,#db2777); border-color:#ec4899;
+  box-shadow:0 12px 22px -16px rgba(236,72,153,1)}
+.hx-btn.on{color:#fff; background:linear-gradient(140deg,#34d399,#059669); border-color:#10b981;
+  box-shadow:0 12px 22px -16px rgba(16,185,129,1)}
+.hx-btn:disabled{opacity:.42}
+.hx-row{display:grid; gap:5px; min-width:0}
+.hx-row.r2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.hx-row.r3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hx-row.r5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.hx-row.r6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.hx-row.r7{grid-template-columns:repeat(7,minmax(0,1fr))}
+.hx-opt{min-width:0; padding:9px 2px; border-radius:13px; border:1.5px solid #e9ddf8; background:#fff;
+  font-size:10.5px; font-weight:900; color:#5b3a86; line-height:1.15; letter-spacing:-.04em; text-align:center;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:.14s}
+.hx-opt.on{color:#fff; background:linear-gradient(140deg,#f472b6,#a855f7); border-color:#c084fc;
+  box-shadow:0 10px 20px -14px rgba(168,85,247,1)}
+.hx-opt small{display:block; font-size:8px; font-weight:800; opacity:.78; margin-top:1px; letter-spacing:-.02em}
+.hx-fb{font-size:10px; font-weight:800; color:#6d28d9; background:#f7efff; border:1px solid #ecdcfb;
+  border-radius:12px; padding:8px 10px; line-height:1.5; text-align:center}
+.hx-fb.good{color:#15803d; background:#f0fdf4; border-color:#bbf7d0}
+.hx-fb.warn{color:#b45309; background:#fff7ed; border-color:#fed7aa}
+.hx-card{border-radius:18px; border:1px solid #e9dcfb; background:linear-gradient(160deg,#fffdfe,#fbf6ff);
+  padding:10px 10px 11px; display:flex; flex-direction:column; gap:7px; min-width:0}
+
+/* 코드 구성음 패드 */
+.hx-vpad{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px}
+.hx-v{border-radius:12px; border:1.5px solid #e9ddf8; background:#fff; padding:7px 1px; min-width:0;
+  font-size:8.5px; font-weight:900; color:#6b4a9c; line-height:1.1; letter-spacing:-.03em; transition:.14s}
+.hx-v b{display:block; font-size:14px; font-weight:900; letter-spacing:-.04em; margin-bottom:1px}
+.hx-v.on{color:#fff; background:linear-gradient(140deg,#c084fc,#a855f7); border-color:#c084fc;
+  box-shadow:0 8px 18px -14px rgba(168,85,247,1)}
+.hx-v[disabled]{opacity:.28}
+.hx-v:active{transform:scale(.97)}
+
+/* 터치 건반 */
+.hx-keys{display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:3px}
+.hx-key{min-width:0; height:44px; border-radius:10px; border:1px solid #ece2fa; background:#fff;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  font-size:9.5px; font-weight:900; color:#3b2a63; line-height:1.05; transition:transform .1s, background .1s}
+.hx-key span{font-size:8px; font-weight:800; color:#b0a3c4}
+.hx-key.hit{background:linear-gradient(150deg,#f3e8ff,#fce7f3); border-color:#d8b4fe; transform:translateY(1px)}
+.hx-key.hit span{color:#be185d}
+
+/* 곡 예시 */
+.hx-songs{display:flex; flex-direction:column; gap:5px; min-width:0}
+.hx-songs .sh{font-size:9.5px; font-weight:900; color:#a79dc2; padding:1px 2px}
+.hx-song{display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:13px;
+  border:1px solid #f2e6fb; background:#fff; text-decoration:none; color:inherit; min-width:0}
+.hx-song i{font-style:normal; font-size:13px; flex:none; line-height:1}
+.hx-song .st{flex:1; min-width:0}
+.hx-song b{display:block; font-size:10.5px; font-weight:900; color:#3b2a63; letter-spacing:-.02em;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.hx-song em{display:block; font-style:normal; font-size:8.5px; font-weight:800; color:#a79dc2; margin-top:1px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.hx-song .go{flex:none; font-size:9px; font-weight:900; color:#7c3aed; background:#f5ecff; border-radius:999px; padding:3px 7px}
+
+/* 4단계 마디 */
+.hx-bars{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:4px}
+.hx-bar{padding:7px 2px; border-radius:11px; border:1px solid #ece2fa; background:#fff; text-align:center;
+  font-size:9.5px; font-weight:900; color:#6b4a9c; line-height:1.2; transition:.16s}
+.hx-bar small{display:block; font-size:7.5px; font-weight:800; color:#b0a3c4; margin-top:1px}
+.hx-bar.now{background:linear-gradient(150deg,#fce7f3,#f3e8ff); border-color:#f0abfc; color:#9d174d;
+  box-shadow:0 8px 16px -12px rgba(168,85,247,.9)}
+.hx-bar.now small{color:#be185d}
+.hx-degree{padding:10px 12px; border-radius:16px; border:1px dashed #d8b4fe; background:#fdf8ff;
+  text-align:center; font-size:13px; font-weight:900; color:#6d28d9; letter-spacing:-.03em; line-height:1.35}
+.hx-degree small{display:block; font-size:9px; font-weight:800; color:#b0a3c4; margin-top:2px; letter-spacing:0}
+
+/* 토스트 */
+.hx-toast{position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom)); z-index:410;
+  transform:translate(-50%, 14px); max-width:min(420px, calc(100vw - 28px));
+  padding:12px 15px; border-radius:16px; background:rgba(59,42,99,.96); color:#fff;
+  font-size:11.5px; font-weight:800; line-height:1.5; text-align:center;
+  box-shadow:0 20px 40px -20px rgba(30,10,60,.95); opacity:0; pointer-events:none;
+  transition:opacity .22s, transform .22s}
+.hx-toast.on{opacity:1; transform:translate(-50%, 0)}
+
+@media (min-width:760px){
+  .hx-body{gap:10px}
+  .hx-key{height:52px; font-size:10.5px}
+  .hx-note{font-size:26px}
+}
+
 </style>
 </head>
 <body>
@@ -1245,14 +1508,14 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
     <div class="brand">
       <span class="logo">🥁</span>
       <div>
-        <h1>박정이</h1>
-        <p>박자의 정석은 이거지</p>
+        <h1>연호 스튜디오</h1>
+        <p>박자 · 리듬 · 화음 · 발성 올인원</p>
       </div>
     </div>
     <div class="topctl">
       <button class="minitog" id="homeBtn" type="button" title="모드 선택으로">🏠 <b>홈</b></button>
       <button class="minitog" id="sfxBtn" aria-pressed="true" title="버튼 효과음 켜기/끄기">🔔 <b>ON</b></button>
-      <span class="buildtag" id="buildTag">v3.2</span>
+      <span class="buildtag" id="buildTag">v4.0</span>
     </div>
   </header>
 
@@ -1315,6 +1578,13 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
       <div class="rhead"><span>📚 최근 연습한 곡</span><span class="rcount" id="recentCount"></span></div>
       <div class="rlist" id="recentList"></div>
     </section>
+
+    <!-- v4.0 — MR·보컬 분리 바로가기 (모이시스 · 월 5곡 무료) -->
+    <a class="mois-card" href="https://moises.ai" target="_blank" rel="noopener">
+      <span class="mc-i">🎛️</span>
+      <span class="mc-tx"><b>MR · 보컬 분리 필요할 때 → 모이시스</b><span class="d">월 5곡 무료 · 보컬·드럼·베이스 분리</span></span>
+      <span class="mc-go">열기 →</span>
+    </a>
 
     <div class="p1guide" id="p1Guide">
       <div class="gdline"><span class="gdnum">1</span>음원 넣기<i>→</i><span class="gdnum">2</span>가사 넣기<i>→</i><span class="gdnum">3</span>연습 시작</div>
@@ -1454,34 +1724,63 @@ input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid var(
   <input type="file" id="audioInput" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.aac" class="hide">
   <input type="file" id="lrcInput" accept=".lrc,.txt,text/plain" class="hide">
 
-  <p class="foot">🏆 박정이 · 박자의 정석은 이거지 — 음원·가사는 이 기기 안에서만 처리돼요<br>만든 이 · 이비</p>
+  <p class="foot">🏆 연호 스튜디오 · 박자 · 리듬 · 화음 · 발성 올인원 — 음원·가사는 이 기기 안에서만 처리돼요<br>만든 이 · 이비</p>
 </div>
 
 
-<!-- ===================== v2.4 · 🏠 모드 선택 홈 ===================== -->
+<!-- ===================== v4.0 · 🏠 연호 스튜디오 홈 ===================== -->
 <section class="home" id="homeScreen" aria-label="모드 선택">
   <div class="hm-in">
-    <div class="hm-brand">
-      <span class="hm-logo">🥁</span>
-      <div>
-        <span class="hm-over">현호 님의 박자 스튜디오</span>
-        <h1>박정이</h1>
-        <p>박자의 정석은 이거지 · 오늘은 어느 쪽으로 연습할까요?</p>
-      </div>
+
+   <div class="hm-id">
+    <div class="hm-emblem">
+      <h1 class="hm-arch-h1">
+        <span class="a11y">연호 스튜디오</span>
+        <svg class="hm-arch" viewBox="0 0 360 112" role="img" aria-label="연호 스튜디오" focusable="false">
+          <defs><path id="hmArcPath" d="M6 104 Q180 -14 354 104" fill="none"></path></defs>
+          <text class="hm-archtx" text-anchor="middle">
+            <textPath href="#hmArcPath" text-anchor="middle" startOffset="50%">연 호&#160;&#160;스 튜 디 오</textPath>
+          </text>
+        </svg>
+      </h1>
+      <img class="hm-mascot" id="hmMascot" alt="연호 스튜디오 마스코트 — 기타를 든 아기호랑이" draggable="false">
     </div>
-    <div class="hm-tiles">
-      <button class="hm-tile vc" id="modeVocal" type="button">
-        <span class="ti">🎵</span>
-        <span class="tx"><b>박자 플레이어</b><span class="d">내 MR·가사로 박자 연습<br>속도·키·A-B 반복</span></span>
-        <span class="go">열기 →</span>
+
+    <div class="hm-gold">YH STUDIO</div>
+    <div class="hm-tag">박자 · 리듬 · 화음 · 발성 올인원</div>
+   </div>
+
+   <div class="hm-tiles-wrap">
+    <div class="hm-grid">
+      <button class="hm-sq vc" id="modeVocal" type="button">
+        <span class="sq-i">🎵</span>
+        <span class="sq-t">뮤직 플레이어</span>
+        <span class="sq-d">내 MR·가사로<br>박자 연습</span>
+        <span class="sq-go">열기 →</span>
       </button>
-      <button class="hm-tile rh" id="modeRhythm" type="button">
-        <span class="ti">🥁</span>
-        <span class="tx"><b>리듬 연습</b><span class="d">장르별 리듬 3단계<br>듣고 · 따라 찍고 · 귀로</span></span>
-        <span class="go">열기 →</span>
+      <button class="hm-sq rh" id="modeRhythm" type="button">
+        <span class="sq-i">🥁</span>
+        <span class="sq-t">리듬</span>
+        <span class="sq-d">왕초보 드럼<br>장르별 3단계</span>
+        <span class="sq-go">열기 →</span>
+      </button>
+      <button class="hm-sq ha" id="modeHarmony" type="button">
+        <span class="sq-i">🎶</span>
+        <span class="sq-t">화음</span>
+        <span class="sq-d">3도·5도·7th·9th<br>실시간 음정</span>
+        <span class="sq-go">열기 →</span>
+      </button>
+      <button class="hm-sq vo" id="modeVocalPrep" type="button">
+        <span class="sq-b">🚧 준비 중</span>
+        <span class="sq-i">🎙️</span>
+        <span class="sq-t">발성</span>
+        <span class="sq-d">호흡·공명<br>부비동 레슨</span>
+        <span class="sq-go">곧 열려요</span>
       </button>
     </div>
-    <div class="hm-foot">v3.2 · 🎤 한글 구음 (쿵·짝·치 / 충·착·퍽·쾅)</div>
+
+    <div class="hm-foot">v4.0 · 🎶 화음 쌓기 · 🎛️ 모이시스 바로가기</div>
+   </div>
   </div>
 </section>
 
@@ -4977,9 +5276,9 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     if (!mediaSupported() || !window.MediaMetadata) return;
     try {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: state.title || '박정이',
-        artist: '박정이 · 박자의 정석은 이거지',
-        album: '박정이',
+        title: state.title || '연호 스튜디오',
+        artist: '연호 스튜디오 · 박자 · 리듬 · 화음 · 발성 올인원',
+        album: '연호 스튜디오',
       });
     } catch (e) { /* noop */ }
   }
@@ -5789,7 +6088,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     openSearchSheet, closeSearchSheet, doSearch,
     backup: () => state.lrcBackup,
     PAST, FUT,
-    version: 'vocal-player-v3.2-2026-11-28-korean-beat',
+    version: 'vocal-player-v4.0-2026-11-28-harmony',
   };
 })();
 </script>
@@ -7411,5 +7710,1001 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 })();
 
 </script>
+<!-- ===================== v4.0 · 🎶 화음 쌓기 (4단계 보컬 하모니) ===================== -->
+<section class="hx" id="harmonyRoot" hidden aria-label="화음 쌓기">
+  <div class="hx-top">
+    <button class="rt-pill" id="hxHomeBtn" type="button">🏠 홈</button>
+    <div class="rt-ttl"><b>🎶 화음 쌓기</b><span>4단계 · 실시간 음정</span></div>
+    <a class="rt-pill hx-moi" href="https://moises.ai" target="_blank" rel="noopener">🎛️ 모이시스</a>
+  </div>
+
+  <div class="hx-tabs" id="hxTabs" role="tablist" aria-label="화음 단계">
+    <button class="hx-tab on" type="button" role="tab" aria-selected="true" data-step="1">1️⃣ 기준음</button>
+    <button class="hx-tab" type="button" role="tab" aria-selected="false" data-step="2">2️⃣ 3·5도</button>
+    <button class="hx-tab" type="button" role="tab" aria-selected="false" data-step="3">3️⃣ 코드</button>
+    <button class="hx-tab" type="button" role="tab" aria-selected="false" data-step="4">4️⃣ 실전</button>
+  </div>
+
+  <div class="hx-body" id="hxBody">
+
+    <!-- 실시간 음정 미터 -->
+    <div class="hx-meter" id="hxMeter">
+      <div class="hx-mrow">
+        <span class="hx-mic" id="hxMicTx">🎤 마이크 꺼짐 — 터치 건반으로도 확인돼요</span>
+        <button class="hx-mbtn" id="hxMicBtn" type="button" aria-pressed="false">🎤 켜기</button>
+      </div>
+      <div class="hx-nrow">
+        <span class="hx-note" id="hxNote">—</span>
+        <span class="hx-nsub" id="hxNoteSub">목표 음을 먼저 들어 보세요</span>
+        <span class="hx-lock" id="hxLock">🔒 딱 맞았어</span>
+      </div>
+      <div class="hx-cbar">
+        <div class="hx-czone"></div>
+        <div class="hx-cfill" id="hxCentsFill"></div>
+        <div class="hx-cmid"></div>
+      </div>
+      <div class="hx-crow"><span>−50</span><span>0 cent</span><span>+50</span></div>
+      <div class="hx-ctarget" id="hxTarget">목표: —</div>
+    </div>
+
+    <!-- 1단계 -->
+    <div class="hx-panel" id="hxP1" role="tabpanel" aria-label="1단계 기준음">
+      <div class="hx-h">🎯 기준음 딱 꽂기<em>유니즌</em></div>
+      <div class="hx-sub">기준음을 듣고 <b>같은 음</b>으로 소리 내 보세요. 초록불이 켜지면 딱 맞은 거예요!</div>
+      <div class="hx-row r7" id="hxRootRow">
+        <button class="hx-opt on" type="button" data-root="60">C4<small>도</small></button>
+        <button class="hx-opt" type="button" data-root="62">D4<small>레</small></button>
+        <button class="hx-opt" type="button" data-root="64">E4<small>미</small></button>
+        <button class="hx-opt" type="button" data-root="65">F4<small>파</small></button>
+        <button class="hx-opt" type="button" data-root="67">G4<small>솔</small></button>
+        <button class="hx-opt" type="button" data-root="69">A4<small>라</small></button>
+        <button class="hx-opt" type="button" id="hxRootRnd">🎲<small>랜덤</small></button>
+      </div>
+      <div class="hx-row r2">
+        <button class="hx-btn primary" id="hxP1Play" type="button">▶ 기준음 듣기</button>
+        <button class="hx-btn" id="hxP1Hold" type="button" aria-pressed="false">🔁 계속 들으며 맞추기</button>
+      </div>
+      <div class="hx-fb" id="hxP1Fb">레벨이 올라가도 좋아요 — 지금은 <b>도(C4)</b>부터!</div>
+      <button class="hx-btn" type="button" data-next="2">다음 · 🛡️ 3도·5도 화음 →</button>
+    </div>
+
+    <!-- 2단계 -->
+    <div class="hx-panel" id="hxP2" hidden role="tabpanel" aria-label="2단계 3도 5도">
+      <div class="hx-h">🛡️ 원음에 안 휩쓸리기<em>3도 · 5도 화음</em></div>
+      <div class="hx-sub">기준음은 <b id="hxP2Root">C4</b>. 원음에 끌려가지 말고 그 위 화음을 버텨 보세요!</div>
+      <div class="hx-row r3" id="hxIntRow">
+        <button class="hx-opt on" type="button" data-int="4">장3도<small>+4반음</small></button>
+        <button class="hx-opt" type="button" data-int="3">단3도<small>+3반음</small></button>
+        <button class="hx-opt" type="button" data-int="7">완전5도<small>+7반음</small></button>
+      </div>
+      <div class="hx-row r2">
+        <button class="hx-btn primary" id="hxP2Both" type="button">👂 둘 다 듣기</button>
+        <button class="hx-btn pink" id="hxP2Hold" type="button" aria-pressed="false">🛡️ 원음만 들으며 버티기</button>
+      </div>
+      <div class="hx-fb" id="hxP2Fb">‘원음만’을 누르면 기준음이 계속 울려요. 화음 위에 올라타 보세요!</div>
+      <div class="hx-songs" id="hxP2Songs"></div>
+      <button class="hx-btn" type="button" data-next="3">다음 · 🧱 코드 쌓기 →</button>
+    </div>
+
+    <!-- 3단계 -->
+    <div class="hx-panel" id="hxP3" hidden role="tabpanel" aria-label="3단계 코드 쌓기">
+      <div class="hx-h">🧱 코드 쌓기<em>3화음 → 7th · 9th</em></div>
+      <div class="hx-sub">구성음이 하나씩 쌓여 코드가 돼요. <b>음이름을 눌러</b> 켜고 끄며 확인하고, 차례로·동시에로 완성해 보세요.</div>
+      <div class="hx-row r5" id="hxChordRow">
+        <button class="hx-opt on" type="button" data-chord="maj">Major<small>1·3·5</small></button>
+        <button class="hx-opt" type="button" data-chord="min">Minor<small>1·♭3·5</small></button>
+        <button class="hx-opt" type="button" data-chord="maj7">Maj7<small>1·3·5·7</small></button>
+        <button class="hx-opt" type="button" data-chord="m7">m7<small>1·♭3·5·♭7</small></button>
+        <button class="hx-opt" type="button" data-chord="add9">add9<small>1·3·5·9</small></button>
+      </div>
+      <div class="hx-vpad" id="hxVoices">
+        <button class="hx-v on" type="button" data-v="1">루트<b>1</b></button>
+        <button class="hx-v on" type="button" data-v="3">3음<b>C</b></button>
+        <button class="hx-v on" type="button" data-v="5">5음<b>C</b></button>
+        <button class="hx-v" type="button" data-v="7" disabled>7음<b>—</b></button>
+        <button class="hx-v" type="button" data-v="9" disabled>9음<b>—</b></button>
+      </div>
+      <div class="hx-row r2">
+        <button class="hx-btn" id="hxP3Arp" type="button">▶ 차례로 쌓기</button>
+        <button class="hx-btn primary" id="hxP3All" type="button">▶ 동시에 울리기</button>
+      </div>
+      <div class="hx-fb" id="hxP3Fb">지금 코드: C Major (1·3·5)</div>
+      <div class="hx-songs" id="hxP3Songs"></div>
+      <button class="hx-btn" type="button" data-next="4">다음 · 🎤 실전 화음 →</button>
+    </div>
+
+    <!-- 4단계 -->
+    <div class="hx-panel" id="hxP4" hidden role="tabpanel" aria-label="4단계 실전 화음">
+      <div class="hx-h">🎤 실전 멜로디 위 자유 화음<em>4마디</em></div>
+      <div class="hx-sub">반주와 가이드 멜로디가 흐르면 그 위에 <b>3도·5도·7th</b> 아무거나 얹어 보세요. 지금 무슨 화음인지 실시간으로 알려줘요!</div>
+      <div class="hx-row r2" id="hxLoopRow">
+        <button class="hx-opt on" type="button" data-loop="ballad">발라드<small>C-G-Am-F</small></button>
+        <button class="hx-opt" type="button" data-loop="rnb">R&amp;B<small>Fmaj7-Em7-Dm7-Cmaj7</small></button>
+      </div>
+      <div class="hx-row r3" id="hxBpmRow">
+        <button class="hx-opt" type="button" data-bpm="70">🐢 70</button>
+        <button class="hx-opt on" type="button" data-bpm="85">🚶 85</button>
+        <button class="hx-opt" type="button" data-bpm="100">🐇 100</button>
+      </div>
+      <div class="hx-bars" id="hxBars"></div>
+      <div class="hx-degree" id="hxDegree">▶ 반주를 켜면 지금 화음이 여기 보여요</div>
+      <div class="hx-row r2">
+        <button class="hx-btn primary" id="hxP4Play" type="button">▶ 반주 시작</button>
+        <button class="hx-btn" id="hxP4Rec" type="button">🎙️ 녹음해서 합쳐 듣기</button>
+      </div>
+      <button class="hx-btn" id="hxP4Mix" type="button" hidden>🎧 내 화음 + 반주 다시 듣기</button>
+      <div class="hx-fb" id="hxP4Fb">마이크를 켜면 내 화음이 반주 위에 겹쳐 들려요.</div>
+    </div>
+
+    <!-- 터치 건반 (공용) -->
+    <div class="hx-card">
+      <div class="hx-h">🎹 터치 건반<em>마이크 없이도 미리 듣기</em></div>
+      <div class="hx-keys" id="hxKeys"></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="hx-toast" id="hxToast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   v4.0 · 연호 스튜디오 — 🎶 화음 쌓기 (4단계 보컬 하모니)
+           + 🎙️ 발성 ‘준비 중’ 토스트 + 홈 마스코트
+   ===================================================================== */
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  /* ---------------- 음이름 ---------------- */
+  const EN = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+  const KO = ['도', '도♯', '레', '레♯', '미', '파', '파♯', '솔', '솔♯', '라', '라♯', '시'];
+  const pc = m => ((m % 12) + 12) % 12;
+  const octOf = m => Math.floor(m / 12) - 1;
+  const nm = m => EN[pc(m)] + octOf(m);
+  const koOf = m => KO[pc(m)];
+  const freqOf = m => 440 * Math.pow(2, (m - 69) / 12);
+  const midiOf = f => 69 + 12 * Math.log2(f / 440);
+
+  /* ---------------- 화음 정의 ---------------- */
+  const CHORDS = {
+    maj:  { label: 'Major', bits: ['1', '3', '5'],      semis: { 1: 0, 3: 4, 5: 7 } },
+    min:  { label: 'Minor', bits: ['1', '3', '5'],      semis: { 1: 0, 3: 3, 5: 7 } },
+    maj7: { label: 'Maj7',  bits: ['1', '3', '5', '7'], semis: { 1: 0, 3: 4, 5: 7, 7: 11 } },
+    m7:   { label: 'm7',    bits: ['1', '3', '5', '7'], semis: { 1: 0, 3: 3, 5: 7, 7: 10 } },
+    add9: { label: 'add9',  bits: ['1', '3', '5', '9'], semis: { 1: 0, 3: 4, 5: 7, 9: 14 } }
+  };
+  const VNAME = { 1: '루트', 3: '3음', 5: '5음', 7: '7음', 9: '9음' };
+  const INTV = {
+    3: { name: '단3도', songs: [['아이유', '밤편지', '단3도 — 쓸쓸하게 얹히는 3도'], ['다비치', '8282', '단3도 코러스']] },
+    4: { name: '장3도', songs: [['브라운아이즈', '벌써 일년', '3도 코러스의 교과서'], ['성시경', '거리에서', '3도 화음 쌓기']] },
+    7: { name: '완전5도', songs: [['김동률', '기적', '5도 위로 버티는 화음'], ['성시경', '내 여자라니까', '5도·3화음 코러스']] }
+  };
+  const CHORD_SONGS = {
+    maj:  [['브라운아이즈', '벌써 일년', '3도 코러스'], ['성시경', '거리에서', '3화음 발라드 코러스']],
+    min:  [['아이유', '밤편지', '단3화음의 쓸쓸함'], ['다비치', '8282', '단조 코러스']],
+    maj7: [['백예린', 'Square', 'Maj7의 몽글몽글한 텐션'], ['크러쉬', 'Beautiful', 'Maj7 · 9th R&B 감성']],
+    m7:   [['Bruno Mars', "That's What I Like", 'm7 그루브'], ['크러쉬', 'Beautiful', 'm7 텐션']],
+    add9: [['백예린', 'Square', 'add9의 맑은 텐션'], ['크러쉬', 'Beautiful', '9th 감성 코드']]
+  };
+  const LOOPS = {
+    ballad: {
+      name: '발라드', label: 'C-G-Am-F',
+      chords: [{ root: 60, type: 'maj' }, { root: 67, type: 'maj' }, { root: 69, type: 'min' }, { root: 65, type: 'maj' }],
+      mel: [[0, 67], [1, 64], [1.5, 60], [2, 64], [3, 67],
+        [4, 67], [5, 62], [6, 71], [7, 67],
+        [8, 69], [9, 64], [10, 60], [11, 64],
+        [12, 65], [13, 69], [14, 72], [15, 65]]
+    },
+    rnb: {
+      name: 'R&B', label: 'Fmaj7-Em7-Dm7-Cmaj7',
+      chords: [{ root: 65, type: 'maj7' }, { root: 64, type: 'm7' }, { root: 62, type: 'm7' }, { root: 60, type: 'maj7' }],
+      mel: [[0, 69], [1, 72], [1.5, 76], [2, 72], [3, 69],
+        [4, 67], [5, 71], [5.5, 74], [6, 71], [7, 67],
+        [8, 65], [9, 69], [9.5, 72], [10, 69], [11, 65],
+        [12, 64], [13, 67], [13.5, 71], [14, 67], [15, 64]]
+    }
+  };
+
+  /* ---------------- 상태 ---------------- */
+  const H = {
+    step: 1, root: 60, interval: 4, chord: 'maj',
+    voices: { 1: true, 3: true, 5: true, 7: true, 9: true },
+    loop: 'ballad', bpm: 85, mix: null
+  };
+  const CUR = { bar: -1, chord: LOOPS.ballad.chords[0] };
+  const loopDef = () => LOOPS[H.loop] || LOOPS.ballad;
+
+  function allMidis(root, type) {
+    const c = CHORDS[type] || CHORDS.maj;
+    return c.bits.map(b => root + c.semis[b]);
+  }
+  function chordMidis(root, type, voices) {
+    const c = CHORDS[type] || CHORDS.maj;
+    return c.bits.filter(b => !voices || voices[b] !== false).map(b => root + c.semis[b]);
+  }
+
+  /* ---------------- 오디오 엔진 ---------------- */
+  const AU = { ctx: null, master: null };
+  function ctxOn() {
+    if (!AU.ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try { AU.ctx = new AC(); } catch (e) { return null; }
+      AU.master = AU.ctx.createGain();
+      AU.master.gain.value = 0.9;
+      try {
+        const cp = AU.ctx.createDynamicsCompressor();
+        cp.threshold.value = -10; cp.knee.value = 8; cp.ratio.value = 3;
+        cp.attack.value = 0.004; cp.release.value = 0.2;
+        AU.master.connect(cp); cp.connect(AU.ctx.destination);
+      } catch (e) { AU.master.connect(AU.ctx.destination); }
+    }
+    if (AU.ctx.state === 'suspended') { try { AU.ctx.resume(); } catch (e) { /* noop */ } }
+    return AU.ctx;
+  }
+
+  /* 따뜻한 일렉트릭 피아노 */
+  function ep(midi, when, dur, vel) {
+    const c = AU.ctx; if (!c) return;
+    const f = freqOf(midi), t = when, v = (vel == null ? 1 : vel), d = Math.max(0.18, dur);
+    const out = c.createGain();
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.exponentialRampToValueAtTime(0.20 * v, t + 0.014);
+    out.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4200;
+    const o1 = c.createOscillator(); o1.type = 'sine'; o1.frequency.value = f;
+    const o2 = c.createOscillator(); o2.type = 'triangle'; o2.frequency.value = f; o2.detune.value = 4;
+    const g2 = c.createGain(); g2.gain.value = 0.34;
+    const o3 = c.createOscillator(); o3.type = 'sine'; o3.frequency.value = f * 2;
+    const g3 = c.createGain();
+    g3.gain.setValueAtTime(0.13, t);
+    g3.gain.exponentialRampToValueAtTime(0.004, t + Math.min(0.6, d));
+    const md = c.createOscillator(); md.type = 'sine'; md.frequency.value = f * 4;
+    const mg = c.createGain();
+    mg.gain.setValueAtTime(f * 0.9, t);
+    mg.gain.exponentialRampToValueAtTime(f * 0.04, t + 0.3);
+    md.connect(mg); mg.connect(o1.frequency);
+    o1.connect(lp); o2.connect(g2); g2.connect(lp); o3.connect(g3); g3.connect(lp);
+    lp.connect(out); out.connect(AU.master);
+    [o1, o2, o3, md].forEach(o => { try { o.start(t); o.stop(t + d + 0.08); } catch (e) { /* noop */ } });
+  }
+
+  /* 부드러운 패드 */
+  function pad(midis, when, dur, vel) {
+    const c = AU.ctx; if (!c || !midis.length) return;
+    const v = (vel == null ? 1 : vel), d = Math.max(0.3, dur);
+    const out = c.createGain();
+    out.gain.setValueAtTime(0.0001, when);
+    out.gain.exponentialRampToValueAtTime(0.10 * v, when + Math.min(0.22, d * 0.28));
+    out.gain.setValueAtTime(0.10 * v, when + d * 0.72);
+    out.gain.exponentialRampToValueAtTime(0.0001, when + d + 0.16);
+    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1500; lp.Q.value = 0.4;
+    midis.forEach(m => {
+      const f = freqOf(m);
+      [-7, 0, 7].forEach((det, i) => {
+        const o = c.createOscillator();
+        o.type = i === 1 ? 'triangle' : 'sine';
+        o.frequency.value = f; o.detune.value = det;
+        const g = c.createGain(); g.gain.value = i === 1 ? 0.6 : 0.3;
+        o.connect(g); g.connect(lp);
+        try { o.start(when); o.stop(when + d + 0.3); } catch (e) { /* noop */ }
+      });
+    });
+    lp.connect(out); out.connect(AU.master);
+  }
+
+  function bass(midi, when, dur, vel) {
+    const c = AU.ctx; if (!c) return;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = 'sine'; o.frequency.value = freqOf(midi);
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.exponentialRampToValueAtTime(0.17 * vel, when + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    o.connect(g); g.connect(AU.master);
+    try { o.start(when); o.stop(when + dur + 0.05); } catch (e) { /* noop */ }
+  }
+
+  function nowT() { const c = ctxOn(); return c ? c.currentTime : 0; }
+
+  /* ---------------- 미터 · 음정 표시 ---------------- */
+  const MET = { lastPitch: 0 };
+
+  function centsTo(f, targetMidi) {
+    const mf = midiOf(f);
+    const oct = Math.round((mf - targetMidi) / 12);
+    return 1200 * Math.log2(f / freqOf(targetMidi + oct * 12));
+  }
+  function nearestOf(f, midis) {
+    let best = midis[0], bestC = Infinity;
+    midis.forEach(m => { const c = centsTo(f, m); if (Math.abs(c) < Math.abs(bestC)) { bestC = c; best = m; } });
+    return { midi: best, cents: bestC };
+  }
+  function degreeOf(pSung, root) {
+    const d = ((pSung - pc(root)) + 12) % 12;
+    if (d === 0) return { hit: true, text: '🎯 유니즌 (1음)' };
+    if (d === 2) return { hit: true, text: '🌟 9th 텐션!' };
+    if (d === 3 || d === 4) return { hit: true, text: '✨ 3도 화음!' };
+    if (d === 7) return { hit: true, text: '✨ 5도 화음!' };
+    if (d === 10 || d === 11) return { hit: true, text: '🔥 7th 텐션!' };
+    return { hit: false, text: '음정 조정 중' };
+  }
+
+  function setFill(cents) {
+    const el = $('#hxCentsFill'); if (!el) return;
+    const v = Math.max(-50, Math.min(50, cents));
+    const w = Math.abs(v);
+    el.style.width = w + '%';
+    el.style.left = (v >= 0 ? 50 : 50 - w) + '%';
+  }
+
+  function showPitch(f) {
+    const meter = $('#hxMeter'), noteEl = $('#hxNote'), subEl = $('#hxNoteSub');
+    if (!meter || !noteEl) return;
+    if (!f || !isFinite(f)) { meterIdle(); return; }
+    noteEl.classList.remove('idle');
+    MET.lastPitch = (window.performance && performance.now) ? performance.now() : Date.now();
+    const near = Math.round(midiOf(f));
+    noteEl.textContent = nm(near) + ' (' + koOf(near) + ')';
+    let cents = 0, ok = false, sub = '';
+
+    if (H.step === 1) {
+      cents = centsTo(f, H.root);
+      ok = Math.abs(cents) <= 25;
+      sub = ok ? '🎯 기준음에 딱 붙었어요'
+        : (cents > 0 ? '조금 높아요 — 살짝 내려 보세요' : '조금 낮아요 — 살짝 올려 보세요');
+    } else if (H.step === 2) {
+      const harm = H.root + H.interval;
+      const cH = centsTo(f, harm), cR = centsTo(f, H.root);
+      cents = cH;
+      if (Math.abs(cH) <= 25) { ok = true; sub = '✨ ' + INTV[H.interval].name + ' 화음 유지! 그대로 버텨요'; }
+      else if (Math.abs(cR) <= 25) { sub = '😵 원음으로 휩쓸렸어요 — 위로 다시!'; }
+      else { sub = cH > 0 ? '화음보다 살짝 높아요' : '화음보다 살짝 낮아요'; }
+    } else if (H.step === 3) {
+      const mids = allMidis(H.root, H.chord);
+      const n = nearestOf(f, mids);
+      cents = n.cents;
+      const slot = CHORDS[H.chord].bits.find(b => pc(H.root + CHORDS[H.chord].semis[b]) === pc(near));
+      ok = !!slot;
+      sub = slot ? ('구성음 ' + slot + '음 ✓') : '코드 구성음 아무거나 불러 보세요';
+    } else {
+      const ch = CUR.chord || loopDef().chords[0];
+      const mids = allMidis(ch.root, ch.type);
+      const n = nearestOf(f, mids);
+      cents = n.cents;
+      const deg = degreeOf(pc(near), ch.root);
+      ok = deg.hit;
+      sub = deg.text;
+      const badge = $('#hxDegree');
+      if (badge) badge.innerHTML = deg.text + '<small>지금 코드 ' + nm(ch.root) + ' ' + CHORDS[ch.type].label + '</small>';
+    }
+
+    if (subEl) subEl.textContent = sub;
+    meter.classList.toggle('ok', ok);
+    setFill(cents);
+  }
+
+  function meterIdle(force) {
+    const t = (window.performance && performance.now) ? performance.now() : Date.now();
+    if (!force && t - MET.lastPitch < 700) return;
+    const meter = $('#hxMeter');
+    if (meter) meter.classList.remove('ok');
+    const noteEl = $('#hxNote'), subEl = $('#hxNoteSub');
+    if (noteEl) { noteEl.textContent = '—'; noteEl.classList.add('idle'); }
+    if (subEl) subEl.textContent = '소리를 내거나 건반을 눌러 보세요';
+    setFill(0);
+  }
+
+  /* ---------------- 마이크 · 피치 검출 ---------------- */
+  const MIC = { on: false, stream: null, src: null, an: null, buf: null, raf: 0, last: 0, hist: [] };
+
+  function micUI(on) {
+    const tx = $('#hxMicTx'), btn = $('#hxMicBtn');
+    if (tx) tx.textContent = on ? '🎤 마이크 켜짐 — 소리를 내 보세요' : '🎤 마이크 꺼짐 — 터치 건반으로도 확인돼요';
+    if (btn) {
+      btn.textContent = on ? '🎤 끄기' : '🎤 켜기';
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+  }
+
+  function micMedian() {
+    if (!MIC.hist.length) return 0;
+    const a = MIC.hist.slice().sort((x, y) => x - y);
+    return a[Math.floor(a.length / 2)];
+  }
+
+  function pitchOf(buf, sr) {
+    const N = buf.length;
+    let rms = 0;
+    for (let i = 0; i < N; i++) rms += buf[i] * buf[i];
+    rms = Math.sqrt(rms / N);
+    if (rms < 0.012) return { f: 0, rms: rms };
+    const minLag = Math.max(2, Math.floor(sr / 1100));
+    const maxLag = Math.min(N - 3, Math.floor(sr / 65));
+    if (maxLag <= minLag + 2) return { f: 0, rms: rms };
+    const nsdf = new Float32Array(maxLag + 2);
+    for (let lag = minLag; lag <= maxLag; lag++) {
+      let ac = 0, m = 0;
+      for (let i = 0; i < N - lag; i++) {
+        const a = buf[i], b = buf[i + lag];
+        ac += a * b; m += a * a + b * b;
+      }
+      nsdf[lag] = m > 1e-9 ? (2 * ac) / m : 0;
+    }
+    let maxV = 0;
+    for (let lag = minLag; lag <= maxLag; lag++) if (nsdf[lag] > maxV) maxV = nsdf[lag];
+    if (maxV < 0.62) return { f: 0, rms: rms };
+    const thr = Math.max(0.76, maxV * 0.9);
+    let bestLag = -1;
+    for (let lag = minLag + 1; lag < maxLag; lag++) {
+      if (nsdf[lag] >= thr && nsdf[lag] >= nsdf[lag - 1] && nsdf[lag] >= nsdf[lag + 1]) { bestLag = lag; break; }
+    }
+    if (bestLag < 0) return { f: 0, rms: rms };
+    const y1 = nsdf[bestLag - 1] || 0, y2 = nsdf[bestLag], y3 = nsdf[bestLag + 1] || 0;
+    const a = (y1 + y3 - 2 * y2) / 2, b = (y3 - y1) / 2;
+    let shift = a !== 0 ? -b / (2 * a) : 0;
+    if (!isFinite(shift) || Math.abs(shift) > 0.5) shift = 0;
+    const f = sr / (bestLag + shift);
+    if (!isFinite(f) || f < 60 || f > 1200) return { f: 0, rms: rms };
+    return { f: f, rms: rms };
+  }
+
+  function tickPitch() {
+    if (!MIC.on || !MIC.an || !AU.ctx) return;
+    MIC.an.getFloatTimeDomainData(MIC.buf);
+    const r = pitchOf(MIC.buf, AU.ctx.sampleRate);
+    if (r.f > 0) { MIC.hist.push(r.f); if (MIC.hist.length > 5) MIC.hist.shift(); }
+    else MIC.hist.length = 0;
+    showPitch(MIC.hist.length ? micMedian() : 0);
+  }
+
+  function micLoop() {
+    if (!MIC.on) return;
+    const t = (window.performance && performance.now) ? performance.now() : Date.now();
+    if (t - MIC.last > 60) { MIC.last = t; tickPitch(); }
+    MIC.raf = requestAnimationFrame(micLoop);
+  }
+
+  async function micStart() {
+    if (MIC.on) return true;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      micUI(false);
+      const tx = $('#hxMicTx'); if (tx) tx.textContent = '🎤 이 브라우저에서는 마이크를 못 써요 — 건반으로!';
+      return false;
+    }
+    try {
+      const st = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: true }
+      });
+      const c = ctxOn();
+      if (!c) { st.getTracks().forEach(t => { try { t.stop(); } catch (e) { /* noop */ } }); return false; }
+      MIC.stream = st;
+      MIC.src = c.createMediaStreamSource(st);
+      MIC.an = c.createAnalyser();
+      MIC.an.fftSize = 2048;
+      MIC.an.smoothingTimeConstant = 0;
+      MIC.src.connect(MIC.an);
+      MIC.buf = new Float32Array(MIC.an.fftSize);
+      MIC.on = true; MIC.hist.length = 0;
+      micUI(true);
+      micLoop();
+      return true;
+    } catch (e) {
+      micUI(false);
+      const tx = $('#hxMicTx'); if (tx) tx.textContent = '🎤 마이크 권한이 없어요 — 건반으로 즐겨 보세요 🎹';
+      return false;
+    }
+  }
+
+  function micStop() {
+    MIC.on = false;
+    if (MIC.raf) { try { cancelAnimationFrame(MIC.raf); } catch (e) { /* noop */ } MIC.raf = 0; }
+    if (MIC.stream) { MIC.stream.getTracks().forEach(t => { try { t.stop(); } catch (e) { /* noop */ } }); MIC.stream = null; }
+    if (MIC.src) { try { MIC.src.disconnect(); } catch (e) { /* noop */ } MIC.src = null; }
+    MIC.an = null; MIC.hist.length = 0;
+    micUI(false);
+  }
+
+  /* ---------------- 계속 울리기 (1·2단계) ---------------- */
+  const HOLD = { on: false, midis: [], iv: 0 };
+  function holdStop() {
+    HOLD.on = false;
+    if (HOLD.iv) { clearInterval(HOLD.iv); HOLD.iv = 0; }
+    const b1 = $('#hxP1Hold'), b2 = $('#hxP2Hold');
+    if (b1) { b1.classList.remove('on'); b1.setAttribute('aria-pressed', 'false'); b1.textContent = '🔁 계속 들으며 맞추기'; }
+    if (b2) { b2.classList.remove('on'); b2.setAttribute('aria-pressed', 'false'); b2.textContent = '🛡️ 원음만 들으며 버티기'; }
+  }
+  function holdStart(midis, which) {
+    holdStop();
+    if (!ctxOn()) return;
+    HOLD.on = true; HOLD.midis = midis.slice();
+    const tick = () => {
+      if (!HOLD.on || !AU.ctx) return;
+      const t = AU.ctx.currentTime + 0.04;
+      HOLD.midis.forEach(m => ep(m, t, 1.5, 0.85));
+      pad(HOLD.midis, t, 1.5, 0.7);
+    };
+    tick();
+    HOLD.iv = setInterval(tick, 1350);
+    const btn = which === 2 ? $('#hxP2Hold') : $('#hxP1Hold');
+    if (btn) {
+      btn.classList.add('on'); btn.setAttribute('aria-pressed', 'true');
+      btn.textContent = which === 2 ? '⏹ 원음 그만' : '⏹ 계속 듣기 그만';
+    }
+    if (which === 2) setFb('#hxP2Fb', '원음이 계속 울려요 — <b>' + nm(H.root + H.interval) + '</b> 위에 올라타 버텨 보세요!', 'warn');
+  }
+
+  /* ---------------- 1단계 ---------------- */
+  function p1Play() {
+    const c = ctxOn(); if (!c) return;
+    const t = c.currentTime + 0.04;
+    ep(H.root, t, 1.4, 1);
+    pad([H.root], t, 1.4, 0.6);
+    setFb('#hxP1Fb', '기준음 <b>' + nm(H.root) + ' (' + koOf(H.root) + ')</b> — 같은 음으로 소리 내 보세요!');
+  }
+
+  /* ---------------- 2단계 ---------------- */
+  function p2Both() {
+    const c = ctxOn(); if (!c) return;
+    const t = c.currentTime + 0.04, harm = H.root + H.interval;
+    ep(H.root, t, 0.8, 1);
+    ep(harm, t + 0.6, 0.8, 1);
+    ep(H.root, t + 1.2, 1.6, 0.85);
+    ep(harm, t + 1.2, 1.6, 0.85);
+    pad([H.root, harm], t + 1.2, 1.6, 0.8);
+    setFb('#hxP2Fb', '<b>' + nm(H.root) + '</b> → <b>' + nm(harm) + '</b> → 둘 다. 이제 혼자 얹어 보세요!');
+  }
+
+  /* ---------------- 3단계 ---------------- */
+  function p3Arp() {
+    const mids = chordMidis(H.root, H.chord, H.voices);
+    if (!mids.length) { setFb('#hxP3Fb', '구성음을 하나 이상 켜 주세요', 'warn'); return; }
+    const c = ctxOn(); if (!c) return;
+    const t0 = c.currentTime + 0.05;
+    mids.forEach((m, i) => ep(m, t0 + i * 0.22, 0.6, 0.95));
+    const t2 = t0 + mids.length * 0.22;
+    mids.forEach(m => ep(m, t2, 1.2, 0.85));
+    pad(mids, t2, 1.2, 0.75);
+    setFb('#hxP3Fb', nm(H.root) + ' ' + CHORDS[H.chord].label + ' — 아래에서 위로 <b>' + mids.map(nm).join(' → ') + '</b>');
+  }
+  function p3All() {
+    const mids = chordMidis(H.root, H.chord, H.voices);
+    if (!mids.length) { setFb('#hxP3Fb', '구성음을 하나 이상 켜 주세요', 'warn'); return; }
+    const c = ctxOn(); if (!c) return;
+    const t = c.currentTime + 0.04;
+    mids.forEach(m => ep(m, t, 1.5, 0.95));
+    pad(mids, t, 1.5, 0.85);
+    setFb('#hxP3Fb', nm(H.root) + ' ' + CHORDS[H.chord].label + ' 동시에 — <b>' + mids.map(nm).join(' · ') + '</b>');
+  }
+
+  /* ---------------- 4단계 · 반주 루프 ---------------- */
+  const BACK = { on: false, iv: 0, nextT: 0, i: 0 };
+  const barSec = () => (60 / H.bpm) * 4;
+
+  function scheduleBar(bi, t, beat) {
+    const L = loopDef(), ch = L.chords[bi];
+    const tones = allMidis(ch.root, ch.type);
+    pad(tones.concat([tones[0] - 12]), t, beat * 3.8, 0.7);
+    bass(ch.root - 12, t, beat * 1.7, 0.9);
+    bass(ch.root - 12, t + beat * 2, beat * 1.3, 0.65);
+    tones.forEach(m => ep(m, t, beat * 0.85, 0.5));
+    tones.forEach(m => ep(m, t + beat * 2, beat * 0.8, 0.42));
+    L.mel.forEach(pair => {
+      const b = pair[0], m = pair[1];
+      if (b >= bi * 4 && b < bi * 4 + 4) ep(m, t + (b - bi * 4) * beat, beat * 0.85, 0.88);
+    });
+  }
+
+  function backTick() {
+    if (!BACK.on || !AU.ctx) return;
+    const c = AU.ctx, beat = 60 / H.bpm, bd = beat * 4;
+    while (BACK.nextT < c.currentTime + 0.3) {
+      const bi = BACK.i % 4, when = BACK.nextT;
+      scheduleBar(bi, when, beat);
+      const delay = Math.max(0, (when - c.currentTime) * 1000);
+      setTimeout(() => {
+        if (!BACK.on) return;
+        CUR.bar = bi; CUR.chord = loopDef().chords[bi];
+        paintBars(bi);
+        const tgt = $('#hxTarget');
+        if (tgt) tgt.innerHTML = '지금 코드: <b>' + nm(CUR.chord.root) + ' ' + CHORDS[CUR.chord.type].label + '</b> — 그 위에 화음을!';
+        const badge = $('#hxDegree');
+        if (badge) badge.innerHTML = '그 위에 화음을 얹어 보세요' + '<small>지금 코드 ' + nm(CUR.chord.root) + ' ' + CHORDS[CUR.chord.type].label + '</small>';
+      }, delay);
+      BACK.i++; BACK.nextT += bd;
+    }
+  }
+
+  function backStart() {
+    if (!ctxOn()) return;
+    backStop();
+    BACK.on = true; BACK.i = 0; BACK.nextT = AU.ctx.currentTime + 0.1;
+    BACK.iv = setInterval(backTick, 40);
+    backTick();
+    const b = $('#hxP4Play');
+    if (b) { b.classList.add('on'); b.textContent = '⏹ 반주 멈추기'; }
+    setFb('#hxP4Fb', '반주가 흐르고 있어요 — 3도·5도·7th 아무거나 얹어 보세요!');
+  }
+
+  function backStop() {
+    if (BACK.iv) { clearInterval(BACK.iv); BACK.iv = 0; }
+    BACK.on = false;
+    const b = $('#hxP4Play');
+    if (b) { b.classList.remove('on'); b.textContent = '▶ 반주 시작'; }
+    paintBars(-1);
+  }
+
+  function paintBars(bi) {
+    const el = $('#hxBars'); if (!el) return;
+    const L = loopDef();
+    el.innerHTML = L.chords.map((ch, i) =>
+      '<div class="hx-bar' + (i === bi ? ' now' : '') + '">' + nm(ch.root) +
+      '<small>' + CHORDS[ch.type].label + '</small></div>').join('');
+  }
+
+  /* ---------------- 녹음 ---------------- */
+  let REC = null, RCH = [], RTIMER = 0;
+  function recStop() {
+    if (REC && REC.state === 'recording') { try { REC.stop(); } catch (e) { /* noop */ } }
+    if (RTIMER) { clearTimeout(RTIMER); RTIMER = 0; }
+  }
+  async function recToggle() {
+    if (REC && REC.state === 'recording') { recStop(); return; }
+    if (!MIC.stream) {
+      const ok = await micStart();
+      if (!ok) { setFb('#hxP4Fb', '녹음하려면 마이크를 켜 주세요 (권한 허용) — 건반으로도 화음은 들을 수 있어요', 'warn'); return; }
+    }
+    if (!window.MediaRecorder || !MIC.stream) {
+      setFb('#hxP4Fb', '이 브라우저에서는 녹음이 안 돼요 — 화음만 들어 보세요', 'warn');
+      return;
+    }
+    let mr;
+    try {
+      const mime = MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus' : '';
+      mr = mime ? new MediaRecorder(MIC.stream, { mimeType: mime }) : new MediaRecorder(MIC.stream);
+    } catch (e) { setFb('#hxP4Fb', '녹음을 시작하지 못했어요 — 다시 시도해 주세요', 'warn'); return; }
+    RCH = [];
+    REC = mr;
+    mr.ondataavailable = e => { if (e.data && e.data.size) RCH.push(e.data); };
+    mr.onstop = () => { REC = null; buildMix(); };
+    if (!BACK.on) backStart();
+    try { mr.start(); } catch (e) { setFb('#hxP4Fb', '녹음을 시작하지 못했어요', 'warn'); return; }
+    const btn = $('#hxP4Rec');
+    if (btn) { btn.classList.add('pink'); btn.textContent = '⏹ 녹음 끝내기'; }
+    setFb('#hxP4Fb', '🔴 녹음 중 — 4마디 동안 화음을 얹어 보세요!');
+    RTIMER = setTimeout(() => { recStop(); }, barSec() * 4 * 1000 + 180);
+  }
+
+  async function buildMix() {
+    const btn = $('#hxP4Rec');
+    if (btn) { btn.classList.remove('pink'); btn.textContent = '🎙️ 녹음해서 합쳐 듣기'; }
+    if (!RCH.length) { setFb('#hxP4Fb', '녹음이 비었어요 — 다시 해 볼까요?', 'warn'); return; }
+    const blob = new Blob(RCH, { type: RCH[0].type || 'audio/webm' });
+    try {
+      const ab = await blob.arrayBuffer();
+      const c = ctxOn(); if (!c) return;
+      const buf = await new Promise((res, rej) => {
+        let p;
+        try { p = c.decodeAudioData(ab, res, rej); } catch (e) { rej(e); return; }
+        if (p && p.then) p.then(res).catch(rej);
+      });
+      H.mix = buf;
+      const m = $('#hxP4Mix'); if (m) m.hidden = false;
+      setFb('#hxP4Fb', '녹음 완료! 🎧 <b>내 화음 + 반주 다시 듣기</b>를 눌러 보세요', 'good');
+    } catch (e) {
+      setFb('#hxP4Fb', '녹음을 읽지 못했어요 — 다시 시도해 주세요', 'warn');
+    }
+  }
+
+  function playMix() {
+    if (!H.mix) return;
+    const c = ctxOn(); if (!c) return;
+    backStop(); holdStop();
+    const beat = 60 / H.bpm, t0 = c.currentTime + 0.15;
+    for (let i = 0; i < 4; i++) scheduleBar(i, t0 + i * beat * 4, beat);
+    const src = c.createBufferSource(); src.buffer = H.mix;
+    const g = c.createGain(); g.gain.value = 0.95;
+    src.connect(g); g.connect(AU.master);
+    try { src.start(t0 + 0.04); } catch (e) { /* noop */ }
+    paintBars(0);
+    setFb('#hxP4Fb', '내 화음이 반주 위에 얹혀 들려요 🎧', 'good');
+  }
+
+  /* ---------------- 화면 그리기 ---------------- */
+  function setFb(sel, html, cls) {
+    const el = $(sel); if (!el) return;
+    el.innerHTML = html;
+    el.className = 'hx-fb' + (cls ? ' ' + cls : '');
+  }
+
+  function paintTarget() {
+    const tx = $('#hxTarget'); if (!tx) return;
+    if (H.step === 1) tx.innerHTML = '목표: <b>' + nm(H.root) + ' (' + koOf(H.root) + ')</b> 기준음';
+    else if (H.step === 2) tx.innerHTML = '목표: <b>' + nm(H.root + H.interval) + ' (' + koOf(H.root + H.interval) + ')</b> — ' + nm(H.root) + '의 ' + INTV[H.interval].name + ' 위';
+    else if (H.step === 3) tx.innerHTML = '코드 구성음: <b>' + allMidis(H.root, H.chord).map(nm).join(' · ') + '</b>';
+    else { const ch = CUR.chord || loopDef().chords[0]; tx.innerHTML = '지금 코드: <b>' + nm(ch.root) + ' ' + CHORDS[ch.type].label + '</b> — 그 위에 화음을!'; }
+    $$('#hxRootRow [data-root]').forEach(b => b.classList.toggle('on', +b.dataset.root === H.root));
+    const r2 = $('#hxP2Root'); if (r2) r2.textContent = nm(H.root) + ' (' + koOf(H.root) + ')';
+    $$('#hxIntRow [data-int]').forEach(b => b.classList.toggle('on', +b.dataset.int === H.interval));
+    if (H.step === 1) setFb('#hxP1Fb', '기준음 <b>' + nm(H.root) + ' (' + koOf(H.root) + ')</b> — 듣고 같은 음으로!');
+  }
+
+  function paintChordUI() {
+    const c = CHORDS[H.chord];
+    $$('#hxChordRow [data-chord]').forEach(b => b.classList.toggle('on', b.dataset.chord === H.chord));
+    $$('#hxVoices .hx-v').forEach(b => {
+      const v = b.dataset.v, inC = c.bits.indexOf(v) >= 0;
+      b.disabled = !inC;
+      b.classList.toggle('on', inC && H.voices[v] !== false);
+      const nb = b.querySelector('b');
+      if (nb) nb.textContent = inC ? nm(H.root + c.semis[v]) : '—';
+    });
+  }
+
+  function songsHTML(list, title) {
+    return '<div class="sh">' + (title || '🎧 이런 곡에서 들어 보세요') + '</div>' + list.map(s =>
+      '<a class="hx-song" href="https://www.youtube.com/results?search_query=' +
+      encodeURIComponent(s[0] + ' ' + s[1]) + '" target="_blank" rel="noopener">' +
+      '<i>▶</i><span class="st"><b>' + esc(s[0]) + ' — ' + esc(s[1]) + '</b><em>' + esc(s[2]) + '</em></span>' +
+      '<span class="go">듣기</span></a>').join('');
+  }
+
+  function paintSongs2() {
+    const el = $('#hxP2Songs'); if (!el) return;
+    el.innerHTML = songsHTML(INTV[H.interval].songs, '🎧 ' + INTV[H.interval].name + ' 화음이 들리는 곡');
+  }
+  function paintSongs3() {
+    const el = $('#hxP3Songs'); if (!el) return;
+    el.innerHTML = songsHTML(CHORD_SONGS[H.chord], '🎧 ' + CHORDS[H.chord].label + ' 코드가 들리는 곡');
+  }
+
+  function paintLoopUI() {
+    $$('#hxLoopRow [data-loop]').forEach(b => b.classList.toggle('on', b.dataset.loop === H.loop));
+    $$('#hxBpmRow [data-bpm]').forEach(b => b.classList.toggle('on', +b.dataset.bpm === H.bpm));
+  }
+
+  function setStep(n) {
+    H.step = n;
+    $$('#hxTabs .hx-tab').forEach(b => {
+      const on = +b.dataset.step === n;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    for (let i = 1; i <= 4; i++) { const p = $('#hxP' + i); if (p) p.hidden = (i !== n); }
+    holdStop();
+    if (n !== 4) { backStop(); recStop(); }
+    paintTarget();
+    paintChordUI();
+    if (n === 2) paintSongs2();
+    if (n === 3) paintSongs3();
+    if (n === 4) { paintLoopUI(); paintBars(-1); CUR.chord = loopDef().chords[0]; }
+    const body = $('#hxBody'); if (body) body.scrollTop = 0;
+    if (!MIC.on) meterIdle(true);
+  }
+
+  /* ---------------- 건반 ---------------- */
+  const KEYS = [60, 62, 64, 65, 67, 69, 71, 72];
+  function paintKeys() {
+    const el = $('#hxKeys'); if (!el) return;
+    el.innerHTML = KEYS.map(m =>
+      '<button class="hx-key" type="button" data-midi="' + m + '">' + nm(m) + '<span>' + koOf(m) + '</span></button>').join('');
+  }
+  function keyTap(m) {
+    const c = ctxOn(); if (!c) return;
+    ep(m, c.currentTime + 0.01, 1.1, 0.95);
+    showPitch(freqOf(m));
+    const btn = $('#hxKeys [data-midi="' + m + '"]');
+    if (btn) { btn.classList.add('hit'); setTimeout(() => btn.classList.remove('hit'), 230); }
+  }
+
+  /* ---------------- 토스트 ---------------- */
+  let toastT = 0;
+  function toast(html) {
+    const el = $('#hxToast'); if (!el) return;
+    el.innerHTML = html;
+    el.classList.add('on');
+    clearTimeout(toastT);
+    toastT = setTimeout(() => el.classList.remove('on'), 4200);
+  }
+
+  /* ---------------- 열기 · 닫기 ---------------- */
+  function stopAll() {
+    holdStop(); backStop(); recStop(); micStop();
+  }
+  function hide() {
+    const r = $('#harmonyRoot'); if (r) r.hidden = true;
+    stopAll();
+  }
+  function open() {
+    const h = $('#homeScreen'); if (h) h.hidden = true;
+    const rr = $('#rhythmRoot'); if (rr) rr.hidden = true;
+    const r = $('#harmonyRoot'); if (r) r.hidden = false;
+    try { if (window.VP && VP.rhythm && VP.rhythm.stop) VP.rhythm.stop(); } catch (e) { /* noop */ }
+    try {
+      if (window.VP && VP.engine && VP.engine.playing) { const b = $('#playBtn'); if (b) b.click(); }
+    } catch (e) { /* noop */ }
+    setStep(H.step);
+  }
+
+  /* ---------------- 이벤트 ---------------- */
+  function wire() {
+    const on = (sel, ev, fn) => { const el = $(sel); if (el) el.addEventListener(ev, fn); };
+
+    on('#modeHarmony', 'click', open);
+    on('#hxHomeBtn', 'click', () => {
+      hide();
+      try {
+        if (window.VP && VP.rhythm && VP.rhythm.home) VP.rhythm.home();
+        else { const h = $('#homeScreen'); if (h) h.hidden = false; }
+      } catch (e) { const h = $('#homeScreen'); if (h) h.hidden = false; }
+    });
+    on('#modeVocalPrep', 'click', () => toast(
+      '🎙️ 발성 연습은 곧 업데이트될 예정이에요!<br>먼저 박자·리듬·화음부터 연습해 보세요 🐯✨'));
+
+    /* 다른 모드로 넘어가면 화음 스튜디오는 조용히 닫기 */
+    document.addEventListener('click', e => {
+      if (!e.target || !e.target.closest) return;
+      if (e.target.closest('#homeBtn, #modeVocal, #modeRhythm, #rtHomeBtn, #rtVocalBtn')) {
+        const root = $('#harmonyRoot');
+        if (root && !root.hidden) hide();
+      }
+    }, true);
+
+    /* 단계 탭 */
+    $$('#hxTabs .hx-tab').forEach(b => b.addEventListener('click', () => {
+      if (+b.dataset.step !== H.step) setStep(+b.dataset.step);
+    }));
+
+    /* 마이크 */
+    on('#hxMicBtn', 'click', () => { if (MIC.on) micStop(); else micStart(); });
+
+    /* 1단계 */
+    $$('#hxRootRow [data-root]').forEach(b => b.addEventListener('click', () => {
+      H.root = +b.dataset.root; paintTarget(); paintChordUI();
+      if (H.step === 2) paintSongs2();
+      if (H.step === 3) paintSongs3();
+    }));
+    on('#hxRootRnd', 'click', () => {
+      const pool = [60, 62, 64, 65, 67, 69].filter(m => m !== H.root);
+      H.root = pool[Math.floor(Math.random() * pool.length)];
+      paintTarget(); paintChordUI();
+      if (H.step === 2) paintSongs2();
+      if (H.step === 3) paintSongs3();
+      toast('🎲 기준음 <b>' + nm(H.root) + ' (' + koOf(H.root) + ')</b>');
+    });
+    on('#hxP1Play', 'click', p1Play);
+    on('#hxP1Hold', 'click', () => {
+      if (HOLD.on) holdStop();
+      else holdStart([H.root], 1);
+    });
+
+    /* 2단계 */
+    $$('#hxIntRow [data-int]').forEach(b => b.addEventListener('click', () => {
+      H.interval = +b.dataset.int;
+      paintTarget(); paintSongs2();
+      if (HOLD.on) holdStart([H.root], 2);
+    }));
+    on('#hxP2Both', 'click', p2Both);
+    on('#hxP2Hold', 'click', () => {
+      if (HOLD.on) holdStop();
+      else holdStart([H.root], 2);
+    });
+
+    /* 3단계 */
+    $$('#hxChordRow [data-chord]').forEach(b => b.addEventListener('click', () => {
+      H.chord = b.dataset.chord;
+      CHORDS[H.chord].bits.forEach(v => { H.voices[v] = true; });
+      paintChordUI(); paintSongs3(); paintTarget();
+    }));
+    $$('#hxVoices .hx-v').forEach(b => b.addEventListener('click', () => {
+      const v = b.dataset.v;
+      if (b.disabled) return;
+      H.voices[v] = H.voices[v] === false;
+      paintChordUI();
+      const semi = CHORDS[H.chord].semis[v];
+      ep(H.root + semi, nowT() + 0.02, 1.0, 0.95);
+      setFb('#hxP3Fb', (H.voices[v] ? '켬' : '끔') + ' — ' + VNAME[v] + ' <b>' + nm(H.root + semi) + '</b>');
+    }));
+    on('#hxP3Arp', 'click', p3Arp);
+    on('#hxP3All', 'click', p3All);
+
+    /* 다음 단계 */
+    $$('[data-next]').forEach(b => b.addEventListener('click', () => setStep(+b.dataset.next)));
+
+    /* 4단계 */
+    $$('#hxLoopRow [data-loop]').forEach(b => b.addEventListener('click', () => {
+      H.loop = b.dataset.loop;
+      CUR.chord = loopDef().chords[0];
+      paintLoopUI(); paintBars(-1); paintTarget();
+      if (BACK.on) backStart();
+    }));
+    $$('#hxBpmRow [data-bpm]').forEach(b => b.addEventListener('click', () => {
+      H.bpm = +b.dataset.bpm;
+      paintLoopUI();
+      if (BACK.on) backStart();
+    }));
+    on('#hxP4Play', 'click', () => { if (BACK.on) backStop(); else backStart(); });
+    on('#hxP4Rec', 'click', recToggle);
+    on('#hxP4Mix', 'click', playMix);
+
+    /* 건반 */
+    const keys = $('#hxKeys');
+    if (keys) {
+      keys.addEventListener('click', e => {
+        const b = e.target.closest('.hx-key');
+        if (!b) return;
+        keyTap(+b.dataset.midi);
+      });
+    }
+
+    /* 첫 터치에서 오디오 잠금 해제 */
+    const root = $('#harmonyRoot');
+    if (root) root.addEventListener('pointerdown', () => { ctxOn(); }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { backStop(); holdStop(); }
+    });
+
+    /* 홈 마스코트 — 이미 파일 안에 들어 있는 아기호랑이 그림 재사용 */
+    const mascot = $('#hmMascot'), tiger = $('#tigerImg');
+    if (mascot && tiger) {
+      const s = tiger.getAttribute('src');
+      if (s) mascot.src = s;
+    }
+  }
+
+  function init() {
+    paintKeys();
+    paintChordUI();
+    paintTarget();
+    paintSongs2();
+    paintSongs3();
+    paintBars(-1);
+    paintLoopUI();
+    micUI(false);
+    wire();
+
+    window.VP = window.VP || {};
+    VP.harmony = {
+      open, hide,
+      step: n => setStep(n),
+      state: () => ({
+        step: H.step, root: H.root, interval: H.interval, chord: H.chord,
+        voices: Object.assign({}, H.voices), loop: H.loop, bpm: H.bpm,
+        playing: BACK.on, holding: HOLD.on, mic: MIC.on, mix: !!H.mix,
+        notes: chordMidis(H.root, H.chord, H.voices), all: allMidis(H.root, H.chord)
+      }),
+      root: m => { H.root = m; paintTarget(); paintChordUI(); },
+      chord: id => { H.chord = id; CHORDS[id].bits.forEach(v => { H.voices[v] = true; }); paintChordUI(); paintSongs3(); paintTarget(); },
+      interval: n => { H.interval = n; paintTarget(); paintSongs2(); },
+      loop: id => { H.loop = id; CUR.chord = loopDef().chords[0]; paintLoopUI(); paintBars(-1); paintTarget(); },
+      bpm: n => { H.bpm = n; paintLoopUI(); },
+      playRoot: p1Play, both: p2Both, arp: p3Arp, all: p3All,
+      hold: which => (HOLD.on ? holdStop() : holdStart(which === 2 ? [H.root] : [H.root], which || 1)),
+      back: () => (BACK.on ? backStop() : backStart()),
+      key: keyTap,
+      meter: () => ({
+        note: ($('#hxNote') || {}).textContent || '',
+        sub: ($('#hxNoteSub') || {}).textContent || '',
+        lock: !!($('#hxMeter') && $('#hxMeter').classList.contains('ok')),
+        target: ($('#hxTarget') || {}).textContent || '',
+        fill: ($('#hxCentsFill') || {}).style ? $('#hxCentsFill').style.width : ''
+      }),
+      degree: () => ($('#hxDegree') || {}).textContent || '',
+      toast: () => ({ on: !!($('#hxToast') && $('#hxToast').classList.contains('on')),
+        text: ($('#hxToast') || {}).textContent || '' }),
+      audio: () => ({ ctx: AU.ctx ? AU.ctx.state : 'none' }),
+      pitchOf
+    };
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 </body>
 </html>
+
