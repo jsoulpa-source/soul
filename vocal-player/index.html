@@ -279,6 +279,12 @@ h1,h2,p{margin:0}
 .srcbtn.strong{color:#fff; border-color:#8b5cf6; background:linear-gradient(140deg,#c084fc,#7c3aed)}
 .page1 .dropzone{padding:9px 10px}
 .page1 .dropzone .dzline{margin-bottom:3px; font-size:11.5px}
+/* 폰에서는 끌어다 놓기 안내 대신 형식 안내만 (버튼이 바로 위에 있음) */
+@media (max-width:599px){
+  .page1 .dropzone{border:0; background:transparent; padding:0 2px}
+  .page1 .dropzone .dzline{display:none}
+  .page1 .dropzone .hint{font-size:10.5px; color:var(--dim); text-align:center}
+}
 .srcrow{display:flex; align-items:center; justify-content:center; gap:4px; min-height:0}
 .srcbtn{flex:1 1 auto; min-width:0; max-width:230px; display:flex; align-items:center; justify-content:center; gap:3px;
   font-size:11px; font-weight:800; color:#5b21b6;
@@ -3565,7 +3571,6 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
         toast('✅ 저장됐어요! (곡 + LRC)' +
           (rec.lrcLines ? ' · LRC ' + rec.lrcLines + '줄' : '') +
           (audio ? ' · 음원 포함' : ' · 가사만'));
-        showTiger();
       }
       return true;
     } catch (e) {
