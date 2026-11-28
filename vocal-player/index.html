@@ -5067,6 +5067,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
 
   /* ---------------- 상태 ---------------- */
   const S = {
+    open: false,
     pack: null, step: 1, lv2: 1, lv3: 1,
     speed: 0.85, bpmAdd: 0,
     pat: null, target: null, user: null,
@@ -5590,6 +5591,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     const p = PACKS.filter(x => x.id === id)[0];
     if (!p) return;
     S.pack = p;
+    S.open = true;
     S.bpmAdd = 0;
     S.solo = null;
     S.muted = { kick: false, snare: false, hat: false };
@@ -5611,6 +5613,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
   }
 
   function backToHub() {
+    S.open = false;
     stopAudio();
     const l = $('#rtLesson');
     if (l) l.hidden = true;
@@ -5636,7 +5639,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       fb('연한 점선이 정답 자리예요. 칸을 톡톡 찍어 똑같이 채우고 <b>✅ 확인하기</b>!');
     } else {
       fb('👂 귀를 열고 들어보세요… 가이드 없이 똑같이 찍으면 레벨업!');
-      setTimeout(() => { if (S.step === 3 && S.pack) startAudio(2); }, 320);
+      setTimeout(() => { if (S.open && S.step === 3 && S.pack) startAudio(2); }, 320);
     }
   }
 
@@ -5686,7 +5689,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
       renderLevels();
       updateCardBadge();
       chime();
-      fb('✅ <b>완벽해요!</b> ' + res.total + '칸을 정확히 찍었어요. 이 장르의 ' + (res.total ? '' : '') + 'Lv.' + lv.lv + ' 통과! 🎉', 'ok');
+      fb('✅ <b>완벽해요!</b> ' + res.total + '칸을 정확히 찍었어요. Lv.' + lv.lv + ' 통과! 🎉', 'ok');
       const nx = LEVELS2[lv.lv];
       if (nx) fbAction('▶ 다음 레벨: Lv.' + nx.lv + ' ' + nx.name, () => setLevel(nx.lv));
       else fbAction('👂 3단계 — 귀로만 듣고 찍어 보기', () => setStep(3));
@@ -5795,6 +5798,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     } catch (e) { /* noop */ }
   }
   function showHome() {
+    S.open = false;
     stopAudio();
     hideLevelUp();
     pauseVocal();
@@ -5812,6 +5816,7 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
     renderHub();
   }
   function showVocal() {
+    S.open = false;
     stopAudio();
     hideLevelUp();
     const h = $('#homeScreen'); if (h) h.hidden = true;
