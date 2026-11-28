@@ -2514,13 +2514,13 @@ window.ST = { SoundTouch, SimpleFilter, WebAudioBufferSource, PitchShifter, Rate
      ===================================================================== */
   const VC_MODES = {
     full: { dry: 1, low: 0, cut: 0, k: 0.5, comp: 1 },
-    half: { dry: 0, low: 1, cut: 1, k: 0.5, comp: 1.12 },
-    min: { dry: 0.08, low: 1, cut: 1, k: 0.95, comp: 1.2 },
+    half: { dry: 0, low: 1, cut: 1, k: 0.5, comp: 1.08 },
+    min: { dry: 0.08, low: 1, cut: 1, k: 0.95, comp: 1.02 },
   };
   const VC_MODES_MONO = {
     full: { dry: 1, low: 0, cut: 0, k: 0, comp: 1 },
     half: { dry: 0, low: 1, cut: 0.55, k: 0, comp: 1.12 },
-    min: { dry: 0.08, low: 1, cut: 0.12, k: 0, comp: 1.2 },
+    min: { dry: 0.08, low: 1, cut: 0.14, k: 0, comp: 1.2 },
   };
 
   function makeVocalCut(ctx) {
